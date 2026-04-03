@@ -1,17 +1,11 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import node from '@astrojs/node';
 import react from '@astrojs/react';
-import keystatic from '@keystatic/astro';
+import writenex from '@writenex/astro';
 
 export default defineConfig({
-  output: 'server',
-  site: 'http://gigarun.local',
-  adapter: node({
-    mode: 'standalone',
-    trustProxy: true,
-  }),
-  integrations: [react(), keystatic()],
+  output: 'static',
+  integrations: [react(), writenex()],
   vite: {
     plugins: [tailwindcss()],
     preview: {
