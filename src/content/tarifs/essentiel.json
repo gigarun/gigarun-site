@@ -1,0 +1,9 @@
+{
+  "nom": "Essentiel",
+  "prix": "15€",
+  "sous_titre_prix": "/poste/mois",
+  "recommande": false,
+  "features": ["Surveillance 24/7", "Mises à jour", "Antivirus managé", "Support email"],
+  "bouton_texte": "Nous contacter",
+  "ordre": 1
+}

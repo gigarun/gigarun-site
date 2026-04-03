@@ -1,0 +1,9 @@
+{
+  "nom": "Business",
+  "prix": "25€",
+  "sous_titre_prix": "/poste/mois",
+  "recommande": true,
+  "features": ["Tout Essentiel", "Helpdesk illimité", "Sauvegardes auto", "Support prioritaire"],
+  "bouton_texte": "Diagnostic gratuit",
+  "ordre": 2
+}

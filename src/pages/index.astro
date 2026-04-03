@@ -1,177 +1,125 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystatic from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystatic);
+const hero = await reader.singletons.hero.read();
+const contact = await reader.singletons.contact.read();
+const services = await reader.collections.services.all();
+const tarifs = await reader.collections.tarifs.all();
+const temoignages = await reader.collections.temoignages.all();
+
+services.sort((a, b) => (a.entry.ordre ?? 0) - (b.entry.ordre ?? 0));
+tarifs.sort((a, b) => (a.entry.ordre ?? 0) - (b.entry.ordre ?? 0));
 ---
 <Layout>
 
-<!-- ═══════════════════════════════════════════════
-     HERO
-═══════════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:80vh; max-height:80vh;">
-  <!-- Blob violet bas-centre -->
   <div class="absolute pointer-events-none" style="bottom:-60px; left:50%; transform:translateX(-50%); width:700px; height:400px; background:rgba(124,58,237,0.18); border-radius:50%; filter:blur(120px);"></div>
-  <!-- Blob rose/magenta bas-droite -->
   <div class="absolute pointer-events-none" style="bottom:-40px; right:-60px; width:400px; height:300px; background:rgba(192,38,211,0.15); border-radius:50%; filter:blur(100px);"></div>
 
   <div class="relative max-w-4xl mx-auto px-6 pt-28 pb-16 w-full flex flex-col items-center text-center">
-    <!-- Badge pill -->
     <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
       <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;"></span>
-      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">La Réunion · DSI Externalisé</span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">{hero?.badge ?? 'La Réunion · DSI Externalisé'}</span>
     </div>
 
-    <!-- H1 -->
     <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-5" style="font-size:clamp(48px,6.5vw,80px);">
-      Votre informatique,<br/>
-      nos mains <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">expertes</span>
+      {hero?.titre_ligne1 ?? 'Votre informatique,'}<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">{hero?.titre_ligne2 ?? 'nos mains expertes'}</span>
     </h1>
 
-    <!-- Sous-titre -->
     <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
-      Infogérance, ERP Dolibarr, cybersécurité —<br class="hidden md:block"/>un interlocuteur unique pour votre PME réunionnaise.
+      {hero?.sous_titre ?? "Infogérance, ERP Dolibarr, cybersécurité — un interlocuteur unique pour votre PME réunionnaise."}
     </p>
 
-    <!-- CTAs -->
     <div class="flex flex-wrap gap-3 justify-center mb-14">
       <a href="#contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
-        Diagnostic gratuit
+        {hero?.cta_principal ?? 'Diagnostic gratuit'}
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
       <a href="#services" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.25)] text-[#F1F0F7] hover:border-white hover:bg-[rgba(255,255,255,0.05)] font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
-        Voir nos services
+        {hero?.cta_secondaire ?? 'Voir nos services'}
       </a>
     </div>
 
-    <!-- Stats en ligne -->
     <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
       <div class="flex flex-col items-center">
-        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">15+</span>
-        <span class="text-[#9B99AA] text-sm mt-1">Années d'expérience</span>
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">{hero?.stat1_chiffre ?? '15+'}</span>
+        <span class="text-[#9B99AA] text-sm mt-1">{hero?.stat1_label ?? "Années d'expérience"}</span>
       </div>
       <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">100+</span>
-        <span class="text-[#9B99AA] text-sm mt-1">Clients actifs</span>
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">{hero?.stat2_chiffre ?? '100+'}</span>
+        <span class="text-[#9B99AA] text-sm mt-1">{hero?.stat2_label ?? 'Clients actifs'}</span>
       </div>
       <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">4h</span>
-        <span class="text-[#9B99AA] text-sm mt-1">Délai intervention</span>
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">{hero?.stat3_chiffre ?? '4h'}</span>
+        <span class="text-[#9B99AA] text-sm mt-1">{hero?.stat3_label ?? 'Délai intervention'}</span>
       </div>
       <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">5★</span>
-        <span class="text-[#9B99AA] text-sm mt-1">Satisfaction client</span>
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">{hero?.stat4_chiffre ?? '5★'}</span>
+        <span class="text-[#9B99AA] text-sm mt-1">{hero?.stat4_label ?? 'Satisfaction client'}</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     SERVICES
-═══════════════════════════════════════════════ -->
+<!-- SERVICES -->
 <section id="services" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
       <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">NOS SERVICES</div>
       <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Ce qu'on fait pour vous</h2>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        <h3 class="text-base font-semibold text-white mb-2">Infogérance IT</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Surveillance, maintenance et helpdesk pour vos postes et serveurs.</p>
-      </div>
-
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
-        <h3 class="text-base font-semibold text-white mb-2">ERP Dolibarr</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Intégration, formation et développement sur mesure.</p>
-      </div>
-
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <h3 class="text-base font-semibold text-white mb-2">Cybersécurité</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Audit, protection et plan de reprise d'activité.</p>
-      </div>
-
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#7C3AED"/></svg>
-        <h3 class="text-base font-semibold text-white mb-2">Réseaux &amp; Infrastructure</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Architecture réseau, VPN et Wi-Fi entreprise.</p>
-      </div>
-
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
-        <h3 class="text-base font-semibold text-white mb-2">Vidéosurveillance</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Installation et supervision de vos systèmes de sécurité.</p>
-      </div>
-
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-        <h3 class="text-base font-semibold text-white mb-2">Cloud &amp; Hébergement</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Serveurs hébergés à La Réunion. Souveraineté garantie.</p>
-      </div>
-
+      {services.map(s => (
+        <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <h3 class="text-base font-semibold text-white mb-2">{s.entry.titre}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{s.entry.description}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     POURQUOI GIGARUN
-═══════════════════════════════════════════════ -->
+<!-- POURQUOI GIGARUN -->
 <section class="bg-[#0A0022] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-
-      <!-- Gauche -->
       <div>
         <p class="font-syne font-extrabold leading-[0.9] tracking-tight mb-5" style="font-size:clamp(52px,6.5vw,80px); background-image:linear-gradient(135deg,#7C3AED,#06B6D4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; color:transparent;">
           15 ans<br/>d'ancrage<br/>réunionnais
         </p>
         <p class="text-[#9B99AA] text-base leading-relaxed">Votre IT local, pas un numéro de ticket.</p>
       </div>
-
-      <!-- Droite : 4 arguments -->
       <div class="flex flex-col gap-6">
         <div class="flex items-start gap-4">
           <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          <div>
-            <p class="text-white font-semibold text-sm mb-1">Un interlocuteur unique</p>
-            <p class="text-[#9B99AA] text-sm">Un seul contact pour tout votre système informatique.</p>
-          </div>
+          <div><p class="text-white font-semibold text-sm mb-1">Un interlocuteur unique</p><p class="text-[#9B99AA] text-sm">Un seul contact pour tout votre système informatique.</p></div>
         </div>
         <div class="flex items-start gap-4">
           <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          <div>
-            <p class="text-white font-semibold text-sm mb-1">Présence physique</p>
-            <p class="text-[#9B99AA] text-sm">Intervention sur site à Saint-Pierre sous 4 heures.</p>
-          </div>
+          <div><p class="text-white font-semibold text-sm mb-1">Présence physique</p><p class="text-[#9B99AA] text-sm">Intervention sur site à Saint-Pierre sous 4 heures.</p></div>
         </div>
         <div class="flex items-start gap-4">
           <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          <div>
-            <p class="text-white font-semibold text-sm mb-1">Expert Dolibarr</p>
-            <p class="text-[#9B99AA] text-sm">Seul intégrateur ERP open source spécialisé de l'île.</p>
-          </div>
+          <div><p class="text-white font-semibold text-sm mb-1">Expert Dolibarr</p><p class="text-[#9B99AA] text-sm">Seul intégrateur ERP open source spécialisé de l'île.</p></div>
         </div>
         <div class="flex items-start gap-4">
           <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          <div>
-            <p class="text-white font-semibold text-sm mb-1">Ancrage local</p>
-            <p class="text-[#9B99AA] text-sm">15 ans aux côtés des entreprises réunionnaises.</p>
-          </div>
+          <div><p class="text-white font-semibold text-sm mb-1">Ancrage local</p><p class="text-[#9B99AA] text-sm">15 ans aux côtés des entreprises réunionnaises.</p></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     TARIFS
-═══════════════════════════════════════════════ -->
+<!-- TARIFS -->
 <section id="tarifs" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
@@ -179,71 +127,30 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Forfaits mensuels</h2>
       <p class="text-[#9B99AA] text-sm mt-2">Sans engagement · Premier mois offert</p>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-
-      <!-- Essentiel -->
-      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
-        <p class="text-[#9B99AA] text-sm font-medium mb-3">Essentiel</p>
-        <div class="mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">15€</span>
+      {tarifs.map(t => (
+        <div class={"rounded-2xl p-8 flex flex-col relative " + (t.entry.recommande ? "bg-[#1A0A3E] border-2 border-[#7C3AED]" : "bg-[#0D0028] border border-[rgba(124,58,237,0.2)]")}>
+          {t.entry.recommande && <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>}
+          <p class="text-[#9B99AA] text-sm font-medium mb-3">{t.entry.nom}</p>
+          <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">{t.entry.prix}</span></div>
+          <p class="text-[#9B99AA] text-xs mb-8">{t.entry.sous_titre_prix}</p>
+          <ul class="flex flex-col gap-y-3 mb-8 flex-1">
+            {t.entry.features.map((f: string) => (
+              <li class="flex items-center gap-2 text-sm text-[#9B99AA]">
+                <span class={t.entry.recommande ? "text-[#06B6D4] font-bold" : "text-[#7C3AED] font-bold"}>✓</span> {f}
+              </li>
+            ))}
+          </ul>
+          <a href="#contact" class={"text-center text-sm font-medium py-2.5 rounded-lg transition-all " + (t.entry.recommande ? "bg-[#7C3AED] hover:bg-[#6D28D9] text-white" : "border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED]")}>
+            {t.entry.bouton_texte}
+          </a>
         </div>
-        <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
-        <ul class="flex flex-col gap-y-3 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Surveillance 24/7</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Mises à jour</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Antivirus managé</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Support email</li>
-        </ul>
-        <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
-          Nous contacter
-        </a>
-      </div>
-
-      <!-- Business -->
-      <div class="bg-[#1A0A3E] border-2 border-[#7C3AED] rounded-2xl p-8 flex flex-col relative shadow-xl" style="box-shadow:0 20px 60px rgba(124,58,237,0.2);">
-        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>
-        <p class="text-[#9B99AA] text-sm font-medium mb-3">Business</p>
-        <div class="mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">25€</span>
-        </div>
-        <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
-        <ul class="flex flex-col gap-y-3 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Tout Essentiel</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Helpdesk illimité</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Sauvegardes auto</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Support prioritaire</li>
-        </ul>
-        <a href="#contact" class="text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium py-2.5 rounded-lg transition-all btn-hover-lift">
-          Diagnostic gratuit
-        </a>
-      </div>
-
-      <!-- Premium -->
-      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
-        <p class="text-[#9B99AA] text-sm font-medium mb-3">Premium</p>
-        <div class="mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">Sur</span>
-        </div>
-        <p class="text-[#9B99AA] text-xs mb-8">devis personnalisé</p>
-        <ul class="flex flex-col gap-y-3 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Infogérance complète</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Astreinte 24/7</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> SLA garanti</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Tout inclus</li>
-        </ul>
-        <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
-          Nous contacter
-        </a>
-      </div>
-
+      ))}
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     CTA FINAL
-═══════════════════════════════════════════════ -->
+<!-- CTA FINAL -->
 <section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
   <div class="relative max-w-3xl mx-auto px-6 text-center">
     <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(28px,3.5vw,52px);">Parlons de votre projet</h2>
@@ -251,31 +158,22 @@ import Layout from '../layouts/Layout.astro';
     <a href="#contact" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift mb-6">
       Prendre rendez-vous
     </a>
-    <p class="text-[rgba(255,255,255,0.65)] text-sm">contact@gigarun.net · 0692 31 11 91 · Saint-Pierre, La Réunion</p>
+    <p class="text-[rgba(255,255,255,0.65)] text-sm">{contact?.email ?? 'contact@gigarun.net'} · {contact?.telephone ?? '0692 31 11 91'} · {contact?.adresse ?? 'Saint-Pierre, La Réunion'}</p>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     CONTACT
-═══════════════════════════════════════════════ -->
+<!-- CONTACT -->
 <section id="contact" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
       <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(28px,3vw,42px);">Écrivez-nous</h2>
       <p class="text-[#9B99AA] text-base">On vous répond sous 24h, sans engagement.</p>
     </div>
-
     <form class="max-w-lg mx-auto flex flex-col gap-4" action="https://formspree.io/f/contact" method="POST">
-      <input type="text" name="name" required placeholder="Votre nom"
-        class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
-      <input type="email" name="email" required placeholder="Votre email"
-        class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
-      <textarea name="message" required rows="4" placeholder="Votre message…"
-        class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors resize-none"></textarea>
-      <button type="submit"
-        class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium py-3 rounded-lg transition-all btn-hover-lift">
-        Envoyer
-      </button>
+      <input type="text" name="name" required placeholder="Votre nom" class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
+      <input type="email" name="email" required placeholder="Votre email" class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
+      <textarea name="message" required rows="4" placeholder="Votre message…" class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors resize-none"></textarea>
+      <button type="submit" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium py-3 rounded-lg transition-all btn-hover-lift">Envoyer</button>
     </form>
   </div>
 </section>

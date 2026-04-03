@@ -1,0 +1,9 @@
+{
+  "nom": "Premium",
+  "prix": "Sur",
+  "sous_titre_prix": "devis",
+  "recommande": false,
+  "features": ["Infogérance complète", "Astreinte 24/7", "SLA garanti", "Tout inclus"],
+  "bouton_texte": "Nous contacter",
+  "ordre": 3
+}
