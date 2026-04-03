@@ -4,123 +4,114 @@ import Layout from '../layouts/Layout.astro';
 <Layout>
 
 <!-- ═══════════════════════════════════════════════
-     SECTION 1 — HERO
+     HERO
 ═══════════════════════════════════════════════ -->
-<section class="relative flex items-center overflow-hidden bg-[#07001C]" style="min-height:75vh; max-height:75vh;">
-  <!-- Grille géométrique -->
-  <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px); background-size: 48px 48px;"></div>
-  <!-- Blob violet -->
-  <div class="absolute pointer-events-none" style="top:20%; left:55%; transform:translate(-50%,-50%); width:500px; height:280px; background:rgba(124,58,237,0.12); border-radius:50%; filter:blur(100px);"></div>
-  <!-- Blob cyan secondaire -->
-  <div class="absolute pointer-events-none" style="bottom:10%; right:5%; width:250px; height:150px; background:rgba(6,182,212,0.07); border-radius:50%; filter:blur(80px);"></div>
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:80vh; max-height:80vh;">
+  <!-- Blob violet bas-centre -->
+  <div class="absolute pointer-events-none" style="bottom:-60px; left:50%; transform:translateX(-50%); width:700px; height:400px; background:rgba(124,58,237,0.18); border-radius:50%; filter:blur(120px);"></div>
+  <!-- Blob rose/magenta bas-droite -->
+  <div class="absolute pointer-events-none" style="bottom:-40px; right:-60px; width:400px; height:300px; background:rgba(192,38,211,0.15); border-radius:50%; filter:blur(100px);"></div>
 
-  <div class="relative max-w-7xl mx-auto px-6 pt-28 pb-12 w-full">
+  <div class="relative max-w-4xl mx-auto px-6 pt-28 pb-16 w-full flex flex-col items-center text-center">
     <!-- Badge pill -->
-    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] rounded-full px-4 py-1.5 mb-6 badge-anim">
-      <span class="w-2 h-2 rounded-full bg-[#7C3AED] pulse-dot"></span>
-      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">DSI Externalisé · La Réunion</span>
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
+      <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;"></span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">La Réunion · DSI Externalisé</span>
     </div>
 
     <!-- H1 -->
-    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-4 max-w-3xl" style="font-size:clamp(52px,7vw,82px);">
+    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-5" style="font-size:clamp(48px,6.5vw,80px);">
       Votre informatique,<br/>
-      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">nos mains expertes</span>
+      nos mains <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">expertes</span>
     </h1>
 
     <!-- Sous-titre -->
-    <p class="text-[#9B99AA] text-lg md:text-xl leading-relaxed max-w-xl mb-8">
-      Infogérance, ERP Dolibarr, cybersécurité — un interlocuteur unique<br class="hidden md:block"/>pour toute la DSI de votre PME réunionnaise.
+    <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
+      Infogérance, ERP Dolibarr, cybersécurité —<br class="hidden md:block"/>un interlocuteur unique pour votre PME réunionnaise.
     </p>
 
     <!-- CTAs -->
-    <div class="flex flex-wrap gap-3 mb-10">
-      <a href="#contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-lg btn-hover-lift">
+    <div class="flex flex-wrap gap-3 justify-center mb-14">
+      <a href="#contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
         Diagnostic gratuit
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
-      <a href="#services" class="inline-flex items-center gap-2 border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] hover:bg-[#110833] font-medium px-6 py-3 rounded-lg btn-hover-lift">
-        Nos services
+      <a href="#services" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.25)] text-[#F1F0F7] hover:border-white hover:bg-[rgba(255,255,255,0.05)] font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
+        Voir nos services
       </a>
     </div>
 
-    <!-- Stats inline -->
-    <div class="flex flex-wrap items-center gap-6">
-      <div class="flex items-center gap-2">
-        <span class="text-[#7C3AED] font-syne font-bold text-xl">15</span>
-        <span class="text-[#9B99AA] text-sm">ans d'expérience</span>
+    <!-- Stats en ligne -->
+    <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">15+</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Années d'expérience</span>
       </div>
-      <div class="w-px h-5 bg-[rgba(124,58,237,0.3)]"></div>
-      <div class="flex items-center gap-2">
-        <span class="text-[#7C3AED] font-syne font-bold text-xl">100+</span>
-        <span class="text-[#9B99AA] text-sm">clients actifs</span>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">100+</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Clients actifs</span>
       </div>
-      <div class="w-px h-5 bg-[rgba(124,58,237,0.3)]"></div>
-      <div class="flex items-center gap-2">
-        <span class="text-[#06B6D4] font-syne font-bold text-xl">4h</span>
-        <span class="text-[#9B99AA] text-sm">intervention max</span>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">4h</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Délai intervention</span>
       </div>
-    </div>
-
-    <!-- Scroll hint -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40">
-      <span class="text-[#9B99AA] text-xs tracking-widest uppercase">scroll</span>
-      <div class="scroll-arrow"></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">5★</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Satisfaction client</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════
-     SECTION 2 — SERVICES
+     SERVICES
 ═══════════════════════════════════════════════ -->
 <section id="services" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <p class="text-[#7C3AED] text-sm font-medium tracking-widest uppercase mb-2">Expertise</p>
-      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,40px);">Ce qu'on fait pour vous</h2>
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">NOS SERVICES</div>
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Ce qu'on fait pour vous</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Carte 1 -->
-      <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        <h3 class="text-base font-semibold text-white mb-1">Infogérance IT</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Supervision 24/7, maintenance préventive, support utilisateurs.</p>
+        <h3 class="text-base font-semibold text-white mb-2">Infogérance IT</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Surveillance, maintenance et helpdesk pour vos postes et serveurs.</p>
       </div>
 
-      <!-- Carte 2 -->
-      <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="19" cy="17" r="3"/><path d="M21 19l1.5 1.5"/></svg>
-        <h3 class="text-base font-semibold text-white mb-1">ERP Dolibarr</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Déploiement, paramétrage, formation et maintenance de votre ERP.</p>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+        <h3 class="text-base font-semibold text-white mb-2">ERP Dolibarr</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Intégration, formation et développement sur mesure.</p>
       </div>
 
-      <!-- Carte 3 -->
-      <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <h3 class="text-base font-semibold text-white mb-1">Cybersécurité</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Audit de sécurité, protection des données, conformité RGPD.</p>
+        <h3 class="text-base font-semibold text-white mb-2">Cybersécurité</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Audit, protection et plan de reprise d'activité.</p>
       </div>
 
-      <!-- Carte 4 -->
-      <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#7C3AED"/></svg>
-        <h3 class="text-base font-semibold text-white mb-1">Réseaux &amp; Infrastructure</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Câblage, Wi-Fi, VPN, firewall et infrastructure cloud.</p>
+        <h3 class="text-base font-semibold text-white mb-2">Réseaux &amp; Infrastructure</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Architecture réseau, VPN et Wi-Fi entreprise.</p>
       </div>
 
-      <!-- Carte 5 -->
-      <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
-        <h3 class="text-base font-semibold text-white mb-1">Vidéosurveillance</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Systèmes IP, stockage cloud sécurisé, accès mobile.</p>
+        <h3 class="text-base font-semibold text-white mb-2">Vidéosurveillance</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Installation et supervision de vos systèmes de sécurité.</p>
       </div>
 
-      <!-- Carte 6 -->
-      <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        <h3 class="text-base font-semibold text-white mb-1">Astreinte &amp; Urgences</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Hotline dédiée, intervention sur site en moins de 4h.</p>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        <h3 class="text-base font-semibold text-white mb-2">Cloud &amp; Hébergement</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Serveurs hébergés à La Réunion. Souveraineté garantie.</p>
       </div>
 
     </div>
@@ -128,54 +119,48 @@ import Layout from '../layouts/Layout.astro';
 </section>
 
 <!-- ═══════════════════════════════════════════════
-     SECTION 3 — POURQUOI GIGARUN
+     POURQUOI GIGARUN
 ═══════════════════════════════════════════════ -->
-<section class="bg-[#110833] py-20 relative overflow-hidden">
-  <div class="absolute right-0 top-0 w-96 h-full pointer-events-none" style="background:linear-gradient(90deg,transparent,rgba(124,58,237,0.04));"></div>
+<section class="bg-[#0A0022] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
-      <!-- Gauche : grand texte -->
+      <!-- Gauche -->
       <div>
-        <p class="font-syne font-extrabold leading-[0.95] tracking-tight" style="font-size:clamp(52px,7vw,90px); background-image:linear-gradient(135deg,#7C3AED 0%,#06B6D4 60%,rgba(124,58,237,0.3) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; color:transparent;">
+        <p class="font-syne font-extrabold leading-[0.9] tracking-tight mb-5" style="font-size:clamp(52px,6.5vw,80px); background-image:linear-gradient(135deg,#7C3AED,#06B6D4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; color:transparent;">
           15 ans<br/>d'ancrage<br/>réunionnais
         </p>
-        <p class="text-[#9B99AA] text-sm mt-4 leading-relaxed max-w-xs">
-          Fondée à Saint-Pierre, Gigarun accompagne les PME locales avec une connaissance terrain que les prestataires nationaux n'ont pas.
-        </p>
+        <p class="text-[#9B99AA] text-base leading-relaxed">Votre IT local, pas un numéro de ticket.</p>
       </div>
 
       <!-- Droite : 4 arguments -->
-      <div class="flex flex-col gap-5">
+      <div class="flex flex-col gap-6">
         <div class="flex items-start gap-4">
-          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-white font-semibold text-sm">Interlocuteur unique</p>
-            <p class="text-[#9B99AA] text-sm">Un seul contact pour tout votre SI, pas de renvoi en boucle.</p>
+            <p class="text-white font-semibold text-sm mb-1">Un interlocuteur unique</p>
+            <p class="text-[#9B99AA] text-sm">Un seul contact pour tout votre système informatique.</p>
           </div>
         </div>
-
         <div class="flex items-start gap-4">
-          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-white font-semibold text-sm">Intervention rapide</p>
-            <p class="text-[#9B99AA] text-sm">Sur site à La Réunion en moins de 4h. On connaît les routes.</p>
+            <p class="text-white font-semibold text-sm mb-1">Présence physique</p>
+            <p class="text-[#9B99AA] text-sm">Intervention sur site à Saint-Pierre sous 4 heures.</p>
           </div>
         </div>
-
         <div class="flex items-start gap-4">
-          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-white font-semibold text-sm">Tarifs clairs et fixes</p>
-            <p class="text-[#9B99AA] text-sm">Pas de surprise sur la facture. Forfaits mensuels tout compris.</p>
+            <p class="text-white font-semibold text-sm mb-1">Expert Dolibarr</p>
+            <p class="text-[#9B99AA] text-sm">Seul intégrateur ERP open source spécialisé de l'île.</p>
           </div>
         </div>
-
         <div class="flex items-start gap-4">
-          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-white font-semibold text-sm">Stack moderne &amp; local</p>
-            <p class="text-[#9B99AA] text-sm">Open source privilégié, données hébergées à La Réunion.</p>
+            <p class="text-white font-semibold text-sm mb-1">Ancrage local</p>
+            <p class="text-[#9B99AA] text-sm">15 ans aux côtés des entreprises réunionnaises.</p>
           </div>
         </div>
       </div>
@@ -185,70 +170,69 @@ import Layout from '../layouts/Layout.astro';
 </section>
 
 <!-- ═══════════════════════════════════════════════
-     SECTION 4 — TARIFS
+     TARIFS
 ═══════════════════════════════════════════════ -->
 <section id="tarifs" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <p class="text-[#7C3AED] text-sm font-medium tracking-widest uppercase mb-2">Tarifs</p>
-      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,40px);">Forfaits mensuels</h2>
-      <p class="text-[#9B99AA] text-sm mt-2">Sans engagement longue durée · Résiliable à 30 jours</p>
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">TARIFS</div>
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Forfaits mensuels</h2>
+      <p class="text-[#9B99AA] text-sm mt-2">Sans engagement · Premier mois offert</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-      <!-- Starter -->
-      <div class="bg-[#110833] border border-[rgba(124,58,237,0.2)] rounded-2xl p-7 flex flex-col">
-        <p class="text-[#9B99AA] text-sm font-medium mb-1">Essentiel</p>
-        <div class="flex items-end gap-1 mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">À partir de 15€</span>
+      <!-- Essentiel -->
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
+        <p class="text-[#9B99AA] text-sm font-medium mb-3">Essentiel</p>
+        <div class="mb-1">
+          <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">15€</span>
         </div>
-        <p class="text-[#9B99AA] text-xs mb-6">Jusqu'à 5 postes</p>
-        <ul class="space-y-2.5 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Supervision &amp; alertes</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Support téléphonique</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Mises à jour sécurité</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> 2h d'intervention/mois</li>
+        <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1">
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Surveillance 24/7</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Mises à jour</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Antivirus managé</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Support email</li>
         </ul>
-        <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:bg-[#110833] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
+        <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
           Nous contacter
         </a>
       </div>
 
-      <!-- Business — Recommandé -->
-      <div class="bg-[#110833] border-2 border-[#7C3AED] rounded-2xl p-7 flex flex-col relative shadow-xl shadow-[#7C3AED]/10">
-        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1 rounded-full">Recommandé</div>
-        <p class="text-[#9B99AA] text-sm font-medium mb-1">Business</p>
-        <div class="flex items-end gap-1 mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">À partir de 25€</span>
+      <!-- Business -->
+      <div class="bg-[#1A0A3E] border-2 border-[#7C3AED] rounded-2xl p-8 flex flex-col relative shadow-xl" style="box-shadow:0 20px 60px rgba(124,58,237,0.2);">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>
+        <p class="text-[#9B99AA] text-sm font-medium mb-3">Business</p>
+        <div class="mb-1">
+          <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">25€</span>
         </div>
-        <p class="text-[#9B99AA] text-xs mb-6">Jusqu'à 15 postes</p>
-        <ul class="space-y-2.5 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4]">✓</span> Tout Starter inclus</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4]">✓</span> Astreinte 7j/7</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4]">✓</span> Sauvegarde quotidienne</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4]">✓</span> 5h d'intervention/mois</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4]">✓</span> Rapport mensuel</li>
+        <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1">
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Tout Essentiel</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Helpdesk illimité</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Sauvegardes auto</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4] font-bold">✓</span> Support prioritaire</li>
         </ul>
         <a href="#contact" class="text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium py-2.5 rounded-lg transition-all btn-hover-lift">
           Diagnostic gratuit
         </a>
       </div>
 
-      <!-- Enterprise -->
-      <div class="bg-[#110833] border border-[rgba(124,58,237,0.2)] rounded-2xl p-7 flex flex-col">
-        <p class="text-[#9B99AA] text-sm font-medium mb-1">Premium</p>
-        <div class="flex items-end gap-1 mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">Sur devis</span>
+      <!-- Premium -->
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
+        <p class="text-[#9B99AA] text-sm font-medium mb-3">Premium</p>
+        <div class="mb-1">
+          <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">Sur</span>
         </div>
-        <p class="text-[#9B99AA] text-xs mb-6">offre personnalisée</p>
-        <ul class="space-y-2.5 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Infogérance complète</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Astreinte 24/7</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> SLA garanti</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Tout inclus</li>
+        <p class="text-[#9B99AA] text-xs mb-8">devis personnalisé</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1">
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Infogérance complète</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Astreinte 24/7</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> SLA garanti</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED] font-bold">✓</span> Tout inclus</li>
         </ul>
-        <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:bg-[#110833] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
+        <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
           Nous contacter
         </a>
       </div>
@@ -258,150 +242,58 @@ import Layout from '../layouts/Layout.astro';
 </section>
 
 <!-- ═══════════════════════════════════════════════
-     SECTION 5 — CTA FINAL
+     CTA FINAL
 ═══════════════════════════════════════════════ -->
-<section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,#3B1370 0%,#1e0a4a 50%,#07001C 100%);">
-  <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(124,58,237,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.08) 1px,transparent 1px);background-size:40px 40px;"></div>
+<section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
   <div class="relative max-w-3xl mx-auto px-6 text-center">
-    <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(28px,3.5vw,48px);">Parlons de votre projet</h2>
-    <p class="text-[rgba(241,240,247,0.7)] text-base mb-8">Diagnostic gratuit · Réponse sous 24h</p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#contact" class="inline-flex items-center gap-2 bg-white text-[#07001C] font-semibold px-7 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift">
-        Demander un diagnostic
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-      <div class="flex items-center gap-4 text-[rgba(241,240,247,0.6)] text-sm">
-        <a href="tel:+262692311191" class="hover:text-white transition-colors">0692 31 11 91</a>
-        <span>·</span>
-        <a href="mailto:contact@gigarun.net" class="hover:text-white transition-colors">contact@gigarun.net</a>
-      </div>
-    </div>
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(28px,3.5vw,52px);">Parlons de votre projet</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-10">Diagnostic gratuit, sans engagement. Réponse sous 24h.</p>
+    <a href="#contact" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift mb-6">
+      Prendre rendez-vous
+    </a>
+    <p class="text-[rgba(255,255,255,0.65)] text-sm">contact@gigarun.net · 0692 31 11 91 · Saint-Pierre, La Réunion</p>
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════
-     SECTION 6 — CONTACT
+     CONTACT
 ═══════════════════════════════════════════════ -->
 <section id="contact" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-
-      <!-- Formulaire -->
-      <div>
-        <p class="text-[#7C3AED] text-sm font-medium tracking-widest uppercase mb-2">Contact</p>
-        <h2 class="font-syne font-bold text-[#F1F0F7] mb-6" style="font-size:clamp(24px,2.5vw,36px);">Écrivez-nous</h2>
-        <form class="space-y-4" action="https://formspree.io/f/contact" method="POST">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-[#9B99AA] text-xs font-medium mb-1.5 uppercase tracking-wider">Nom</label>
-              <input type="text" name="name" required placeholder="Jean Dupont"
-                class="w-full bg-[#110833] border border-[rgba(124,58,237,0.25)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
-            </div>
-            <div>
-              <label class="block text-[#9B99AA] text-xs font-medium mb-1.5 uppercase tracking-wider">Email</label>
-              <input type="email" name="email" required placeholder="vous@exemple.fr"
-                class="w-full bg-[#110833] border border-[rgba(124,58,237,0.25)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
-            </div>
-          </div>
-          <div>
-            <label class="block text-[#9B99AA] text-xs font-medium mb-1.5 uppercase tracking-wider">Message</label>
-            <textarea name="message" required rows="5" placeholder="Décrivez votre besoin…"
-              class="w-full bg-[#110833] border border-[rgba(124,58,237,0.25)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors resize-none"></textarea>
-          </div>
-          <button type="submit"
-            class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium py-3 rounded-lg transition-all btn-hover-lift">
-            Envoyer le message
-          </button>
-        </form>
-      </div>
-
-      <!-- Coordonnées -->
-      <div class="flex flex-col justify-center">
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-xl mb-8">Gigarun</h3>
-
-        <div class="space-y-6">
-          <div class="flex items-start gap-4">
-            <div class="w-9 h-9 rounded-lg bg-[#110833] border border-[rgba(124,58,237,0.2)] flex items-center justify-center flex-shrink-0">
-              <svg width="16" height="16" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </div>
-            <div>
-              <p class="text-[#F1F0F7] text-sm font-medium">Adresse</p>
-              <p class="text-[#9B99AA] text-sm">Saint-Pierre, La Réunion (974)</p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="w-9 h-9 rounded-lg bg-[#110833] border border-[rgba(124,58,237,0.2)] flex items-center justify-center flex-shrink-0">
-              <svg width="16" height="16" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-            </div>
-            <div>
-              <p class="text-[#F1F0F7] text-sm font-medium">Téléphone</p>
-              <a href="tel:+262692311191" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">0692 31 11 91</a>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="w-9 h-9 rounded-lg bg-[#110833] border border-[rgba(124,58,237,0.2)] flex items-center justify-center flex-shrink-0">
-              <svg width="16" height="16" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </div>
-            <div>
-              <p class="text-[#F1F0F7] text-sm font-medium">Email</p>
-              <a href="mailto:contact@gigarun.net" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">contact@gigarun.net</a>
-            </div>
-          </div>
-
-          <div class="mt-8 p-5 bg-[#110833] border border-[rgba(124,58,237,0.2)] rounded-xl">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="w-2 h-2 rounded-full bg-[#06B6D4] pulse-dot"></span>
-              <span class="text-[#F1F0F7] text-sm font-medium">Disponibilité</span>
-            </div>
-            <p class="text-[#9B99AA] text-sm">Lun–Ven : 8h–18h</p>
-            <p class="text-[#9B99AA] text-sm">Astreinte Business : 7j/7</p>
-          </div>
-        </div>
-      </div>
-
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(28px,3vw,42px);">Écrivez-nous</h2>
+      <p class="text-[#9B99AA] text-base">On vous répond sous 24h, sans engagement.</p>
     </div>
+
+    <form class="max-w-lg mx-auto flex flex-col gap-4" action="https://formspree.io/f/contact" method="POST">
+      <input type="text" name="name" required placeholder="Votre nom"
+        class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
+      <input type="email" name="email" required placeholder="Votre email"
+        class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors"/>
+      <textarea name="message" required rows="4" placeholder="Votre message…"
+        class="w-full bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] placeholder-[#4a4860] rounded-lg p-3 text-sm focus:outline-none focus:border-[#7C3AED] transition-colors resize-none"></textarea>
+      <button type="submit"
+        class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium py-3 rounded-lg transition-all btn-hover-lift">
+        Envoyer
+      </button>
+    </form>
   </div>
 </section>
 
 </Layout>
 
 <style>
-  /* Animations */
   @keyframes pulse-ring {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.4); }
+    50%       { opacity: 0.4; transform: scale(1.5); }
   }
-  @keyframes badge-in {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes scroll-bounce {
-    0%, 100% { transform: translateY(0) rotate(45deg); opacity: 0.4; }
-    50%       { transform: translateY(5px) rotate(45deg); opacity: 0.8; }
-  }
-
-  .pulse-dot { animation: pulse-ring 2s ease-in-out infinite; }
-  .badge-anim { animation: badge-in 0.6s ease both; }
-
-  .scroll-arrow {
-    width: 16px; height: 16px;
-    border-right: 2px solid #9B99AA;
-    border-bottom: 2px solid #9B99AA;
-    transform: rotate(45deg);
-    animation: scroll-bounce 1.8s ease-in-out infinite;
-  }
-
+  .pulse-dot { animation: pulse-ring 2s ease-in-out infinite; display: inline-block; }
   .btn-hover-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
   .btn-hover-lift:hover { transform: translateY(-2px); }
-
-  .service-card {
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  }
+  .service-card { transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
   .service-card:hover {
-    border-color: rgba(124,58,237,0.6);
+    border-color: rgba(124,58,237,0.7) !important;
     transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(124,58,237,0.12);
+    box-shadow: 0 12px 32px rgba(124,58,237,0.15);
   }
 </style>
