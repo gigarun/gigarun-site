@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
 <!-- ═══════════════════════════════════════════════
      SECTION 1 — HERO
 ═══════════════════════════════════════════════ -->
-<section class="relative flex items-center overflow-hidden bg-[#07001C]" style="min-height:85vh; max-height:85vh;">
+<section class="relative flex items-center overflow-hidden bg-[#07001C]" style="min-height:75vh; max-height:75vh;">
   <!-- Grille géométrique -->
   <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px); background-size: 48px 48px;"></div>
   <!-- Blob violet -->
@@ -22,13 +22,13 @@ import Layout from '../layouts/Layout.astro';
     </div>
 
     <!-- H1 -->
-    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-4 max-w-3xl" style="font-size:clamp(42px,6vw,72px);">
+    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-4 max-w-3xl" style="font-size:clamp(52px,7vw,82px);">
       Votre informatique,<br/>
       <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">nos mains expertes</span>
     </h1>
 
     <!-- Sous-titre -->
-    <p class="text-[#9B99AA] leading-relaxed max-w-xl mb-8" style="font-size:clamp(15px,1.2vw,18px);">
+    <p class="text-[#9B99AA] text-lg md:text-xl leading-relaxed max-w-xl mb-8">
       Infogérance, ERP Dolibarr, cybersécurité — un interlocuteur unique<br class="hidden md:block"/>pour toute la DSI de votre PME réunionnaise.
     </p>
 
@@ -83,55 +83,43 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- Carte 1 -->
       <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="w-10 h-10 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-base mb-1">Infogérance IT</h3>
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <h3 class="text-base font-semibold text-white mb-1">Infogérance IT</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Supervision 24/7, maintenance préventive, support utilisateurs.</p>
       </div>
 
       <!-- Carte 2 -->
       <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="w-10 h-10 rounded-lg bg-[rgba(6,182,212,0.12)] flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#06B6D4" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="19" cy="17" r="3"/><path d="M21 19l1.5 1.5"/></svg>
-        </div>
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-base mb-1">ERP Dolibarr</h3>
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="19" cy="17" r="3"/><path d="M21 19l1.5 1.5"/></svg>
+        <h3 class="text-base font-semibold text-white mb-1">ERP Dolibarr</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Déploiement, paramétrage, formation et maintenance de votre ERP.</p>
       </div>
 
       <!-- Carte 3 -->
       <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="w-10 h-10 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-base mb-1">Cybersécurité</h3>
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3 class="text-base font-semibold text-white mb-1">Cybersécurité</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Audit de sécurité, protection des données, conformité RGPD.</p>
       </div>
 
       <!-- Carte 4 -->
       <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="w-10 h-10 rounded-lg bg-[rgba(6,182,212,0.12)] flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#06B6D4" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#06B6D4"/></svg>
-        </div>
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-base mb-1">Réseaux &amp; Infrastructure</h3>
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#7C3AED"/></svg>
+        <h3 class="text-base font-semibold text-white mb-1">Réseaux &amp; Infrastructure</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Câblage, Wi-Fi, VPN, firewall et infrastructure cloud.</p>
       </div>
 
       <!-- Carte 5 -->
       <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="w-10 h-10 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
-        </div>
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-base mb-1">Vidéosurveillance</h3>
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="14" height="12" rx="2"/></svg>
+        <h3 class="text-base font-semibold text-white mb-1">Vidéosurveillance</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Systèmes IP, stockage cloud sécurisé, accès mobile.</p>
       </div>
 
       <!-- Carte 6 -->
       <div class="service-card bg-[#110833] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="w-10 h-10 rounded-lg bg-[rgba(6,182,212,0.12)] flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#06B6D4" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        </div>
-        <h3 class="font-syne font-bold text-[#F1F0F7] text-base mb-1">Astreinte &amp; Urgences</h3>
+        <svg class="w-8 h-8 mb-4" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <h3 class="text-base font-semibold text-white mb-1">Astreinte &amp; Urgences</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Hotline dédiée, intervention sur site en moins de 4h.</p>
       </div>
 
@@ -158,43 +146,35 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <!-- Droite : 4 arguments -->
-      <div class="space-y-5">
+      <div class="flex flex-col gap-5">
         <div class="flex items-start gap-4">
-          <div class="w-7 h-7 rounded-full bg-[rgba(6,182,212,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
-            <svg width="14" height="14" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          </div>
+          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-[#F1F0F7] font-medium text-sm">Interlocuteur unique</p>
+            <p class="text-white font-semibold text-sm">Interlocuteur unique</p>
             <p class="text-[#9B99AA] text-sm">Un seul contact pour tout votre SI, pas de renvoi en boucle.</p>
           </div>
         </div>
 
         <div class="flex items-start gap-4">
-          <div class="w-7 h-7 rounded-full bg-[rgba(6,182,212,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
-            <svg width="14" height="14" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          </div>
+          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-[#F1F0F7] font-medium text-sm">Intervention rapide</p>
+            <p class="text-white font-semibold text-sm">Intervention rapide</p>
             <p class="text-[#9B99AA] text-sm">Sur site à La Réunion en moins de 4h. On connaît les routes.</p>
           </div>
         </div>
 
         <div class="flex items-start gap-4">
-          <div class="w-7 h-7 rounded-full bg-[rgba(6,182,212,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
-            <svg width="14" height="14" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          </div>
+          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-[#F1F0F7] font-medium text-sm">Tarifs clairs et fixes</p>
+            <p class="text-white font-semibold text-sm">Tarifs clairs et fixes</p>
             <p class="text-[#9B99AA] text-sm">Pas de surprise sur la facture. Forfaits mensuels tout compris.</p>
           </div>
         </div>
 
         <div class="flex items-start gap-4">
-          <div class="w-7 h-7 rounded-full bg-[rgba(6,182,212,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
-            <svg width="14" height="14" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          </div>
+          <svg class="w-5 h-5 text-[#06B6D4] flex-shrink-0 mt-0.5" fill="none" stroke="#06B6D4" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <div>
-            <p class="text-[#F1F0F7] font-medium text-sm">Stack moderne &amp; local</p>
+            <p class="text-white font-semibold text-sm">Stack moderne &amp; local</p>
             <p class="text-[#9B99AA] text-sm">Open source privilégié, données hébergées à La Réunion.</p>
           </div>
         </div>
@@ -219,10 +199,9 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- Starter -->
       <div class="bg-[#110833] border border-[rgba(124,58,237,0.2)] rounded-2xl p-7 flex flex-col">
-        <p class="text-[#9B99AA] text-sm font-medium mb-1">Starter</p>
+        <p class="text-[#9B99AA] text-sm font-medium mb-1">Essentiel</p>
         <div class="flex items-end gap-1 mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">390</span>
-          <span class="text-[#9B99AA] text-sm mb-1">€/mois</span>
+          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">À partir de 15€</span>
         </div>
         <p class="text-[#9B99AA] text-xs mb-6">Jusqu'à 5 postes</p>
         <ul class="space-y-2.5 mb-8 flex-1">
@@ -232,7 +211,7 @@ import Layout from '../layouts/Layout.astro';
           <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> 2h d'intervention/mois</li>
         </ul>
         <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:bg-[#110833] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
-          Démarrer
+          Nous contacter
         </a>
       </div>
 
@@ -241,8 +220,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1 rounded-full">Recommandé</div>
         <p class="text-[#9B99AA] text-sm font-medium mb-1">Business</p>
         <div class="flex items-end gap-1 mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">690</span>
-          <span class="text-[#9B99AA] text-sm mb-1">€/mois</span>
+          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">À partir de 25€</span>
         </div>
         <p class="text-[#9B99AA] text-xs mb-6">Jusqu'à 15 postes</p>
         <ul class="space-y-2.5 mb-8 flex-1">
@@ -253,22 +231,22 @@ import Layout from '../layouts/Layout.astro';
           <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#06B6D4]">✓</span> Rapport mensuel</li>
         </ul>
         <a href="#contact" class="text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium py-2.5 rounded-lg transition-all btn-hover-lift">
-          Démarrer
+          Diagnostic gratuit
         </a>
       </div>
 
       <!-- Enterprise -->
       <div class="bg-[#110833] border border-[rgba(124,58,237,0.2)] rounded-2xl p-7 flex flex-col">
-        <p class="text-[#9B99AA] text-sm font-medium mb-1">Enterprise</p>
+        <p class="text-[#9B99AA] text-sm font-medium mb-1">Premium</p>
         <div class="flex items-end gap-1 mb-1">
-          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">Sur</span>
+          <span class="font-syne font-bold text-[#F1F0F7] text-4xl">Sur devis</span>
         </div>
-        <p class="text-[#9B99AA] text-xs mb-6">devis · +15 postes</p>
+        <p class="text-[#9B99AA] text-xs mb-6">offre personnalisée</p>
         <ul class="space-y-2.5 mb-8 flex-1">
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Tout Business inclus</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> DSI à temps partagé</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> SLA personnalisé</li>
-          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Audit sécurité annuel</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Infogérance complète</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Astreinte 24/7</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> SLA garanti</li>
+          <li class="flex items-center gap-2 text-sm text-[#9B99AA]"><span class="text-[#7C3AED]">✓</span> Tout inclus</li>
         </ul>
         <a href="#contact" class="text-center border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:bg-[#110833] hover:border-[#7C3AED] text-sm font-medium py-2.5 rounded-lg transition-all">
           Nous contacter
