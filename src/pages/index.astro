@@ -1,28 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 
-const services = (await getCollection('services')).sort((a, b) => (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
-const tarifs = (await getCollection('tarifs')).sort((a, b) => (a.data.ordre ?? 0) - (b.data.ordre ?? 0));
-const temoignages = await getCollection('temoignages');
+const DIRECTUS = 'http://172.20.2.4:8055';
 
-// Contenu hero et contact en dur (géré via fichiers JSON directs)
+const [servicesRes, tarifsRes, temoignagesRes] = await Promise.all([
+  fetch(`${DIRECTUS}/items/services?sort=ordre`),
+  fetch(`${DIRECTUS}/items/tarifs?sort=ordre`),
+  fetch(`${DIRECTUS}/items/temoignages`),
+]);
+
+const services = (await servicesRes.json()).data ?? [];
+const tarifs = (await tarifsRes.json()).data ?? [];
+const temoignages = (await temoignagesRes.json()).data ?? [];
+
 const hero = {
-  badge: "La Réunion · DSI Externalisé",
-  titre_ligne1: "Votre informatique,",
-  titre_ligne2: "nos mains expertes",
-  sous_titre: "Infogérance, ERP Dolibarr, cybersécurité — Gigarun accompagne les PME réunionnaises depuis 15 ans.",
-  cta_principal: "Diagnostic gratuit",
-  cta_secondaire: "Voir nos services",
-  stat1_chiffre: "15+", stat1_label: "Années d'expérience",
-  stat2_chiffre: "100+", stat2_label: "Clients actifs",
-  stat3_chiffre: "4h", stat3_label: "Délai intervention",
-  stat4_chiffre: "5★", stat4_label: "Satisfaction client",
+  badge: 'La Réunion · DSI Externalisé',
+  titre_ligne1: 'Votre informatique,',
+  titre_ligne2: 'nos mains expertes',
+  sous_titre: 'Infogérance, ERP Dolibarr, cybersécurité — Gigarun accompagne les PME réunionnaises depuis 15 ans.',
+  cta_principal: 'Diagnostic gratuit',
+  cta_secondaire: 'Voir nos services',
+  stat1_chiffre: '15+', stat1_label: "Années d'expérience",
+  stat2_chiffre: '100+', stat2_label: 'Clients actifs',
+  stat3_chiffre: '4h', stat3_label: 'Délai intervention',
+  stat4_chiffre: '5★', stat4_label: 'Satisfaction client',
 };
 const contact = {
-  telephone: "0692 31 11 91",
-  email: "contact@gigarun.net",
-  adresse: "Saint-Pierre, La Réunion",
+  telephone: '0692 31 11 91',
+  email: 'contact@gigarun.net',
+  adresse: 'Saint-Pierre, La Réunion',
 };
 ---
 <Layout>
@@ -91,8 +97,8 @@ const contact = {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {services.map(s => (
         <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-          <h3 class="text-base font-semibold text-white mb-2">{s.data.titre}</h3>
-          <p class="text-[#9B99AA] text-sm leading-relaxed">{s.data.description}</p>
+          <h3 class="text-base font-semibold text-white mb-2">{s.titre}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{s.description}</p>
         </div>
       ))}
     </div>
@@ -141,20 +147,20 @@ const contact = {
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
       {tarifs.map(t => (
-        <div class={"rounded-2xl p-8 flex flex-col relative " + (t.data.recommande ? "bg-[#1A0A3E] border-2 border-[#7C3AED]" : "bg-[#0D0028] border border-[rgba(124,58,237,0.2)]")}>
-          {t.data.recommande && <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>}
-          <p class="text-[#9B99AA] text-sm font-medium mb-3">{t.data.nom}</p>
-          <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">{t.data.prix}</span></div>
-          <p class="text-[#9B99AA] text-xs mb-8">{t.data.sous_titre_prix}</p>
+        <div class={"rounded-2xl p-8 flex flex-col relative " + (t.recommande ? "bg-[#1A0A3E] border-2 border-[#7C3AED]" : "bg-[#0D0028] border border-[rgba(124,58,237,0.2)]")}>
+          {t.recommande && <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>}
+          <p class="text-[#9B99AA] text-sm font-medium mb-3">{t.nom}</p>
+          <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:48px;">{t.prix}</span></div>
+          <p class="text-[#9B99AA] text-xs mb-8">{t.sous_titre_prix}</p>
           <ul class="flex flex-col gap-y-3 mb-8 flex-1">
-            {t.data.features.map((f: string) => (
+            {t.features.map((f: string) => (
               <li class="flex items-center gap-2 text-sm text-[#9B99AA]">
-                <span class={t.data.recommande ? "text-[#06B6D4] font-bold" : "text-[#7C3AED] font-bold"}>✓</span> {f}
+                <span class={t.recommande ? "text-[#06B6D4] font-bold" : "text-[#7C3AED] font-bold"}>✓</span> {f}
               </li>
             ))}
           </ul>
-          <a href="#contact" class={"text-center text-sm font-medium py-2.5 rounded-lg transition-all " + (t.data.recommande ? "bg-[#7C3AED] hover:bg-[#6D28D9] text-white" : "border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED]")}>
-            {t.data.bouton_texte}
+          <a href="#contact" class={"text-center text-sm font-medium py-2.5 rounded-lg transition-all " + (t.recommande ? "bg-[#7C3AED] hover:bg-[#6D28D9] text-white" : "border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED]")}>
+            {t.bouton_texte}
           </a>
         </div>
       ))}

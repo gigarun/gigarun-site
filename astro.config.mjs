@@ -8,6 +8,9 @@ export default defineConfig({
   integrations: [react(), writenex()],
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ['gigarun.local', 'localhost'],
+    },
     preview: {
       allowedHosts: ['gigarun.local', 'localhost'],
     },
