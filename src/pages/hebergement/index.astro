@@ -1,0 +1,258 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout>
+
+<!-- HERO -->
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:70vh;">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 pt-32 pb-16 w-full flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
+      <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;"></span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">Hébergement Cloud · La Réunion</span>
+    </div>
+    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-5" style="font-size:clamp(40px,5.5vw,72px);">
+      Votre serveur vieillit ?<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">On prend le relais.</span>
+    </h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
+      Externalisez vos serveurs et applications métier dans des datacenters sécurisés en France. Plus de panne à gérer, vos données accessibles partout, tout le temps.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center mb-14">
+      <a href="/#contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
+        Audit gratuit — 20 min
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.25)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
+        0692 31 11 91
+      </a>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">-40%</span><span class="text-[#9B99AA] text-sm mt-1">De coûts IT en moyenne</span></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">99,9%</span><span class="text-[#9B99AA] text-sm mt-1">Disponibilité garantie SLA</span></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">4h</span><span class="text-[#9B99AA] text-sm mt-1">Temps de réponse max</span></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">24/7</span><span class="text-[#9B99AA] text-sm mt-1">Supervision continue</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMES -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(26px,3vw,40px);">Les risques d'un serveur vieillissant</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">💥</div>
+        <h3 class="text-white font-semibold mb-2">Panne imminente</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Un serveur de plus de 5 ans est une bombe à retardement. La panne n'est pas une question de si — mais de quand. Et souvent au pire moment.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">📦</div>
+        <h3 class="text-white font-semibold mb-2">Sauvegardes insuffisantes</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Sauvegardes sur le même serveur, jamais testées, stockées localement. En cas d'incendie, de vol ou de ransomware, tout est perdu.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🔓</div>
+        <h3 class="text-white font-semibold mb-2">Sécurité insuffisante</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Un serveur local mal configuré est une cible facile. Sans pare-feu professionnel ni supervision, votre réseau est exposé aux intrusions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">Nos solutions</div>
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Hébergement professionnel, géré localement</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🖥️</div>
+        <h3 class="text-white font-semibold mb-2">Serveurs dédiés</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Ressources dédiées, performances constantes, accès root complet. Idéal pour vos applications métier critiques qui nécessitent de la puissance.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">📊</div>
+        <h3 class="text-white font-semibold mb-2">Hébergement ERP</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Compatible Dolibarr, Sage, SAP Business One, Cegid, EBP. Accès distant sécurisé, sauvegardes incluses, performances optimisées pour votre logiciel métier.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">☁️</div>
+        <h3 class="text-white font-semibold mb-2">Cloud privé</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Scalabilité à la demande, isolation complète, coûts maîtrisés. Vous payez ce que vous consommez — et on s'occupe de tout le reste.</p>
+      </div>
+    </div>
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-4 text-center">
+        <div class="text-[#7C3AED] text-lg mb-2">✓</div>
+        <p class="text-white text-sm font-medium">Plus de serveur dans vos locaux</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-4 text-center">
+        <div class="text-[#7C3AED] text-lg mb-2">✓</div>
+        <p class="text-white text-sm font-medium">Sauvegardes externalisées</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-4 text-center">
+        <div class="text-[#7C3AED] text-lg mb-2">✓</div>
+        <p class="text-white text-sm font-medium">Télétravail facilité</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-4 text-center">
+        <div class="text-[#7C3AED] text-lg mb-2">✓</div>
+        <p class="text-white text-sm font-medium">Coûts prévisibles</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">Tarifs</div>
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-2" style="font-size:clamp(26px,3vw,40px);">Nos offres d'hébergement</h2>
+      <p class="text-[#9B99AA] text-sm">Prix HT · TVA 8,5% applicable (La Réunion)</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
+        <p class="text-[#9B99AA] text-sm font-medium mb-2">Standard</p>
+        <p class="text-xs text-[#9B99AA] mb-4">TPE / usage courant</p>
+        <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-4xl">150€</span></div>
+        <p class="text-[#9B99AA] text-xs mb-8">/mois</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Serveur dédié virtualisé</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> 100 Go d'espace disque</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Sauvegarde quotidienne</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Monitoring 24/7</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Support 8h-18h</li>
+        </ul>
+        <a href="/#contact" class="text-center text-sm font-medium py-2.5 rounded-lg border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] transition-all">Demander un devis</a>
+      </div>
+      <div class="bg-[#1A0A3E] border-2 border-[#7C3AED] rounded-2xl p-8 flex flex-col relative">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>
+        <p class="text-[#9B99AA] text-sm font-medium mb-2">Pro</p>
+        <p class="text-xs text-[#9B99AA] mb-4">PME / applications métier</p>
+        <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-4xl">350€</span></div>
+        <p class="text-[#9B99AA] text-xs mb-8">/mois</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Serveur haute performance</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> 500 Go SSD</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Hébergement ERP inclus</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Sauvegarde multi-sites</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> VPN sécurisé inclus</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Support prioritaire</li>
+        </ul>
+        <a href="/#contact" class="text-center text-sm font-medium py-2.5 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white transition-all">Demander un devis</a>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
+        <p class="text-[#9B99AA] text-sm font-medium mb-2">Premium</p>
+        <p class="text-xs text-[#9B99AA] mb-4">Infrastructure critique / haute dispo</p>
+        <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-2xl">Sur mesure</span></div>
+        <p class="text-[#9B99AA] text-xs mb-8">&nbsp;</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Infrastructure redondante</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> SLA 99,99%</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> PRA complet inclus</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Réplication temps réel</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Support 24/7 dédié</li>
+        </ul>
+        <a href="/#contact" class="text-center text-sm font-medium py-2.5 rounded-lg border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] transition-all">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">"Depuis qu'on a externalisé notre serveur avec Gigarun, on n'a plus de stress. Plus de bruit dans les bureaux, plus de pannes le lundi matin."</p>
+        <div><p class="text-white text-sm font-semibold">Gérant</p><p class="text-[#9B99AA] text-xs">Cabinet comptable, Saint-Denis · -45% coûts IT</p></div>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">"On avait un vieux serveur qui faisait un bruit d'enfer et tombait en panne deux fois par an. Depuis la migration, zéro panne en deux ans."</p>
+        <div><p class="text-white text-sm font-semibold">Directeur technique</p><p class="text-[#9B99AA] text-xs">Bureau d'études, Saint-Pierre · 0 panne depuis 2 ans</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Questions fréquentes</h2>
+    </div>
+    <div class="flex flex-col gap-4">
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Pourquoi externaliser plutôt que garder mon serveur dans mes locaux ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Infrastructure professionnelle certifiée, sauvegardes externalisées automatiques, support réactif inclus, et coût mensuel prévisible à la place de grosses factures de réparation imprévues. Le tout géré par nous.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Mes données sont-elles vraiment en sécurité ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Oui. Les datacenters utilisés sont certifiés ISO 27001, avec chiffrement au repos et en transit, pare-feu nouvelle génération, et accès VPN sécurisé. Données hébergées 100% en France, conformes RGPD.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Combien de temps prend la migration ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Entre 2 et 5 jours pour un cas standard. Pour des configurations complexes, comptez 2 à 4 semaines avec tests et validation. Migration planifiable le week-end pour zéro interruption d'activité.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Vous hébergez quels logiciels métier ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Dolibarr, Sage (50, 100, X3), SAP Business One, Cegid, EBP, Quadra, et toute application spécifique (CRM, GPAO). Si vous l'utilisez en entreprise, on peut probablement l'héberger.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Et si j'ai besoin d'accéder au serveur depuis chez moi ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Accès sécurisé depuis n'importe où via VPN ou bureau distant. Idéal pour le télétravail. Vos collaborateurs accèdent à leurs outils comme s'ils étaient au bureau.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(28px,3.5vw,52px);">Votre prochain serveur ne sera pas dans vos locaux.</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-10">Audit gratuit, sans engagement. On évalue votre situation en 20 minutes.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift">
+        0692 31 11 91
+      </a>
+      <a href="/#contact" class="inline-flex items-center gap-2 border border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-[#7C3AED] btn-hover-lift transition-all">
+        Envoyer un message
+      </a>
+    </div>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+  .btn-hover-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+  .btn-hover-lift:hover { transform: translateY(-2px); }
+  .service-card { transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+  .service-card:hover { border-color: rgba(124,58,237,0.7) !important; transform: translateY(-4px); box-shadow: 0 12px 32px rgba(124,58,237,0.15); }
+  @keyframes pulse-ring { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
+  .pulse-dot { animation: pulse-ring 2s ease-in-out infinite; display: inline-block; }
+  details summary::-webkit-details-marker { display: none; }
+</style>

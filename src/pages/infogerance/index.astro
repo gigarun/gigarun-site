@@ -1,0 +1,268 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout>
+
+<!-- HERO -->
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:70vh;">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 pt-32 pb-16 w-full flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
+      <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;"></span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">Infogérance · La Réunion</span>
+    </div>
+    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-5" style="font-size:clamp(40px,5.5vw,72px);">
+      Votre informatique vous pose problème ?<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">On s'en occupe.</span>
+    </h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
+      Supervision 24/7, maintenance proactive, support réactif — votre parc informatique géré par des experts locaux à La Réunion.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center mb-14">
+      <a href="/#contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
+        Audit gratuit — 20 min
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.25)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
+        0692 31 11 91
+      </a>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">-60%</span><span class="text-[#9B99AA] text-sm mt-1">Incidents IT</span></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">4h</span><span class="text-[#9B99AA] text-sm mt-1">Délai max intervention</span></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">24/7</span><span class="text-[#9B99AA] text-sm mt-1">Supervision continue</span></div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center"><span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">100+</span><span class="text-[#9B99AA] text-sm mt-1">Entreprises accompagnées</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMES -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(26px,3vw,40px);">Ces situations vous parlent ?</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🔄</div>
+        <h3 class="text-white font-semibold mb-2">Pannes répétitives</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Vos systèmes tombent régulièrement et vous n'avez pas d'interlocuteur réactif pour intervenir rapidement.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">⏱️</div>
+        <h3 class="text-white font-semibold mb-2">Perte de temps</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Vos équipes perdent du temps à gérer des problèmes informatiques au lieu de se concentrer sur leur cœur de métier.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🔓</div>
+        <h3 class="text-white font-semibold mb-2">Sécurité insuffisante</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Mises à jour non faites, sauvegardes peu fiables… votre entreprise est exposée aux ransomwares et pertes de données.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">Notre solution</div>
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Une infogérance complète, locale, réactive</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🖥️</div>
+        <h3 class="text-white font-semibold mb-2">Supervision 24/7</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Surveillance en temps réel, alertes proactives, tableau de bord. On détecte les anomalies avant qu'elles deviennent des pannes.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🔧</div>
+        <h3 class="text-white font-semibold mb-2">Maintenance proactive</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Mises à jour automatiques, correctifs de sécurité, nettoyage et optimisation de votre parc — sans intervention de votre part.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">🛡️</div>
+        <h3 class="text-white font-semibold mb-2">Sécurité intégrée</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">EDR, pare-feu managé, sauvegardes externalisées. Votre infogérance inclut une couche de sécurité de base solide.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">📞</div>
+        <h3 class="text-white font-semibold mb-2">Support réactif local</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Hotline dédiée, dépannage à distance, intervention sur site à Saint-Pierre sous 4h si nécessaire.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">📊</div>
+        <h3 class="text-white font-semibold mb-2">Rapports mensuels</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">État du parc, incidents résolus, recommandations. Vous savez exactement ce qui a été fait chaque mois.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="text-2xl mb-4">📋</div>
+        <h3 class="text-white font-semibold mb-2">SLA garantis</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Délais de réponse et de résolution contractuels. Pas de vague promesse — des engagements écrits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">Tarifs</div>
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-2" style="font-size:clamp(26px,3vw,40px);">Nos offres d'infogérance</h2>
+      <p class="text-[#9B99AA] text-sm">Prix HT · TVA 8,5% applicable (La Réunion)</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <!-- TPE -->
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
+        <p class="text-[#9B99AA] text-sm font-medium mb-2">TPE</p>
+        <p class="text-xs text-[#9B99AA] mb-4">1 à 10 postes</p>
+        <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-4xl">9,99€</span></div>
+        <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Supervision 24/7</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Maintenance préventive</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Support téléphonique</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Dépannage à distance illimité</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Antivirus / EDR</li>
+        </ul>
+        <a href="/#contact" class="text-center text-sm font-medium py-2.5 rounded-lg border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] transition-all">Demander un devis</a>
+      </div>
+      <!-- PME -->
+      <div class="bg-[#1A0A3E] border-2 border-[#7C3AED] rounded-2xl p-8 flex flex-col relative">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>
+        <p class="text-[#9B99AA] text-sm font-medium mb-2">PME</p>
+        <p class="text-xs text-[#9B99AA] mb-4">10 à 50 postes</p>
+        <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-4xl">25€</span></div>
+        <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Tout TPE inclus</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Interventions sur site</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Gestion des serveurs</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Sauvegardes externalisées</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Support prioritaire</li>
+          <li class="flex items-center gap-2"><span class="text-[#06B6D4] font-bold">✓</span> Rapport mensuel</li>
+        </ul>
+        <a href="/#contact" class="text-center text-sm font-medium py-2.5 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white transition-all">Demander un devis</a>
+      </div>
+      <!-- Premium -->
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
+        <p class="text-[#9B99AA] text-sm font-medium mb-2">Premium</p>
+        <p class="text-xs text-[#9B99AA] mb-4">Infrastructure critique</p>
+        <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-2xl">Sur mesure</span></div>
+        <p class="text-[#9B99AA] text-xs mb-8">&nbsp;</p>
+        <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Tout PME inclus</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Astreinte week-end</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> SLA 2h max</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Chef de projet dédié</li>
+          <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> PRA / PCA inclus</li>
+        </ul>
+        <a href="/#contact" class="text-center text-sm font-medium py-2.5 rounded-lg border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:border-[#7C3AED] transition-all">Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Ce que disent nos clients</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">"Depuis que Gigarun gère notre informatique, on n'a plus de stress. Les pannes qu'on avait régulièrement ont pratiquement disparu."</p>
+        <div><p class="text-white text-sm font-semibold">Gérant</p><p class="text-[#9B99AA] text-xs">Transport &amp; Logistique, Saint-Pierre · -70% pannes</p></div>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">"Le passage à l'infogérance nous a permis de libérer du temps pour nos clients. On ne perd plus nos matinées sur des problèmes d'ordinateurs."</p>
+        <div><p class="text-white text-sm font-semibold">Expert-comptable</p><p class="text-[#9B99AA] text-xs">Cabinet comptable, Saint-Paul · 4h gagnées/semaine</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Questions fréquentes</h2>
+    </div>
+    <div class="flex flex-col gap-4">
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          C'est quoi l'infogérance concrètement ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">C'est externaliser la gestion complète de votre informatique à une équipe spécialisée. On surveille, on maintient, on sécurise, on dépanne — vous n'avez plus à vous en occuper.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Combien ça coûte pour une TPE/PME ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Entre 9,99€ et 25€/poste/mois selon votre besoin. Prix HT, TVA 8,5% applicable à La Réunion. Le mieux est de nous appeler pour un diagnostic gratuit sans engagement.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Vous venez sur site à La Réunion ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Oui. On intervient sur toute l'île depuis Saint-Pierre. Pour les urgences, on est sur site sous 4h. Plus de 80% des problèmes se règlent à distance en quelques heures.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Vous pouvez reprendre notre informatique existante ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Oui. On fait un audit de votre parc existant, on documente, puis on assure une transition sans coupure. On s'adapte à votre matériel, ancien ou récent.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Est-ce qu'on garde le contrôle ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Totalement. Vous restez propriétaire de votre infrastructure et de vos données. Nous avons uniquement un accès de maintenance. Vous prenez toutes les décisions stratégiques.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          La cybersécurité est-elle incluse ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">La sécurité de base oui (antivirus, pare-feu, mises à jour, sauvegardes). Pour des besoins renforcés — EDR, audit, RGPD — on a des modules dédiés. Voir notre page <a href="/securite" class="text-[#7C3AED] hover:underline">cybersécurité</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(28px,3.5vw,52px);">Prêt à ne plus vous soucier de l'informatique ?</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-10">Appelez-nous. Diagnostic gratuit, sans engagement. On fait le point en 20 minutes.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift">
+        0692 31 11 91
+      </a>
+      <a href="/#contact" class="inline-flex items-center gap-2 border border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-[#7C3AED] btn-hover-lift transition-all">
+        Envoyer un message
+      </a>
+    </div>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+  .btn-hover-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+  .btn-hover-lift:hover { transform: translateY(-2px); }
+  .service-card { transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+  .service-card:hover { border-color: rgba(124,58,237,0.7) !important; transform: translateY(-4px); box-shadow: 0 12px 32px rgba(124,58,237,0.15); }
+  @keyframes pulse-ring { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
+  .pulse-dot { animation: pulse-ring 2s ease-in-out infinite; display: inline-block; }
+  details summary::-webkit-details-marker { display: none; }
+</style>
