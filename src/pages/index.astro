@@ -1,12 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const DIRECTUS = 'http://172.20.2.4:8055';
+const STRAPI = 'http://strapi.gigarun.local';
+const STRAPI_TOKEN = '12d2cbd09c825a72ef91017966c6a4420e7634afbb64d6da13dd5ef91c2ccbaf8ac3be45a412a1b5a0963485d7259d020333aaf9a40adfd9e143212097714e626d58abe23f495ffb00176bf22b9872b500ca770544da3ea4d5222803d9c747074088a99690ec25b7fe82fb44d8240c5dcc1b67ddbca2a50284dcba2af3afc162';
+const headers = { 'Authorization': `Bearer ${STRAPI_TOKEN}` };
 
 const [servicesRes, tarifsRes, temoignagesRes] = await Promise.all([
-  fetch(`${DIRECTUS}/items/services?sort=ordre`),
-  fetch(`${DIRECTUS}/items/tarifs?sort=ordre`),
-  fetch(`${DIRECTUS}/items/temoignages`),
+  fetch(`${STRAPI}/api/services?sort=ordre&pagination[limit]=100`, { headers }),
+  fetch(`${STRAPI}/api/tarifs?sort=ordre&pagination[limit]=100`, { headers }),
+  fetch(`${STRAPI}/api/temoignages?pagination[limit]=100`, { headers }),
 ]);
 
 const services = (await servicesRes.json()).data ?? [];
