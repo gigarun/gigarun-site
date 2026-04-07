@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const articles = [
+  {slug:'comment-choisir-prestataire-informatique', cat:'Infogérance', date:'25 mars 2024', titre:'Comment choisir son prestataire informatique en tant que PME', desc:'Les criteres essentiels pour evaluer et selectionner un prestataire IT de confiance.'},
+  {slug:'infogerance-proactive-reduit-incidents', cat:'Infogérance', date:'22 mars 2024', titre:'Infogerance proactive : comment elle reduit les incidents de 60%', desc:'La difference entre reagir aux pannes et les empecher — avec des chiffres concrets.'},
+  {slug:'top-5-risques-securite-pme', cat:'Securite', date:'20 mars 2024', titre:'Top 5 des risques de securite informatique pour les PME en 2024', desc:'Phishing, ransomware, mots de passe faibles — comment s&#39;en proteger.'},
+  {slug:'hebergement-cloud-vs-on-premise', cat:'Hebergement', date:'18 mars 2024', titre:'Hebergement cloud vs on-premise : quel choix pour votre PME ?', desc:'Comparatif complet des deux options avec couts et avantages.'},
+  {slug:'supervision-preventive-stabilite-informatique', cat:'Infogérance', date:'15 mars 2024', titre:'Supervision preventive : la cle d&#39;une informatique stable', desc:'Comment la surveillance continue permet d&#39;anticiper les pannes.'},
+  {slug:'externalisation-it-avantages-entreprises', cat:'Infogérance', date:'12 mars 2024', titre:'Externalisation IT : les 5 avantages pour les entreprises', desc:'Pourquoi confier son informatique a un prestataire specialise.'},
+  {slug:'cybersecurite-tpe-guide-protection', cat:'Securite', date:'10 mars 2024', titre:'Cybersecurite pour TPE : guide pratique de protection', desc:'Les gestes essentiels pour proteger votre entreprise sans budget IT.'},
+  {slug:'audit-securite-informatique-methodologie', cat:'Securite', date:'8 mars 2024', titre:'Audit de securite informatique : notre methodologie', desc:'Comment on realise un audit et ce qu&#39;on cherche exactement.'},
+  {slug:'sauvegardes-donnees-regle-3-2-1', cat:'Securite', date:'6 mars 2024', titre:'Sauvegardes de donnees : la regle 3-2-1 expliquee', desc:'La methode simple pour ne jamais perdre vos donnees definitivement.'},
+  {slug:'pra-plan-reprise-activite-pme', cat:'Securite', date:'4 mars 2024', titre:'PRA : pourquoi toute PME doit avoir un plan de reprise', desc:'Preparer son entreprise a reprendre son activite en cas de sinistre.'},
+  {slug:'location-materiel-reduit-capex', cat:'Location materiel', date:'28 fevrier 2024', titre:'Comment la location de materiel reduit vos CAPEX', desc:'Transformer vos depenses d&#39;investissement en charges d&#39;exploitation.'},
+  {slug:'renouvellement-parc-location-achat', cat:'Location materiel', date:'1 mars 2024', titre:'Renouvellement parc informatique : location vs achat', desc:'Le calcul complet pour decider quelle option est la plus avantageuse.'},
+  {slug:'equipement-teletravail-guide', cat:'Location materiel', date:'5 mars 2024', titre:'Equiper ses collaborateurs pour le teletravail : guide complet', desc:'Materiel, logiciels, securite — tout pour un teletravail efficace.'},
+  {slug:'telephonie-voip-avantages-entreprises', cat:'Telephonie', date:'10 mars 2024', titre:'Telephonie VoIP : 7 avantages pour les entreprises', desc:'Pourquoi le passage a la VoIP est incontournable en 2024.'},
+  {slug:'standard-telephonique-virtuel-pme', cat:'Telephonie', date:'15 mars 2024', titre:'Standard telephonique virtuel : la solution moderne pour PME', desc:'Comment un standard cloud remplace avantageusement un PABX physique.'},
+];
+---
+<Layout>
+<section class="bg-[#07001C] pt-32 pb-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mb-16">
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,48px);line-height:1.1;">Blog Gigarun</h1>
+      <p class="text-[#9B99AA] text-lg">Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE reunionnaises.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {articles.map(a => (
+        <a href={`/blog/${a.slug}`} class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[10px] font-medium px-2 py-0.5 rounded-full">{a.cat}</span>
+            <span class="text-[#9B99AA] text-xs">{a.date}</span>
+          </div>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-sm leading-snug mb-2">{a.titre}</h2>
+          <p class="text-[#9B99AA] text-xs leading-relaxed">{a.desc}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+</Layout>
