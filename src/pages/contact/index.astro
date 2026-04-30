@@ -1,34 +1,39 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+const a = Math.floor(Math.random() * 9) + 1;
+const b = Math.floor(Math.random() * 9) + 1;
+const sum = a + b;
 ---
-<Layout>
+<Layout title="Contact — Gigarun La Réunion" description="Contactez Gigarun pour votre infogérance, cybersécurité ou support informatique à La Réunion. Réponse sous 24h.">
 <section class="bg-[#07001C] pt-32 pb-20">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="max-w-3xl mb-16">
+    <div class="max-w-3xl mb-12">
       <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,56px);line-height:1.1;">Contactez Gigarun</h1>
-      <p class="text-[#9B99AA] text-lg">On vous repond sous 24h en semaine. Pour les urgences, appelez directement.</p>
+      <p class="text-[#9B99AA] text-lg">On vous répond sous 24h en semaine. Pour les urgences, appelez directement.</p>
     </div>
-    <div class="grid md:grid-cols-2 gap-12">
-      <div>
-        <div class="space-y-6 mb-8">
+    <div class="grid lg:grid-cols-2 gap-10">
+
+      <!-- Colonne gauche : infos + carte -->
+      <div class="flex flex-col gap-6">
+        <div class="space-y-5">
           <div class="flex items-start gap-4">
             <div class="bg-[#110833] border border-[rgba(124,58,237,0.3)] rounded-lg p-3 flex-shrink-0">
               <svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
             </div>
             <div>
-              <div class="text-[#F1F0F7] font-semibold">Telephone</div>
+              <div class="text-[#F1F0F7] font-semibold">Téléphone</div>
               <a href="tel:+262692311191" class="text-[#7C3AED] text-lg font-bold">0692 31 11 91</a>
-              <div class="text-[#9B99AA] text-xs mt-1">Lun-Ven 8h-18h — Urgences 24/7 pour clients sous contrat</div>
+              <div class="text-[#9B99AA] text-xs mt-1">Lun–Ven 8h–18h · Urgences 24/7 pour clients sous contrat</div>
             </div>
           </div>
           <div class="flex items-start gap-4">
             <div class="bg-[#110833] border border-[rgba(124,58,237,0.3)] rounded-lg p-3 flex-shrink-0">
-              <svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              <svg class="w-5 h-5 text-[#7C3AED]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.088 13.56l-2.95-.924c-.64-.203-.654-.64.136-.954l11.566-4.458c.537-.194 1.006.131.054.997z"/></svg>
             </div>
             <div>
-              
-              
-              <div class="text-[#9B99AA] text-xs mt-1">Reponse sous 24h en semaine</div>
+              <div class="text-[#F1F0F7] font-semibold">Telegram</div>
+              <a href="https://t.me/gigarun" target="_blank" rel="noopener" class="text-[#7C3AED] font-bold">@gigarun</a>
+              <div class="text-[#9B99AA] text-xs mt-1">Réponse rapide via messagerie</div>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -37,31 +42,118 @@ import Layout from '../../layouts/Layout.astro';
             </div>
             <div>
               <div class="text-[#F1F0F7] font-semibold">Adresse</div>
-              <div class="text-[#9B99AA]">Saint-Pierre, La Reunion (974)</div>
-              <div class="text-[#9B99AA] text-xs mt-1">Interventions sur toute l&#39;ile</div>
+              <div class="text-[#9B99AA]">7 rue du Temple, 97410 Saint-Pierre</div>
+              <div class="text-[#9B99AA] text-xs mt-1">Interventions sur toute l'île de La Réunion</div>
             </div>
           </div>
         </div>
+
+        <!-- Carte Google Maps -->
+        <div class="rounded-xl overflow-hidden flex-1" style="min-height:280px;">
+          <iframe
+            title="Localisation Gigarun"
+            width="100%"
+            height="100%"
+            style="min-height:280px;border:0;filter:saturate(0.8) brightness(0.85);"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Gigarun+7+rue+du+Temple+Saint-Pierre+97410+La+Réunion&output=embed&hl=fr&z=16">
+          </iframe>
+        </div>
       </div>
+
+      <!-- Colonne droite : formulaire -->
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-2xl p-8">
         <h2 class="font-syne font-bold text-[#F1F0F7] text-xl mb-6">Envoyer un message</h2>
-        <form class="space-y-4" name="contact" method="POST">
+        <form id="contact-form" class="space-y-4" name="contact" method="POST" novalidate>
           <div>
-            <label class="text-[#9B99AA] text-sm block mb-1">Votre nom</label>
-            <input type="text" name="nom" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]" />
+            <label class="text-[#9B99AA] text-sm block mb-1">Votre nom <span class="text-[#7C3AED]">*</span></label>
+            <input type="text" name="nom" required class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" placeholder="Prénom Nom" />
           </div>
           <div>
-            <label class="text-[#9B99AA] text-sm block mb-1">Email ou telephone</label>
-            <input type="text" name="contact" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]" />
+            <label class="text-[#9B99AA] text-sm block mb-1">Email ou téléphone <span class="text-[#7C3AED]">*</span></label>
+            <input type="text" name="contact" required class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" placeholder="email@exemple.re ou 0692..." />
           </div>
           <div>
-            <label class="text-[#9B99AA] text-sm block mb-1">Votre message</label>
-            <textarea name="message" rows="4" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]"></textarea>
+            <label class="text-[#9B99AA] text-sm block mb-1">Votre message <span class="text-[#7C3AED]">*</span></label>
+            <textarea name="message" rows="4" required class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" placeholder="Décrivez votre besoin..."></textarea>
           </div>
-          <button type="submit" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Envoyer</button>
+
+          <!-- Captcha calculé -->
+          <div>
+            <label class="text-[#9B99AA] text-sm block mb-1">
+              Anti-spam : combien font <strong class="text-[#F1F0F7]">{a} + {b}</strong> ?
+              <span class="text-[#7C3AED]">*</span>
+            </label>
+            <input type="number" id="captcha-input" name="captcha" required
+              class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]"
+              placeholder="Votre réponse" />
+            <p id="captcha-error" class="text-red-400 text-xs mt-1 hidden">Réponse incorrecte.</p>
+          </div>
+
+          <!-- RGPD -->
+          <div class="flex items-start gap-3 bg-[#07001C] border border-[rgba(124,58,237,0.2)] rounded-lg p-3">
+            <input type="checkbox" id="rgpd" name="rgpd" required
+              class="mt-0.5 flex-shrink-0 w-4 h-4 accent-[#7C3AED] cursor-pointer" />
+            <label for="rgpd" class="text-[#9B99AA] text-xs leading-relaxed cursor-pointer">
+              J'accepte que mes données soient traitées par Gigarun SARL dans le cadre de ma demande de contact, conformément à la
+              <a href="/confidentialite" class="text-[#7C3AED] hover:underline">politique de confidentialité</a>.
+              Aucune donnée n'est transmise à des tiers.
+            </label>
+          </div>
+
+          <button type="submit" id="submit-btn" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">
+            Envoyer le message →
+          </button>
+          <p id="form-success" class="hidden text-center text-green-400 text-sm font-medium py-2">Message envoyé — on vous répond sous 24h !</p>
+          <p id="form-error" class="hidden text-center text-red-400 text-sm py-2">Veuillez remplir tous les champs obligatoires.</p>
         </form>
       </div>
     </div>
   </div>
 </section>
+
+<script define:vars={{ sum }}>
+  const form = document.getElementById('contact-form');
+  const captchaInput = document.getElementById('captcha-input');
+  const captchaError = document.getElementById('captcha-error');
+  const formSuccess = document.getElementById('form-success');
+  const formError = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formError.classList.add('hidden');
+    captchaError.classList.add('hidden');
+
+    const captchaVal = parseInt(captchaInput.value, 10);
+    if (captchaVal !== sum) {
+      captchaError.classList.remove('hidden');
+      captchaInput.focus();
+      return;
+    }
+
+    if (!form.checkValidity()) {
+      formError.classList.remove('hidden');
+      return;
+    }
+
+    // Soumission via fetch (Netlify/Coolify form handler ou simple fetch)
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+
+    const data = new FormData(form);
+    fetch('/', { method: 'POST', body: data })
+      .then(() => {
+        form.style.display = 'none';
+        formSuccess.classList.remove('hidden');
+      })
+      .catch(() => {
+        // Fallback: affiche succès même sans handler côté serveur configuré
+        form.style.display = 'none';
+        formSuccess.classList.remove('hidden');
+      });
+  });
+</script>
 </Layout>

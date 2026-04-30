@@ -1,19 +1,19 @@
 ---
 ---
-<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 p-4" style="display:none;">
-  <div class="max-w-4xl mx-auto bg-[#0D0028] border border-[rgba(124,58,237,0.3)] rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-2xl">
-    <div class="flex-1">
-      <p class="text-[#F1F0F7] text-sm font-medium mb-1">Ce site utilise des cookies</p>
-      <p class="text-[#9B99AA] text-xs leading-relaxed">
-        Nous utilisons des cookies essentiels au fonctionnement du site et des cookies d'analyse d'audience (mesures anonymisées). Aucun cookie publicitaire.
-        <a href="/confidentialite" class="text-[#7C3AED] hover:underline ml-1">En savoir plus</a>
+<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:1rem;pointer-events:none;opacity:0;transition:opacity 0.3s;">
+  <div style="pointer-events:auto;max-width:56rem;margin:0 auto;background:#0D0028;border:1px solid rgba(124,58,237,0.35);border-radius:12px;padding:1.25rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem;box-shadow:0 -4px 32px rgba(0,0,0,0.5);">
+    <div style="flex:1;min-width:200px;">
+      <p style="color:#F1F0F7;font-size:.875rem;font-weight:600;margin:0 0 .25rem;">Ce site utilise des cookies</p>
+      <p style="color:#9B99AA;font-size:.75rem;line-height:1.5;margin:0;">
+        Cookies essentiels et mesures d'audience anonymisées uniquement. Aucun cookie publicitaire.
+        <a href="/confidentialite" style="color:#7C3AED;">En savoir plus</a>
       </p>
     </div>
-    <div class="flex items-center gap-3 flex-shrink-0">
-      <button id="cookie-refuse" class="text-[#9B99AA] hover:text-[#F1F0F7] text-xs font-medium px-4 py-2 rounded-lg border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.3)] transition-all">
+    <div style="display:flex;gap:.75rem;flex-shrink:0;">
+      <button id="cookie-refuse" style="color:#9B99AA;font-size:.75rem;font-weight:500;padding:.5rem 1rem;border-radius:.5rem;border:1px solid rgba(255,255,255,0.15);background:transparent;cursor:pointer;">
         Refuser
       </button>
-      <button id="cookie-accept" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-medium px-4 py-2 rounded-lg transition-colors">
+      <button id="cookie-accept" style="background:#7C3AED;color:#fff;font-size:.75rem;font-weight:500;padding:.5rem 1rem;border-radius:.5rem;border:none;cursor:pointer;">
         Accepter
       </button>
     </div>
@@ -21,16 +21,22 @@
 </div>
 
 <script>
-  const banner = document.getElementById('cookie-banner');
-  const consent = localStorage.getItem('cookie-consent');
-  if (!consent) banner.style.display = 'block';
-
-  document.getElementById('cookie-accept').addEventListener('click', () => {
-    localStorage.setItem('cookie-consent', 'accepted');
-    banner.style.display = 'none';
-  });
-  document.getElementById('cookie-refuse').addEventListener('click', () => {
-    localStorage.setItem('cookie-consent', 'refused');
-    banner.style.display = 'none';
-  });
+  (function() {
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    if (!localStorage.getItem('cookie-consent')) {
+      // Délai court pour éviter le flash au chargement
+      setTimeout(() => { banner.style.opacity = '1'; }, 600);
+    }
+    document.getElementById('cookie-accept').onclick = function() {
+      localStorage.setItem('cookie-consent', 'accepted');
+      banner.style.opacity = '0';
+      setTimeout(() => banner.remove(), 300);
+    };
+    document.getElementById('cookie-refuse').onclick = function() {
+      localStorage.setItem('cookie-consent', 'refused');
+      banner.style.opacity = '0';
+      setTimeout(() => banner.remove(), 300);
+    };
+  })();
 </script>
