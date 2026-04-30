@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Sauvegarde et réplication PRA à La Réunion — GiGaRuN"
+  description="Sauvegarde cloud (GiGaCloud Backup) et on-premise pour entreprises à La Réunion. Réplication, supervision et restauration garantie. Office 365 et G Suite."
+>
+
+<!-- HERO -->
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:70vh;">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 pt-32 pb-16 w-full flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
+      <span class="w-2 h-2 bg-[#7C3AED]" style="border-radius:50%;display:inline-block;"></span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">Sauvegarde &amp; PRA · La Réunion</span>
+    </div>
+    <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-5" style="font-size:clamp(36px,5vw,68px);">
+      Sauvegarde et réplication<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">PRA à La Réunion</span>
+    </h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
+      Le stockage des données, la sauvegarde, la réplication et le plan de reprise d'activité (PRA) sont essentiels à la continuité de votre activité. TPE, PME, collectivités : garantissez disponibilité, sécurité et restauration rapide.
+    </p>
+    <a href="tel:+262692311191" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 transition-all" style="border-radius:9999px;">
+      Diagnostic gratuit — 0692 31 11 91
+    </a>
+  </div>
+</section>
+
+<!-- STOCKAGE -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(24px,3vw,38px);">1. Stockage de données : NAS vs SAN</h2>
+      <p class="text-[#9B99AA]">Le stockage évolue constamment, avec des volumes croissants à gérer.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-4">NAS – Network Attached Storage</h3>
+        <ul class="text-[#9B99AA] text-sm space-y-2">
+          <li>• Simple à déployer &amp; économique</li>
+          <li>• Accessible en permanence depuis le LAN</li>
+          <li>• Extensible à plusieurs To</li>
+          <li>• Fiable (RAID, redondance) et multi-OS</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-4">SAN – Storage Area Network</h3>
+        <ul class="text-[#9B99AA] text-sm space-y-2">
+          <li>• Très hautes performances via fibre Channel</li>
+          <li>• Haute fiabilité architecturale (24/7)</li>
+          <li>• Administration optimisée et ROI élevé</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-4">Combiner NAS et SAN</h3>
+        <p class="text-[#9B99AA] text-sm mb-3">Les architectures hybrides (cluster NAS/SAN) offrent :</p>
+        <ul class="text-[#9B99AA] text-sm space-y-2">
+          <li>• Sécurité renforcée</li>
+          <li>• Continuité de service 24/7</li>
+          <li>• Performance et évolutivité</li>
+          <li>• Supervision centralisée et TCO optimisé</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAUVEGARDE & RÉPLICATION -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12">
+      <div>
+        <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,2.5vw,34px);">2. Sauvegarde : pilier de la résilience</h2>
+        <p class="text-[#9B99AA] text-sm mb-6">La sauvegarde consiste à copier les données pour pouvoir les restaurer à un point précis, défini selon vos <strong class="text-[#F1F0F7]">RPO</strong> et <strong class="text-[#F1F0F7]">RTO</strong>.</p>
+        <h3 class="text-[#7C3AED] font-semibold mb-3">Bonnes pratiques</h3>
+        <ul class="text-[#9B99AA] text-sm space-y-2">
+          <li>• Règle <strong class="text-[#F1F0F7]">3-2-1</strong> : 3 copies, sur 2 supports, dont 1 hors site</li>
+          <li>• Sauvegarde automatisée avec rapports et alertes</li>
+          <li>• Rétentions flexibles et restauration autonome</li>
+          <li>• Archivage froid dans le cloud pour les données anciennes</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,2.5vw,34px);">3. Réplication : disponibilité immédiate</h2>
+        <p class="text-[#9B99AA] text-sm mb-4">La réplication duplique les données en continu ou quasi temps réel :</p>
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-4 mb-4">
+          <p class="text-[#F1F0F7] font-semibold text-sm mb-1">Réplication synchrone</p>
+          <p class="text-[#9B99AA] text-sm">Basculement instantané, quasi-zéro perte de données.</p>
+        </div>
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-4">
+          <p class="text-[#F1F0F7] font-semibold text-sm mb-1">Réplication asynchrone</p>
+          <p class="text-[#9B99AA] text-sm">Décalage planifié, réduction de bande passante.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRA -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(24px,3vw,38px);">4. PRA — Plan de Reprise d'Activité</h2>
+      <p class="text-[#9B99AA] max-w-2xl mx-auto">Le PRA regroupe stockage, sauvegarde et réplication pour garantir une reprise fiable après tout incident.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#7C3AED] font-semibold mb-2">Définir RPO &amp; RTO</p>
+        <p class="text-[#9B99AA] text-sm">Identifier les besoins en Recovery Point Objective et Recovery Time Objective selon vos métiers.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#7C3AED] font-semibold mb-2">Services critiques</p>
+        <p class="text-[#9B99AA] text-sm">Identifier serveurs, données Office365, applicatifs métiers à protéger en priorité.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#7C3AED] font-semibold mb-2">Tests réguliers</p>
+        <p class="text-[#9B99AA] text-sm">Un PRA non testé est un PRA incertain. Tests programmés et certificat de validation inclus.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#7C3AED] font-semibold mb-2">Chiffrement AES-256</p>
+        <p class="text-[#9B99AA] text-sm">Centres certifiés ISO/HIPAA/HADS, conformité RGPD, données hébergées en France.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#7C3AED] font-semibold mb-2">Outils certifiés</p>
+        <p class="text-[#9B99AA] text-sm">Veeam, Nakivo, solutions intégrées VMware/Hyper-V, réplication locale et cloud.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <p class="text-[#7C3AED] font-semibold mb-2">Architecture hybride</p>
+        <p class="text-[#9B99AA] text-sm">On-premise + cloud : combinaison technique adaptée à vos contraintes et votre budget.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-center mb-10" style="font-size:clamp(24px,3vw,36px);">Questions fréquentes</h2>
+    <div class="flex flex-col gap-4">
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Quelle est la différence entre sauvegarde et réplication ?
+          <span class="text-[#7C3AED] text-lg">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">La sauvegarde copie vos données à un instant T pour les restaurer plus tard. La réplication duplique vos données en continu vers un autre site, permettant de maintenir vos services actifs sans interruption.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          C'est quoi les RPO et RTO ?
+          <span class="text-[#7C3AED] text-lg">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4"><strong class="text-[#F1F0F7]">RPO</strong> (Recovery Point Objective) : le point de restauration le plus récent acceptable. <strong class="text-[#F1F0F7]">RTO</strong> (Recovery Time Objective) : le délai maximum pour redémarrer les systèmes après un incident.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Faut-il choisir sauvegarde locale ou cloud ?
+          <span class="text-[#7C3AED] text-lg">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">La meilleure solution est hybride : locale pour la rapidité de restauration, cloud pour la résilience et la protection hors site.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#0891B2);">
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(26px,3.5vw,48px);">Diagnostic PRA gratuit pour votre entreprise</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-10">Évaluons ensemble vos besoins en sauvegarde et réplication. Sans engagement.</p>
+    <a href="tel:+262692311191" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] transition-all">
+      0692 31 11 91
+    </a>
+  </div>
+</section>
+
+</Layout>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+</style>

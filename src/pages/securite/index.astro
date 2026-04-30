@@ -1,14 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout>
+<Layout
+  title="Sécurité informatique à La Réunion — Cybersécurité managée — GiGaRuN"
+  description="Sécurité informatique à La Réunion : Protégez votre entreprise avec GiGaRuN. Cybersécurité managée (EDR/XDR, SOC local), audit et supervision 24/7."
+>
 
 <!-- HERO -->
 <section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:70vh;">
   <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
   <div class="relative max-w-4xl mx-auto px-6 pt-32 pb-16 w-full flex flex-col items-center text-center">
     <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
-      <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;"></span>
+      <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;display:inline-block;"></span>
       <span class="text-[#9B99AA] text-sm font-medium tracking-wide">Cybersécurité · La Réunion</span>
     </div>
     <h1 class="font-syne font-extrabold leading-[1.05] tracking-tight text-[#F1F0F7] mb-5" style="font-size:clamp(40px,5.5vw,72px);">
@@ -16,7 +19,7 @@ import Layout from '../../layouts/Layout.astro';
       <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">ciblent les PME.</span>
     </h1>
     <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
-      Votre entreprise n'est pas trop petite pour les hackers. Ransomware, phishing, vol de données — on vous protège avant que ça arrive.
+      À l'heure où les cyberattaques se multiplient, négliger la sécurité informatique revient à exposer votre entreprise à des risques majeurs : pertes de données, arrêts d'activité, atteinte à la réputation.
     </p>
     <div class="flex flex-wrap gap-3 justify-center mb-14">
       <a href="/#contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 btn-hover-lift" style="border-radius:9999px;">
@@ -45,63 +48,58 @@ import Layout from '../../layouts/Layout.astro';
     <div class="text-center mb-12">
       <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(26px,3vw,40px);">Les menaces qui ciblent votre entreprise</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">🔐</div>
+        <h3 class="text-white font-semibold mb-2">Spear phishing</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Mails ciblés avec pièces jointes piégées ou faux liens. 91% des cyberattaques commencent par un email.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <h3 class="text-white font-semibold mb-2">Ransomware</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">1 PME sur 5 touchée chaque année. Vos données chiffrées, votre activité à l'arrêt pendant 21 jours en moyenne. Sans sauvegarde externalisée, la perte est totale.</p>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Vos données chiffrées, votre activité à l'arrêt pendant 21 jours en moyenne. Sans sauvegarde externalisée, la perte est totale.</p>
       </div>
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">🎣</div>
-        <h3 class="text-white font-semibold mb-2">Phishing</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">91% des cyberattaques commencent par un email. Un collaborateur clique, et l'attaquant a accès à vos comptes bancaires, vos données clients, votre messagerie.</p>
+        <h3 class="text-white font-semibold mb-2">Man-in-the-middle</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Interception des données lors de communications non chiffrées. Accès à vos comptes bancaires et données clients.</p>
       </div>
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">🕳️</div>
-        <h3 class="text-white font-semibold mb-2">Failles logicielles</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">60% des intrusions exploitent des failles connues, non corrigées. Des mises à jour non appliquées suffisent à ouvrir une porte d'entrée à votre réseau.</p>
+        <h3 class="text-white font-semibold mb-2">Darknet &amp; failles logicielles</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">60% des intrusions exploitent des failles connues non corrigées. Revente de vos accès piratés à des tiers malveillants.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NOS SERVICES -->
+<!-- ACCOMPAGNEMENT -->
 <section class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
       <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">Nos services</div>
-      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Une protection complète, adaptée aux PME</h2>
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Gigarun vous accompagne : audit, intégration, supervision continue</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">🔍</div>
         <h3 class="text-white font-semibold mb-2">Audit de sécurité</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Scan de vulnérabilités, tests d'intrusion, rapport détaillé avec plan d'action priorisé. On identifie vos failles avant les attaquants.</p>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Cartographie des risques, analyse des vulnérabilités, évaluation de la maturité de votre cybersécurité. Rapport avec plan d'action priorisé.</p>
       </div>
       <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">🛡️</div>
-        <h3 class="text-white font-semibold mb-2">Protection EDR</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Détection comportementale, réponse automatique aux incidents, surveillance 24/7. Bien au-delà d'un antivirus classique.</p>
+        <h3 class="text-white font-semibold mb-2">Protection EDR/XDR</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Déploiement d'outils de détection et de réponse cloud-native, corrélant les journaux d'activité (pare-feu, Active Directory, messagerie). Détection comportementale en temps réel.</p>
       </div>
       <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">💾</div>
+        <h3 class="text-white font-semibold mb-2">SOC local 24/7</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Notre Security Operations Center surveille les alertes, détecte les comportements anormaux et intervient — y compris la nuit ou les jours fériés.</p>
+      </div>
+      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <h3 class="text-white font-semibold mb-2">Sauvegardes sécurisées</h3>
         <p class="text-[#9B99AA] text-sm leading-relaxed">Règle 3-2-1, chiffrement AES-256, tests de restauration réguliers. En cas d'attaque, vos données sont récupérables en heures.</p>
       </div>
       <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">🔑</div>
-        <h3 class="text-white font-semibold mb-2">Gestion des accès</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">MFA, politique de mots de passe, journaux d'audit. On contrôle qui accède à quoi dans votre système d'information.</p>
-      </div>
-      <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">📋</div>
         <h3 class="text-white font-semibold mb-2">Conformité RGPD</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">Cartographie des données, registre des traitements, procédures de violation. On vous accompagne pour être en conformité sans y passer des mois.</p>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Cartographie des données, registre des traitements, procédures de violation. Conformité PCI-DSS, PAN. Gigarun est référencé cybermalveillance.gouv.fr.</p>
       </div>
       <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-        <div class="text-2xl mb-4">👁️</div>
-        <h3 class="text-white font-semibold mb-2">Supervision sécurité</h3>
-        <p class="text-[#9B99AA] text-sm leading-relaxed">SOC externalisé, analyse des logs, rapports mensuels. On surveille en continu et on vous alerte à la moindre anomalie.</p>
+        <h3 class="text-white font-semibold mb-2">Gestion des risques</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed">Visualisation de l'état de sécurité, impact financier estimé, identification des données sensibles, recommandations d'actions prioritaires et suivi dans le temps.</p>
       </div>
     </div>
   </div>
@@ -118,7 +116,6 @@ import Layout from '../../layouts/Layout.astro';
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
         <p class="text-[#9B99AA] text-sm font-medium mb-2">Audit ponctuel</p>
-        <p class="text-xs text-[#9B99AA] mb-4">Une fois / à la demande</p>
         <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-4xl">990€</span></div>
         <p class="text-[#9B99AA] text-xs mb-8">forfait</p>
         <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
@@ -132,7 +129,6 @@ import Layout from '../../layouts/Layout.astro';
       <div class="bg-[#1A0A3E] border-2 border-[#7C3AED] rounded-2xl p-8 flex flex-col relative">
         <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#7C3AED] text-white text-xs font-medium px-4 py-1.5" style="border-radius:9999px;">Recommandé</div>
         <p class="text-[#9B99AA] text-sm font-medium mb-2">Protection PME</p>
-        <p class="text-xs text-[#9B99AA] mb-4">Mensuel · par poste</p>
         <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-4xl">15€</span></div>
         <p class="text-[#9B99AA] text-xs mb-8">/poste/mois</p>
         <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
@@ -147,9 +143,8 @@ import Layout from '../../layouts/Layout.astro';
       </div>
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-8 flex flex-col">
         <p class="text-[#9B99AA] text-sm font-medium mb-2">Protection renforcée</p>
-        <p class="text-xs text-[#9B99AA] mb-4">Infrastructure critique / secteur sensible</p>
         <div class="mb-1"><span class="font-syne font-bold text-[#F1F0F7] text-2xl">Sur mesure</span></div>
-        <p class="text-[#9B99AA] text-xs mb-8">&nbsp;</p>
+        <p class="text-[#9B99AA] text-xs mb-8">Infrastructure critique</p>
         <ul class="flex flex-col gap-y-3 mb-8 flex-1 text-sm text-[#9B99AA]">
           <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> Tout PME inclus</li>
           <li class="flex items-center gap-2"><span class="text-[#7C3AED] font-bold">✓</span> SOC dédié</li>
@@ -163,18 +158,8 @@ import Layout from '../../layouts/Layout.astro';
   </div>
 </section>
 
-<!-- TEMOIGNAGE -->
-<section class="bg-[#07001C] py-20">
-  <div class="max-w-3xl mx-auto px-6 text-center">
-    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-8">
-      <p class="text-[#9B99AA] text-base leading-relaxed mb-6 italic">"En 2023, on a subi une tentative de ransomware. Grâce aux sauvegardes externalisées mises en place par Gigarun, on a récupéré toutes nos données en moins de 24h. Sans eux, on perdait des années de travail."</p>
-      <div><p class="text-white text-sm font-semibold">Responsable administrative</p><p class="text-[#9B99AA] text-xs">Cabinet comptable, Saint-Denis</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- FAQ -->
-<section class="bg-[#0A0022] py-20">
+<section class="bg-[#07001C] py-20">
   <div class="max-w-3xl mx-auto px-6">
     <div class="text-center mb-12">
       <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(26px,3vw,40px);">Questions fréquentes</h2>
@@ -185,28 +170,28 @@ import Layout from '../../layouts/Layout.astro';
           Je suis une petite entreprise, les hackers s'intéressent vraiment à moi ?
           <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
         </summary>
-        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Oui. Les attaques contre les PME sont souvent automatisées — les hackers ne vous ciblent pas personnellement, ils scannent des milliers de systèmes et attaquent les moins protégés. La taille ne vous protège pas.</p>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Oui. Les attaques contre les PME sont souvent automatisées — les hackers scannent des milliers de systèmes et attaquent les moins protégés. La taille ne vous protège pas.</p>
       </details>
       <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
         <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
-          Mes données sont-elles en sécurité avec vous ?
+          Un antivirus suffit-il ?
           <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
         </summary>
-        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Oui. On met en place des sauvegardes automatiques quotidiennes, un antivirus professionnel sur chaque poste, et un plan de reprise en cas d'incident. Vos données restent hébergées en France, conformes au RGPD.</p>
-      </details>
-      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
-        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
-          Combien de temps dure un audit de sécurité ?
-          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
-        </summary>
-        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Pour une PME de 10 à 50 postes, comptez 1 à 3 jours d'analyse. Le rapport avec plan d'action vous est remis sous une semaine. On peut commencer par un pré-audit téléphonique gratuit en 20 minutes.</p>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Non. Un simple antivirus ne suffit plus. Il devient indispensable d'adopter une approche globale : EDR/XDR, SIEM, gestion des accès, sauvegardes externalisées et suivi humain réactif.</p>
       </details>
       <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
         <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
           La cybersécurité est-elle incluse dans l'infogérance ?
           <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
         </summary>
-        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">La sécurité de base est incluse (antivirus, mises à jour, pare-feu, sauvegardes). Pour des besoins renforcés (EDR, audit, RGPD, SOC), des modules dédiés s'ajoutent. On adapte selon votre secteur et votre niveau d'exposition.</p>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">La sécurité de base est incluse (antivirus, mises à jour, pare-feu, sauvegardes). Pour des besoins renforcés (EDR, audit, RGPD, SOC), des modules dédiés s'ajoutent selon votre secteur.</p>
+      </details>
+      <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+        <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+          Combien de temps dure un audit de sécurité ?
+          <span class="text-[#7C3AED] text-lg transition-transform group-open:rotate-45">+</span>
+        </summary>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">Pour une PME de 10 à 50 postes, comptez 1 à 3 jours d'analyse. Le rapport avec plan d'action vous est remis sous une semaine. Pré-audit téléphonique gratuit en 20 minutes.</p>
       </details>
     </div>
   </div>
