@@ -1,38 +1,67 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 const articles = [
-  {slug:'comment-choisir-prestataire-informatique', cat:'Infogérance', date:'25 mars 2024', titre:'Comment choisir son prestataire informatique en tant que PME', desc:'Les criteres essentiels pour evaluer et selectionner un prestataire IT de confiance.'},
-  {slug:'infogerance-proactive-reduit-incidents', cat:'Infogérance', date:'22 mars 2024', titre:'Infogerance proactive : comment elle reduit les incidents de 60%', desc:'La difference entre reagir aux pannes et les empecher — avec des chiffres concrets.'},
-  {slug:'top-5-risques-securite-pme', cat:'Securite', date:'20 mars 2024', titre:'Top 5 des risques de securite informatique pour les PME en 2024', desc:'Phishing, ransomware, mots de passe faibles — comment s&#39;en proteger.'},
-  {slug:'hebergement-cloud-vs-on-premise', cat:'Hebergement', date:'18 mars 2024', titre:'Hebergement cloud vs on-premise : quel choix pour votre PME ?', desc:'Comparatif complet des deux options avec couts et avantages.'},
-  {slug:'supervision-preventive-stabilite-informatique', cat:'Infogérance', date:'15 mars 2024', titre:'Supervision preventive : la cle d&#39;une informatique stable', desc:'Comment la surveillance continue permet d&#39;anticiper les pannes.'},
-  {slug:'externalisation-it-avantages-entreprises', cat:'Infogérance', date:'12 mars 2024', titre:'Externalisation IT : les 5 avantages pour les entreprises', desc:'Pourquoi confier son informatique a un prestataire specialise.'},
-  {slug:'cybersecurite-tpe-guide-protection', cat:'Securite', date:'10 mars 2024', titre:'Cybersecurite pour TPE : guide pratique de protection', desc:'Les gestes essentiels pour proteger votre entreprise sans budget IT.'},
-  {slug:'audit-securite-informatique-methodologie', cat:'Securite', date:'8 mars 2024', titre:'Audit de securite informatique : notre methodologie', desc:'Comment on realise un audit et ce qu&#39;on cherche exactement.'},
-  {slug:'sauvegardes-donnees-regle-3-2-1', cat:'Securite', date:'6 mars 2024', titre:'Sauvegardes de donnees : la regle 3-2-1 expliquee', desc:'La methode simple pour ne jamais perdre vos donnees definitivement.'},
-  {slug:'pra-plan-reprise-activite-pme', cat:'Securite', date:'4 mars 2024', titre:'PRA : pourquoi toute PME doit avoir un plan de reprise', desc:'Preparer son entreprise a reprendre son activite en cas de sinistre.'},
-  {slug:'location-materiel-reduit-capex', cat:'Location materiel', date:'28 fevrier 2024', titre:'Comment la location de materiel reduit vos CAPEX', desc:'Transformer vos depenses d&#39;investissement en charges d&#39;exploitation.'},
-  {slug:'renouvellement-parc-location-achat', cat:'Location materiel', date:'1 mars 2024', titre:'Renouvellement parc informatique : location vs achat', desc:'Le calcul complet pour decider quelle option est la plus avantageuse.'},
-  {slug:'equipement-teletravail-guide', cat:'Location materiel', date:'5 mars 2024', titre:'Equiper ses collaborateurs pour le teletravail : guide complet', desc:'Materiel, logiciels, securite — tout pour un teletravail efficace.'},
-  {slug:'telephonie-voip-avantages-entreprises', cat:'Telephonie', date:'10 mars 2024', titre:'Telephonie VoIP : 7 avantages pour les entreprises', desc:'Pourquoi le passage a la VoIP est incontournable en 2024.'},
-  {slug:'standard-telephonique-virtuel-pme', cat:'Telephonie', date:'15 mars 2024', titre:'Standard telephonique virtuel : la solution moderne pour PME', desc:'Comment un standard cloud remplace avantageusement un PABX physique.'},
+  {slug:'comment-choisir-prestataire-informatique', cat:'Infogérance', date:'25 mars 2024', titre:'Comment choisir son prestataire informatique en tant que PME', desc:'Les critères essentiels pour évaluer et sélectionner un prestataire IT de confiance.'},
+  {slug:'infogerance-proactive-reduit-incidents', cat:'Infogérance', date:'22 mars 2024', titre:'Infogérance proactive : comment elle réduit les incidents de 60%', desc:'La différence entre réagir aux pannes et les empêcher — avec des chiffres concrets.'},
+  {slug:'top-5-risques-securite-pme', cat:'Sécurité', date:'20 mars 2024', titre:'Top 5 des risques de sécurité informatique pour les PME en 2024', desc:'Phishing, ransomware, mots de passe faibles — comment s\'en protéger.'},
+  {slug:'hebergement-cloud-vs-on-premise', cat:'Cloud', date:'18 mars 2024', titre:'Hébergement cloud vs on-premise : quel choix pour votre PME ?', desc:'Comparatif complet des deux options avec coûts et avantages.'},
+  {slug:'supervision-preventive-stabilite-informatique', cat:'Infogérance', date:'15 mars 2024', titre:'Supervision préventive : la clé d\'une informatique stable', desc:'Comment la surveillance continue permet d\'anticiper les pannes.'},
+  {slug:'externalisation-it-avantages-entreprises', cat:'Infogérance', date:'12 mars 2024', titre:'Externalisation IT : les 5 avantages pour les entreprises', desc:'Pourquoi confier son informatique à un prestataire spécialisé.'},
+  {slug:'cybersecurite-tpe-guide-protection', cat:'Cybersécurité', date:'10 mars 2024', titre:'Cybersécurité pour TPE : guide pratique de protection', desc:'Les gestes essentiels pour protéger votre entreprise sans budget IT.'},
+  {slug:'audit-securite-informatique-methodologie', cat:'Cybersécurité', date:'8 mars 2024', titre:'Audit de sécurité informatique : notre méthodologie', desc:'Comment on réalise un audit et ce qu\'on cherche exactement.'},
+  {slug:'sauvegardes-donnees-regle-3-2-1', cat:'Sauvegarde', date:'6 mars 2024', titre:'Sauvegardes de données : la règle 3-2-1 expliquée', desc:'La méthode simple pour ne jamais perdre vos données définitivement.'},
+  {slug:'pra-plan-reprise-activite-pme', cat:'Sauvegarde', date:'4 mars 2024', titre:'PRA : pourquoi toute PME doit avoir un plan de reprise', desc:'Préparer son entreprise à reprendre son activité en cas de sinistre.'},
+  {slug:'location-materiel-reduit-capex', cat:'Location matériel', date:'28 février 2024', titre:'Comment la location de matériel réduit vos CAPEX', desc:'Transformer vos dépenses d\'investissement en charges d\'exploitation.'},
+  {slug:'renouvellement-parc-location-achat', cat:'Location matériel', date:'1 mars 2024', titre:'Renouvellement parc informatique : location vs achat', desc:'Le calcul complet pour décider quelle option est la plus avantageuse.'},
+  {slug:'equipement-teletravail-guide', cat:'Location matériel', date:'5 mars 2024', titre:'Équiper ses collaborateurs pour le télétravail : guide complet', desc:'Matériel, logiciels, sécurité — tout pour un télétravail efficace.'},
+  {slug:'telephonie-voip-avantages-entreprises', cat:'Téléphonie', date:'10 mars 2024', titre:'Téléphonie VoIP : 7 avantages pour les entreprises', desc:'Pourquoi le passage à la VoIP est incontournable en 2024.'},
+  {slug:'standard-telephonique-virtuel-pme', cat:'Téléphonie', date:'15 mars 2024', titre:'Standard téléphonique virtuel : la solution moderne pour PME', desc:'Comment un standard cloud remplace avantageusement un PABX physique.'},
+  {slug:'lutte-contre-la-cybermalveillance', cat:'Cybersécurité', date:'30 juin 2025', titre:'Lutte contre la cybermalveillance', desc:'Prévenez la cybermalveillance à La Réunion : conseils, sensibilisation et protection pour entreprises.'},
+  {slug:'test-dintrusion-evaluez-la-robustesse-de-votre-cybersecurite', cat:'Cybersécurité', date:'2 juil. 2025', titre:'Test d\'intrusion : évaluez la robustesse de votre cybersécurité', desc:'Test d\'intrusion externe & interne à La Réunion : simulations de cyberattaques et détection de vulnérabilités.'},
+  {slug:'la-cybersecurite-managee-detection-et-reponse-aux-incidents-it', cat:'Cybersécurité', date:'30 juil. 2025', titre:'La cybersécurité managée : Détection et réponse aux incidents IT', desc:'Renforcez la sécurité de votre entreprise avec EDR SentinelOne, SIEM Wazuh et défense réactive.'},
+  {slug:'test-dintrusion-ou-dapplication-a-la-reunion-pentest-nis2-rgpd', cat:'Cybersécurité', date:'30 mars 2026', titre:'Test d\'intrusion ou d\'application à La Réunion — Pentest NIS2 & RGPD', desc:'Protégez votre entreprise contre les cyberattaques avec Gigarun. Diagnostics, accompagnement NIS2 & RGPD.'},
+  {slug:'budget-informatique-entreprise-le-guide-par-secteur-et-par-postes', cat:'Gestion IT', date:'26 juil. 2025', titre:'Budget informatique entreprise : Le guide par secteur et par postes', desc:'Les repères en % du chiffre d\'affaires, par secteur, et un tableau complet pour répartir votre budget IT.'},
+  {slug:'stockage-et-archivage-pour-pme', cat:'Infrastructure', date:'30 juin 2025', titre:'Stockage et archivage pour PME', desc:'Optimisez votre stockage et archivage des données à La Réunion : sécurité, accessibilité et conformité RGPD.'},
+  {slug:'office-365-entreprise-pour-les-pme-de-la-reunion', cat:'Microsoft 365', date:'30 juin 2025', titre:'Office 365 Entreprise pour les PME de la Réunion', desc:'Boostez la collaboration et la productivité de votre entreprise à La Réunion avec Office 365 Entreprise.'},
+  {slug:'souverainete-numerique-a-la-reunion-oui-cest-possible', cat:'Cloud', date:'28 août 2025', titre:'Souveraineté numérique à la Réunion : Oui c\'est possible !', desc:'Hébergez vos serveurs web et applicatifs avec Gigarun. Libérez-vous des GAFAM, sécurisez vos données.'},
+  {slug:'par-ou-commencer-pour-deleguer-mon-informatique-et-ma-cybersecurite-dentreprise', cat:'Infogérance', date:'22 mai 2025', titre:'Par où commencer pour déléguer mon informatique et ma cybersécurité ?', desc:'Infogérance d\'experts, maintenance, cybersécurité, cloud, support technique externalisé pour gagner en sérénité.'},
+  {slug:'guide-des-bonnes-pratiques-du-numerique-responsable-pour-les-entreprises-de-la-r', cat:'Numérique responsable', date:'15 avr. 2025', titre:'Guide du numérique responsable pour les entreprises de la Réunion', desc:'Adoptez un numérique responsable : bonnes pratiques écoresponsables, sensibilisation et achats durables.'},
+  {slug:'microsoft-hyper-v-la-virtualisation-fiable-et-performante-au-service-de-votre-en', cat:'Infrastructure', date:'4 juil. 2025', titre:'Microsoft Hyper-V : la virtualisation fiable et performante', desc:'Haute disponibilité, snapshots, migration live avec Microsoft Hyper‑V pour entreprises réunionnaises.'},
+  {slug:'clusters-de-donnees-haute-disponibilite-des-solutions-robustes-et-flexibles', cat:'Infrastructure', date:'4 juil. 2025', titre:'Clusters de données haute disponibilité : solutions robustes et flexibles', desc:'Solutions de cluster haute disponibilité à La Réunion. Proxmox & Windows Server déployés par des experts.'},
+  {slug:'envoi-demails-en-masse-faut-il-utiliser-la-messagerie-pro', cat:'Messagerie', date:'24 mai 2025', titre:'Envoi d\'emails en masse : Faut-il utiliser la messagerie pro ?', desc:'Risques pour votre domaine et bonnes pratiques pour les campagnes email en entreprise.'},
+  {slug:'e-commerce-et-applications-mobiles-a-la-reunion', cat:'E-Commerce', date:'18 juin 2025', titre:'E-Commerce et applications mobiles à la Réunion', desc:'Boostez vos ventes avec des solutions e-commerce sur mesure pour PME réunionnaises.'},
+  {slug:'pilotage-numerique-avance-et-conformite-nis2-obligations-des-spl-et-collectivite', cat:'NIS2', date:'30 mai 2025', titre:'Pilotage numérique et conformité NIS2 : obligations des SPL et collectivités', desc:'Respectez les obligations NIS2 à La Réunion : gouvernance sécurisée et accompagnement dédié.'},
+  {slug:'rto-et-rpo-comprendre-les-piliers-de-la-reprise-apres-sinistre', cat:'Sauvegarde', date:'16 mai 2025', titre:'RTO et RPO : Comprendre les piliers de la reprise après sinistre', desc:'Différences entre RTO et RPO pour optimiser votre plan de continuité d\'activité.'},
+  {slug:'les-8-benefices-de-gigabackup-pour-microsoft-365', cat:'Microsoft 365', date:'1 juil. 2025', titre:'Les 8 bénéfices de GigaBackup pour Microsoft 365', desc:'Sécurité, restauration granulaire, rétention longue, conformité : tout ce que GigaBackup apporte à votre M365.'},
+  {slug:'securiser-office-365-avec-hornetsecurity-ou-defender-for-office-365', cat:'Sécurité email', date:'1 juil. 2025', titre:'Sécuriser Office 365 avec HornetSecurity ou Defender for Office 365', desc:'Comparez HornetSecurity et Microsoft Defender pour une protection anti‑phishing optimale.'},
+  {slug:'securite-des-e-mails-comprendre-spf-dkim-dmarc-et-limportance-des-rapports-rua', cat:'Sécurité email', date:'15 avr. 2025', titre:'Sécurité des e-mails : SPF, DKIM, DMARC et rapports RUA', desc:'Protéger les mails contre le phishing : SPF, DKIM et DMARC expliqués avec le rôle du RSI.'},
+  {slug:'pme-pourquoi-investir-dans-une-solution-de-detection-et-reponse-nest-plus-une-op', cat:'Cybersécurité', date:'15 avr. 2025', titre:'PME : Pourquoi investir dans une solution de détection et réponse n\'est plus une option', desc:'Pourquoi les PME à La Réunion investissent dans des solutions MDR/EDR : prévention et réponse aux incidents.'},
+  {slug:'support-informatique-n1-n2-n3-guide-complet-des-niveaux-de-support-it', cat:'Support IT', date:'5 sept. 2025', titre:'Support informatique N1, N2, N3 : guide complet des niveaux de support IT', desc:'Organisation, rôles, escalade : tout comprendre pour optimiser votre assistance IT et helpdesk.'},
+  {slug:'expertise-operationnelle-en-informatique-expert-en-infrastructures-it', cat:'Expertise IT', date:'21 mai 2025', titre:'Expertise opérationnelle en informatique et infrastructures IT', desc:'Conseil technique Gigarun à La Réunion : audit, architecture réseau, supervision, conseil expert.'},
+  {slug:'gigarun-votre-partenaire-informatique-de-confiance-sur-la-reunion', cat:'Gigarun', date:'29 mai 2025', titre:'Gigarun, votre partenaire informatique de confiance sur la Réunion', desc:'Solutions informatiques sécurisées et managées à La Réunion : données souveraines, services sur mesure.'},
+  {slug:'mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux', cat:'Messagerie', date:'15 avr. 2025', titre:'Mieux utiliser l\'e-mail en entreprise : bonnes pratiques & enjeux', desc:'Boostez productivité et sobriété numérique en entreprise : bonnes pratiques e‑mail, organisation et archivage.'},
+  {slug:'infogerance-et-maintenance-informatique-a-la-reunion', cat:'Infogérance', date:'15 avr. 2025', titre:'Infogérance et maintenance informatique à La Réunion', desc:'Externalisez votre parc informatique à La Réunion. Support N1/N2/N3, maintenance préventive, supervision 24/7.'},
 ];
 ---
-<Layout>
+<Layout title="Blog IT & Cybersécurité — Gigarun La Réunion" description="Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE réunionnaises. Sécurité, infogérance, cloud, Microsoft 365 et plus.">
 <section class="bg-[#07001C] pt-32 pb-20">
   <div class="max-w-6xl mx-auto px-6">
     <div class="max-w-2xl mb-16">
-      <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,48px);line-height:1.1;">Blog Gigarun</h1>
-      <p class="text-[#9B99AA] text-lg">Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE reunionnaises.</p>
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-6 rounded-full">
+        <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
+        <span class="text-[#9B99AA] text-sm font-medium">Blog · {articles.length} articles</span>
+      </div>
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,48px);line-height:1.1;">Ressources IT pour<br/>les PME réunionnaises</h1>
+      <p class="text-[#9B99AA] text-lg">Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE de La Réunion.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       {articles.map(a => (
-        <a href={`/blog/${a.slug}`} class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block">
+        <a href={`/blog/${a.slug}`} class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block group">
           <div class="flex items-center gap-2 mb-3">
             <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[10px] font-medium px-2 py-0.5 rounded-full">{a.cat}</span>
             <span class="text-[#9B99AA] text-xs">{a.date}</span>
           </div>
-          <h2 class="font-syne font-bold text-[#F1F0F7] text-sm leading-snug mb-2">{a.titre}</h2>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-sm leading-snug mb-2 group-hover:text-[#7C3AED] transition-colors">{a.titre}</h2>
           <p class="text-[#9B99AA] text-xs leading-relaxed">{a.desc}</p>
         </a>
       ))}

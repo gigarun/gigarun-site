@@ -1,0 +1,140 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="RTO et RPO : Comprendre les piliers de la reprise après sinistre — Gigarun La Réunion" description="Découvrez les différences entre RTO (Recovery Time Objective) et RPO (Recovery Point Objective) pour optimiser votre plan de reprise d’activité (PRA)">
+<article class="bg-[#07001C] pt-32 pb-20"><div class="max-w-3xl mx-auto px-6">
+  <div class="mb-8">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1" style="border-radius:9999px;">Sauvegarde</span>
+      <span class="text-[#9B99AA] text-xs">16 mai 2025 · 4 min</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight mb-4" style="font-size:clamp(28px,4vw,46px);">RTO et RPO : Comprendre les piliers de la reprise après sinistre</h1>
+    <p class="text-[#9B99AA] text-base leading-relaxed">Découvrez les différences entre RTO (Recovery Time Objective) et RPO (Recovery Point Objective) pour optimiser votre plan de reprise d’activité (PRA)</p>
+  </div>
+  <div class="prose-gigarun">
+    <p class="">Dans un monde où les entreprises dépendent fortement de leurs systèmes informatiques, la <strong>continuité d’activité</strong> devient un enjeu stratégique.</p>
+\n<p class="">Que ce soit une panne de serveur, une cyberattaque ou un incendie, chaque incident peut avoir un impact critique.</p>
+\n<p class="">Pour y faire face efficacement, deux indicateurs essentiels doivent être définis : <a href="https://fr.wikipedia.org/wiki/Dur%C3%A9e_maximale_d%27interruption_admissible" target="_blank" rel="noopener">le <strong>RPO</strong> (<em>Recovery Point Objective</em>) et le <strong>RTO</strong> (<em>Recovery Time Objective</em>).</a></p>
+\n
+\n<p class="">Mais que signifient vraiment ces termes ? En quoi sont-ils différents et complémentaires ? Et surtout, comment les définir pour son entreprise ?</p>
+\n<hr class="">
+\n<h2 class=""><a href="https://fr.wikipedia.org/wiki/Perte_de_donn%C3%A9es_maximale_admissible" target="_blank" rel="noopener">Qu'est-ce que le RPO ?</a></h2>
+\n<p class="">Le <strong>RPO</strong>, ou <strong>Recovery Point Objective</strong>, désigne la <strong>période maximale de données que l’on est prêt à perdre</strong> en cas d’incident.</p>
+\n<h3 class="">Exemple du RPO :</h3>
+\n<p class="">Si votre RPO est de <strong>4 heures</strong>, cela signifie que vous acceptez de perdre jusqu’à 4 heures de données. Vos sauvegardes devront donc être programmées toutes les 4 heures au minimum pour respecter cet objectif.</p>
+\n<h3 class="">RPO en résumé :</h3>
+\n<ul>
+\n<li class="">
+\n<p class=""><strong>Unité de mesure</strong> : durée (heures, minutes)</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Impact</strong> : volume de données perdues</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Lié à</strong> : fréquence de sauvegarde et stratégie de réplication</p>
+\n</li>
+\n</ul>
+\n<hr class="">
+\n<h2 class="">Qu'est-ce que le RTO ?</h2>
+\n<p class="">Le <strong>RTO</strong>, ou <strong>Recovery Time Objective</strong>, désigne le <strong>temps maximal acceptable pour restaurer un système</strong> après une panne ou un sinistre.</p>
+\n<h3 class="">Exemple du RTO :</h3>
+\n<p class="">Si votre RTO est de <strong>2 heures</strong>, votre infrastructure informatique doit être remise en service et opérationnelle dans ce délai, au-delà duquel les conséquences pour l’entreprise deviennent inacceptables (pertes financières, réputation, sécurité...).</p>
+\n<h3 class="">RTO en résumé :</h3>
+\n<ul>
+\n<li class="">
+\n<p class=""><strong>Unité de mesure</strong> : durée (heures, minutes)</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Impact</strong> : indisponibilité des services</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Lié à</strong> : performances du plan de reprise (PRA), redondance, automatisation</p>
+\n</li>
+\n</ul>
+\n<hr class="">
+\n<h2 class="">Différence entre RPO et RTO</h2>
+\n<div class="_tableContainer_16hzy_1">
+\n<div class="_tableWrapper_16hzy_14 group flex w-fit flex-col-reverse" tabindex="-1">
+\n<table class="w-fit min-w-(--thread-content-width)">
+\n<thead>
+\n<tr>
+\n<th data-col-size="sm">Critère</th>
+\n<th data-col-size="sm">RPO (Recovery Point Objective)</th>
+\n<th data-col-size="sm">RTO (Recovery Time Objective)</th>
+\n</tr>
+\n</thead>
+\n<tbody>
+\n<tr>
+\n<td data-col-size="sm">Définition</td>
+\n<td data-col-size="sm">Quantité de données pouvant être perdues</td>
+\n<td data-col-size="sm">Temps maximal pour la reprise</td>
+\n</tr>
+\n<tr>
+\n<td data-col-size="sm">Objectif</td>
+\n<td data-col-size="sm">Minimiser la <strong>perte de données</strong></td>
+\n<td data-col-size="sm">Réduire le <strong>temps d’arrêt</strong></td>
+\n</tr>
+\n<tr>
+\n<td data-col-size="sm">Exemple concret</td>
+\n<td data-col-size="sm">Sauvegardes toutes les 15 min</td>
+\n<td data-col-size="sm">Redémarrage complet en 1 heure</td>
+\n</tr>
+\n<tr>
+\n<td data-col-size="sm">Lié à</td>
+\n<td data-col-size="sm">Stratégie de <strong>sauvegarde</strong></td>
+\n<td data-col-size="sm">Stratégie de <strong>reprise</strong> (PRA/PCA)</td>
+\n</tr>
+\n</tbody>
+\n</table>
+\n<div class="sticky end-(--thread-content-margin) h-0 self-end select-none">
+\n<div class="absolute end-0 flex items-end"> </div>
+\n</div>
+\n</div>
+\n</div>
+\n<hr class="">
+\n<h2 class="">Pourquoi ces notions sont-elles cruciales ?</h2>
+\n<h3 class="">1. <strong>Évaluer les risques</strong></h3>
+\n<p class="">Connaître vos RPO et RTO permet de mesurer les risques réels pour votre activité en cas d’incident.</p>
+\n<h3 class="">2. <strong>Dimensionner votre infrastructure</strong></h3>
+\n<p class="">Un RTO faible implique souvent un coût élevé (réplication temps réel, serveurs redondants...). Il faut donc <strong>adapter la technologie au besoin métier</strong>.</p>
+\n<h3 class="">3. <strong>Mettre en place une stratégie cohérente</strong></h3>
+\n<p class="">Définir des RPO/RTO réalistes est la base d’un <strong>Plan de Reprise d’Activité (PRA)</strong> et/ou <strong>Plan de Continuité d’Activité (PCA)</strong> efficace.</p>
+\n<hr class="">
+\n<h2 class="">Comment définir vos RPO et RTO ?</h2>
+\n<h3 class="">Étapes recommandées :</h3>
+\n<ol>
+\n<li class="">
+\n<p class=""><strong>Cartographier vos applications</strong> : identifiez les systèmes critiques (ERP, messagerie, site e-commerce...).</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Évaluer l’impact métier</strong> d’une perte de données ou d’une indisponibilité.</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Prioriser</strong> les applications selon leur criticité.</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Fixer des objectifs RPO et RTO</strong> spécifiques pour chaque application ou service.</p>
+\n</li>
+\n<li class="">
+\n<p class=""><strong>Tester régulièrement votre PRA</strong> pour vérifier que ces objectifs sont bien atteignables.</p>
+  </div>
+  <div class="mt-12 bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-6">
+    <h3 class="text-white font-semibold mb-2">Besoin d'accompagnement ?</h3>
+    <p class="text-[#9B99AA] text-sm mb-4">Nos experts Gigarun interviennent sur toute La Réunion.</p>
+    <a href="tel:+262692311191" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all inline-block">0692 31 11 91</a>
+  </div>
+</div></article>
+</Layout>
+<style>
+.prose-gigarun h2{font-family:'Syne',sans-serif;font-weight:700;color:#F1F0F7;font-size:1.25rem;margin-top:2rem;margin-bottom:.75rem}
+.prose-gigarun h3{font-family:'Syne',sans-serif;font-weight:600;color:#F1F0F7;font-size:1rem;margin-top:1.5rem;margin-bottom:.5rem}
+.prose-gigarun p{color:#9B99AA;font-size:.875rem;line-height:1.75;margin-bottom:1rem}
+.prose-gigarun ul{color:#9B99AA;font-size:.875rem;padding-left:1.5rem;margin-bottom:1rem;list-style:disc}
+.prose-gigarun ol{color:#9B99AA;font-size:.875rem;padding-left:1.5rem;margin-bottom:1rem;list-style:decimal}
+.prose-gigarun li{margin-bottom:.375rem;line-height:1.6}
+.prose-gigarun strong{color:#F1F0F7}
+.prose-gigarun a{color:#7C3AED;text-decoration:underline}
+.prose-gigarun table{width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:.8rem}
+.prose-gigarun th{background:#110833;color:#F1F0F7;padding:.5rem;text-align:left;border:1px solid rgba(124,58,237,0.2)}
+.prose-gigarun td{color:#9B99AA;padding:.5rem;border:1px solid rgba(124,58,237,0.1)}
+</style>
