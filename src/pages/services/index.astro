@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const services = [
+  { href: '/infogerance', icon: '🖥️', titre: 'Infogérance', desc: 'Pilotage IT externalisé, supervision 24/7, helpdesk et maintenance préventive.' },
+  { href: '/securite', icon: '🔐', titre: 'Cybersécurité', desc: 'EDR/XDR managé, SOC local, protection des endpoints et sensibilisation des équipes.' },
+  { href: '/pentest', icon: '🧪', titre: 'Pentest & NIS2', desc: "Test d'intrusion, conformité NIS2 & RGPD, audit de vulnérabilités applicatives." },
+  { href: '/audit', icon: '📋', titre: 'Audit informatique', desc: 'Diagnostic SI complet, gouvernance IT, RSSI externalisé, plan de remédiation.' },
+  { href: '/reseau', icon: '🔗', titre: 'Réseau', desc: 'Infrastructure réseau, Wi-Fi entreprise, câblage cuivre/fibre, switches managés.' },
+  { href: '/sauvegarde-pra', icon: '☁️', titre: 'Sauvegarde & PRA', desc: 'Backup cloud et on-premise, réplication, plan de reprise après sinistre.' },
+  { href: '/cloud', icon: '🌐', titre: 'Cloud souverain', desc: 'Hébergement local sécurisé, souveraineté des données, cloud privé managé.' },
+  { href: '/telephonie', icon: '📞', titre: 'Téléphonie IP', desc: 'Standard virtuel, VoIP, migration Numéris, communications unifiées.' },
+  { href: '/hebergement', icon: '🏗️', titre: 'Hébergement', desc: 'Serveurs dédiés, virtualisation, NAS entreprise, datacenter local.' },
+  { href: '/location-materiel', icon: '💻', titre: 'Location matériel', desc: "Parc informatique en leasing, renouvellement géré, zéro investissement initial." },
+  { href: '/creation-site', icon: '🎨', titre: 'Création de site', desc: 'Sites vitrine, e-commerce, applications métier, SEO local Réunion.' },
+  { href: '/intelligence-artificielle', icon: '🤖', titre: 'Intelligence artificielle', desc: 'Automatisation, transformation digitale, IA métier pour PME réunionnaises.' },
+];
+
+const solutions = [
+  { href: '/dolibarr', titre: 'Dolibarr ERP/CRM', desc: 'Déploiement, paramétrage, formation et support Dolibarr pour PME.' },
+  { href: '/microsoft-365', titre: 'Microsoft 365', desc: 'Migration, licences, Teams, SharePoint, sécurisation Exchange.' },
+  { href: '/infogerance-la-reunion', titre: 'Infogérance La Réunion', desc: 'Prestataire IT local, intervention terrain sur toute l\'île.' },
+  { href: '/informaticien-la-reunion', titre: 'Informaticien La Réunion', desc: 'Dépannage, réparation, assistance informatique à domicile ou en entreprise.' },
+  { href: '/maintenance-tpe', titre: 'Maintenance TPE', desc: 'Support bureautique, dépannage rapide, contrat adapté aux TPE.' },
+  { href: '/audit-entreprise', titre: 'Audit entreprise', desc: 'Évaluation complète de votre système d\'information.' },
+];
+---
+<Layout title="Nos Services IT — Gigarun La Réunion" description="Découvrez les 12 services informatiques de Gigarun pour les TPE et PME réunionnaises : infogérance, cybersécurité, cloud, réseau, sauvegarde et plus.">
+
+<!-- HERO -->
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:60vh;">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 pt-36 pb-16 w-full flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8 rounded-full">
+      <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">Nos Services IT · La Réunion</span>
+    </div>
+    <h1 class="font-syne font-extrabold leading-tight text-[#F1F0F7] mb-5" style="font-size:clamp(36px,5vw,64px);">
+      Nos Services IT<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">pour entreprises à La Réunion</span>
+    </h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
+      Une gamme complète de solutions informatiques pour accompagner votre croissance, sécuriser vos données et piloter votre SI.
+    </p>
+    <!-- Badges -->
+    <div class="flex flex-wrap gap-3 justify-center mb-14">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">12 expertises</span>
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">Support 6j/7</span>
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">100% local Réunion</span>
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">Intervention sous 4h</span>
+    </div>
+    <!-- Stats -->
+    <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">15+</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Années d'expérience</span>
+      </div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">100+</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Clients actifs</span>
+      </div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">4h</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Délai intervention</span>
+      </div>
+      <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
+      <div class="flex flex-col items-center">
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">5★</span>
+        <span class="text-[#9B99AA] text-sm mt-1">Satisfaction client</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA rapide -->
+<div class="bg-[#0A0022] py-6 border-y border-[rgba(124,58,237,0.1)]">
+  <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
+    <p class="text-[#9B99AA] text-sm">Vous ne savez pas par où commencer ? On fait le point ensemble en 30 minutes.</p>
+    <div class="flex gap-3">
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white text-sm font-medium px-5 py-2 rounded-full transition-colors">
+        0692 31 11 91
+      </a>
+      <a href="/contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2 rounded-full transition-colors">
+        Diagnostic gratuit
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- GRILLE SERVICES -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(24px,3vw,38px);">Nos 12 domaines d'expertise</h2>
+      <p class="text-[#9B99AA]">Des solutions adaptées aux TPE et PME réunionnaises.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {services.map(s => (
+        <a href={s.href} class="group bg-[#0D0028] border border-[rgba(124,58,237,0.15)] hover:border-[rgba(124,58,237,0.4)] rounded-2xl p-6 flex flex-col transition-all duration-200 hover:bg-[#110833]">
+          <div class="text-3xl mb-4">{s.icon}</div>
+          <h3 class="font-syne font-semibold text-[#F1F0F7] text-lg mb-2 group-hover:text-[#7C3AED] transition-colors">{s.titre}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed flex-1">{s.desc}</p>
+          <div class="mt-4 flex items-center gap-1.5 text-[#7C3AED] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            Découvrir
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS MÉTIER -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(24px,3vw,38px);">Solutions métier & expertise locale</h2>
+      <p class="text-[#9B99AA]">Pages spécialisées pour les entreprises réunionnaises.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {solutions.map(s => (
+        <a href={s.href} class="group flex items-start gap-3 bg-[#0D0028] border border-[rgba(6,182,212,0.12)] hover:border-[rgba(6,182,212,0.35)] rounded-xl p-4 transition-all">
+          <div class="w-2 h-2 rounded-full bg-[#06B6D4] flex-shrink-0 mt-1.5"></div>
+          <div>
+            <div class="text-[#F1F0F7] text-sm font-medium group-hover:text-[#06B6D4] transition-colors">{s.titre}</div>
+            <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">{s.desc}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-2xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,3vw,36px);">Quel service correspond à votre besoin ?</h2>
+    <p class="text-[#9B99AA] mb-8">Un échange de 30 minutes suffit pour cadrer votre projet et chiffrer une solution adaptée.</p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="/contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-7 py-3 rounded-full transition-colors">
+        Lancer mon diagnostic gratuit
+      </a>
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-7 py-3 rounded-full transition-colors">
+        0692 31 11 91
+      </a>
+    </div>
+  </div>
+</section>
+
+</Layout>

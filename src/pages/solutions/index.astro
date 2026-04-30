@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const solutions = [
+  { href: '/dolibarr', icon: '📊', titre: 'Dolibarr ERP/CRM', desc: 'Déploiement, paramétrage, formation et support Dolibarr ERP/CRM pour PME réunionnaises. Facturation, ventes, stocks, RH — hébergé localement.', badge: 'ERP' },
+  { href: '/microsoft-365', icon: '📧', titre: 'Microsoft 365', desc: 'Migration, gestion des licences, Teams, SharePoint, Exchange sécurisé. Accompagnement complet pour votre transition vers le cloud Microsoft.', badge: 'Cloud' },
+  { href: '/infogerance-la-reunion', icon: '📍', titre: 'Infogérance La Réunion', desc: "Prestataire IT local, intervention terrain sur toute l'île. Contrats sur mesure, SLA garanti, technicien dédié à votre entreprise.", badge: 'Local' },
+  { href: '/informaticien-la-reunion', icon: '🔧', titre: 'Informaticien La Réunion', desc: "Dépannage, réparation, assistance informatique à domicile ou en entreprise. Intervention rapide partout à La Réunion.", badge: 'Terrain' },
+  { href: '/maintenance-tpe', icon: '⚙️', titre: 'Maintenance TPE', desc: "Support bureautique adapté aux TPE : dépannage rapide, contrat sans engagement, technicien de confiance qui connaît votre environnement.", badge: 'TPE' },
+  { href: '/audit-entreprise', icon: '🔍', titre: 'Audit entreprise', desc: "Évaluation complète de votre système d'information : infrastructure, sécurité, usages, conformité. Livrable actionnable sous 5 jours.", badge: 'Audit' },
+  { href: '/hebergement', icon: '🏗️', titre: 'Hébergement serveur', desc: "Serveurs dédiés, virtualisation Hyper-V, NAS entreprise, datacenter local. Haute disponibilité et souveraineté des données garanties.", badge: 'Infra' },
+  { href: '/location-materiel', icon: '💻', titre: 'Location matériel', desc: "Parc informatique en leasing : postes, serveurs, équipements réseau. Renouvellement géré, zéro investissement initial, tout inclus.", badge: 'Leasing' },
+  { href: '/creation-site', icon: '🎨', titre: 'Création de site web', desc: "Sites vitrine, e-commerce, applications métier. SEO local Réunion, design moderne, hébergement inclus.", badge: 'Web' },
+  { href: '/intelligence-artificielle', icon: '🤖', titre: 'Intelligence artificielle', desc: "Automatisation de processus, chatbots métier, analyse de données. Transformation digitale pragmatique pour PME réunionnaises.", badge: 'IA' },
+];
+---
+<Layout title="Toutes nos Solutions IT — Gigarun La Réunion" description="Solutions informatiques Gigarun pour TPE et PME réunionnaises : Dolibarr ERP, Microsoft 365, infogérance locale, maintenance, hébergement, IA et plus.">
+
+<!-- HERO -->
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:60vh;">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(6,182,212,0.12);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 pt-36 pb-16 w-full flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(6,182,212,0.35)] px-4 py-1.5 mb-8 rounded-full">
+      <span class="w-2 h-2 bg-[#06B6D4] rounded-full"></span>
+      <span class="text-[#9B99AA] text-sm font-medium tracking-wide">Nos Solutions · La Réunion</span>
+    </div>
+    <h1 class="font-syne font-extrabold leading-tight text-[#F1F0F7] mb-5" style="font-size:clamp(36px,5vw,64px);">
+      Toutes nos Solutions<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#06B6D4,#7C3AED);">pour votre entreprise</span>
+    </h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed max-w-xl mb-10">
+      ERP, cloud, hébergement, IA, maintenance — des solutions concrètes, déployées localement, adaptées aux réalités des PME réunionnaises.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center mb-14">
+      <span class="bg-[#110833] border border-[rgba(6,182,212,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">10 solutions</span>
+      <span class="bg-[#110833] border border-[rgba(6,182,212,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">Déploiement local</span>
+      <span class="bg-[#110833] border border-[rgba(6,182,212,0.3)] text-[#9B99AA] text-sm px-4 py-1.5 rounded-full">Accompagnement inclus</span>
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="/contact" class="inline-flex items-center gap-2 bg-[#06B6D4] hover:bg-[#0891B2] text-white font-medium px-6 py-3 rounded-full transition-colors">
+        Étude de projet gratuite
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.25)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">
+        0692 31 11 91
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GRILLE SOLUTIONS -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3" style="font-size:clamp(24px,3vw,38px);">Toutes nos solutions</h2>
+      <p class="text-[#9B99AA]">Chaque solution est déployée et supportée par nos techniciens sur place.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {solutions.map(s => (
+        <a href={s.href} class="group bg-[#0D0028] border border-[rgba(6,182,212,0.12)] hover:border-[rgba(6,182,212,0.4)] rounded-2xl p-6 flex flex-col transition-all duration-200 hover:bg-[#0A0A2E]">
+          <div class="flex items-start justify-between mb-4">
+            <div class="text-3xl">{s.icon}</div>
+            <span class="text-[10px] font-semibold text-[#06B6D4] bg-[rgba(6,182,212,0.1)] border border-[rgba(6,182,212,0.2)] px-2 py-0.5 rounded-full uppercase tracking-wide">{s.badge}</span>
+          </div>
+          <h3 class="font-syne font-semibold text-[#F1F0F7] text-lg mb-2 group-hover:text-[#06B6D4] transition-colors">{s.titre}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed flex-1">{s.desc}</p>
+          <div class="mt-4 flex items-center gap-1.5 text-[#06B6D4] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            En savoir plus
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-2xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,3vw,36px);">Une solution sur mesure pour votre projet</h2>
+    <p class="text-[#9B99AA] mb-8">30 minutes d'échange pour cadrer votre besoin et vous proposer une solution adaptée à votre budget.</p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="/contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-7 py-3 rounded-full transition-colors">
+        Lancer mon projet
+      </a>
+      <a href="/services" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-7 py-3 rounded-full transition-colors">
+        Voir tous les services
+      </a>
+    </div>
+  </div>
+</section>
+
+</Layout>
