@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -44,5 +45,6 @@ const {
     <slot />
   </main>
   <Footer />
+  <CookieBanner />
 </body>
 </html>
