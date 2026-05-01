@@ -122,33 +122,33 @@ Chat privé (1:1 / groupe) | OneDrive de l'expéditeur              | Participan
 
 <style>
 
-    :root&#123;--accent:#2b6cb0;--muted:#6b7280;--bg:#f7fafc;--card:#ffffff&#125;
-    body&#123;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:#0f172a; margin:0&#125;
-    header, footer&#123;background:linear-gradient(90deg,var(--accent),#6ea5d8); color:white; padding:18px 24px&#125;
-    .wrap&#123;max-width:1000px;margin:28px auto;padding:0 18px&#125;
-    h1&#123;margin:0 0 6px;font-size:20px&#125;
-    p.lead&#123;margin:0;color:#e6f0fb&#125;
-    .coords&#123;margin-top:10px;font-size:14px;opacity:0.95&#125;
-    .card&#123;background:var(--card);border-radius:12px;padding:18px;margin:18px 0;box-shadow:0 6px 18px rgba(15,23,42,0.06)&#125;
-    h2&#123;color:#0f172a;margin-top:0&#125;
-    ul&#123;line-height:1.6&#125;
-    pre&#123;background:#0b1220;color:#dbeafe;padding:12px;border-radius:8px;overflow:auto&#125;
-    .grid&#123;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px&#125;
-    .badge&#123;display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:600;font-size:13px&#125;
-    footer&#123;font-size:14px;text-align:center&#125;
-    .back-home&#123;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--accent);color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s&#125;
-    .back-home:hover&#123;transform:translateY(-2px);box-shadow:0 4px 12px rgba(43,108,176,0.4)&#125;
-    .back-bar&#123;max-width:1000px;margin:0 auto;padding:20px 18px 0&#125;
-    #scrollTop&#123;position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center&#125;
-    #scrollTop.visible&#123;opacity:1;visibility:visible&#125;
-    #scrollTop:hover&#123;transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)&#125;
-    @media print&#123;.back-bar,#scrollTop&#123;display:none&#125;&#125;
-    a&#123;color:var(--accent);text-decoration:none&#125;
-    .note&#123;font-size:13px;color:var(--muted)&#125;
+    :root{--accent:#2b6cb0;--muted:#6b7280;--bg:#f7fafc;--card:#ffffff}
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:#0f172a; margin:0}
+    header, footer{background:linear-gradient(90deg,var(--accent),#6ea5d8); color:white; padding:18px 24px}
+    .wrap{max-width:1000px;margin:28px auto;padding:0 18px}
+    h1{margin:0 0 6px;font-size:20px}
+    p.lead{margin:0;color:#e6f0fb}
+    .coords{margin-top:10px;font-size:14px;opacity:0.95}
+    .card{background:var(--card);border-radius:12px;padding:18px;margin:18px 0;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h2{color:#0f172a;margin-top:0}
+    ul{line-height:1.6}
+    pre{background:#0b1220;color:#dbeafe;padding:12px;border-radius:8px;overflow:auto}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:600;font-size:13px}
+    footer{font-size:14px;text-align:center}
+    .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--accent);color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+    .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(43,108,176,0.4)}
+    .back-bar{max-width:1000px;margin:0 auto;padding:20px 18px 0}
+    #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+    #scrollTop.visible{opacity:1;visibility:visible}
+    #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+    @media print{.back-bar,#scrollTop{display:none}}
+    a{color:var(--accent);text-decoration:none}
+    .note{font-size:13px;color:var(--muted)}
   
 /* Corrections d'intégration */
-#guide-wrapper body &#123; background: none !important; padding: 0 !important; &#125;
-#guide-wrapper .main-header &#123; display: none !important; &#125;
-#guide-wrapper .container &#123; border-radius: 0 !important; box-shadow: none !important; &#125;
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
 </Layout>

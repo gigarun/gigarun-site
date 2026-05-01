@@ -418,87 +418,87 @@ UPDATE llx_const SET value = '0' WHERE name = 'MAIN_MAIL_DEBUG';</code></pre>
 
 <style>
 
-        *&#123;margin:0;padding:0;box-sizing:border-box&#125;
-        body&#123;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8eaf6 0%,#c5cae9 100%);padding:20px&#125;
-        .main-header&#123;background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)&#125;
-        .header-container&#123;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px&#125;
-        .logo-section&#123;display:flex;align-items:center;gap:15px&#125;
-        .company-info&#123;display:flex;align-items:center;gap:10px&#125;
-        .company-tagline&#123;font-size:0.9em;opacity:0.9&#125;
-        .contact-header&#123;display:flex;align-items:center;gap:30px&#125;
-        .contact-item&#123;font-size:0.9em;opacity:0.95&#125;
-        .container&#123;max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden&#125;
-        .header&#123;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;padding:40px;text-align:center&#125;
-        .header h1&#123;font-size:2.2em;margin-bottom:10px&#125;
-        .header p&#123;font-size:1.15em;opacity:0.9&#125;
-        .header .version-badge&#123;display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);padding:6px 18px;border-radius:25px;font-size:0.85em;margin-top:12px;letter-spacing:0.5px&#125;
-        .content&#123;padding:40px&#125;
-        .section&#123;margin-bottom:50px&#125;
-        .section h2&#123;color:#1565c0;font-size:1.8em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #1565c0&#125;
-        .section h3&#123;color:#1565c0;font-size:1.3em;margin-top:25px;margin-bottom:12px&#125;
-        .alert&#123;padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px&#125;
-        .alert-info&#123;background:#e7f5ff;border-left:5px solid #0d6efd&#125;
-        .alert-warning&#123;background:#fff3cd;border-left:5px solid #ffc107&#125;
-        .alert-success&#123;background:#d1e7dd;border-left:5px solid #198754&#125;
-        .alert-danger&#123;background:#f8d7da;border-left:5px solid #dc3545&#125;
-        .alert-icon&#123;font-size:2em;min-width:40px&#125;
-        .step&#123;display:flex;align-items:flex-start;margin-bottom:25px;padding:20px;background:#f8f9fa;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s&#125;
-        .step:hover&#123;transform:translateY(-3px);box-shadow:0 5px 20px rgba(0,0,0,0.1)&#125;
-        .step-number&#123;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:bold;margin-right:18px;flex-shrink:0;box-shadow:0 4px 10px rgba(21,101,192,0.3)&#125;
-        .step-content&#123;flex:1&#125;
-        .step-content h4&#123;color:#1565c0;margin-bottom:8px;font-size:1.15em&#125;
-        .step-content p&#123;color:#555;line-height:1.7&#125;
-        table&#123;width:100%;border-collapse:collapse;margin:20px 0;box-shadow:0 2px 15px rgba(0,0,0,0.08);border-radius:10px;overflow:hidden&#125;
-        thead&#123;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white&#125;
-        th&#123;padding:14px 18px;text-align:left;font-size:1em&#125;
-        td&#123;padding:12px 18px;border-bottom:1px solid #eee&#125;
-        tbody tr:nth-child(even)&#123;background:#f9f9f9&#125;
-        tbody tr:hover&#123;background:#e3f2fd&#125;
-        code&#123;background:#e9ecef;padding:2px 8px;border-radius:4px;font-family:'Courier New',monospace;color:#1565c0;font-size:0.9em&#125;
-        pre&#123;background:#1e293b;color:#e2e8f0;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.9em;line-height:1.7;position:relative&#125;
-        pre code&#123;background:none;color:#e2e8f0;padding:0&#125;
-        .copy-btn&#123;position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.15);color:#94a3b8;border:1px solid rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;font-size:0.8em;cursor:pointer;transition:background 0.2s,color 0.2s&#125;
-        .copy-btn:hover&#123;background:rgba(255,255,255,0.25);color:white&#125;
-        .copy-btn.copied&#123;background:#198754;color:white;border-color:#198754&#125;
-        .flow-diagram&#123;background:#f8f9fa;border:1px solid #e0e0e0;border-radius:10px;padding:25px;margin:20px 0&#125;
-        .flow-step&#123;display:flex;align-items:flex-start;margin-bottom:6px&#125;
-        .flow-num&#123;min-width:34px;height:34px;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85em;margin-right:14px;flex-shrink:0&#125;
-        .flow-arrow&#123;text-align:center;color:#aaa;font-size:1.3em;margin:3px 0 3px 12px&#125;
-        .badge&#123;display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.82em;font-weight:600;color:white&#125;
-        .badge-ok&#123;background:#198754&#125;
-        .badge-ko&#123;background:#dc3545&#125;
-        .badge-warn&#123;background:#ffc107;color:#333&#125;
-        .toc&#123;background:#f0f4ff;border-radius:10px;padding:25px 30px;margin:25px 0&#125;
-        .toc h3&#123;color:#1565c0;margin-bottom:12px;font-size:1.15em&#125;
-        .toc ol&#123;padding-left:22px&#125;
-        .toc li&#123;margin:6px 0&#125;
-        .toc a&#123;color:#1565c0;text-decoration:none;font-weight:500&#125;
-        .toc a:hover&#123;text-decoration:underline&#125;
-        .back-bar&#123;text-align:center;margin:15px 0 0&#125;
-        .back-bar a&#123;color:#1565c0;text-decoration:none;font-weight:600;font-size:0.95em&#125;
-        .back-bar a:hover&#123;text-decoration:underline&#125;
-        .main-footer&#123;background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px&#125;
-        .footer-container&#123;max-width:1200px;margin:0 auto;padding:0 20px&#125;
-        .footer-content&#123;display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap&#125;
-        .footer-section&#123;flex:1;min-width:200px&#125;
-        .footer-section h4&#123;color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px&#125;
-        .footer-section ul&#123;list-style:none;padding:0&#125;
-        .footer-section li&#123;padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)&#125;
-        .footer-section a&#123;color:#bdc3c7;text-decoration:none;transition:color 0.3s&#125;
-        .footer-section a:hover&#123;color:#3498db&#125;
-        .footer-bottom&#123;border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7&#125;
-        .footer-logo&#123;display:flex;align-items:center;gap:10px;margin-bottom:15px&#125;
-        .progress-bar&#123;position:fixed;top:0;left:0;width:100%;height:4px;z-index:9999;background:rgba(0,0,0,0.1)&#125;
-        .progress-fill&#123;height:100%;background:linear-gradient(90deg,#1565c0,#1e88e5);width:0%;transition:width 0.1s&#125;
-        #scrollTop&#123;position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center&#125;
-        #scrollTop.visible&#123;opacity:1;visibility:visible&#125;
-        #scrollTop:hover&#123;transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)&#125;
-        @media(max-width:700px)&#123;.header h1&#123;font-size:1.5em&#125;.content&#123;padding:20px&#125;.header-container&#123;flex-direction:column;gap:10px&#125;.contact-header&#123;flex-direction:column;gap:5px&#125;.footer-content&#123;flex-direction:column&#125;&#125;
-        @media print&#123;body&#123;background:white;padding:0&#125;.container&#123;box-shadow:none&#125;.back-bar,#scrollTop,.progress-bar,.copy-btn&#123;display:none&#125;.main-header,.main-footer&#123;break-inside:avoid&#125;&#125;
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8eaf6 0%,#c5cae9 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.2em;margin-bottom:10px}
+        .header p{font-size:1.15em;opacity:0.9}
+        .header .version-badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);padding:6px 18px;border-radius:25px;font-size:0.85em;margin-top:12px;letter-spacing:0.5px}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#1565c0;font-size:1.8em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #1565c0}
+        .section h3{color:#1565c0;font-size:1.3em;margin-top:25px;margin-bottom:12px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .step{display:flex;align-items:flex-start;margin-bottom:25px;padding:20px;background:#f8f9fa;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-3px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:bold;margin-right:18px;flex-shrink:0;box-shadow:0 4px 10px rgba(21,101,192,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#1565c0;margin-bottom:8px;font-size:1.15em}
+        .step-content p{color:#555;line-height:1.7}
+        table{width:100%;border-collapse:collapse;margin:20px 0;box-shadow:0 2px 15px rgba(0,0,0,0.08);border-radius:10px;overflow:hidden}
+        thead{background:linear-gradient(135deg,#1565c0,#1e88e5);color:white}
+        th{padding:14px 18px;text-align:left;font-size:1em}
+        td{padding:12px 18px;border-bottom:1px solid #eee}
+        tbody tr:nth-child(even){background:#f9f9f9}
+        tbody tr:hover{background:#e3f2fd}
+        code{background:#e9ecef;padding:2px 8px;border-radius:4px;font-family:'Courier New',monospace;color:#1565c0;font-size:0.9em}
+        pre{background:#1e293b;color:#e2e8f0;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.9em;line-height:1.7;position:relative}
+        pre code{background:none;color:#e2e8f0;padding:0}
+        .copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.15);color:#94a3b8;border:1px solid rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;font-size:0.8em;cursor:pointer;transition:background 0.2s,color 0.2s}
+        .copy-btn:hover{background:rgba(255,255,255,0.25);color:white}
+        .copy-btn.copied{background:#198754;color:white;border-color:#198754}
+        .flow-diagram{background:#f8f9fa;border:1px solid #e0e0e0;border-radius:10px;padding:25px;margin:20px 0}
+        .flow-step{display:flex;align-items:flex-start;margin-bottom:6px}
+        .flow-num{min-width:34px;height:34px;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85em;margin-right:14px;flex-shrink:0}
+        .flow-arrow{text-align:center;color:#aaa;font-size:1.3em;margin:3px 0 3px 12px}
+        .badge{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.82em;font-weight:600;color:white}
+        .badge-ok{background:#198754}
+        .badge-ko{background:#dc3545}
+        .badge-warn{background:#ffc107;color:#333}
+        .toc{background:#f0f4ff;border-radius:10px;padding:25px 30px;margin:25px 0}
+        .toc h3{color:#1565c0;margin-bottom:12px;font-size:1.15em}
+        .toc ol{padding-left:22px}
+        .toc li{margin:6px 0}
+        .toc a{color:#1565c0;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+        .back-bar{text-align:center;margin:15px 0 0}
+        .back-bar a{color:#1565c0;text-decoration:none;font-weight:600;font-size:0.95em}
+        .back-bar a:hover{text-decoration:underline}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .progress-bar{position:fixed;top:0;left:0;width:100%;height:4px;z-index:9999;background:rgba(0,0,0,0.1)}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#1565c0,#1e88e5);width:0%;transition:width 0.1s}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        @media(max-width:700px){.header h1{font-size:1.5em}.content{padding:20px}.header-container{flex-direction:column;gap:10px}.contact-header{flex-direction:column;gap:5px}.footer-content{flex-direction:column}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop,.progress-bar,.copy-btn{display:none}.main-header,.main-footer{break-inside:avoid}}
     
 /* Corrections d'intégration */
-#guide-wrapper body &#123; background: none !important; padding: 0 !important; &#125;
-#guide-wrapper .main-header &#123; display: none !important; &#125;
-#guide-wrapper .container &#123; border-radius: 0 !important; box-shadow: none !important; &#125;
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
 </Layout>
