@@ -210,7 +210,85 @@
         </div>
 
         <a href="/a-propos" class="text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors">À propos</a>
-        <a href="/blog" class="text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors">Blog</a>
+        <!-- Mega-menu Articles -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors py-4">
+            Articles
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-[580px] bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl shadow-2xl shadow-[rgba(124,58,237,0.15)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 p-5">
+            <div class="grid grid-cols-2 gap-2 mb-4">
+
+              <a href="/blog?tab=cyber" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Cybersécurité</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Menaces, protection, NIS2, pentest</div>
+                </div>
+              </a>
+
+              <a href="/blog?tab=infogerance" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Infogérance</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Externalisation IT, support, gestion parc</div>
+                </div>
+              </a>
+
+              <a href="/blog?tab=infra" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Infrastructure & Cloud</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Réseau, stockage, sauvegarde, PRA</div>
+                </div>
+              </a>
+
+              <a href="/blog?tab=m365" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Microsoft 365</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Teams, Outlook, OneDrive, sécurité email</div>
+                </div>
+              </a>
+
+              <a href="/blog?tab=ia" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Intelligence artificielle</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">IA pour PME, Copilot, outils locaux</div>
+                </div>
+              </a>
+
+              <a href="/blog?tab=guides" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(6,182,212,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#06B6D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#06B6D4] transition-colors">Guides pratiques</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Pas-à-pas techniques pour vos équipes</div>
+                </div>
+              </a>
+
+            </div>
+            <div class="border-t border-[rgba(124,58,237,0.15)] pt-3 flex items-center justify-between">
+              <span class="text-[#9B99AA] text-xs">69 articles & guides</span>
+              <a href="/blog" class="flex items-center gap-1.5 text-[#7C3AED] hover:text-[#9B7AFF] text-sm font-medium transition-colors">
+                Tous les articles
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
         <a href="/contact" class="text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors">Contact</a>
       </nav>
 
@@ -258,7 +336,14 @@
       <a href="/audit-entreprise" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Audit entreprise</a>
       <div class="border-t border-[rgba(124,58,237,0.2)] my-3"></div>
       <a href="/a-propos" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">À propos</a>
-      <a href="/blog" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Blog</a>
+      <div class="text-[#7C3AED] text-xs font-semibold uppercase tracking-wider px-1 py-2 mt-3">Articles & Guides</div>
+      <a href="/blog" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Tous les articles</a>
+      <a href="/blog?tab=cyber" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-3">Cybersécurité</a>
+      <a href="/blog?tab=infogerance" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-3">Infogérance</a>
+      <a href="/blog?tab=infra" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-3">Infrastructure & Cloud</a>
+      <a href="/blog?tab=m365" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-3">Microsoft 365</a>
+      <a href="/blog?tab=ia" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-3">Intelligence artificielle</a>
+      <a href="/blog?tab=guides" class="text-[rgba(241,240,247,0.7)] hover:text-[#06B6D4] text-sm py-1.5 px-3">📘 Guides pratiques</a>
       <a href="/contact" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Contact</a>
       <a href="/contact" class="bg-[#7C3AED] text-white text-sm font-medium px-5 py-2.5 text-center mt-3 rounded-full block">
         Diagnostic gratuit

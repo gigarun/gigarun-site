@@ -157,7 +157,14 @@ function filterAndRender(cats, types) {
 }
 
 // Init : afficher tout
-renderItems(ALL_ITEMS);
+// Activer onglet depuis URL ?tab=
+const urlTab = new URLSearchParams(window.location.search).get('tab');
+if (urlTab) {
+  const target = document.querySelector(`.tab-btn[data-tab="${urlTab}"]`);
+  if (target) target.click();
+} else {
+  renderItems(ALL_ITEMS);
+}
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
