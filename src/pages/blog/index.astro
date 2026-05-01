@@ -156,16 +156,7 @@ function filterAndRender(cats, types) {
   emptyEl.classList.toggle('hidden', items.length > 0);
 }
 
-// Init : afficher tout
-// Activer onglet depuis URL ?tab=
-const urlTab = new URLSearchParams(window.location.search).get('tab');
-if (urlTab) {
-  const target = document.querySelector(`.tab-btn[data-tab="${urlTab}"]`);
-  if (target) target.click();
-} else {
-  renderItems(ALL_ITEMS);
-}
-
+// Init
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(t => {
@@ -181,6 +172,15 @@ tabs.forEach(tab => {
     filterAndRender(cats, types);
   });
 });
+
+// Activer onglet depuis URL ?tab=
+const urlTab = new URLSearchParams(window.location.search).get('tab');
+if (urlTab) {
+  const target = document.querySelector('.tab-btn[data-tab="' + urlTab + '"]');
+  if (target) target.click();
+} else {
+  renderItems(ALL_ITEMS);
+}
 
 // Bouton retour en haut
 const btn = document.getElementById('back-to-top');
