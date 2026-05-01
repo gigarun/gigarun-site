@@ -1,0 +1,609 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Guide Bonnes Pratiques OneDrive | Partage de fichiers s&eacute;curis&eacute; — Gigarun La Réunion" description="Guide complet OneDrive : partagez vos fichiers par lien s&eacute;curis&eacute; au lieu de pi&egrave;ces jointes, organisez vos dossiers, nommez vos fichiers et restez conforme RGPD">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Microsoft 365</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">Guide Bonnes Pratiques OneDrive | Partage de fichiers s&eacute;curis&eacute;</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Guide complet OneDrive : partagez vos fichiers par lien s&eacute;curis&eacute; au lieu de pi&egrave;ces jointes, organisez vos dossiers, nommez vos fichiers et restez conforme RGPD</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+
+<div class="container">
+    <div class="header">
+        <h1>Bonnes Pratiques OneDrive</h1>
+        <p>Partagez vos fichiers par lien s&eacute;curis&eacute; &mdash; plus fiable, plus conforme, plus professionnel</p>
+    </div>
+    <div class="content">
+
+        <!-- SECTION 1 : Pourquoi -->
+        <div class="section">
+            <h2>Pourquoi arr&ecirc;ter les pi&egrave;ces jointes ?</h2>
+            <p>Envoyer un fichier en pi&egrave;ce jointe par email peut sembler simple, mais cette pratique g&eacute;n&egrave;re des probl&egrave;mes concrets :</p>
+
+            <div class="kpi-grid">
+                <div class="kpi-box">
+                    <span class="value">25 Mo</span>
+                    <span class="label">Limite de taille par email dans Microsoft 365</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">Blocage</span>
+                    <span class="label">Les serveurs Yahoo, Orange, Free rejettent r&eacute;guli&egrave;rement les PJ volumineuses</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">x5</span>
+                    <span class="label">Un m&ecirc;me fichier envoy&eacute; &agrave; 5 personnes = 5 copies qui encombrent les bo&icirc;tes</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">RGPD</span>
+                    <span class="label">Aucun contr&ocirc;le sur un fichier une fois envoy&eacute; en PJ</span>
+                </div>
+            </div>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Cas r&eacute;el :</strong> Un email avec un PDF scann&eacute; envoy&eacute; vers une adresse Yahoo est rejet&eacute; apr&egrave;s 4 tentatives (erreur <code>451 Message temporarily deferred</code>). Le fichier n'arrive jamais. Chaque renvoi d&eacute;grade la r&eacute;putation du domaine exp&eacute;diteur et aggrave la situation.</div>
+            </div>
+
+            <h3>Lien OneDrive vs Pi&egrave;ce jointe : le comparatif</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Crit&egrave;re</th><th class="bad">Pi&egrave;ce jointe classique</th><th class="good">Lien OneDrive</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Taille du fichier</strong></td><td>Limit&eacute; &agrave; 25 Mo</td><td class="good">Jusqu'&agrave; 250 Go</td></tr>
+                    <tr><td><strong>D&eacute;livrabilit&eacute;</strong></td><td class="bad">Bloqu&eacute; par Yahoo, Orange, Free...</td><td class="good">Aucun blocage (c'est un lien texte)</td></tr>
+                    <tr><td><strong>Version du fichier</strong></td><td>Statique (copie fig&eacute;e)</td><td class="good">Toujours la derni&egrave;re version</td></tr>
+                    <tr><td><strong>Contr&ocirc;le d'acc&egrave;s</strong></td><td class="bad">Aucun (le fichier est chez le destinataire)</td><td class="good">Lecture seule, expiration, r&eacute;vocation</td></tr>
+                    <tr><td><strong>Conformit&eacute; RGPD</strong></td><td class="bad">Impossible de supprimer apr&egrave;s envoi</td><td class="good">R&eacute;vocable &agrave; tout moment</td></tr>
+                    <tr><td><strong>Stockage</strong></td><td>Duplique dans chaque bo&icirc;te mail</td><td class="good">Un seul fichier, z&eacute;ro duplication</td></tr>
+                    <tr><td><strong>Image professionnelle</strong></td><td>Standard</td><td class="good">Niveau entreprise mature</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 2 : Procédure Outlook -->
+        <div class="section">
+            <h2>Proc&eacute;dure : envoyer un fichier via OneDrive depuis Outlook</h2>
+            <p>C'est la m&eacute;thode recommand&eacute;e par Microsoft. Le fichier n'est plus transport&eacute; par SMTP &mdash; le destinataire re&ccedil;oit un lien s&eacute;curis&eacute;.</p>
+
+            <h3>M&eacute;thode 1 &mdash; Depuis Outlook (la plus simple)</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>R&eacute;diger le mail sans pi&egrave;ce jointe</h4>
+                        <p>Ouvrez Outlook et cr&eacute;ez un nouveau message. R&eacute;digez le corps du mail normalement. <strong>Ne joignez pas encore le fichier.</strong></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Cliquer sur &laquo; Joindre un fichier &raquo;</h4>
+                        <p>Dans la barre d'outils du message, cliquez sur <strong>Joindre un fichier</strong> (ic&ocirc;ne trombone). S&eacute;lectionnez :<br>
+                        &bull; <strong>Parcourir les emplacements cloud</strong> &rarr; choisissez le fichier dans votre OneDrive<br>
+                        &bull; Ou <strong>Parcourir ce PC</strong> &rarr; le fichier sera automatiquement t&eacute;l&eacute;vers&eacute; dans OneDrive</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Choisir &laquo; Partager en tant que lien OneDrive &raquo;</h4>
+                        <p>Outlook vous propose deux options. Choisissez <strong>Partager en tant que lien OneDrive</strong> (et non &laquo; Joindre en tant que copie &raquo;). Si cette option n'appara&icirc;t pas, cliquez sur la fl&egrave;che &agrave; c&ocirc;t&eacute; du fichier attach&eacute;.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>V&eacute;rifier les param&egrave;tres du lien</h4>
+                        <p>Cliquez sur la petite fl&egrave;che ou l'ic&ocirc;ne de permission &agrave; c&ocirc;t&eacute; du fichier joint. V&eacute;rifiez :<br>
+                        &bull; <strong>Acc&egrave;s :</strong> Toute personne disposant du lien (pour les destinataires externes)<br>
+                        &bull; <strong>Autorisation :</strong> Peut afficher (lecture seule) &mdash; sauf si la modification est n&eacute;cessaire<br>
+                        &bull; <strong>Date d'expiration :</strong> Activez-la pour les documents sensibles (recommand&eacute; : 30 jours)</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Envoyer le message</h4>
+                        <p>Cliquez sur <strong>Envoyer</strong>. Le destinataire re&ccedil;oit un email l&eacute;ger contenant un lien cliquable vers le document. Il peut le consulter en ligne ou le t&eacute;l&eacute;charger.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div><strong>R&eacute;sultat :</strong> Le fichier n'est plus transport&eacute; par le protocole SMTP. Les serveurs de messagerie du destinataire (Yahoo, Orange, Free...) ne filtrent plus le contenu. Le message passe imm&eacute;diatement.</div>
+            </div>
+
+            <h3>M&eacute;thode 2 &mdash; D&eacute;poser d'abord dans OneDrive, puis g&eacute;n&eacute;rer le lien</h3>
+            <p>Cette m&eacute;thode est recommand&eacute;e quand vous devez partager le m&ecirc;me document &agrave; plusieurs reprises ou &agrave; plusieurs interlocuteurs diff&eacute;rents.</p>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>D&eacute;poser le fichier dans OneDrive</h4>
+                        <p>Ouvrez votre OneDrive (via l'Explorateur de fichiers ou <code>onedrive.com</code>). Placez le fichier dans un <strong>dossier d&eacute;di&eacute;</strong> avec un nommage clair (voir section suivante).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>G&eacute;n&eacute;rer un lien de partage</h4>
+                        <p>Faites un <strong>clic droit</strong> sur le fichier &rarr; <strong>Partager</strong> (ou <strong>Copier le lien</strong>).<br>
+                        Param&eacute;trez :<br>
+                        &bull; <strong>Toute personne disposant du lien</strong> (pour les contacts externes)<br>
+                        &bull; <strong>Peut afficher</strong> (lecture seule)<br>
+                        &bull; <strong>Date d'expiration</strong> et <strong>mot de passe</strong> si n&eacute;cessaire<br>
+                        Cliquez sur <strong>Copier le lien</strong>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Ins&eacute;rer le lien dans votre email</h4>
+                        <p>Collez le lien dans le corps de votre message avec une phrase d'accompagnement claire :</p>
+                        <div class="naming-example" style="font-family:'Segoe UI',sans-serif;font-style:italic;">
+                            &laquo; Vous pouvez consulter et t&eacute;l&eacute;charger le document via le lien s&eacute;curis&eacute; ci-dessous &raquo;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 : Organisation et nommage -->
+        <div class="section">
+            <h2>Organiser ses dossiers et nommer ses fichiers</h2>
+            <p>Un OneDrive bien rang&eacute; = des documents retrouv&eacute;s en secondes, des liens partageables imm&eacute;diatement, et une image professionnelle.</p>
+
+            <h3>Structure de dossiers recommand&eacute;e</h3>
+            <div class="naming-example">
+                OneDrive<br>
+                &nbsp;&nbsp;&#x251C; Clients/<br>
+                &nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x251C; Mon_Client_A/<br>
+                &nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x251C; Conges/<br>
+                &nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x251C; Contrats/<br>
+                &nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x2514; Courriers/<br>
+                &nbsp;&nbsp;&#x2502;&nbsp;&nbsp;&#x2514; Autre_Client/<br>
+                &nbsp;&nbsp;&#x251C; Projets/<br>
+                &nbsp;&nbsp;&#x251C; Mod&egrave;les/<br>
+                &nbsp;&nbsp;&#x2514; Archives/
+            </div>
+
+            <h3>R&egrave;gles de nommage des fichiers</h3>
+            <p>Un bon nom de fichier est <strong>explicite, sans espaces ni caract&egrave;res sp&eacute;ciaux</strong> :</p>
+
+            <div class="vs-grid">
+                <div class="vs-box vs-bad">
+                    <h4 class="bad">&#x2718; &Agrave; &eacute;viter</h4>
+                    <ul style="margin-left:20px;line-height:2;">
+                        <li><code>scan001.pdf</code></li>
+                        <li><code>doc final (2).docx</code></li>
+                        <li><code>cong&eacute; mme T.pdf</code></li>
+                        <li><code>Nouveau Document.pdf</code></li>
+                    </ul>
+                </div>
+                <div class="vs-box vs-good">
+                    <h4 class="good">&#x2714; Bonnes pratiques</h4>
+                    <ul style="margin-left:20px;line-height:2;">
+                        <li><code>Conge_Mme_Martin_Sophie.pdf</code></li>
+                        <li><code>Contrat_Location_Durand_2026-02.pdf</code></li>
+                        <li><code>Facture_GiGaRuN_2026-001.pdf</code></li>
+                        <li><code>PV_AG_2026-01-15.pdf</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4CB;</div>
+                <div><strong>Convention recommand&eacute;e :</strong><br>
+                <code>Type_Nom_Prenom_Date.extension</code><br>
+                &bull; Utilisez des underscores <code>_</code> au lieu des espaces<br>
+                &bull; &Eacute;vitez les accents et caract&egrave;res sp&eacute;ciaux (&#xE9; &#xE8; &#xE0; &#xE7; &amp; #)<br>
+                &bull; Ajoutez la date au format <code>AAAA-MM</code> ou <code>AAAA-MM-JJ</code> quand c'est pertinent</div>
+            </div>
+        </div>
+
+        <!-- SECTION 4 : Paramètres de partage -->
+        <div class="section">
+            <h2>Param&egrave;tres de partage : choisir les bons droits</h2>
+            <p>OneDrive propose plusieurs niveaux d'acc&egrave;s. Choisissez le plus restrictif adapt&eacute; &agrave; votre besoin.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Type de lien</th><th>Qui peut acc&eacute;der</th><th>Quand l'utiliser</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Toute personne disposant du lien</strong></td>
+                        <td>N'importe qui avec le lien (pas besoin de compte Microsoft)</td>
+                        <td>Envoi &agrave; un client externe, un partenaire, un particulier</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personnes de votre organisation</strong></td>
+                        <td>Uniquement les coll&egrave;gues avec un compte dans votre tenant M365</td>
+                        <td>Partage interne, documents de travail</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personnes d&eacute;j&agrave; autoris&eacute;es</strong></td>
+                        <td>Uniquement ceux &agrave; qui vous avez d&eacute;j&agrave; donn&eacute; l'acc&egrave;s</td>
+                        <td>Renvoyer un lien sans &eacute;largir les droits</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personnes sp&eacute;cifiques</strong></td>
+                        <td>Uniquement les adresses email indiqu&eacute;es</td>
+                        <td>Document confidentiel, donn&eacute;es sensibles</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Permissions</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Permission</th><th>Ce que le destinataire peut faire</th><th>Recommandation</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Peut afficher</strong></td><td>Consulter et t&eacute;l&eacute;charger uniquement</td><td class="good">Par d&eacute;faut pour tout envoi externe</td></tr>
+                    <tr><td><strong>Peut modifier</strong></td><td>Modifier le fichier directement</td><td>Uniquement pour la co-&eacute;dition avec des coll&egrave;gues</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Options de s&eacute;curit&eacute; avanc&eacute;es</h3>
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x1F512;</div>
+                <div>
+                    <strong>Date d'expiration :</strong> D&eacute;finissez une dur&eacute;e de validit&eacute; du lien (7, 30 ou 90 jours selon le besoin). Le lien devient automatiquement inaccessible apr&egrave;s cette date.<br><br>
+                    <strong>Mot de passe :</strong> Ajoutez un mot de passe au lien pour les documents tr&egrave;s sensibles. Communiquez le mot de passe par un autre canal (t&eacute;l&eacute;phone, SMS).<br><br>
+                    <strong>Bloquer le t&eacute;l&eacute;chargement :</strong> Emp&ecirc;chez le destinataire de t&eacute;l&eacute;charger le fichier &mdash; il ne peut que le consulter en ligne.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 : Synchronisation -->
+        <div class="section">
+            <h2>Synchroniser OneDrive sur votre PC</h2>
+            <p>OneDrive synchronise automatiquement vos fichiers entre votre PC et le cloud. Cela signifie que vos documents sont accessibles <strong>m&ecirc;me hors connexion</strong> et toujours sauvegard&eacute;s.</p>
+
+            <h3>V&eacute;rifier que OneDrive est actif</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>V&eacute;rifier l'ic&ocirc;ne OneDrive</h4>
+                        <p>Cherchez l'ic&ocirc;ne en forme de <strong>nuage bleu</strong> dans la barre des t&acirc;ches (en bas &agrave; droite, pr&egrave;s de l'horloge). Si elle est grise ou barr&eacute;e, OneDrive n'est pas connect&eacute;.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Se connecter si n&eacute;cessaire</h4>
+                        <p>Cliquez sur l'ic&ocirc;ne &rarr; <strong>Se connecter</strong>. Entrez votre adresse email professionnelle et votre mot de passe Microsoft 365.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Acc&eacute;der &agrave; vos fichiers</h4>
+                        <p>Vos fichiers OneDrive apparaissent dans l'<strong>Explorateur de fichiers</strong> Windows, sous <strong>OneDrive - [Nom de votre entreprise]</strong>. Travaillez dessus comme sur n'importe quel fichier local.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Fichiers &agrave; la demande</h3>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x2601;</div>
+                <div>
+                    <strong>Ic&ocirc;nes dans l'Explorateur :</strong><br>
+                    &bull; <strong>Nuage bleu :</strong> Fichier disponible uniquement en ligne (ne prend pas de place sur le disque)<br>
+                    &bull; <strong>Coche verte :</strong> Fichier t&eacute;l&eacute;charg&eacute; localement (disponible hors connexion)<br>
+                    &bull; <strong>Coche verte pleine :</strong> Fichier &laquo; Toujours garder sur cet appareil &raquo;<br><br>
+                    Clic droit sur un fichier &rarr; <strong>Toujours garder sur cet appareil</strong> pour le rendre disponible hors connexion en permanence.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6 : Bonnes pratiques quotidiennes -->
+        <div class="section">
+            <h2>Bonnes pratiques au quotidien</h2>
+
+            <h3>Les 7 r&egrave;gles d'or</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Toujours envoyer un lien, jamais une pi&egrave;ce jointe</h4>
+                        <p>Que ce soit un PDF, un document Word ou une image. Le lien OneDrive est plus fiable, plus l&eacute;ger et contr&ocirc;lable.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Nommer explicitement chaque fichier avant de le partager</h4>
+                        <p>Un fichier nomm&eacute; <code>Conge_Mme_Martin_Sophie.pdf</code> inspire confiance. Un fichier nomm&eacute; <code>scan003.pdf</code> finit &agrave; la corbeille.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Ranger dans un dossier d&eacute;di&eacute; avant de partager</h4>
+                        <p>Ne partagez pas un fichier depuis la racine ou le Bureau. D&eacute;posez-le dans un dossier client/projet structur&eacute; dans votre OneDrive.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Choisir &laquo; Lecture seule &raquo; par d&eacute;faut</h4>
+                        <p>N'accordez le droit de modification que si le destinataire doit r&eacute;ellement &eacute;diter le document. Dans le doute : lecture seule.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Activer une date d'expiration pour les documents sensibles</h4>
+                        <p>Bulletins de salaire, documents juridiques, donn&eacute;es personnelles : le lien doit expirer. 30 jours est un bon d&eacute;faut.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Ne jamais renvoyer un fichier qui a &eacute;chou&eacute; en PJ</h4>
+                        <p>Si un email avec pi&egrave;ce jointe est rejet&eacute;, ne renvoyez pas. Chaque tentative d&eacute;grade la r&eacute;putation de votre domaine. Passez au lien OneDrive.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h4>Accompagner le lien d'une phrase claire</h4>
+                        <p>Le destinataire doit comprendre ce qu'il re&ccedil;oit. Ajoutez toujours une phrase d'accompagnement dans le corps du mail :</p>
+                        <div class="naming-example" style="font-family:'Segoe UI',sans-serif;font-style:italic;">
+                            &laquo; Vous pouvez consulter et t&eacute;l&eacute;charger le document via le lien s&eacute;curis&eacute; ci-dessous &raquo;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7 : Gérer les partages existants -->
+        <div class="section">
+            <h2>G&eacute;rer et r&eacute;voquer les partages</h2>
+            <p>Contrairement &agrave; une pi&egrave;ce jointe, un lien OneDrive peut &ecirc;tre r&eacute;voqu&eacute; &agrave; tout moment.</p>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Voir les fichiers partag&eacute;s</h4>
+                        <p>Ouvrez <code>onedrive.com</code> &rarr; cliquez sur <strong>Partag&eacute;s</strong> dans le menu de gauche &rarr; onglet <strong>Partag&eacute;s par vous</strong>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Modifier ou supprimer un partage</h4>
+                        <p>Clic droit sur le fichier &rarr; <strong>G&eacute;rer l'acc&egrave;s</strong>. Vous pouvez :<br>
+                        &bull; Supprimer un lien de partage (le lien ne fonctionne plus)<br>
+                        &bull; Modifier les permissions (passer de modification &agrave; lecture seule)<br>
+                        &bull; Ajouter ou retirer des personnes sp&eacute;cifiques</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x1F6E1;</div>
+                <div><strong>Bonne habitude :</strong> Une fois par mois, consultez la liste des fichiers partag&eacute;s et r&eacute;voquez les liens qui ne sont plus n&eacute;cessaires. C'est une bonne pratique RGPD.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 8 : Accès mobile -->
+        <div class="section">
+            <h2>OneDrive sur mobile</h2>
+            <p>L'application OneDrive (iOS / Android) permet d'acc&eacute;der &agrave; vos fichiers et de partager des liens depuis votre smartphone.</p>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Installer l'application</h4>
+                        <p>T&eacute;l&eacute;chargez <strong>Microsoft OneDrive</strong> depuis l'App Store ou Google Play. Connectez-vous avec votre compte professionnel.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Partager un fichier depuis le mobile</h4>
+                        <p>Naviguez vers le fichier &rarr; appuyez sur les <strong>trois points</strong> (&hellip;) &rarr; <strong>Partager</strong>. Configurez les m&ecirc;mes options que sur PC (acc&egrave;s, permission, expiration) et envoyez le lien par email, Teams ou SMS.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Scanner un document directement</h4>
+                        <p>Dans l'app OneDrive, appuyez sur <strong>+</strong> &rarr; <strong>Num&eacute;riser</strong>. Photographiez le document, OneDrive le convertit en PDF et le stocke dans votre cloud. Vous pouvez le partager imm&eacute;diatement par lien.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 9 : Dépannage -->
+        <div class="section">
+            <h2>D&eacute;pannage</h2>
+
+            <div class="troubleshooting">
+                <h4>Le destinataire dit &laquo; je n'arrive pas &agrave; ouvrir le lien &raquo;</h4>
+                <p><strong>Solutions :</strong></p>
+                <ul style="margin-left:20px;margin-top:10px;">
+                    <li>V&eacute;rifiez que le lien est param&eacute;tr&eacute; sur <strong>&laquo; Toute personne disposant du lien &raquo;</strong> (et non limit&eacute; &agrave; votre organisation)</li>
+                    <li>Si le destinataire n'a pas de compte Microsoft, il doit pouvoir acc&eacute;der sans connexion &mdash; v&eacute;rifiez ce param&egrave;tre</li>
+                    <li>Demandez au destinataire d'essayer avec un autre navigateur (Chrome, Edge)</li>
+                    <li>Renvoyez un nouveau lien si l'ancien a expir&eacute;</li>
+                </ul>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>L'option &laquo; Toute personne disposant du lien &raquo; n'appara&icirc;t pas</h4>
+                <p><strong>Cause :</strong> Votre administrateur Microsoft 365 a restreint le partage externe.</p>
+                <ul style="margin-left:20px;margin-top:10px;">
+                    <li>Contactez votre support IT pour faire ajuster la politique de partage</li>
+                    <li>En attendant, utilisez l'option <strong>&laquo; Personnes sp&eacute;cifiques &raquo;</strong> et saisissez l'email du destinataire</li>
+                </ul>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>OneDrive est plein</h4>
+                <p><strong>Solutions :</strong></p>
+                <ul style="margin-left:20px;margin-top:10px;">
+                    <li>V&eacute;rifiez votre espace : ic&ocirc;ne OneDrive &rarr; Param&egrave;tres &rarr; <strong>Compte</strong></li>
+                    <li>Videz la <strong>Corbeille OneDrive</strong> (<code>onedrive.com</code> &rarr; Corbeille)</li>
+                    <li>D&eacute;placez les anciens fichiers dans un dossier <strong>Archives</strong> sur un autre stockage</li>
+                    <li>Contactez votre administrateur pour augmenter le quota si n&eacute;cessaire</li>
+                </ul>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>Le fichier ne se synchronise pas</h4>
+                <p><strong>Solutions :</strong></p>
+                <ul style="margin-left:20px;margin-top:10px;">
+                    <li>V&eacute;rifiez votre connexion Internet</li>
+                    <li>V&eacute;rifiez que le nom du fichier ne contient pas de caract&egrave;res interdits (<code># % &amp; * : &lt; &gt; ? / \ |</code>)</li>
+                    <li>V&eacute;rifiez que le chemin complet du fichier ne d&eacute;passe pas 400 caract&egrave;res</li>
+                    <li>Cliquez sur l'ic&ocirc;ne OneDrive &rarr; recherchez les erreurs de synchronisation signal&eacute;es</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 10 : Récap -->
+        <div class="section">
+            <h2>R&eacute;capitulatif &mdash; La checklist OneDrive</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>&Eacute;tape</th><th>Action</th><th>Fr&eacute;quence</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>Ranger le fichier dans un dossier d&eacute;di&eacute; OneDrive</td><td>&#xC0; chaque envoi</td></tr>
+                    <tr><td><strong>2</strong></td><td>Nommer le fichier explicitement</td><td>&#xC0; chaque envoi</td></tr>
+                    <tr><td><strong>3</strong></td><td>G&eacute;n&eacute;rer un lien en lecture seule</td><td>&#xC0; chaque envoi</td></tr>
+                    <tr><td><strong>4</strong></td><td>Ajouter une date d'expiration si donn&eacute;es sensibles</td><td>Selon le contexte</td></tr>
+                    <tr><td><strong>5</strong></td><td>Ins&eacute;rer le lien dans le mail avec une phrase claire</td><td>&#xC0; chaque envoi</td></tr>
+                    <tr><td><strong>6</strong></td><td>V&eacute;rifier les fichiers partag&eacute;s et r&eacute;voquer les liens obsol&egrave;tes</td><td>1 fois par mois</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 11 : Support -->
+        <div class="section">
+            <h2>Besoin d'aide ?</h2>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4DE;</div>
+                <div><strong>Support technique GiGaRuN</strong><br>Probl&egrave;me avec OneDrive, le partage de fichiers ou la synchronisation ? Nous sommes l&agrave; pour vous aider.</div>
+            </div>
+            <p style="text-align:center;margin-top:30px;">
+                <a href="https://support.gigarun.net/index.php?a=add" class="btn">Contacter le support</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e3f2fd 0%,#bbdefb 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#2b6cb0,#6ea5d8);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.5em;margin-bottom:10px}
+        .header p{font-size:1.2em;opacity:0.9}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#2b6cb0;font-size:2em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #2b6cb0}
+        .section h3{color:#1a4971;font-size:1.5em;margin-top:30px;margin-bottom:15px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .procedure{background:#f8f9fa;border-radius:10px;padding:30px;margin:30px 0}
+        .step{display:flex;align-items:flex-start;margin-bottom:30px;padding:20px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-5px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#2b6cb0,#6ea5d8);color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;font-weight:bold;margin-right:20px;flex-shrink:0;box-shadow:0 4px 10px rgba(43,108,176,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#2b6cb0;margin-bottom:10px;font-size:1.3em}
+        .step-content p{color:#666;line-height:1.8}
+        .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;box-shadow:0 2px 15px rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+        .comparison-table thead{background:linear-gradient(135deg,#2b6cb0,#6ea5d8);color:white}
+        .comparison-table th{padding:20px;text-align:left;font-size:1.1em}
+        .comparison-table td{padding:15px 20px;border-bottom:1px solid #eee}
+        .comparison-table tbody tr:nth-child(even){background:#f9f9f9}
+        .comparison-table tbody tr:hover{background:#e3f2fd}
+        .good{color:#198754;font-weight:bold}
+        .bad{color:#dc3545;font-weight:bold}
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:30px 0}
+        .kpi-box{background:linear-gradient(135deg,#2b6cb0,#6ea5d8);color:white;border-radius:10px;padding:24px;text-align:center}
+        .kpi-box .value{font-size:2em;font-weight:700;display:block;margin-bottom:6px}
+        .kpi-box .label{font-size:0.9em;opacity:0.85}
+        .troubleshooting{background:#fff9e6;border-left:5px solid #ffc107;padding:20px;margin:20px 0;border-radius:0 10px 10px 0}
+        .troubleshooting h4{color:#856404;margin-bottom:10px}
+        code{background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#2b6cb0}
+        .shortcut{display:inline-block;background:linear-gradient(135deg,#f0f0f0,#e0e0e0);color:#333;padding:4px 10px;border-radius:5px;font-family:'Courier New',monospace;font-weight:bold;border:1px solid #ccc;box-shadow:0 2px 0 #999;margin:2px}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#2b6cb0;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(43,108,176,0.4)}
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2b6cb0,#6ea5d8);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        .btn{display:inline-block;padding:12px 30px;background:linear-gradient(135deg,#2b6cb0,#6ea5d8);color:white;text-decoration:none;border-radius:25px;font-weight:bold;margin-top:20px;transition:transform 0.3s,box-shadow 0.3s}
+        .btn:hover{transform:translateY(-3px);box-shadow:0 5px 20px rgba(43,108,176,0.4)}
+        .naming-example{background:#f0f4ff;border:2px solid #2b6cb0;border-radius:10px;padding:20px;margin:15px 0;font-family:'Courier New',monospace;font-size:1.05em;color:#1a4971}
+        .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+        .vs-box{padding:20px;border-radius:10px}
+        .vs-bad{background:#fef2f2;border:2px solid #dc3545}
+        .vs-good{background:#f0fdf4;border:2px solid #198754}
+        .vs-box h4{margin-bottom:10px}
+        @media(max-width:600px){.header h1{font-size:1.6em}.content{padding:20px}.header-container,.contact-header,.footer-content{flex-direction:column;gap:10px}.vs-grid{grid-template-columns:1fr}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop{display:none}.main-header,.main-footer{break-inside:avoid}}
+    
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

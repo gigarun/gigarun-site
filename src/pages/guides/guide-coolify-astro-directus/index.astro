@@ -1,0 +1,977 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Coolify + Astro + Directus — Site statique avec CMS headless | Guide technique — Gigarun La Réunion" description="Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Directus comme CMS headless. Configuration, problèmes rencontrés et solutions, cycle de m">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Infogérance</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">Coolify + Astro + Directus — Site statique avec CMS headless | Guide technique</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Directus comme CMS headless. Configuration, problèmes rencontrés et solutions, cycle de m</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="back-bar">
+    <a href="index.html" class="back-home">&larr; Retour aux guides</a>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h1>&#x1F680; Coolify + Astro + Directus</h1>
+        <p>D&#233;ployer un site vitrine statique avec CMS headless en auto-h&#233;bergement</p>
+    </div>
+    <div class="content">
+
+        <!-- TABLE DES MATIERES -->
+        <div class="toc">
+            <h3>&#128218; Table des mati&#232;res</h3>
+            <ul>
+                <li><a href="#vue-ensemble">1. Vue d&#8217;ensemble de la stack</a></li>
+                <li><a href="#limites-directus">2. Limites de Directus c&#244;t&#233; usage client</a></li>
+                <li><a href="#prerequis">3. Pr&#233;requis</a></li>
+                <li><a href="#installation-coolify">4. Installation Coolify</a></li>
+                <li><a href="#deploiement-directus">5. D&#233;ploiement Directus via Coolify</a></li>
+                <li><a href="#reseau-coolify">6. Connecter Directus au r&#233;seau Coolify</a></li>
+                <li><a href="#projet-astro">7. Cr&#233;ation du projet Astro</a></li>
+                <li><a href="#dockerfile">8. Dockerfile multistage (nginx)</a></li>
+                <li><a href="#config-coolify">9. Configuration de l&#8217;application dans Coolify</a></li>
+                <li><a href="#flow-directus">10. Flow Directus &rarr; rebuild automatique</a></li>
+                <li><a href="#problemes">11. Tableau des probl&#232;mes rencontr&#233;s et solutions</a></li>
+                <li><a href="#commandes-utiles">12. R&#233;sum&#233; des commandes utiles</a></li>
+            </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="section" id="vue-ensemble">
+            <h2>1. Vue d&#8217;ensemble de la stack</h2>
+            <p>Cette stack assemble quatre composants distincts pour produire un site vitrine statique performant, g&#233;rable via une interface de contenu, et d&#233;ploy&#233; automatiquement &#224; chaque modification.</p>
+
+            <h3>R&#244;le de chaque composant</h3>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Coolify &#8212; PaaS self-hosted</h4>
+                        <p>Coolify joue le r&#244;le d&#8217;orchestrateur. Il encapsule Docker, Traefik (reverse proxy), et une interface web pour g&#233;rer les applications sans toucher au terminal. Il prend en charge le build des images Docker, le d&#233;ploiement des containers, la gestion des certificats SSL via Let&#8217;s Encrypt, le routing des domaines, et les webhooks GitHub pour d&#233;clencher des rebuilds automatiques sur push. C&#8217;est l&#8217;&#233;quivalent self-hosted de Railway, Render ou Heroku.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Astro &#8212; Static Site Generator (SSG)</h4>
+                        <p>Astro est un framework front-end orient&#233; performance. En mode <code>output: 'static'</code>, il g&#233;n&#232;re uniquement du HTML, CSS et JavaScript statique dans un dossier <code>dist/</code>. Le point cl&#233; : Astro <strong>fetch l&#8217;API Directus au moment du build</strong> (pas au runtime). Chaque page <code>.astro</code> effectue ses appels HTTP vers Directus pendant la compilation. Une fois le build termin&#233;, le site est compl&#232;tement statique &#8212; aucune d&#233;pendance en production vers Directus.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Directus &#8212; Headless CMS</h4>
+                        <p>Directus est un CMS headless qui expose une API REST (et GraphQL) sur les donn&#233;es stock&#233;es dans PostgreSQL. L&#8217;interface d&#8217;administration permet de cr&#233;er des collections (services, tarifs, t&#233;moignages, &#233;quipe...) et d&#8217;&#233;diter les items sans toucher au code. Astro consomme cette API via <code>fetch()</code> au build time. Directus fournit aussi un syst&#232;me de <strong>Flows</strong> (automatisations internes) qui permettent de d&#233;clencher une action externe (webhook vers Coolify) quand un item est cr&#233;&#233;, modifi&#233; ou supprim&#233;.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>nginx &#8212; Serveur de fichiers statiques</h4>
+                        <p>En production, le site est servi par nginx via une image Docker Alpine l&#233;g&#232;re. Le Dockerfile multistage copie le <code>dist/</code> g&#233;n&#233;r&#233; par Astro dans <code>/usr/share/nginx/html</code>. nginx r&#233;pond sur le port 80. Aucun Node.js ne tourne en production &#8212; l&#8217;image finale est tr&#232;s l&#233;g&#232;re (~25 Mo) et s&#233;curis&#233;e.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Cycle complet de mise &#224; jour</h3>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F504;</div>
+                <div>
+                    <strong>Dur&#233;e totale : ~2 &#224; 3 minutes</strong> entre la modification dans Directus et le site mis &#224; jour en production.
+                </div>
+            </div>
+
+            <ol style="margin:20px 0 20px 30px;line-height:2.2">
+                <li>Le gestionnaire de contenu modifie ou cr&#233;e un item dans Directus (ex : nouvelle offre de service)</li>
+                <li>Le Flow Directus se d&#233;clenche sur l&#8217;&#233;v&#233;nement <code>items.update</code></li>
+                <li>Le Flow effectue un <strong>POST HTTP</strong> vers l&#8217;API Coolify avec l&#8217;UUID de l&#8217;application et le param&#232;tre <code>&amp;force=true</code></li>
+                <li>Coolify lance un <code>docker build --no-cache</code> du projet Astro</li>
+                <li>Pendant le build, Astro fetch toutes les collections Directus via l&#8217;API REST</li>
+                <li>Astro g&#233;n&#232;re le <code>dist/</code> statique avec les nouvelles donn&#233;es</li>
+                <li>nginx Alpine est construit avec le nouveau <code>dist/</code></li>
+                <li>Coolify remplace l&#8217;ancien container par le nouveau (zero-downtime si configur&#233;)</li>
+                <li>Le site est &#224; jour</li>
+            </ol>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2714;</div>
+                <div>
+                    <strong>Avantage majeur du statique :</strong> Les performances sont maximales (pas de calcul c&#244;t&#233; serveur &#224; la requ&#234;te), la surface d&#8217;attaque est minimale (pas d&#8217;ex&#233;cution PHP/Node en prod), et le co&#251;t de serveur est faible (nginx cons&#232;me quasiment z&#233;ro ressource).
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section" id="limites-directus">
+            <h2>2. Limites de Directus c&#244;t&#233; usage client</h2>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    <strong>Lecture obligatoire avant de proposer Directus &#224; un client.</strong> Directus est un outil puissant mais il n&#8217;est pas adapt&#233; &#224; tous les profils d&#8217;utilisateurs finaux.
+                </div>
+            </div>
+
+            <h3>Probl&#232;mes d&#8217;ergonomie pour les non-techniques</h3>
+
+            <ul class="checklist">
+                <li><strong>Interface pens&#233;e d&#233;veloppeur, pas end-user :</strong> La terminologie expos&#233;e est celle d&#8217;une base de donn&#233;es &#8212; on parle de "Collections", "Items", "Fields", "Relations" &#8212; pas de "Pages", "Articles", "Titre de la page". Un gestionnaire de contenu non-technique sera perdu d&#232;s le premier &#233;cran.</li>
+                <li><strong>Pas de WYSIWYG par d&#233;faut :</strong> Les champs texte longs sont de simples zones de saisie. Il faut configurer manuellement le type d&#8217;interface &#224; <em>Rich Text</em> (WYSIWYG via TipTap) ou <em>Markdown</em> dans les param&#232;tres de chaque champ. Ce n&#8217;est pas intuitif et ce n&#8217;est pas aussi riche qu&#8217;un &#233;diteur WordPress ou Ghost.</li>
+                <li><strong>Logique base de donn&#233;es expos&#233;e :</strong> Chaque collection correspond &#224; une table, chaque item &#224; une ligne. Les relations (Many-to-Many, One-to-Many) se configurent en base. Pour un utilisateur habituel&#233; &#224; un CMS classique, naviguer entre collections li&#233;es est d&#233;routant.</li>
+                <li><strong>Flows (webhooks internes) :</strong> L&#8217;outil d&#8217;automatisation de Directus est puissant mais la courbe d&#8217;apprentissage est &#233;lev&#233;e. L&#8217;interface de cr&#233;ation de flows est peu intuitive (syst&#232;me de nodes &#224; connecter visuellement). Un administrateur non-d&#233;veloppeur ne peut pas le g&#233;rer seul.</li>
+                <li><strong>Pas de versionning de contenu natif :</strong> Contrairement &#224; WordPress (r&#233;visions d&#8217;articles), Directus ne conserve pas l&#8217;historique des modifications d&#8217;un item. Si un utilisateur &#233;crase une valeur, elle est perdue. Des extensions tierces existent mais ne sont pas activ&#233;es par d&#233;faut.</li>
+                <li><strong>Pas adapt&#233; pour les TPE/PME sans r&#233;f&#233;rent technique :</strong> Si aucune personne technique n&#8217;est disponible c&#244;t&#233; client pour former et accompagner les utilisateurs, Directus g&#233;n&#232;re du support inutile. Dans ce cas, pr&#233;f&#233;rer WordPress, Ghost, ou Strapi (meilleure UX admin).</li>
+            </ul>
+
+            <h3>Profil id&#233;al pour Directus</h3>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x1F465;</div>
+                <div>
+                    <strong>Directus convient si :</strong> le gestionnaire de contenu est &#224; l&#8217;aise avec une interface type backoffice ERP (un comptable qui utilise Dolibarr, un g&#233;rant de PME avec un logiciel de gestion m&#233;tier). Ces profils comprennent intuitivement la notion de tables/champs et de navigation par onglets sans formation longue. Directus est aussi excellent pour les d&#233;veloppeurs qui construisent des interfaces d&#8217;administration sur-mesure en consommant l&#8217;API.
+                </div>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>CMS</th>
+                        <th>UX admin</th>
+                        <th>WYSIWYG</th>
+                        <th>Versionning</th>
+                        <th>Profil id&#233;al</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Directus</strong></td>
+                        <td>&#x26A0; Technique</td>
+                        <td>&#x26A0; Optionnel</td>
+                        <td class="bad">Non</td>
+                        <td>D&#233;veloppeurs, backoffice</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WordPress</strong></td>
+                        <td>&#x2705; Intuitif</td>
+                        <td>&#x2705; Natif</td>
+                        <td>&#x2705; Oui</td>
+                        <td>Tous publics</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ghost</strong></td>
+                        <td>&#x2705; Tr&#232;s simple</td>
+                        <td>&#x2705; Natif</td>
+                        <td class="bad">Non</td>
+                        <td>Blog, newsletter</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Strapi</strong></td>
+                        <td>&#x26A0; Semi-technique</td>
+                        <td>&#x26A0; Plugin</td>
+                        <td class="bad">Non</td>
+                        <td>D&#233;veloppeurs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section" id="prerequis">
+            <h2>3. Pr&#233;requis</h2>
+
+            <ul class="checklist">
+                <li>&#x1F5A5; <strong>VPS Debian 12 minimum</strong> &#8212; 2 Go RAM (4 Go recommand&#233; pour Coolify + Directus + app + PostgreSQL). CPU : 2 vCPU minimum. Stockage : 20 Go SSD minimum.</li>
+                <li>&#x1F433; <strong>Docker install&#233;</strong> &#8212; Coolify peut l&#8217;installer automatiquement mais avoir une version r&#233;cente (24+) est pr&#233;f&#233;rable. <code>docker --version &amp;&amp; docker compose version</code></li>
+                <li>&#x1F4BB; <strong>Compte GitHub avec un token d&#8217;acc&#232;s personnel</strong> &#8212; scope requis : <code>repo</code> (lecture/&#233;criture sur les repos priv&#233;s). Le token est n&#233;cessaire pour que Coolify acc&#232;de au code source et configure les webhooks automatiquement.</li>
+                <li>&#x1F310; <strong>Domaine ou entr&#233;e DNS</strong> &#8212; Un domaine point&#233; sur l&#8217;IP du VPS (entr&#233;e A en DNS). Pour un test local, une entr&#233;e dans <code>/etc/hosts</code> suffit. Coolify g&#232;re ensuite le SSL automatiquement via Let&#8217;s Encrypt si le domaine est accessible depuis internet.</li>
+                <li>&#x1F512; <strong>Port 8001 ouvert</strong> &#8212; Pour acc&#233;der &#224; l&#8217;interface Coolify. Ports 80 et 443 ouverts pour le trafic web.</li>
+                <li>&#x1F4E6; <strong>Node.js 18+ en local</strong> &#8212; Pour d&#233;velopper le projet Astro en local avant de pusher sur GitHub.</li>
+            </ul>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4A1;</div>
+                <div>
+                    <strong>Sizing recommand&#233; pour un site vitrine PME :</strong> 4 Go RAM, 2 vCPU, 40 Go SSD. Avec ce sizing, Coolify + Directus + PostgreSQL + nginx tournent confortablement, avec de la marge pour d&#8217;autres services. Un VPS 4 Go RAM / 2 vCPU / 40 Go SSD &#224; ~6&#8364;/mois est tr&#232;s adapt&#233;.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section" id="installation-coolify">
+            <h2>4. Installation Coolify</h2>
+
+            <h3>Script d&#8217;installation officiel</h3>
+            <p>Coolify s&#8217;installe en une seule commande en root sur le VPS :</p>
+            <pre><code>curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash</code></pre>
+            <p>Le script installe Docker si absent, configure les r&#233;seaux Docker, t&#233;l&#233;charge les images Coolify et d&#233;marre l&#8217;interface web. L&#8217;installation compl&#232;te prend 3 &#224; 5 minutes selon la connexion.</p>
+
+            <h3>Acc&#232;s &#224; l&#8217;interface</h3>
+            <p>Coolify &#233;coute sur le port <strong>8000</strong> par d&#233;faut. Acc&#233;der via : <code>http://[IP-VPS]:8000</code></p>
+
+            <div class="alert alert-warning">
+                <span class="alert-icon">&#x26A0;&#xFE0F;</span>
+                <div>
+                    <strong>Port d&#233;j&#224; utilis&#233; sur le VPS ?</strong><br>
+                    Si le port 8000 est d&#233;j&#224; occup&#233; par une autre application, Coolify ne d&#233;marre pas correctement. Modifier le port dans <code>/data/coolify/source/.env</code> avant de lancer le d&#233;marrage :
+                    <pre style="margin-top:10px"><code>nano /data/coolify/source/.env
+# Changer APP_PORT=8000 en APP_PORT=8001 (ou tout autre port libre)
+
+# Puis relancer :
+cd /data/coolify/source && docker compose up -d</code></pre>
+                    L&#8217;interface sera alors accessible sur <code>http://[IP-VPS]:8001</code>. Adapter toutes les r&#233;f&#233;rences de port en cons&#233;quence (notamment l&#8217;URL dans le Flow Directus).
+                </div>
+            </div>
+
+            <h3>Cr&#233;er un token API Coolify</h3>
+            <p>Le token est n&#233;cessaire pour que Directus puisse appeler l&#8217;API Coolify et d&#233;clencher les rebuilds.</p>
+            <ol style="margin:15px 0 15px 30px;line-height:2.2">
+                <li>Se connecter &#224; l&#8217;interface Coolify</li>
+                <li>Cliquer sur <strong>Profile</strong> (ic&#244;ne en haut &#224; droite)</li>
+                <li><strong>API Tokens</strong> &rarr; <strong>New Token</strong></li>
+                <li>Donner un nom explicite : <code>directus-deploy-webhook</code></li>
+                <li>Cocher <strong>TOUTES les permissions</strong></li>
+                <li>Copier et sauvegarder le token g&#233;n&#233;r&#233; (il ne sera plus affich&#233; apr&#232;s)</li>
+            </ol>
+
+            <h3>&#x26A0; ALERTE CRITIQUE : conflit r&#233;seau Docker</h3>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div>
+                    <strong>Si votre VPS est sur un r&#233;seau LAN en 10.0.0.x (fr&#233;quent chez les h&#233;bergeurs cloud ou en interne), Coolify cr&#233;e un pool Docker 10.0.0.0/8 qui entre directement en conflit avec le r&#233;seau physique.</strong> R&#233;sultat : le VPS devient inaccessible apr&#232;s l&#8217;installation, les containers n&#8217;ont plus acc&#232;s &#224; internet. Solution &#224; appliquer AVANT ou juste apr&#232;s l&#8217;install.
+                </div>
+            </div>
+
+            <pre><code># Cr&#233;er ou modifier /etc/docker/daemon.json
+nano /etc/docker/daemon.json</code></pre>
+            <pre><code>{
+  "default-address-pools": [
+    {"base": "172.20.0.0/16", "size": 24}
+  ]
+}</code></pre>
+            <pre><code># Appliquer le changement
+systemctl restart docker
+
+# V&#233;rifier que les containers Coolify red&#233;marrent bien
+docker ps</code></pre>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4AC;</div>
+                <div>
+                    Si le VPS est d&#233;j&#224; inaccessible, il faut acc&#233;der via la console KVM/VNC de l&#8217;h&#233;bergeur (hors r&#233;seau Docker), appliquer la correction, et red&#233;marrer Docker.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="section" id="deploiement-directus">
+            <h2>5. D&#233;ploiement Directus via Coolify</h2>
+
+            <h3>Cr&#233;ation du service</h3>
+            <ol style="margin:15px 0 15px 30px;line-height:2.2">
+                <li>Dans Coolify : <strong>Services</strong> &rarr; <strong>+ New Service</strong></li>
+                <li>Rechercher <code>directus</code> dans la liste</li>
+                <li>S&#233;lectionner <strong>directus-with-postgresql</strong> (inclut PostgreSQL d&#233;di&#233; pour Directus)</li>
+                <li>Choisir l&#8217;environnement cible (serveur + r&#233;seau)</li>
+                <li>Configurer les variables d&#8217;environnement essentielles</li>
+            </ol>
+
+            <h3>Variables d&#8217;environnement Directus</h3>
+            <pre><code>ADMIN_EMAIL=admin@votredomaine.re
+ADMIN_PASSWORD=MotDePasseForte2024!
+SECRET=une-chaine-aleatoire-longue-32-caracteres-minimum
+
+# Optionnel mais recommand&#233;
+PUBLIC_URL=https://cms.votredomaine.re
+CORS_ENABLED=true
+CORS_ORIGIN=https://votredomaine.re</code></pre>
+
+            <h3>R&#233;cup&#233;rer l&#8217;IP Docker interne de Directus</h3>
+            <p>Une fois Directus d&#233;ploy&#233; et d&#233;marr&#233;, r&#233;cup&#233;rer son IP interne Docker. C&#8217;est cette IP qu&#8217;Astro utilisera pour fetcher l&#8217;API au moment du build.</p>
+            <pre><code># Lister les containers pour trouver le nom du container Directus
+docker ps | grep directus
+
+# Inspecter le container pour obtenir son IP
+docker inspect [nom-container-directus] | grep IPAddress
+
+# Exemple de r&#233;sultat :
+# "IPAddress": "172.20.2.4"</code></pre>
+
+            <h3>Configurer les collections dans Directus</h3>
+            <ol style="margin:15px 0 15px 30px;line-height:2.2">
+                <li>Acc&#233;der &#224; l&#8217;interface Directus : <code>http://[IP-VPS]:port-directus</code> ou via le domaine configur&#233;</li>
+                <li>Se connecter avec les credentials ADMIN_EMAIL / ADMIN_PASSWORD</li>
+                <li>Aller dans <strong>Settings &rarr; Data Model</strong></li>
+                <li>Cr&#233;er les collections : <code>services</code>, <code>tarifs</code>, <code>temoignages</code>, <code>equipe</code>...</li>
+                <li>Pour chaque collection, d&#233;finir les champs (nom, description, ordre, actif, image...)</li>
+                <li>Pour les champs texte longs : choisir l&#8217;interface <strong>Rich Text</strong> ou <strong>Markdown</strong></li>
+            </ol>
+
+            <h3>Configurer les permissions publiques</h3>
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    Par d&#233;faut, toutes les collections sont priv&#233;es. Astro fetch l&#8217;API sans token au build time (ou avec un token service statique), il faut donc autoriser la lecture publique sur les collections expos&#233;es.
+                </div>
+            </div>
+            <ol style="margin:15px 0 15px 30px;line-height:2.2">
+                <li><strong>Settings &rarr; Access Control &rarr; Public</strong></li>
+                <li>Pour chaque collection (services, tarifs, etc.) : cocher <strong>Read</strong></li>
+                <li>Ne jamais cocher Create/Update/Delete pour le r&#244;le Public</li>
+            </ol>
+
+            <pre><code># Tester l'API publique depuis le VPS :
+curl http://172.20.2.4:8055/items/services
+# Doit retourner un JSON avec les items (pas une erreur 403)</code></pre>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="section" id="reseau-coolify">
+            <h2>6. Connecter Directus au r&#233;seau Coolify</h2>
+
+            <p>Par d&#233;faut, Directus est d&#233;ploy&#233; dans son propre r&#233;seau Docker isol&#233;. L&#8217;application Astro (pendant son build) se trouve dans le r&#233;seau <code>coolify</code>. Ces deux r&#233;seaux ne se voient pas.</p>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div>
+                    <strong>Erreur typique :</strong> <code>fetch failed</code> ou <code>ECONNREFUSED</code> pendant le build Astro &#8212; Astro ne peut pas joindre Directus car ils sont sur des r&#233;seaux Docker s&#233;par&#233;s.
+                </div>
+            </div>
+
+            <h3>Solution : connecter Directus au r&#233;seau coolify</h3>
+            <pre><code># Connecter le container Directus au r&#233;seau coolify
+docker network connect coolify [nom-container-directus]
+
+# V&#233;rifier que la connexion est active :
+docker inspect [nom-container-directus] | grep -A5 '"coolify"'
+
+# Vous devez voir quelque chose comme :
+# "coolify": {
+#     "IPAMConfig": {},
+#     "Links": null,
+#     "Aliases": ["directus"],
+#     "IPAddress": "172.20.0.15"
+# }</code></pre>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    <strong>Cette connexion r&#233;seau est perdue apr&#232;s un red&#233;marrage du container Directus</strong> (via Coolify). Pour la rendre permanente, il faut ajouter le r&#233;seau <code>coolify</code> dans la d&#233;finition du service Directus dans Coolify (section Docker Compose avanc&#233;e), ou ex&#233;cuter la commande via un script de d&#233;marrage.
+                </div>
+            </div>
+
+            <h3>Utiliser l&#8217;IP interne Docker dans Astro</h3>
+            <p>Dans le code Astro, utiliser l&#8217;IP Docker interne de Directus (pas <code>localhost</code>, pas le domaine public). L&#8217;IP interne est stable tant que le container n&#8217;est pas recr&#233;&#233;.</p>
+            <pre><code>// Dans le code Astro
+const DIRECTUS = 'http://172.20.2.4:8055';
+
+// Alternative plus robuste : variable d'environnement
+// DIRECTUS_URL=http://172.20.2.4:8055 dans les env vars Coolify
+const DIRECTUS = import.meta.env.DIRECTUS_URL;</code></pre>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4A1;</div>
+                <div>
+                    <strong>Astuce :</strong> Utiliser une variable d&#8217;environnement <code>DIRECTUS_URL</code> configur&#233;e dans Coolify plutot qu&#8217;une IP en dur dans le code. Si l&#8217;IP change (recreation du container Directus), il suffit de mettre &#224; jour la variable sans toucher au code source.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7 -->
+        <div class="section" id="projet-astro">
+            <h2>7. Cr&#233;ation du projet Astro</h2>
+
+            <h3>Initialisation</h3>
+            <pre><code>npm create astro@latest
+# Choix recommand&#233;s :
+# Template : Empty
+# TypeScript : No (ou Strict si l&#8217;&#233;quipe ma&#238;trise TS)
+# Install dependencies : Yes
+# Init git : Yes
+
+cd mon-site-vitrine
+npm run dev  # V&#233;rifier que le projet d&#233;marre sur http://localhost:4321</code></pre>
+
+            <h3>Configuration astro.config.mjs</h3>
+            <pre><code>import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  output: 'static',   // Mode SSG : g&#233;n&#232;re dist/ statique
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});</code></pre>
+
+            <p>Installer Tailwind CSS (optionnel mais recommand&#233; pour les sites vitrine) :</p>
+            <pre><code>npm install -D @tailwindcss/vite tailwindcss</code></pre>
+
+            <h3>Fetch Directus dans une page Astro</h3>
+            <p>Les pages <code>.astro</code> ont un bloc <em>frontmatter</em> (entre <code>---</code>) ex&#233;cut&#233; uniquement au build time. C&#8217;est l&#224; que se font les appels API vers Directus :</p>
+            <pre><code>---
+// src/pages/index.astro
+
+const DIRECTUS = import.meta.env.DIRECTUS_URL ?? 'http://172.20.2.4:8055';
+
+// Fetch parall&#232;le de plusieurs collections
+const [servicesRes, tarifsRes, temoignagesRes] = await Promise.all([
+  fetch(`${DIRECTUS}/items/services?sort=ordre&filter[actif][_eq]=true`),
+  fetch(`${DIRECTUS}/items/tarifs?sort=ordre`),
+  fetch(`${DIRECTUS}/items/temoignages?sort=-date_created&limit=6`),
+]);
+
+// Extraire les donn&#233;es (Directus enveloppe toujours dans { data: [...] })
+const services = (await servicesRes.json()).data ?? [];
+const tarifs = (await tarifsRes.json()).data ?? [];
+const temoignages = (await temoignagesRes.json()).data ?? [];
+---
+
+&lt;!-- Template HTML Astro --&gt;
+&lt;html lang="fr"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mon Site Vitrine&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;section id="services"&gt;
+      &lt;h2&gt;Nos Services&lt;/h2&gt;
+      {services.map(service =&gt; (
+        &lt;article&gt;
+          &lt;h3&gt;{service.nom}&lt;/h3&gt;
+          &lt;p&gt;{service.description}&lt;/p&gt;
+        &lt;/article&gt;
+      ))}
+    &lt;/section&gt;
+
+    &lt;section id="tarifs"&gt;
+      &lt;h2&gt;Nos Tarifs&lt;/h2&gt;
+      {tarifs.map(tarif =&gt; (
+        &lt;div class="tarif-card"&gt;
+          &lt;h3&gt;{tarif.nom}&lt;/h3&gt;
+          &lt;p class="prix"&gt;{tarif.prix} &#8364;/mois&lt;/p&gt;
+          &lt;p&gt;{tarif.description}&lt;/p&gt;
+        &lt;/div&gt;
+      ))}
+    &lt;/section&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <h3>Structure de projet recommand&#233;e</h3>
+            <pre><code>mon-site-vitrine/
+&#9500;&#9472;&#9472; src/
+&#9474;   &#9500;&#9472;&#9472; pages/
+&#9474;   &#9474;   &#9500;&#9472;&#9472; index.astro          # Page d&#8217;accueil
+&#9474;   &#9474;   &#9500;&#9472;&#9472; services.astro       # Page services
+&#9474;   &#9474;   &#9492;&#9472;&#9472; contact.astro        # Page contact
+&#9474;   &#9500;&#9472;&#9472; components/
+&#9474;   &#9474;   &#9500;&#9472;&#9472; Header.astro
+&#9474;   &#9474;   &#9500;&#9472;&#9472; Footer.astro
+&#9474;   &#9474;   &#9492;&#9472;&#9472; ServiceCard.astro
+&#9474;   &#9492;&#9472;&#9472; layouts/
+&#9474;       &#9492;&#9472;&#9472; Base.astro           # Layout g&#233;n&#233;rique
+&#9500;&#9472;&#9472; public/                      # Assets statiques (images, favicon)
+&#9500;&#9472;&#9472; astro.config.mjs
+&#9500;&#9472;&#9472; Dockerfile               # &#9664; Cr&#233;er ce fichier (voir section 8)
+&#9492;&#9472;&#9472; package.json</code></pre>
+        </div>
+
+        <!-- SECTION 8 -->
+        <div class="section" id="dockerfile">
+            <h2>8. Dockerfile multistage (nginx)</h2>
+
+            <p>Le Dockerfile utilise un <strong>build multistage</strong> : une premi&#232;re image Node.js compile le projet Astro, une deuxi&#232;me image nginx l&#233;g&#232;re sert uniquement le contenu statique g&#233;n&#233;r&#233;.</p>
+
+            <pre><code># Stage 1 : Build Astro
+FROM node:22-bookworm-slim AS builder
+WORKDIR /app
+
+# Copier les manifestes de d&#233;pendances en premier (cache Docker optimal)
+COPY package*.json ./
+RUN npm ci --legacy-peer-deps
+
+# Copier le code source
+COPY . .
+
+# Build : Astro fetch Directus et g&#233;n&#232;re dist/
+RUN npm run build
+
+# Stage 2 : Servir avec nginx Alpine (image finale l&#233;g&#232;re)
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80</code></pre>
+
+            <h3>Pourquoi ce pattern ?</h3>
+            <ul style="margin:15px 0 15px 30px;line-height:2.2">
+                <li><strong>S&#233;curit&#233; :</strong> L&#8217;image finale ne contient pas Node.js, npm, ni le code source. Seuls les fichiers HTML/CSS/JS statiques sont pr&#233;sents.</li>
+                <li><strong>Performance :</strong> nginx Alpine fait ~25 Mo. nginx sert du statique tr&#232;s efficacement, sans overhead.</li>
+                <li><strong>Data fetch au build time :</strong> pendant le <code>npm run build</code> du stage 1, Astro appellle <code>http://172.20.2.4:8055/items/...</code> et int&#232;gre les donn&#233;es dans le HTML g&#233;n&#233;r&#233;. En production, aucune requ&#234;te API n&#8217;est effectu&#233;e.</li>
+                <li><strong>Cache Docker :</strong> La copie des <code>package*.json</code> et le <code>npm ci</code> avant le <code>COPY . .</code> permettent &#224; Docker de cacher la couche d&#8217;installation des d&#233;pendances si celles-ci n&#8217;ont pas chang&#233;. Mais attention : si Coolify utilise <code>--no-cache</code> (via <code>force=true</code>), toutes les couches sont reconstruites.</li>
+            </ul>
+
+            <h3>Configuration nginx personnalis&#233;e (optionnel)</h3>
+            <p>Pour ajouter la gestion des routes SPA ou des en-t&#234;tes de s&#233;curit&#233; :</p>
+            <pre><code># nginx.conf &#224; placer &#224; la racine du projet
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Gestion 404 : renvoyer vers index.html (si routing c&#244;t&#233; client)
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # En-t&#234;tes de s&#233;curit&#233;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    add_header Referrer-Policy "strict-origin-when-cross-origin";
+
+    # Cache des assets statiques
+    location ~* \.(js|css|png|jpg|svg|ico|woff2)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}</code></pre>
+            <pre><code># Dans le Dockerfile, remplacer le stage 2 par :
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80</code></pre>
+        </div>
+
+        <!-- SECTION 9 -->
+        <div class="section" id="config-coolify">
+            <h2>9. Configuration de l&#8217;application dans Coolify</h2>
+
+            <h3>Cr&#233;ation de l&#8217;application</h3>
+            <ol style="margin:15px 0 15px 30px;line-height:2.2">
+                <li><strong>New Application</strong> &rarr; <strong>GitHub</strong></li>
+                <li>S&#233;lectionner le repository du projet Astro</li>
+                <li>Choisir la branche (g&#233;n&#233;ralement <code>main</code>)</li>
+                <li><strong>Build Pack : Dockerfile</strong> &#8212; <strong>IMPORTANT : ne pas choisir Nixpacks</strong>. Nixpacks d&#233;tecte automatiquement Node.js et tente de lancer <code>npm start</code> au lieu de servir le statique via nginx.</li>
+                <li><strong>Dockerfile location :</strong> <code>/Dockerfile</code> (&#224; la racine du repo)</li>
+                <li><strong>Port expos&#233; : 80</strong> (port nginx, pas 4321 qui est le port de d&#233;v Astro)</li>
+                <li><strong>Domain :</strong> votre domaine (ex: <code>www.votredomaine.re</code>)</li>
+            </ol>
+
+            <h3>Variables d&#8217;environnement de l&#8217;application</h3>
+            <pre><code># Dans Coolify &gt; Application &gt; Environment Variables
+DIRECTUS_URL=http://172.20.2.4:8055
+# Ces variables sont inject&#233;es dans le container au build time
+# et accessibles via import.meta.env dans Astro</code></pre>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F517;</div>
+                <div>
+                    <strong>Webhook GitHub :</strong> Coolify configure automatiquement un webhook sur le repo GitHub lors de la premi&#232;re connexion. Chaque <code>git push</code> sur la branche surveill&#233;e d&#233;clenchera un rebuild automatique. Inutile de le configurer manuellement.
+                </div>
+            </div>
+
+            <h3>V&#233;rifications critiques via psql (base Coolify)</h3>
+            <p>Coolify stocke la configuration des applications dans une base PostgreSQL interne. En cas de comportement anormal (mauvais port, crash au d&#233;marrage), v&#233;rifier directement en base :</p>
+            <pre><code># Se connecter &#224; la base Coolify
+docker exec -it coolify-db psql -U coolify
+
+# V&#233;rifier les param&#232;tres cl&#233;s de l'application
+SELECT build_pack, ports_exposes, start_command, is_static
+FROM applications
+WHERE uuid='[votre-uuid-application]';
+
+-- R&#233;sultat attendu :
+-- build_pack     | ports_exposes | start_command | is_static
+-- dockerfile     | 80            | (null)        | false
+
+-- Corriger start_command s'il est renseign&#233; (cause de crash)
+UPDATE applications SET start_command = NULL WHERE uuid='[votre-uuid]';
+
+-- S'assurer que is_static est false (true force un path buildkit incompatible)
+UPDATE applications SET is_static = false WHERE uuid='[votre-uuid]';
+
+-- Quitter psql
+\q</code></pre>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    <strong>start_command NULL est obligatoire</strong> pour que le <code>CMD</code> du Dockerfile s&#8217;ex&#233;cute. Si Coolify ins&#232;re automatiquement une commande de d&#233;marrage (ex: <code>node dist/server/entry.mjs</code> pour du SSR), le container crashe car cette commande n&#8217;existe pas en mode statique.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 10 -->
+        <div class="section" id="flow-directus">
+            <h2>10. Flow Directus &rarr; rebuild automatique</h2>
+
+            <p>L&#8217;automatisation centrale de la stack : quand un gestionnaire modifie du contenu dans Directus, le site se reconstruit automatiquement en ~2-3 minutes.</p>
+
+            <h3>Cr&#233;ation du Flow</h3>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Cr&#233;er un nouveau Flow</h4>
+                        <p>Dans Directus : <strong>Flows</strong> (ic&#244;ne &#233;clair dans le menu) &rarr; <strong>+ (bouton cr&#233;ation)</strong> &rarr; <strong>New Flow</strong>. Donner un nom explicite : <code>Rebuild site sur modification contenu</code>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Configurer le Trigger</h4>
+                        <p>Type de trigger : <strong>Event Hook</strong>. Param&#232;tres :</p>
+                        <ul style="margin-top:10px;margin-left:20px;line-height:2">
+                            <li><strong>Type :</strong> <code>filter</code> (synchrone) ou <code>action</code> (asynchrone, recommand&#233; pour ne pas bloquer l&#8217;UI)</li>
+                            <li><strong>Scope :</strong> <code>items.create</code>, <code>items.update</code>, <code>items.delete</code></li>
+                            <li><strong>Collections :</strong> s&#233;lectionner uniquement les collections qui alimentent le site (services, tarifs, temoignages...) pour &#233;viter des rebuilds inutiles</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Ajouter l&#8217;op&#233;ration de d&#233;ploiement</h4>
+                        <p>Sur le canvas du flow : cliquer <strong>+</strong> pour ajouter une op&#233;ration.</p>
+                        <ul style="margin-top:10px;margin-left:20px;line-height:2">
+                            <li><strong>Type :</strong> <code>Request</code> (requ&#234;te HTTP)</li>
+                            <li><strong>Name :</strong> <code>Deploy Coolify</code></li>
+                            <li><strong>Method :</strong> <code>POST</code></li>
+                            <li><strong>URL :</strong> voir ci-dessous</li>
+                            <li><strong>Headers :</strong> <code>Authorization: Bearer [votre-token-api-coolify]</code></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Connecter le trigger &#224; l&#8217;op&#233;ration</h4>
+                        <p>Sur le canvas visuel, tirer une fl&#232;che du bloc <strong>Trigger</strong> vers le bloc <strong>Deploy Coolify</strong>. Sauvegarder le Flow. Le flow est maintenant actif.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>URL de d&#233;ploiement Coolify</h3>
+            <pre><code>POST http://[IP-coolify-interne]:8080/api/v1/deploy?uuid=[UUID-APP]&amp;force=true
+
+# Exemple :
+POST http://172.20.0.1:8080/api/v1/deploy?uuid=abc123def456&amp;force=true
+
+# Header :
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGci...</code></pre>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div>
+                    <strong>Le param&#232;tre <code>&amp;force=true</code> est OBLIGATOIRE.</strong> Sans lui, Docker utilise le cache des couches et ne red&#233;marre pas le <code>npm run build</code> si le code source n&#8217;a pas chang&#233;. Astro ne re-fetche alors pas Directus et le contenu reste identique &#224; l&#8217;ancien build. Avec <code>force=true</code>, Coolify passe <code>--no-cache</code> &#224; Docker build, for&#231;ant la reconstruction compl&#232;te.
+                </div>
+            </div>
+
+            <h3>Trouver l&#8217;UUID de l&#8217;application</h3>
+            <pre><code># Via l'interface Coolify :
+# Application &gt; Settings &gt; l'UUID est dans l'URL et dans les infos g&#233;n&#233;rales
+
+# Via l&#8217;API Coolify :
+curl -H "Authorization: Bearer [token]" http://[IP]:8080/api/v1/applications
+# Retourne la liste des applications avec leurs UUID
+
+# Via la base de donn&#233;es Coolify :
+docker exec -it coolify-db psql -U coolify -c "SELECT uuid, name FROM applications;"</code></pre>
+
+            <h3>Tester le Flow manuellement</h3>
+            <pre><code># Tester l'appel API Coolify directement (depuis le VPS ou depuis Directus) :
+curl -X POST \
+  "http://172.20.0.1:8080/api/v1/deploy?uuid=abc123&amp;force=true" \
+  -H "Authorization: Bearer [votre-token]"
+
+# R&#233;ponse attendue si tout est correct :
+# {"message":"Deployment queued."}</code></pre>
+        </div>
+
+        <!-- SECTION 11 -->
+        <div class="section" id="problemes">
+            <h2>11. Tableau des probl&#232;mes rencontr&#233;s et solutions</h2>
+
+            <p>Tous les probl&#232;mes ci-dessous ont &#233;t&#233; rencontr&#233;s et r&#233;solus lors d&#8217;un d&#233;ploiement r&#233;el de cette stack. Aucun n&#8217;est hypothétique.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Sympt&#244;me</th>
+                        <th>Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>VPS inaccessible apr&#232;s installation Coolify. Containers sans acc&#232;s internet.</td>
+                        <td>Coolify cr&#233;e un pool Docker <code>10.0.0.0/8</code> en conflit avec le r&#233;seau LAN physique du VPS (ex: r&#233;seau h&#233;bergeur en 10.x.x.x).</td>
+                        <td>Modifier <code>/etc/docker/daemon.json</code> pour utiliser <code>172.20.0.0/16</code> comme pool d&#8217;adresses. Acc&#233;der via console KVM si le SSH est coup&#233;. Redem&#8217;arrer Docker.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td>Bad Gateway 502 apr&#232;s chaque rebuild r&#233;ussi.</td>
+                        <td>Coolify configure les labels Traefik avec le port <code>4321</code> (port de pr&#233;visualisation Astro) au lieu du port <code>80</code> (nginx). Traefik tente de joindre le port 4321 qui n&#8217;existe pas dans le container nginx.</td>
+                        <td>Vider <code>start_command</code> (mettre NULL en DB), s&#8217;assurer que <code>is_static=false</code>, v&#233;rifier que <code>ports_exposes=80</code> en base Coolify. Reconstruire l&#8217;application.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>Build &#233;chou&#233; : <code>network mode coolify not supported by buildkit</code></td>
+                        <td>Coolify utilise <code>--network [r&#233;seau docker]</code> dans le path <code>is_static=true</code>, ce qui n&#8217;est pas support&#233; par buildkit. Le path <code>is_static=false</code> utilise <code>--network host</code> qui fonctionne.</td>
+                        <td>Mettre <code>is_static=false</code> dans <code>application_settings</code> en base de donn&#233;es Coolify. La diff&#233;rence entre les deux paths est dans le code source de Coolify.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>Rebuild termin&#233; avec succ&#232;s mais le contenu Directus n&#8217;est pas mis &#224; jour sur le site.</td>
+                        <td>Docker met en cache les couches du build. Si le code source n&#8217;a pas chang&#233;, la couche <code>npm run build</code> est r&#233;utilis&#233;e depuis le cache et Astro ne re-fetche pas Directus.</td>
+                        <td>Appeler l&#8217;API Coolify avec <code>&amp;force=true</code> dans le Flow Directus. Ce param&#232;tre passe <code>--no-cache</code> &#224; <code>docker build</code>, for&#231;ant la reconstruction int&#233;grale.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td><code>Blocked request. This host is not allowed.</code> en utilisant <code>astro preview</code> en prod.</td>
+                        <td>Vite 8+ (utilis&#233; par Astro) a une protection stricte sur les hosts non autoris&#233;s. <code>astro preview</code> refuse les requ&#234;tes provenant de Traefik avec un hostname diff&#233;rent de localhost.</td>
+                        <td>Ne jamais utiliser <code>astro preview</code> en production. Utiliser le Dockerfile multistage avec nginx Alpine. <code>CMD</code> du Dockerfile = nginx, pas <code>astro preview</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6</strong></td>
+                        <td>Container crash au d&#233;marrage : <code>Cannot find module dist/server/entry.mjs</code></td>
+                        <td>Coolify a configur&#233; <code>start_command</code> pour ex&#233;cuter un point d&#8217;entr&#233;e SSR (<code>node dist/server/entry.mjs</code>) alors que le projet est en mode <code>output: 'static'</code> et ne g&#233;n&#232;re pas ce fichier.</td>
+                        <td>Mettre <code>start_command = NULL</code> en base de donn&#233;es Coolify pour laisser le <code>CMD</code> du Dockerfile s&#8217;ex&#233;cuter (nginx). Reconstruire l&#8217;application.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 12 -->
+        <div class="section" id="commandes-utiles">
+            <h2>12. R&#233;sum&#233; des commandes utiles</h2>
+
+            <h3>Inspecter les containers Docker</h3>
+            <pre><code># Lister tous les containers actifs
+docker ps
+
+# Lister tous les containers (y compris arr&#234;t&#233;s)
+docker ps -a
+
+# Voir les r&#233;seaux Docker d&#8217;un container
+docker inspect [nom-container] | grep -A20 '"Networks"'
+
+# Voir l&#8217;IP d&#8217;un container
+docker inspect [nom-container] | grep IPAddress
+
+# Voir les variables d&#8217;environnement d&#8217;un container
+docker inspect [nom-container] | grep -A50 '"Env"'</code></pre>
+
+            <h3>Logs de d&#233;ploiement Coolify</h3>
+            <pre><code># Logs temps r&#233;el du daemon Coolify
+docker logs -f coolify
+
+# Logs du container applicatif (site Astro/nginx)
+docker logs -f [nom-container-app]
+
+# Logs du container Directus
+docker logs -f [nom-container-directus]
+
+# Logs en temps r&#233;el avec filtre
+docker logs -f [container] 2&gt;&amp;1 | grep -i "error\|warn\|build"</code></pre>
+
+            <h3>Acc&#232;s &#224; la base de donn&#233;es Coolify</h3>
+            <pre><code># Entrer dans psql sur la base Coolify
+docker exec -it coolify-db psql -U coolify
+
+# Requetes utiles une fois connect&#233; :
+\dt                          -- lister toutes les tables
+\d applications              -- structure de la table applications
+
+-- Voir toutes les applications
+SELECT uuid, name, build_pack, ports_exposes, start_command, is_static
+FROM applications;
+
+-- Corriger le port expos&#233;
+UPDATE applications SET ports_exposes = '80' WHERE uuid='[votre-uuid]';
+
+-- Vider la commande de d&#233;marrage
+UPDATE applications SET start_command = NULL WHERE uuid='[votre-uuid]';
+
+-- D&#233;sactiver le mode static
+UPDATE applications SET is_static = false WHERE uuid='[votre-uuid]';
+
+-- Quitter
+\q</code></pre>
+
+            <h3>Tester l&#8217;API Coolify</h3>
+            <pre><code># R&#233;cup&#233;rer les informations du serveur
+curl -H "Authorization: Bearer [token]" http://localhost:8080/api/v1/servers
+
+# Lister les applications
+curl -H "Authorization: Bearer [token]" http://localhost:8080/api/v1/applications
+
+# D&#233;clencher un d&#233;ploiement manuellement
+curl -X POST \
+  -H "Authorization: Bearer [token]" \
+  "http://localhost:8080/api/v1/deploy?uuid=[APP-UUID]&amp;force=true"
+
+# V&#233;rifier les d&#233;ploiements en cours
+curl -H "Authorization: Bearer [token]" \
+  "http://localhost:8080/api/v1/applications/[APP-UUID]/deployments"</code></pre>
+
+            <h3>Tester Directus depuis un autre container</h3>
+            <pre><code># Lancer un container temporaire sur le r&#233;seau coolify pour tester l'acc&#232;s Directus
+docker run --rm --network coolify curlimages/curl \
+  http://[IP-DIRECTUS]:8055/items/services
+
+# Tester depuis le host (si Directus expose un port sur le host)
+curl http://localhost:8055/items/services
+
+# Tester avec authentification (si les permissions publiques ne sont pas activ&#233;es)
+curl -H "Authorization: Bearer [token-admin-directus]" \
+  http://[IP-DIRECTUS]:8055/items/services</code></pre>
+
+            <h3>Gestion des r&#233;seaux Docker</h3>
+            <pre><code># Lister tous les r&#233;seaux Docker
+docker network ls
+
+# Inspecter le r&#233;seau coolify
+docker network inspect coolify
+
+# Connecter un container &#224; un r&#233;seau
+docker network connect coolify [nom-container]
+
+# D&#233;connecter un container d&#8217;un r&#233;seau
+docker network disconnect coolify [nom-container]</code></pre>
+
+            <h3>Commandes build locales (test avant push)</h3>
+            <pre><code># Builder l'image Docker localement
+docker build -t mon-site-vitrine:test .
+
+# Lancer le container pour tester
+docker run -p 8080:80 mon-site-vitrine:test
+
+# Acc&#233;der sur http://localhost:8080
+
+# Nettoyer les images de test
+docker rmi mon-site-vitrine:test
+
+# Voir la taille de l'image finale
+docker images mon-site-vitrine:test</code></pre>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div>
+                    <strong>Checklist de validation finale :</strong>
+                    <ul style="margin-top:10px;margin-left:20px;line-height:2">
+                        <li>Directus accessible et collections visibles via l&#8217;API publique</li>
+                        <li>Container Directus connect&#233; au r&#233;seau <code>coolify</code></li>
+                        <li>Variable <code>DIRECTUS_URL</code> configur&#233;e dans Coolify avec l&#8217;IP interne Docker</li>
+                        <li>Build Pack = <code>dockerfile</code>, Port expos&#233; = <code>80</code>, start_command = NULL</li>
+                        <li>Flow Directus cr&#233;&#233; avec <code>force=true</code> dans l&#8217;URL Coolify</li>
+                        <li>Test end-to-end : modifier un item dans Directus &rarr; attendre 2-3 min &rarr; v&#233;rifier le site</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&#8593;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f0fe 0%,#d4e4f7 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.3em;margin-bottom:10px}
+        .header p{font-size:1.2em;opacity:0.9}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#2e7d32;font-size:1.8em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #2e7d32}
+        .section h3{color:#1b5e20;font-size:1.4em;margin-top:25px;margin-bottom:15px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .procedure{background:#f8f9fa;border-radius:10px;padding:30px;margin:30px 0}
+        .step{display:flex;align-items:flex-start;margin-bottom:30px;padding:20px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-5px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;font-weight:bold;margin-right:20px;flex-shrink:0;box-shadow:0 4px 10px rgba(46,125,50,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#2e7d32;margin-bottom:10px;font-size:1.3em}
+        .step-content p{color:#666;line-height:1.8}
+        code{background:#e9ecef;padding:2px 8px;border-radius:3px;font-family:'Courier New',monospace;color:#1b5e20;font-size:0.95em}
+        pre{background:#1e1e1e;color:#d4d4d4;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.9em;line-height:1.7}
+        pre code{background:none;color:#d4d4d4;padding:0}
+        .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;box-shadow:0 2px 15px rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+        .comparison-table thead{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:white}
+        .comparison-table th{padding:18px;text-align:left;font-size:1.05em}
+        .comparison-table td{padding:14px 18px;border-bottom:1px solid #eee}
+        .comparison-table tbody tr:nth-child(even){background:#f9f9f9}
+        .comparison-table tbody tr:hover{background:#e8f5e9}
+        .bad{color:#dc3545;font-weight:bold}
+        .checklist{list-style:none;margin:20px 0;padding:0}
+        .checklist li{padding:12px 15px;margin:8px 0;background:#f8f9fa;border-radius:8px;border-left:4px solid #2e7d32;font-size:1.05em}
+        .toc{background:#f0f7f0;border:2px solid #c8e6c9;border-radius:10px;padding:25px 30px;margin:30px 0}
+        .toc h3{color:#2e7d32;margin-bottom:15px;font-size:1.2em}
+        .toc ul{list-style:none;padding:0}
+        .toc li{padding:6px 0}
+        .toc a{color:#1b5e20;text-decoration:none;font-weight:500;transition:color 0.2s}
+        .toc a:hover{color:#2e7d32;text-decoration:underline}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#2e7d32;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(46,125,50,0.4)}
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2e7d32,#1b5e20);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        @media(max-width:600px){.header h1{font-size:1.5em}.content{padding:20px}.header-container,.contact-header,.footer-content{flex-direction:column;gap:10px}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop{display:none}.main-header,.main-footer{break-inside:avoid}}
+    
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

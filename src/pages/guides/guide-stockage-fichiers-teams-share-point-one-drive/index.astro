@@ -1,0 +1,154 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="O&ugrave; sont stock&eacute;s les fichiers Teams ? SharePoint &amp; OneDrive expliqu&eacute;s — Gigarun La Réunion" description="Comprenez o&ugrave; vont vos fichiers dans Microsoft Teams : canaux standards (SharePoint), canaux priv&eacute;s, chats (OneDrive). Guide pratique par GiGaRuN.">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Microsoft 365</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">O&ugrave; sont stock&eacute;s les fichiers Teams ? SharePoint &amp; OneDrive expliqu&eacute;s</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Comprenez o&ugrave; vont vos fichiers dans Microsoft Teams : canaux standards (SharePoint), canaux priv&eacute;s, chats (OneDrive). Guide pratique par GiGaRuN.</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="back-bar">
+    <a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a>
+  </div>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>Vue d'ensemble rapide</h2>
+      <p>Microsoft Teams s'appuie sur <strong>SharePoint</strong> et <strong>OneDrive</strong> pour le stockage des fichiers. Selon le contexte (canal standard, canal privé, canal partagé ou chat), les fichiers vont dans des emplacements différents. Cette page résume chaque cas et propose des actions pratiques (ouvrir dans SharePoint, synchroniser, droits et corbeille).</p>
+
+      <div class="grid">
+        <div>
+          <h3 class="badge">Canal standard</h3>
+          <p>Les fichiers envoyés dans un canal standard sont stockés dans la <strong>bibliothèque Documents partagés</strong> du <em>site SharePoint</em> du groupe (l’équipe).</p>
+        </div>
+        <div>
+          <h3 class="badge">Canal privé</h3>
+          <p>Les canaux privés créent leur propre site SharePoint séparé. Seuls les membres du canal privé y ont accès.</p>
+        </div>
+        <div>
+          <h3 class="badge">Canal partagé</h3>
+          <p>Les canaux partagés (pour collaborer avec des personnes externes) ont aussi un site SharePoint dédié.</p>
+        </div>
+        <div>
+          <h3 class="badge">Chat privé</h3>
+          <p>Les fichiers envoyés dans un chat (1:1 ou groupe non-canal) sont stockés dans le <strong>OneDrive</strong> de l'expéditeur, dans le dossier "Microsoft Teams Chat Files" puis partagés automatiquement avec les destinataires.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Comment accéder au site SharePoint d'un canal (2 méthodes)</h2>
+      <ol>
+        <li><strong>Depuis Teams :</strong> Ouvre l’équipe → sélectionne le canal → onglet <em>Fichiers</em> → <em>Ouvrir dans SharePoint</em>.</li>
+        <li><strong>Depuis Office.com :</strong> Office.com → SharePoint → "Sites récents" ou "Sites suivis" → clique sur le site du groupe → Documents partagés.</li>
+      </ol>
+
+      <p class="note">Exemple d'URL typique : <code>https://votreorg.sharepoint.com/sites/NomDuGroupe/Shared%20Documents/NomDuCanal/</code></p>
+    </section>
+
+    <section class="card">
+      <h2>Actions utiles et bonnes pratiques</h2>
+      <ul>
+        <li><strong>Ouvrir dans SharePoint</strong> pour vérifier les métadonnées, versions et permissions.</li>
+        <li><strong>Synchroniser</strong> la bibliothèque SharePoint via le bouton "Synchroniser" pour l'avoir dans l'Explorateur Windows (OneDrive).</li>
+        <li><strong>Vérifier la corbeille SharePoint</strong> si un fichier a été supprimé — il y a une corbeille site-level et une corbeille collection-level.</li>
+        <li><strong>Contrôler les permissions</strong> : les propriétaires du site gèrent les accès ; pour les canaux privés, vérifie les membres du canal.</li>
+        <li><strong>Eviter les doublons</strong> : préférer <em>partager un lien</em> vers un document dans le canal plutôt que de téléverser plusieurs copies.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Comparatif rapide (tableau)</h2>
+      <pre>
+Type                      | Lieu de stockage                     | Accès par défaut
+--------------------------|--------------------------------------|-------------------------
+Canal standard            | Site SharePoint (Documents partagés) | Tous les membres équipe
+Canal privé               | Site SharePoint séparé                | Membres du canal privé
+Canal partagé             | Site SharePoint dédié                 | Membres autorisés (incl. externes)
+Chat privé (1:1 / groupe) | OneDrive de l'expéditeur              | Participants du chat
+      </pre>
+    </section>
+
+    <section class="card">
+      <h2>Scénarios pratiques</h2>
+      <ul>
+        <li><strong>Partager un document confidentiel</strong> → crée un canal privé ou partage via OneDrive avec droits limités.</li>
+        <li><strong>Collaborer sur un document long</strong> → placer le fichier dans le canal standard (SharePoint) pour profiter du co-édition et du versioning.</li>
+        <li><strong>Externalisation ponctuelle</strong> → utiliser le canal partagé et contrôler la durée d'accès via expiration des liens si nécessaire.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Checklist pour un administrateur</h2>
+      <ul>
+        <li>Vérifier la création automatique du site SharePoint à la création du groupe.</li>
+        <li>Contrôler l'existence de sites séparés pour canaux privés et partagés.</li>
+        <li>Mettre en place une politique de nommage pour les canaux (facilite la consultation de la bibliothèque).</li>
+        <li>Former les utilisateurs à ouvrir dans SharePoint et utiliser le bouton "Partager un lien" pour éviter les copies.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Ressources rapides</h2>
+      <ul>
+        <li>Teams &gt; Canal &gt; Fichiers &gt; « Ouvrir dans SharePoint »</li>
+        <li>SharePoint: bouton <em>Synchroniser</em> → synchronisation OneDrive</li>
+        <li>OneDrive: dossier "Microsoft Teams Chat Files" pour fichiers partagés en chat</li>
+      </ul>
+    </section>
+  </main>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+    :root{--accent:#2b6cb0;--muted:#6b7280;--bg:#f7fafc;--card:#ffffff}
+    body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:#0f172a; margin:0}
+    header, footer{background:linear-gradient(90deg,var(--accent),#6ea5d8); color:white; padding:18px 24px}
+    .wrap{max-width:1000px;margin:28px auto;padding:0 18px}
+    h1{margin:0 0 6px;font-size:20px}
+    p.lead{margin:0;color:#e6f0fb}
+    .coords{margin-top:10px;font-size:14px;opacity:0.95}
+    .card{background:var(--card);border-radius:12px;padding:18px;margin:18px 0;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h2{color:#0f172a;margin-top:0}
+    ul{line-height:1.6}
+    pre{background:#0b1220;color:#dbeafe;padding:12px;border-radius:8px;overflow:auto}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:600;font-size:13px}
+    footer{font-size:14px;text-align:center}
+    .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--accent);color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+    .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(43,108,176,0.4)}
+    .back-bar{max-width:1000px;margin:0 auto;padding:20px 18px 0}
+    #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+    #scrollTop.visible{opacity:1;visibility:visible}
+    #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+    @media print{.back-bar,#scrollTop{display:none}}
+    a{color:var(--accent);text-decoration:none}
+    .note{font-size:13px;color:var(--muted)}
+  
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

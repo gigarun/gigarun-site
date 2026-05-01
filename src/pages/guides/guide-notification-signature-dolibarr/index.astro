@@ -1,0 +1,504 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Guide Notification Email Post-Signature Dolibarr — Gigarun La Réunion" description="Configurer l">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Infogérance</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">Guide Notification Email Post-Signature Dolibarr</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Configurer l</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+
+
+<div class="container">
+    <div class="header">
+        <h1>Notification Email apr&egrave;s Signature en Ligne</h1>
+        <p>Diagnostic et correctif pour l'absence d'email de confirmation apr&egrave;s la signature en ligne d'un devis dans Dolibarr</p>
+        <span class="version-badge">Dolibarr 22.x &bull; Compatible Multicompany</span>
+    </div>
+
+    <div class="content">
+
+        <div class="back-bar"><a href="index.html">&larr; Retour &agrave; l'index des guides</a></div>
+
+        <nav class="toc">
+            <h3>Sommaire</h3>
+            <ol>
+                <li><a href="#contexte">Contexte du probl&egrave;me</a></li>
+                <li><a href="#analyse">Analyse technique</a></li>
+                <li><a href="#cause">Cause racine</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#multicompany">Configuration Multicompany</a></li>
+                <li><a href="#verification">V&eacute;rification post-d&eacute;ploiement</a></li>
+                <li><a href="#resume">R&eacute;sum&eacute;</a></li>
+            </ol>
+        </nav>
+
+        <!-- ============================================================ -->
+        <div class="section" id="contexte">
+            <h2>1. Contexte du probl&egrave;me</h2>
+
+            <p>Dolibarr permet l'envoi d'un devis (proposition commerciale) par email au client, avec un lien de signature en ligne.
+            Le client ouvre le lien, signe dans son navigateur, et le devis passe automatiquement au statut &laquo; Sign&eacute; &raquo;.</p>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    <strong>Probl&egrave;me constat&eacute; :</strong> Apr&egrave;s la signature en ligne, aucun email de confirmation
+                    n'est envoy&eacute; ni au client ni &agrave; l'&eacute;quipe interne. Le comportement est identique sur toutes les instances
+                    test&eacute;es (Dolibarr 22.0.3 et 22.0.4).
+                </div>
+            </div>
+
+            <p><strong>Ce qui fonctionne :</strong></p>
+            <ul style="margin:10px 0 10px 25px;">
+                <li>L'envoi initial du devis avec le lien de signature (trac&eacute; dans <code>dolibarr_mail.log</code>)</li>
+                <li>La signature elle-m&ecirc;me (changement de statut, stockage de la signature PNG, g&eacute;n&eacute;ration du PDF sign&eacute;)</li>
+                <li>Le d&eacute;clenchement du trigger <code>PROPAL_CLOSE_SIGNED</code> (v&eacute;rifi&eacute; dans les logs)</li>
+            </ul>
+            <p><strong>Ce qui ne fonctionne pas :</strong> l'&eacute;tape d'envoi de l'email de notification apr&egrave;s le trigger.</p>
+        </div>
+
+        <!-- ============================================================ -->
+        <div class="section" id="analyse">
+            <h2>2. Analyse technique</h2>
+
+            <h3>2.1 Flux de la signature en ligne</h3>
+
+            <div class="flow-diagram">
+                <div class="flow-step"><div class="flow-num">1</div><div>Le client ouvre le lien de signature et signe dans le navigateur</div></div>
+                <div class="flow-arrow">&darr;</div>
+                <div class="flow-step"><div class="flow-num">2</div><div>Appel AJAX vers <code>core/ajax/onlineSign.php</code></div></div>
+                <div class="flow-arrow">&darr;</div>
+                <div class="flow-step"><div class="flow-num">3</div><div>Signature PNG stock&eacute;e, PDF sign&eacute; g&eacute;n&eacute;r&eacute;, statut &rarr; <strong>Sign&eacute; (2)</strong></div></div>
+                <div class="flow-arrow">&darr;</div>
+                <div class="flow-step"><div class="flow-num">4</div><div>Trigger <code>PROPAL_CLOSE_SIGNED</code> d&eacute;clench&eacute;</div></div>
+                <div class="flow-arrow">&darr;</div>
+                <div class="flow-step"><div class="flow-num">5</div><div><code>interface_50_modNotification_Notification.class.php</code> appelle <code>Notify::send()</code></div></div>
+                <div class="flow-arrow">&darr;</div>
+                <div class="flow-step"><div class="flow-num">6</div><div><code>Notify::send()</code> cherche les destinataires &rarr; <strong>aucun trouv&eacute;</strong> &rarr; pas d'email</div></div>
+            </div>
+
+            <h3>2.2 Trois m&eacute;canismes de notification dans Dolibarr</h3>
+
+            <p>La m&eacute;thode <code>Notify::send()</code> dans <code>core/class/notify.class.php</code> g&egrave;re trois types de destinataires :</p>
+
+            <table>
+                <thead>
+                    <tr><th>M&eacute;canisme</th><th>Comment le configurer</th><th>Fonctionne ?</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Par contact tiers</strong></td>
+                        <td>Onglet &laquo; Notifications &raquo; d'un tiers &rarr; ajouter un contact + &eacute;v&eacute;nement</td>
+                        <td><span class="badge badge-ok">OUI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Par utilisateur Dolibarr</strong></td>
+                        <td>Onglet &laquo; Notifications &raquo; d'un utilisateur &rarr; ajouter un &eacute;v&eacute;nement</td>
+                        <td><span class="badge badge-ok">OUI</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Par email fixe global</strong></td>
+                        <td>Page d'administration du module Notification</td>
+                        <td><span class="badge badge-ko">NON</span> <small>(voir ci-dessous)</small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <div class="section" id="cause">
+            <h2>3. Cause racine</h2>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F41B;</div>
+                <div>
+                    <strong>Bug / incoh&eacute;rence Dolibarr (versions 22.x) :</strong>
+                    <br><br>
+                    L'interface d'administration (<code>/admin/notification.php</code>) permet de saisir un email fixe
+                    dans la grille &laquo; E-mails des destinataires globaux &raquo;. Cette saisie ins&egrave;re une ligne dans la table
+                    <code>llx_notify_def</code> avec <code>fk_user = NULL</code> et <code>fk_contact = NULL</code>.
+                    <br><br>
+                    <strong>Le code PHP ne lit jamais cette entr&eacute;e.</strong> La requ&ecirc;te SQL dans <code>Notify::send()</code>
+                    fait un <code>JOIN</code> sur <code>fk_contact</code> ou <code>fk_user</code>, qui sont <code>NULL</code>,
+                    donc aucun r&eacute;sultat n'est retourn&eacute;.
+                    <br><br>
+                    Le code source contient un commentaire explicite (ligne 1080 de <code>notify.class.php</code>) :
+                    <br>
+                    <code>// TODO Move vars NOTIFICATION_FIXEDEMAIL into table llx_notify_def</code>
+                    <br><br>
+                    Ce &laquo; TODO &raquo; n'est pas impl&eacute;ment&eacute; &mdash; l'interface laisse croire que la fonctionnalit&eacute; existe, mais le backend n'est pas c&acirc;bl&eacute;.
+                </div>
+            </div>
+
+            <h3>3.1 Comment Dolibarr g&egrave;re r&eacute;ellement les emails fixes</h3>
+
+            <p>Pour les emails fixes globaux, le code ne cherche <strong>pas</strong> dans <code>llx_notify_def</code> mais dans les
+            <strong>constantes</strong> de la table <code>llx_const</code>, avec un format pr&eacute;cis :</p>
+
+            <pre><code>NOTIFICATION_FIXEDEMAIL_{CODE_TRIGGER}_THRESHOLD_HIGHER_{SEUIL}</code></pre>
+
+            <p>Le code parcourt toutes les constantes <code>$conf-&gt;global</code> et cherche celles qui matchent
+            le pattern <code>NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_SIGNED_THRESHOLD_HIGHER_*</code>.</p>
+
+            <p>La valeur de la constante contient l'adresse email du destinataire. Le suffixe num&eacute;rique repr&eacute;sente
+            le seuil minimum de montant HT du devis pour d&eacute;clencher la notification.</p>
+        </div>
+
+        <!-- ============================================================ -->
+        <div class="section" id="solution">
+            <h2>4. Solution</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div>
+                    <strong>Solution valid&eacute;e :</strong> cr&eacute;er la constante directement en base de donn&eacute;es.
+                    Aucune modification de fichier, aucun patch du core, compatible avec les mises &agrave; jour Dolibarr.
+                </div>
+            </div>
+
+            <h3>4.1 Pr&eacute;requis</h3>
+
+            <div class="step">
+                <div class="step-number">&#x2713;</div>
+                <div class="step-content">
+                    <h4>Module Notifications activ&eacute;</h4>
+                    <p>V&eacute;rifier dans <strong>Accueil &gt; Configuration &gt; Modules</strong> que le module
+                    &laquo; Notifications &raquo; est actif. En SQL :</p>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>SELECT value FROM llx_const WHERE name = 'MAIN_MODULE_NOTIFICATION';</code></pre>
+                    <p>La valeur doit &ecirc;tre <code>1</code>.</p>
+                </div>
+            </div>
+
+            <h3>4.2 Notification quand un devis est sign&eacute;</h3>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Cr&eacute;er la constante</h4>
+                    <p>Ex&eacute;cuter la requ&ecirc;te SQL suivante sur la base de production :</p>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES (
+    'NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_SIGNED_THRESHOLD_HIGHER_0',
+    'destinataire@example.com',
+    'chaine', 0, 1
+);</code></pre>
+                    <p>Remplacer <code>destinataire@example.com</code> par l'adresse email souhait&eacute;e.</p>
+                </div>
+            </div>
+
+            <h3>4.3 Notification quand un devis est refus&eacute;</h3>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Cr&eacute;er la constante pour le refus (optionnel)</h4>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES (
+    'NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_REFUSED_THRESHOLD_HIGHER_0',
+    'destinataire@example.com',
+    'chaine', 0, 1
+);</code></pre>
+                </div>
+            </div>
+
+            <h3>4.4 Plusieurs destinataires</h3>
+
+            <p>Pour envoyer la notification &agrave; plusieurs adresses, les s&eacute;parer par une virgule dans la valeur :</p>
+
+            <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>UPDATE llx_const
+SET value = 'secretariat@example.com, direction@example.com'
+WHERE name = 'NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_SIGNED_THRESHOLD_HIGHER_0'
+  AND entity = 1;</code></pre>
+
+            <h3>4.5 Seuil de montant</h3>
+
+            <p>Le chiffre &agrave; la fin du nom de la constante d&eacute;finit le seuil minimum de montant HT.
+            <code>_0</code> signifie &laquo; tous les devis avec un montant HT sup&eacute;rieur &agrave; 0 &raquo;.</p>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    <strong>Attention :</strong> Les devis avec un montant HT strictement &eacute;gal &agrave; z&eacute;ro ne d&eacute;clenchent
+                    pas la notification. Ce cas est rare en pratique (un devis &agrave; 0&euro; n'a g&eacute;n&eacute;ralement pas de sens commercial).
+                </div>
+            </div>
+
+            <p>Exemples de seuils :</p>
+            <table>
+                <thead><tr><th>Constante</th><th>Comportement</th></tr></thead>
+                <tbody>
+                    <tr><td><code>..._THRESHOLD_HIGHER_0</code></td><td>Tous les devis (montant &gt; 0)</td></tr>
+                    <tr><td><code>..._THRESHOLD_HIGHER_1000</code></td><td>Devis dont le montant HT &gt; 1 000 &euro;</td></tr>
+                    <tr><td><code>..._THRESHOLD_HIGHER_5000</code></td><td>Devis dont le montant HT &gt; 5 000 &euro;</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================================ -->
+        <div class="section" id="multicompany">
+            <h2>5. Configuration Multicompany</h2>
+
+            <p>Dans un environnement <strong>Multicompany</strong>, chaque entit&eacute; (soci&eacute;t&eacute;) a ses propres constantes
+            dans <code>llx_const</code> diff&eacute;renci&eacute;es par le champ <code>entity</code>.</p>
+
+            <p>Lors de la signature en ligne, Dolibarr charge les constantes de l'entit&eacute; associ&eacute;e au devis.
+            Il suffit donc d'ins&eacute;rer une constante par entit&eacute; avec l'email correspondant.</p>
+
+            <h3>5.1 Identifier les entit&eacute;s</h3>
+
+            <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>SELECT rowid, label, active FROM llx_entity ORDER BY rowid;</code></pre>
+
+            <p>R&eacute;sultat type :</p>
+            <table>
+                <thead><tr><th>rowid</th><th>label</th><th>active</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td>Soci&eacute;t&eacute; A</td><td>1</td></tr>
+                    <tr><td>2</td><td>Soci&eacute;t&eacute; B</td><td>1</td></tr>
+                    <tr><td>3</td><td>Soci&eacute;t&eacute; C</td><td>0 (d&eacute;sactiv&eacute;e)</td></tr>
+                </tbody>
+            </table>
+
+            <h3>5.2 Ins&eacute;rer une constante par entit&eacute;</h3>
+
+            <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>-- Entit&eacute; 1 : Soci&eacute;t&eacute; A
+INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES ('NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_SIGNED_THRESHOLD_HIGHER_0',
+        'secretariat@societe-a.com', 'chaine', 0, 1);
+
+-- Entit&eacute; 2 : Soci&eacute;t&eacute; B
+INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES ('NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_SIGNED_THRESHOLD_HIGHER_0',
+        'admin@societe-b.com', 'chaine', 0, 2);
+
+-- R&eacute;p&eacute;ter pour chaque entit&eacute; active</code></pre>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4A1;</div>
+                <div>
+                    <strong>Fonctionnement :</strong> Quand un client signe un devis de l'entit&eacute; 2,
+                    Dolibarr charge les constantes avec <code>entity = 2</code>. La notification sera donc envoy&eacute;e
+                    &agrave; l'adresse de l'entit&eacute; 2, et non &agrave; celle de l'entit&eacute; 1.
+                    Chaque entit&eacute; re&ccedil;oit uniquement les notifications de ses propres devis.
+                </div>
+            </div>
+
+            <h3>5.3 M&ecirc;me logique pour les devis refus&eacute;s</h3>
+
+            <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>-- Entit&eacute; 1
+INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES ('NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_REFUSED_THRESHOLD_HIGHER_0',
+        'secretariat@societe-a.com', 'chaine', 0, 1);
+
+-- Entit&eacute; 2
+INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES ('NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_REFUSED_THRESHOLD_HIGHER_0',
+        'admin@societe-b.com', 'chaine', 0, 2);</code></pre>
+        </div>
+
+        <!-- ============================================================ -->
+        <div class="section" id="verification">
+            <h2>6. V&eacute;rification post-d&eacute;ploiement</h2>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>V&eacute;rifier les constantes</h4>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>SELECT name, value, entity
+FROM llx_const
+WHERE name LIKE 'NOTIFICATION_FIXEDEMAIL_PROPAL%'
+ORDER BY entity, name;</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>V&eacute;rifier le module Notification</h4>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>SELECT name, value FROM llx_const
+WHERE name = 'MAIN_MODULE_NOTIFICATION';</code></pre>
+                    <p>Doit retourner <code>value = 1</code>.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Tester avec un devis</h4>
+                    <p>Cr&eacute;er un devis de test avec un montant &gt; 0 &euro;, le valider, puis le signer via le lien en ligne ou manuellement via le bouton &laquo; Classer sign&eacute; &raquo;.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>Consulter l'historique des notifications</h4>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>SELECT * FROM llx_notify ORDER BY rowid DESC LIMIT 10;</code></pre>
+                    <p>Une nouvelle entr&eacute;e doit appara&icirc;tre avec le code <code>PROPAL_CLOSE_SIGNED</code> et l'email du destinataire.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>Consulter le log mail</h4>
+                    <p>Activer temporairement le log mail si ce n'est pas d&eacute;j&agrave; fait :</p>
+                    <pre><button class="copy-btn" onclick="copyCode(this)">Copier</button><code>-- Activer le log mail (niveau debug)
+INSERT IGNORE INTO llx_const (name, value, type, visible, entity)
+VALUES ('MAIN_MAIL_DEBUG', '1', 'chaine', 0, 0);
+
+-- D&eacute;sactiver apr&egrave;s le test
+UPDATE llx_const SET value = '0' WHERE name = 'MAIN_MAIL_DEBUG';</code></pre>
+                    <p>Ou via l'interface : <strong>Accueil &gt; Configuration &gt; Divers</strong> &rarr; param&egrave;tre <code>MAIN_MAIL_DEBUG</code>.</p>
+                    <p>V&eacute;rifier ensuite le fichier <code>documents/dolibarr_mail.log</code> pour le d&eacute;tail de l'envoi SMTP.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <div class="section" id="resume">
+            <h2>7. R&eacute;sum&eacute;</h2>
+
+            <table>
+                <thead><tr><th>Crit&egrave;re</th><th>D&eacute;tail</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Cause</strong></td><td>L'interface admin ins&egrave;re dans <code>llx_notify_def</code> mais le code cherche dans <code>llx_const</code> (TODO non impl&eacute;ment&eacute;)</td></tr>
+                    <tr><td><strong>Correctif</strong></td><td>Constante <code>NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE_SIGNED_THRESHOLD_HIGHER_0</code> dans <code>llx_const</code></td></tr>
+                    <tr><td><strong>Impact fichiers</strong></td><td>Aucune modification de fichier (ni core, ni custom)</td></tr>
+                    <tr><td><strong>Compatibilit&eacute;</strong></td><td>100% &mdash; les constantes <code>llx_const</code> sont pr&eacute;serv&eacute;es lors des mises &agrave; jour</td></tr>
+                    <tr><td><strong>Multicompany</strong></td><td>Une constante par entit&eacute; (champ <code>entity</code>)</td></tr>
+                    <tr><td><strong>Temps de d&eacute;ploiement</strong></td><td>2 minutes (requ&ecirc;tes SQL)</td></tr>
+                    <tr><td><strong>Contenu de l'email</strong></td><td>Message natif Dolibarr avec lien vers le devis + PDF en pi&egrave;ce jointe</td></tr>
+                    <tr><td><strong>Rollback</strong></td><td><code>DELETE FROM llx_const WHERE name LIKE 'NOTIFICATION_FIXEDEMAIL_PROPAL_CLOSE%';</code></td></tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4DD;</div>
+                <div>
+                    <strong>Autres &eacute;v&eacute;nements disponibles :</strong> la m&ecirc;me m&eacute;thode fonctionne pour tous les &eacute;v&eacute;nements
+                    support&eacute;s par le module Notification. Exemples :
+                    <br><br>
+                    <code>NOTIFICATION_FIXEDEMAIL_PROPAL_VALIDATE_THRESHOLD_HIGHER_0</code> &mdash; Devis valid&eacute;<br>
+                    <code>NOTIFICATION_FIXEDEMAIL_ORDER_VALIDATE_THRESHOLD_HIGHER_0</code> &mdash; Commande valid&eacute;e<br>
+                    <code>NOTIFICATION_FIXEDEMAIL_BILL_VALIDATE_THRESHOLD_HIGHER_0</code> &mdash; Facture valid&eacute;e<br>
+                    <code>NOTIFICATION_FIXEDEMAIL_BILL_PAYED_THRESHOLD_HIGHER_0</code> &mdash; Facture pay&eacute;e
+                </div>
+            </div>
+        </div>
+
+        <div class="back-bar"><a href="index.html">&larr; Retour &agrave; l'index des guides</a></div>
+
+    </div>
+</div>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8eaf6 0%,#c5cae9 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.2em;margin-bottom:10px}
+        .header p{font-size:1.15em;opacity:0.9}
+        .header .version-badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);padding:6px 18px;border-radius:25px;font-size:0.85em;margin-top:12px;letter-spacing:0.5px}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#1565c0;font-size:1.8em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #1565c0}
+        .section h3{color:#1565c0;font-size:1.3em;margin-top:25px;margin-bottom:12px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .step{display:flex;align-items:flex-start;margin-bottom:25px;padding:20px;background:#f8f9fa;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-3px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:bold;margin-right:18px;flex-shrink:0;box-shadow:0 4px 10px rgba(21,101,192,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#1565c0;margin-bottom:8px;font-size:1.15em}
+        .step-content p{color:#555;line-height:1.7}
+        table{width:100%;border-collapse:collapse;margin:20px 0;box-shadow:0 2px 15px rgba(0,0,0,0.08);border-radius:10px;overflow:hidden}
+        thead{background:linear-gradient(135deg,#1565c0,#1e88e5);color:white}
+        th{padding:14px 18px;text-align:left;font-size:1em}
+        td{padding:12px 18px;border-bottom:1px solid #eee}
+        tbody tr:nth-child(even){background:#f9f9f9}
+        tbody tr:hover{background:#e3f2fd}
+        code{background:#e9ecef;padding:2px 8px;border-radius:4px;font-family:'Courier New',monospace;color:#1565c0;font-size:0.9em}
+        pre{background:#1e293b;color:#e2e8f0;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.9em;line-height:1.7;position:relative}
+        pre code{background:none;color:#e2e8f0;padding:0}
+        .copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.15);color:#94a3b8;border:1px solid rgba(255,255,255,0.2);padding:4px 12px;border-radius:6px;font-size:0.8em;cursor:pointer;transition:background 0.2s,color 0.2s}
+        .copy-btn:hover{background:rgba(255,255,255,0.25);color:white}
+        .copy-btn.copied{background:#198754;color:white;border-color:#198754}
+        .flow-diagram{background:#f8f9fa;border:1px solid #e0e0e0;border-radius:10px;padding:25px;margin:20px 0}
+        .flow-step{display:flex;align-items:flex-start;margin-bottom:6px}
+        .flow-num{min-width:34px;height:34px;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85em;margin-right:14px;flex-shrink:0}
+        .flow-arrow{text-align:center;color:#aaa;font-size:1.3em;margin:3px 0 3px 12px}
+        .badge{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.82em;font-weight:600;color:white}
+        .badge-ok{background:#198754}
+        .badge-ko{background:#dc3545}
+        .badge-warn{background:#ffc107;color:#333}
+        .toc{background:#f0f4ff;border-radius:10px;padding:25px 30px;margin:25px 0}
+        .toc h3{color:#1565c0;margin-bottom:12px;font-size:1.15em}
+        .toc ol{padding-left:22px}
+        .toc li{margin:6px 0}
+        .toc a{color:#1565c0;text-decoration:none;font-weight:500}
+        .toc a:hover{text-decoration:underline}
+        .back-bar{text-align:center;margin:15px 0 0}
+        .back-bar a{color:#1565c0;text-decoration:none;font-weight:600;font-size:0.95em}
+        .back-bar a:hover{text-decoration:underline}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .progress-bar{position:fixed;top:0;left:0;width:100%;height:4px;z-index:9999;background:rgba(0,0,0,0.1)}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#1565c0,#1e88e5);width:0%;transition:width 0.1s}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1565c0,#1e88e5);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        @media(max-width:700px){.header h1{font-size:1.5em}.content{padding:20px}.header-container{flex-direction:column;gap:10px}.contact-header{flex-direction:column;gap:5px}.footer-content{flex-direction:column}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop,.progress-bar,.copy-btn{display:none}.main-header,.main-footer{break-inside:avoid}}
+    
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

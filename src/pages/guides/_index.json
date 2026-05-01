@@ -1,0 +1,205 @@
+[
+  {
+    "slug": "guide-hornetsecurity-utilisateur",
+    "cat": "Sécurité email",
+    "titre": "Guide Utilisateur HornetSecurity | Protection Messagerie",
+    "desc": "Guide utilisateur HornetSecurity : g&eacute;rez votre quarantaine email, lib&eacute;rez les messages bloqu&eacute;s, con",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-impression-rdp",
+    "cat": "Support IT",
+    "titre": "Guide d'impression optimale en Bureau &agrave; Distance (RDP)",
+    "desc": "Imprimez rapidement depuis une session Bureau &agrave; Distance (RDP) avec la m&eacute;thode PDF. 20x plus rapide, 100x ",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-prise-en-main-mac",
+    "cat": "Support IT",
+    "titre": "Guide de prise en main Mac | Raccourcis, applications et bonnes pratiques",
+    "desc": "Guide complet Mac pour nouveaux utilisateurs : interface, Finder, raccourcis clavier, applications professionnelles, s&e",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-stockage-fichiers-teams-share-point-one-drive",
+    "cat": "Microsoft 365",
+    "titre": "O&ugrave; sont stock&eacute;s les fichiers Teams ? SharePoint &amp; OneDrive expliqu&eacute;s",
+    "desc": "Comprenez o&ugrave; vont vos fichiers dans Microsoft Teams : canaux standards (SharePoint), canaux priv&eacute;s, chats ",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-multiagent-ollama",
+    "cat": "Intelligence artificielle",
+    "titre": "Guide Multi-Agents IA &amp; Ollama | Architecture, Orchestration et M&eacute;moire",
+    "desc": "",
+    "type": "guide"
+  },
+  {
+    "slug": "exocortex",
+    "cat": "Intelligence artificielle",
+    "titre": "Exocortex IA - Guide Complet | Copilote Cognitif avec l'IA",
+    "desc": "Guide complet pour construire votre Exocortex : copilote cognitif personnel avec l",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-exocortex-copilote-metier",
+    "cat": "Intelligence artificielle",
+    "titre": "Exocortex M&eacute;tier &mdash; Copilote IA pour DSI, RSSI &amp; Direction Commerciale",
+    "desc": "Guide complet de l",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-exocortex-sync-multimachine",
+    "cat": "Intelligence artificielle",
+    "titre": "Exocortex Multi-Machine &mdash; Synchronisation bidirectionnelle du copilote IA",
+    "desc": "Guide complet pour synchroniser l",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-mfa-microsoft-authenticator",
+    "cat": "Cybersécurité",
+    "titre": "Guide MFA &amp; Microsoft Authenticator | S&eacute;curiser son compte Microsoft 365",
+    "desc": "Guide pas &agrave; pas pour configurer l",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-cybersecurite-utilisateur",
+    "cat": "Cybersécurité",
+    "titre": "Guide Cybers&eacute;curit&eacute; Utilisateur | Bonnes pratiques au quotidien",
+    "desc": "Guide cybers&eacute;curit&eacute; pour les collaborateurs : reconna&icirc;tre le phishing, cr&eacute;er des mots de pass",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-passbolt-gestionnaire-mots-de-passe",
+    "cat": "Cybersécurité",
+    "titre": "Guide Passbolt | Gestionnaire de mots de passe d'entreprise",
+    "desc": "Guide Passbolt pour les collaborateurs : cr&eacute;er, stocker et partager vos mots de passe en toute s&eacute;curit&eac",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-onboarding-premier-jour",
+    "cat": "Support IT",
+    "titre": "Guide Onboarding IT - Premier Jour | Nouvel arrivant",
+    "desc": "Guide d",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-vpn-acces-distant",
+    "cat": "Infrastructure",
+    "titre": "Guide VPN &amp; Acc&egrave;s Distant | T&eacute;l&eacute;travail s&eacute;curis&eacute;",
+    "desc": "Guide VPN et acc&egrave;s distant pour le t&eacute;l&eacute;travail : connexion s&eacute;curis&eacute;e, configuration, ",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-restauration-fichiers",
+    "cat": "Sauvegarde",
+    "titre": "Guide Restauration de Fichiers | R&eacute;cup&eacute;rer un document perdu",
+    "desc": "Guide pour r&eacute;cup&eacute;rer un fichier supprim&eacute; ou perdu : corbeille, versions pr&eacute;c&eacute;dentes, ",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-outlook-messagerie-microsoft365",
+    "cat": "Microsoft 365",
+    "titre": "Guide Outlook &amp; Messagerie Microsoft 365 | Bonnes pratiques email",
+    "desc": "Guide Outlook et messagerie Microsoft 365 : organisation des emails, calendrier partag&eacute;, r&egrave;gles automatiqu",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-open-webui-ia-locale",
+    "cat": "Intelligence artificielle",
+    "titre": "Guide Open WebUI &amp; Ollama | IA locale avec persistance et multi-mod&egrave;les",
+    "desc": "Guide pratique Open WebUI + Ollama : d&eacute;ployer une IA locale persistante, exploiter le RAG, orchestrer plusieurs m",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-ia-pour-pme",
+    "cat": "Intelligence artificielle",
+    "titre": "Guide IA pour PME | Intelligence artificielle au service de votre entreprise",
+    "desc": "Guide pratique IA pour les PME : Microsoft Copilot, ChatGPT, Claude, cas d",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-wifi",
+    "cat": "Infrastructure",
+    "titre": "Guide S&eacute;curisation WiFi | Filtrage MAC, portail captif &amp; bonnes pratiques",
+    "desc": "Guide WiFi entreprise : comprendre le filtrage MAC, anticiper les demandes d",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-bonnes-pratiques-onedrive",
+    "cat": "Microsoft 365",
+    "titre": "Guide Bonnes Pratiques OneDrive | Partage de fichiers s&eacute;curis&eacute;",
+    "desc": "Guide complet OneDrive : partagez vos fichiers par lien s&eacute;curis&eacute; au lieu de pi&egrave;ces jointes, organis",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-environnement-optimal-microsoft365",
+    "cat": "Microsoft 365",
+    "titre": "Microsoft 365 &mdash; Environnement Optimal",
+    "desc": "Pourquoi Microsoft Edge est le navigateur optimal pour Microsoft 365 : SSO, Copilot, PWA Office, profils pro/perso. Conf",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-virtualhosts-virtualmin-dolibarr",
+    "cat": "Infogérance",
+    "titre": "Cr&#233;er un VirtualHost dans Virtualmin pour Dolibarr | Guide pas &#224; pas",
+    "desc": "Guide pas &#224; pas pour cr&#233;er un h&#244;te virtuel (VirtualHost) dans Webmin / Virtualmin pour un module Dolibarr",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-coolify-astro-directus",
+    "cat": "Infogérance",
+    "titre": "Coolify + Astro + Directus — Site statique avec CMS headless | Guide technique",
+    "desc": "Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Directus comme CMS headless. ",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-coolify-astro-strapi",
+    "cat": "Infogérance",
+    "titre": "Coolify + Astro + Strapi — Site statique avec CMS headless | Guide technique",
+    "desc": "Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Strapi comme CMS headless. Mi",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-deploiement-agent-zabbix",
+    "cat": "Infrastructure",
+    "titre": "Guide D&eacute;ploiement Agent Zabbix | Supervision infog&eacute;rance",
+    "desc": "Guide interne de d&eacute;ploiement des agents Zabbix (Agent 2) sur Windows et Linux : installation, configuration, fire",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-integration-hubspot-owa",
+    "cat": "Microsoft 365",
+    "titre": "Guide Int&eacute;gration HubSpot Sales &mdash; OWA / Exchange Online",
+    "desc": "Guide complet de d&eacute;ploiement et d&eacute;pannage du compl&eacute;ment HubSpot Sales pour Outlook Web App (OWA) su",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-notification-signature-dolibarr",
+    "cat": "Infogérance",
+    "titre": "Guide Notification Email Post-Signature Dolibarr",
+    "desc": "Configurer l",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-deploiement-dolibarr23",
+    "cat": "Infogérance",
+    "titre": "Guide D&eacute;ploiement Dolibarr 23 | ERP Production",
+    "desc": "Guide pas &agrave; pas pour d&eacute;ployer Dolibarr 23.0.1 en production sur Debian 12 : installation, configuration, s",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-utilisateur-optimisation-gestion-batterie-portable",
+    "cat": "Support IT",
+    "titre": "Guide Batterie Portable | Optimisation et gestion de la durée de vie",
+    "desc": "Guide complet pour optimiser et prolonger la durée de vie de la batterie de votre ordinateur portable : bonnes pratiques",
+    "type": "guide"
+  },
+  {
+    "slug": "guide-audit-mobile-forensique",
+    "cat": "Cybersécurité",
+    "titre": "Audit Mobile Forensique | D&eacute;tecter une compromission sur Android et iOS",
+    "desc": "Guide complet d",
+    "type": "guide"
+  }
+]

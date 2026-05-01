@@ -1,0 +1,697 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Audit Mobile Forensique | D&eacute;tecter une compromission sur Android et iOS — Gigarun La Réunion" description="Guide complet d">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Cybersécurité</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">Audit Mobile Forensique | D&eacute;tecter une compromission sur Android et iOS</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Guide complet d</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+
+<div class="container">
+    <div class="header">
+        <h1>&#x1F50D; Audit Mobile Forensique</h1>
+        <p>D&eacute;tecter un spyware, stalkerware ou acc&egrave;s non autoris&eacute; sur Android et iOS</p>
+    </div>
+    <div class="content">
+
+        <!-- CONTEXTE -->
+        <div class="section">
+            <h2>Pourquoi auditer un t&eacute;l&eacute;phone</h2>
+            <p>Un smartphone compromis est souvent plus dangereux qu'un PC infect&eacute; : il transporte la vie professionnelle et personnelle, reste allum&eacute; en permanence, et acc&egrave;de au micro, &agrave; la cam&eacute;ra, aux messages chiffr&eacute;s et aux codes 2FA.</p>
+
+            <div class="kpi-grid">
+                <div class="kpi-box"><span class="value">80%</span><span class="label">des compromissions mobiles passent inaperçues plus de 6 mois</span></div>
+                <div class="kpi-box" style="background:linear-gradient(135deg,#533483,#7c3aed)"><span class="value">3 vecteurs</span><span class="label">App malveillante, lien pi&eacute;g&eacute;, acc&egrave;s physique non autoris&eacute;</span></div>
+                <div class="kpi-box" style="background:linear-gradient(135deg,#dc3545,#6f1520)"><span class="value">Profil MDM</span><span class="label">Signal le plus critique sur iOS — contr&ocirc;le total de l'appareil</span></div>
+                <div class="kpi-box" style="background:linear-gradient(135deg,#198754,#20c997)"><span class="value">Terrain</span><span class="label">Audit r&eacute;alisable sans root ni mat&eacute;riel sp&eacute;cialis&eacute;</span></div>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Cadre l&eacute;gal :</strong> Un audit mobile ne peut &ecirc;tre r&eacute;alis&eacute; que sur un appareil dont vous &ecirc;tes propri&eacute;taire ou avec le consentement &eacute;crit du propri&eacute;taire. Une d&eacute;charge sign&eacute;e est obligatoire avant toute intervention.</div>
+            </div>
+
+            <h3>Quand d&eacute;clencher un audit</h3>
+            <ul class="checklist">
+                <li>&#x1F50B; Batterie qui se vide anormalement vite (spyware actif en arri&egrave;re-plan)</li>
+                <li>&#x1F321; T&eacute;l&eacute;phone chaud au repos</li>
+                <li>&#x1F4F6; Consommation data inexplicable</li>
+                <li>&#x1F4AC; La personne re&ccedil;oit des infos qu'elle n'a partag&eacute; que par t&eacute;l&eacute;phone</li>
+                <li>&#x1F50E; Application inconnue visible ou invisible dans la liste des processus</li>
+                <li>&#x1F4F1; Appareil qui &eacute;met des sons ou s'allume seul</li>
+                <li>&#x1F512; Compte Google / Apple ID connect&eacute; depuis un pays &eacute;tranger</li>
+            </ul>
+        </div>
+
+        <!-- STACK D'OUTILS -->
+        <div class="section">
+            <h2>Stack d'outils recommand&eacute;e</h2>
+
+            <div class="tool-card">
+                <div class="tool-icon">&#x1F527;</div>
+                <div class="tool-info">
+                    <h4>ADB — Android Debug Bridge</h4>
+                    <p>Interface de commande officielle Android. Acc&egrave;s aux packages install&eacute;s, processus, propri&eacute;t&eacute;s syst&egrave;me, logs. Socle de tout audit Android.</p>
+                    <span class="badge badge-android">Android</span>
+                    <span class="badge badge-free">Gratuit</span>
+                    <span class="badge badge-free">Google Platform Tools</span>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">&#x1F4F2;</div>
+                <div class="tool-info">
+                    <h4>AvillaForensics</h4>
+                    <p>Extraction et d&eacute;chiffrement des bases de messagerie (WhatsApp, Telegram, Signal, 400+ apps) sans root via downgrade APK temporaire. Laur&eacute;at SANS Forensics 4:Cast 2023.</p>
+                    <span class="badge badge-android">Android 12–15</span>
+                    <span class="badge badge-free">Gratuit</span>
+                    <span class="badge badge-free">Windows</span>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">&#x1F4E6;</div>
+                <div class="tool-info">
+                    <h4>AndroidQF — Android Quick Forensics</h4>
+                    <p>Acquisition forensique compl&egrave;te recommand&eacute;e par le projet MVT. Remplace <code>adb backup</code> (d&eacute;pr&eacute;ci&eacute; Android 12+). Binaire unique, cr&eacute;e un dump horodat&eacute; analysable avec MVT.</p>
+                    <span class="badge badge-android">Android 12+</span>
+                    <span class="badge badge-free">Gratuit</span>
+                    <div class="note-compat" style="margin-top:10px"><strong>Android 16 :</strong> MVT 2.7.0 <code>check-adb</code> ne fonctionne pas (bug &ldquo;Device is busy&rdquo;). Utiliser AndroidQF pour l'acquisition, puis <code>mvt-android check-androidqf</code> pour l'analyse.</div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">&#x1F9EA;</div>
+                <div class="tool-info">
+                    <h4>MVT — Mobile Verification Toolkit</h4>
+                    <p>Outil open-source d&eacute;velopp&eacute; par Amnesty International. Analyse les sauvegardes iOS et les dumps AndroidQF contre une base d'indicateurs de compromission (IOC) incluant Pegasus et autres spywares d'&Eacute;tat.</p>
+                    <span class="badge badge-ios">iOS</span>
+                    <span class="badge badge-android">Android (via AndroidQF)</span>
+                    <span class="badge badge-free">Gratuit / Open Source</span>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <div class="tool-icon">&#x1F310;</div>
+                <div class="tool-info">
+                    <h4>mitmproxy</h4>
+                    <p>Proxy d'interception HTTPS. Permet de visualiser le trafic r&eacute;seau de l'appareil en temps r&eacute;el. Utile pour d&eacute;tecter des connexions vers des serveurs de commande (C2) ou des exfiltrations de donn&eacute;es.</p>
+                    <span class="badge badge-android">Android</span>
+                    <span class="badge badge-ios">iOS</span>
+                    <span class="badge badge-free">Gratuit / Open Source</span>
+                    <div class="note-compat" style="margin-top:10px"><strong>Limite Android 7+ :</strong> la plupart des apps refusent le certificat mitmproxy (Network Security Config). Seul le navigateur et les apps non prot&eacute;g&eacute;es sont visibles.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COUPURE D'URGENCE -->
+        <div class="section">
+            <h2>&#x26A1; Coupure d'urgence — &agrave; faire en 2 minutes avant tout</h2>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div><strong>Tant que l'attaquant a acc&egrave;s au compte Google ou Apple ID, il peut voir la localisation en temps r&eacute;el, lire les sauvegardes iCloud, et &ecirc;tre alert&eacute; de votre intervention.</strong> Ces coupures priment sur tout le reste.</div>
+            </div>
+
+            <h3>&#x1F4F1; Google Account</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>D&eacute;connecter tous les appareils</h4>
+                        <p><code>myaccount.google.com</code> &rarr; S&eacute;curit&eacute; &rarr; <strong>G&eacute;rer tous les appareils</strong> &rarr; cliquer sur chaque appareil inconnu &rarr; <strong>&ldquo;Se d&eacute;connecter&rdquo;</strong>. Si doute sur plusieurs appareils : &ldquo;Se d&eacute;connecter de tous les appareils&rdquo;.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Couper le partage de localisation</h4>
+                        <p><code>maps.google.com</code> &rarr; menu &rarr; <strong>Partage de position</strong> &rarr; v&eacute;rifier qu'aucun partage actif ne court vers un tiers inconnu &rarr; arr&ecirc;ter si n&eacute;cessaire.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Changer le mot de passe imm&eacute;diatement</h4>
+                        <p><code>myaccount.google.com</code> &rarr; S&eacute;curit&eacute; &rarr; Mot de passe &rarr; nouveau MDP 16+ caract&egrave;res al&eacute;atoires. Cette action invalide toutes les sessions existantes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>&#x1F34F; Apple ID</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Retirer les appareils inconnus</h4>
+                        <p><code>appleid.apple.com</code> &rarr; <strong>Appareils</strong> &rarr; pour chaque appareil inconnu : cliquer &rarr; <strong>&ldquo;Supprimer de votre compte&rdquo;</strong>. L'appareil perd imm&eacute;diatement acc&egrave;s &agrave; iCloud et &agrave; Find My.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Couper le partage de localisation (Find My)</h4>
+                        <p>Sur l'iPhone : R&eacute;glages &rarr; [Nom] &rarr; <strong>Localisation</strong> &rarr; <strong>Partager ma position</strong> &rarr; d&eacute;sactiver OU v&eacute;rifier la liste des personnes autoris&eacute;es &rarr; supprimer toute entr&eacute;e inconnue.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>D&eacute;connecter toutes les sessions web</h4>
+                        <p><code>appleid.apple.com</code> &rarr; S&eacute;curit&eacute; &rarr; <strong>&ldquo;Se d&eacute;connecter de tous les navigateurs web&rdquo;</strong>. Coupe les sessions actives sur navigateur sans toucher aux appareils physiques d&eacute;j&agrave; retir&eacute;s &agrave; l'&eacute;tape 1.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>V&eacute;rifier les acc&egrave;s iCloud</h4>
+                        <p>R&eacute;glages &rarr; [Nom] &rarr; <strong>iCloud</strong> &rarr; passer en revue les apps avec acc&egrave;s actif. D&eacute;sactiver les apps inconnues ou non utilis&eacute;es (notamment Photos, Contacts, Sauvegardes).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Changer le mot de passe Apple ID</h4>
+                        <p><code>appleid.apple.com</code> &rarr; Connexion et s&eacute;curit&eacute; &rarr; <strong>Changer le mot de passe</strong> &rarr; 16+ caract&egrave;res al&eacute;atoires. Active la d&eacute;connexion forc&eacute;e de toutes les sessions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div>Une fois ces coupures effectu&eacute;es, l'attaquant est aveugle : plus de localisation, plus d'acc&egrave;s aux sauvegardes. Vous pouvez proc&eacute;der &agrave; l'audit du t&eacute;l&eacute;phone sereinement.</div>
+            </div>
+        </div>
+
+        <!-- ORDRE D'INTERVENTION -->
+        <div class="section">
+            <h2>Ordre d'intervention terrain</h2>
+
+            <div class="flow">
+                ARRIV&Eacute;E<br>
+                <span class="arrow">&darr;</span><br>
+                1. Faire signer la d&eacute;charge<br>
+                <span class="arrow">&darr;</span><br>
+                2. Audit compte Google / Apple (acc&egrave;s suspects &rarr; couper EN PREMIER)<br>
+                <span class="arrow">&darr;</span><br>
+                3. Changer MDP + activer 2FA<br>
+                <span class="arrow">&darr;</span><br>
+                4. Scan mobile (apps, permissions, outils selon OS)<br>
+                <span class="arrow">&darr;</span><br>
+                5. Analyse r&eacute;seau mitmproxy si n&eacute;cessaire<br>
+                <span class="arrow">&darr;</span><br>
+                6. R&eacute;m&eacute;diation selon r&eacute;sultats<br>
+                <span class="arrow">&darr;</span><br>
+                7. Remise du rapport sign&eacute;
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x2139;</div>
+                <div><strong>Priorit&eacute; absolue :</strong> si le compte Google ou Apple ID est compromis, l'attaquant peut surveiller via Find My ou Google Account — couper ces acc&egrave;s avant m&ecirc;me le scan du t&eacute;l&eacute;phone.</div>
+            </div>
+        </div>
+
+        <!-- AUDIT COMPTE GOOGLE -->
+        <div class="section">
+            <h2>&#x1F4E7; &Eacute;tape 1 — Audit du compte Google</h2>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Sessions actives</h4>
+                        <p><code>accounts.google.com</code> &rarr; S&eacute;curit&eacute; &rarr; Vos appareils<br>
+                        Appareils inconnus, villes &eacute;trang&egrave;res &rarr; action : <strong>&laquo; D&eacute;connecter tous les autres appareils &raquo;</strong></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>R&egrave;gles de transfert Gmail (tr&egrave;s courant)</h4>
+                        <p>Gmail &rarr; Param&egrave;tres &rarr; Transfert et POP/IMAP<br>
+                        Gmail &rarr; Param&egrave;tres &rarr; Filtres et adresses bloqu&eacute;es<br>
+                        Une adresse de transfert inconnue = tous les mails partent chez l'attaquant.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Acc&egrave;s tiers (critique)</h4>
+                        <p><code>accounts.google.com</code> &rarr; S&eacute;curit&eacute; &rarr; Vos connexions &agrave; des applis tierces<br>
+                        R&eacute;voquer toute app inconnue avec acc&egrave;s &laquo; Lire/Envoyer emails &raquo;, &laquo; G&eacute;rer contacts &raquo; ou &laquo; Drive &raquo;.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>S&eacute;curisation du compte</h4>
+                        <p>Changer le MDP : minimum 16 caract&egrave;res al&eacute;atoires (Bitwarden recommand&eacute;)<br>
+                        2FA par ordre de pr&eacute;f&eacute;rence : <strong>Cl&eacute; physique (YubiKey)</strong> &gt; TOTP (Aegis / Google Auth) &gt; SMS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUDIT ANDROID -->
+        <div class="section">
+            <h2>&#x1F4F1; &Eacute;tape 2A — Audit Android</h2>
+
+            <h3>2A.1 — Revue manuelle des applications</h3>
+            <p>Param&egrave;tres &rarr; Applications &rarr; Voir toutes les applications</p>
+            <ul class="checklist">
+                <li>Apps sans ic&ocirc;ne ou avec des noms g&eacute;n&eacute;riques (&ldquo;System Service&rdquo;, &ldquo;Phone Manager&rdquo;...)</li>
+                <li>Apps que l'utilisateur ne reconna&icirc;t pas</li>
+                <li>Apps install&eacute;es hors Play Store (v&eacute;rifier la source)</li>
+                <li>Apps avec une date d'installation r&eacute;cente et suspecte</li>
+            </ul>
+
+            <h3>2A.2 — Permissions critiques</h3>
+            <p>Param&egrave;tres &rarr; Applications &rarr; [app suspecte] &rarr; Autorisations</p>
+            <table class="perm-table">
+                <thead>
+                    <tr><th>Permission</th><th>Risque</th><th>Niveau</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Accessibilit&eacute;</td><td>Keylogger, contr&ocirc;le total de l'&eacute;cran</td><td class="risk-critical">CRITIQUE</td></tr>
+                    <tr><td>Administrateur de l'appareil</td><td>Impossible &agrave; d&eacute;sinstaller normalement</td><td class="risk-critical">CRITIQUE</td></tr>
+                    <tr><td>Superposition d'&eacute;cran</td><td>Phishing visuel, capture de mots de passe</td><td class="risk-critical">CRITIQUE</td></tr>
+                    <tr><td>SMS</td><td>Interception des codes 2FA</td><td class="risk-high">ELEV&Eacute;</td></tr>
+                    <tr><td>Microphone en arri&egrave;re-plan</td><td>Espionnage audio permanent</td><td class="risk-high">ELEV&Eacute;</td></tr>
+                    <tr><td>Camera en arri&egrave;re-plan</td><td>Surveillance vid&eacute;o</td><td class="risk-high">ELEV&Eacute;</td></tr>
+                    <tr><td>Localisation permanente</td><td>Tracking GPS en temps r&eacute;el</td><td class="risk-high">ELEV&Eacute;</td></tr>
+                    <tr><td>Contacts + Agenda</td><td>Exfiltration de r&eacute;seau professionnel</td><td class="risk-medium">MOD&Eacute;R&Eacute;</td></tr>
+                </tbody>
+            </table>
+
+            <h3>2A.3 — Administrateurs d'appareils</h3>
+            <p>Param&egrave;tres &rarr; S&eacute;curit&eacute; &rarr; Applications d'administration de l'appareil<br>
+            Seuls <strong>&laquo; Localiser mon appareil &raquo;</strong> (Google) et un MDM d'entreprise l&eacute;gitime doivent figurer ici. Tout autre &eacute;l&eacute;ment est suspect.</p>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div><strong>Si une app inconnue est administrateur :</strong> ne pas tenter de la d&eacute;sinstaller directement — elle est prot&eacute;g&eacute;e. D&eacute;sactiver d'abord ses droits admin dans ce menu, puis proc&eacute;der &agrave; la d&eacute;sinstallation.</div>
+            </div>
+
+            <h3>2A.4 — AvillaForensics — Extraction messageries</h3>
+            <p>AvillaForensics comble le manque de la stack ADB/MVT : il extrait et d&eacute;chiffre les bases WhatsApp, Telegram, Signal et 400+ autres applications sans root, via un downgrade APK temporaire automatique.</p>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Pr&eacute;requis</h4>
+                        <p>T&eacute;l&eacute;phone connect&eacute; en USB. Mode d&eacute;veloppeur actif (voir 2A.5). AvillaForensics t&eacute;l&eacute;charg&eacute; depuis GitHub Releases (binaire Windows, pas d'installation).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Lancement</h4>
+                        <p>Ex&eacute;cuter <code>AvillaForensics.exe</code> &rarr; s&eacute;lectionner le device d&eacute;tect&eacute; &rarr; choisir l'application cible &rarr; lancer l'extraction.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>R&eacute;sultat</h4>
+                        <p>L'outil effectue le downgrade APK, extrait la base chiffr&eacute;e, la d&eacute;chiffre et restaure automatiquement la version d'origine. Export : messages, m&eacute;dias, historique complet.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="note-compat">Compatible Android 12–15. Pas de root requis. Pas de traces sur l'appareil apr&egrave;s restauration APK.</div>
+
+            <h3>2A.5 — AndroidQF — Acquisition forensique (Android 16+)</h3>
+            <p>AndroidQF est recommand&eacute; par le projet MVT comme successeur de <code>adb backup</code> (d&eacute;pr&eacute;ci&eacute; depuis Android 12). C'est la seule m&eacute;thode fiable sur Android 16 o&ugrave; MVT <code>check-adb</code> est d&eacute;faillant.</p>
+<pre><code># T&eacute;l&eacute;phone connect&eacute; en USB avec d&eacute;bogage activ&eacute;
+./androidqf
+
+# L'outil cr&eacute;e un dossier horodat&eacute; avec le dump complet (~5-10 min)
+# Analyser avec MVT :
+mvt-android check-androidqf \
+  --iocs indicators.stix2 \
+  --output ./rapport_mvt/ \
+  ./androidqf_dump_YYYYMMDD/
+
+# Lire les r&eacute;sultats
+cat ./rapport_mvt/detected.json</code></pre>
+            <p>Un fichier <code>detected.json</code> vide signifie aucun IOC connu d&eacute;tect&eacute;. Chaque entr&eacute;e pr&eacute;sente doit &ecirc;tre analys&eacute;e et document&eacute;e dans le rapport.</p>
+
+            <h3>2A.6 — ADB — Analyse avanc&eacute;e</h3>
+            <p>Activer le mode d&eacute;veloppeur : Param&egrave;tres &rarr; &Agrave; propos du t&eacute;l&eacute;phone &rarr; Num&eacute;ro de build &rarr; Taper 7 fois &rarr; Options d&eacute;veloppeur &rarr; D&eacute;bogage USB &rarr; Activer</p>
+<pre><code># V&eacute;rifier que le t&eacute;l&eacute;phone est d&eacute;tect&eacute;
+adb devices
+
+# Lister toutes les apps (y compris cach&eacute;es)
+adb shell pm list packages -f > apps_installees.txt
+
+# Apps install&eacute;es hors Play Store
+adb shell pm list packages -i | grep -v "installer=com.android.vending"
+
+# Apps avec droits admin
+adb shell dpm list-owners
+
+# Profils MDM actifs
+adb shell dumpsys device_policy
+
+# Propri&eacute;t&eacute;s syst&egrave;me (mode, version, binaires root)
+adb shell getprop | grep -E "ro.build|ro.debuggable|service.adb"
+
+# V&eacute;rification SELinux
+adb shell getenforce
+
+# Export logs syst&egrave;me
+adb logcat -d > logcat_export.txt
+
+# R&eacute;cup&eacute;rer un APK suspect pour analyse
+adb shell pm path com.nom.app.suspecte
+adb pull /data/app/com.nom.app.suspecte/base.apk ./suspect.apk
+# Uploader sur virustotal.com</code></pre>
+
+            <h3>2A.7 — mitmproxy — Analyse r&eacute;seau</h3>
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Limite Android 7+ :</strong> la plupart des apps refusent le certificat mitmproxy (Network Security Config). Seul le navigateur et les apps sans &eacute;pinglage de certificat sont visibles. Utile si une app suspecte est moins prot&eacute;g&eacute;e.</div>
+            </div>
+<pre><code># Lancement avec enregistrement du dump (recommand&eacute;)
+mitmproxy --port 8080 -w capture_$(date +%Y%m%d).mitm
+
+# Sur le t&eacute;l&eacute;phone :
+# WiFi &rarr; appui long sur le r&eacute;seau &rarr; Modifier &rarr; Options avanc&eacute;es
+# &rarr; Proxy Manuel &rarr; IP laptop : 8080
+# Installer le certificat : navigateur &rarr; http://mitm.it
+
+# Laisser tourner 10 min, chercher :
+# - Connexions vers IP/domaines inconnus
+# - Domaines DGA (noms al&eacute;atoires)
+# - POST requests vers serveurs inconnus
+
+# Analyser le dump apr&egrave;s intervention
+mitmproxy -r capture_YYYYMMDD.mitm
+
+# Export texte pour int&eacute;gration au rapport
+mitmdump -r capture_YYYYMMDD.mitm > capture_lisible.txt</code></pre>
+            <p><strong>Fin :</strong> Supprimer imp&eacute;rativement le certificat mitmproxy de l'appareil et retirer la configuration proxy.</p>
+        </div>
+
+        <!-- AUDIT IOS -->
+        <div class="section">
+            <h2>&#x1F34F; &Eacute;tape 2B — Audit iOS</h2>
+
+            <h3>2B.1 — Profils MDM (signal le plus critique)</h3>
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div><strong>RED FLAG absolu :</strong> un profil MDM inconnu donne un contr&ocirc;le total sur l'appareil : installation d'apps, acc&egrave;s au trafic r&eacute;seau, lecture des emails. C'est le vecteur utilis&eacute; par les spywares commerciaux (Pegasus via MDM).</div>
+            </div>
+            <p>R&eacute;glages &rarr; G&eacute;n&eacute;ral &rarr; VPN et gestion de l'appareil<br>
+            <strong>Seul le profil MDM de l'entreprise (si applicable) doit &ecirc;tre pr&eacute;sent.</strong> Supprimer imm&eacute;diatement tout profil inconnu.</p>
+
+            <h3>2B.2 — Permissions suspectes</h3>
+            <p>R&eacute;glages &rarr; Confidentialit&eacute; et s&eacute;curit&eacute; &rarr; v&eacute;rifier chaque cat&eacute;gorie :</p>
+            <ul class="checklist">
+                <li>Localisation — aucune app inconnue ne doit avoir acc&egrave;s &laquo; Toujours &raquo;</li>
+                <li>Microphone — r&eacute;voquer tout acc&egrave;s non justifi&eacute;</li>
+                <li>Cam&eacute;ra — m&ecirc;me principe</li>
+                <li>Contacts — applications de messagerie uniquement</li>
+                <li>Messages — aucune app tierce ne doit avoir acc&egrave;s</li>
+            </ul>
+
+            <h3>2B.3 — VPN actif non identifi&eacute;</h3>
+            <p>R&eacute;glages &rarr; G&eacute;n&eacute;ral &rarr; VPN et gestion de l'appareil &rarr; VPN<br>
+            Un VPN ou tunnel actif non demand&eacute; par l'utilisateur peut router tout le trafic vers un serveur tiers.</p>
+
+            <h3>2B.4 — MVT — Mobile Verification Toolkit (iOS)</h3>
+            <p>MVT est pleinement fonctionnel sur iOS via l'analyse de sauvegarde iTunes. C'est la m&eacute;thode de r&eacute;f&eacute;rence pour d&eacute;tecter Pegasus et spywares d'&Eacute;tat.</p>
+<pre><code># Installer MVT
+pip install mvt
+
+# T&eacute;l&eacute;charger les indicateurs de compromission (IOC)
+wget https://raw.githubusercontent.com/mvt-project/mvt/main/indicators/indicators.stix2
+
+# 1. Faire une sauvegarde iTunes NON CHIFFR&Eacute;E sur le laptop
+# 2. Analyser la sauvegarde :
+mvt-ios check-backup \
+  --iocs indicators.stix2 \
+  --output ./rapport_mvt_ios/ \
+  /chemin/vers/sauvegarde/
+
+# Lire les r&eacute;sultats
+cat ./rapport_mvt_ios/detected.json</code></pre>
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div><code>detected.json</code> vide = aucun indicateur connu d&eacute;tect&eacute;. Ce r&eacute;sultat ne garantit pas l'absence totale de compromission (IOC inconnus), mais &eacute;carte les menaces r&eacute;pertori&eacute;es.</div>
+            </div>
+        </div>
+
+        <!-- MATRICE DE DECISION -->
+        <div class="section">
+            <h2>&#x1F4CB; Matrice de d&eacute;cision — quel outil pour quel cas</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Situation</th><th>Outil recommand&eacute;</th><th>Pourquoi</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Android 12–15, messageries suspectes</td>
+                        <td><strong>AvillaForensics</strong></td>
+                        <td>Seul outil capable d'extraire et d&eacute;chiffrer WhatsApp/Telegram/Signal sans root</td>
+                    </tr>
+                    <tr>
+                        <td>Android 16 ou MVT check-adb &eacute;choue</td>
+                        <td><strong>AndroidQF + MVT check-androidqf</strong></td>
+                        <td>Contourne le bug &ldquo;Device is busy&rdquo; de MVT 2.7.0</td>
+                    </tr>
+                    <tr>
+                        <td>Android 12–15, analyse syst&egrave;me</td>
+                        <td><strong>ADB (manuel)</strong></td>
+                        <td>Acc&egrave;s direct aux packages, processus, SELinux, propri&eacute;t&eacute;s syst&egrave;me</td>
+                    </tr>
+                    <tr>
+                        <td>iOS, suspicion spyware d'&Eacute;tat</td>
+                        <td><strong>MVT check-backup</strong></td>
+                        <td>R&eacute;f&eacute;rence Amnesty International, base IOC Pegasus incluse</td>
+                    </tr>
+                    <tr>
+                        <td>App suspecte avec trafic r&eacute;seau</td>
+                        <td><strong>mitmproxy</strong></td>
+                        <td>Visualisation en temps r&eacute;el des connexions sortantes</td>
+                    </tr>
+                    <tr>
+                        <td>APK suspect &agrave; analyser</td>
+                        <td><strong>ADB pull + VirusTotal / MobSF</strong></td>
+                        <td>Extraction de l'APK puis analyse statique multi-moteurs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- REMEDIATION -->
+        <div class="section">
+            <h2>&#x1F6E0; &Eacute;tape 3 — R&eacute;m&eacute;diation</h2>
+
+            <h3>Aucune menace d&eacute;tect&eacute;e</h3>
+            <ul class="checklist">
+                <li>Renforcement des param&egrave;tres de s&eacute;curit&eacute; (fait &eacute;tape 2)</li>
+                <li>2FA activ&eacute; sur tous les comptes sensibles</li>
+                <li>Installer Malwarebytes Mobile (gratuit, bon ratio signal/bruit)</li>
+                <li>Sensibilisation au phishing mobile et aux demandes d'installation d'apps tierces</li>
+            </ul>
+
+            <h3>Application malveillante d&eacute;tect&eacute;e (Android)</h3>
+<pre><code># D&eacute;sinstallation forc&eacute;e via ADB
+adb shell pm uninstall --user 0 com.nom.app.malveillante</code></pre>
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>Si l'app est administrateur d'appareil : aller d'abord dans Param&egrave;tres &rarr; S&eacute;curit&eacute; &rarr; Administrateurs &rarr; d&eacute;sactiver l'app, <strong>puis</strong> proc&eacute;der &agrave; la d&eacute;sinstallation.</div>
+            </div>
+
+            <h3>Compromission profonde confirm&eacute;e</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Accord &eacute;crit obligatoire</h4>
+                        <p>R&eacute;initialisation usine uniquement apr&egrave;s accord &eacute;crit du client (case pr&eacute;vue dans le rapport de remise). Ne jamais agir seul sur cette d&eacute;cision.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Sauvegarde s&eacute;lective avant r&eacute;initialisation</h4>
+                        <p>Sauvegarder uniquement les photos, contacts et documents. Ne jamais sauvegarder les apps ou les param&egrave;tres syst&egrave;me (ils contiendraient la compromission).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>R&eacute;initialisation &amp; restauration s&eacute;lective</h4>
+                        <p>R&eacute;initialisation usine compl&egrave;te &rarr; reconfiguration from scratch &rarr; restaurer uniquement les donn&eacute;es brutes (pas les sauvegardes syst&egrave;me post-infection).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>R&eacute;initialisation des MDP &amp; 2FA</h4>
+                        <p>Changer tous les mots de passe depuis un appareil sain. R&eacute;voquer et recr&eacute;er les tokens 2FA (TOTP). V&eacute;rifier les cl&eacute;s de session actives sur chaque compte.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BONNES PRATIQUES -->
+        <div class="section">
+            <h2>&#x2705; Bonnes pratiques pr&eacute;ventives</h2>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x1F6E1;</div>
+                <div>La pr&eacute;vention co&ucirc;te 10x moins qu'une r&eacute;m&eacute;diation. Ces r&egrave;gles r&eacute;duisent drastiquement la surface d'attaque.</div>
+            </div>
+
+            <h3>Niveau syst&egrave;me</h3>
+            <ul class="checklist">
+                <li>&#x1F4F1; Maintenir le syst&egrave;me &agrave; jour — les spywares exploitent les vuln&eacute;rabilit&eacute;s connues (Android et iOS)</li>
+                <li>&#x1F512; Activer le chiffrement complet du stockage (activ&eacute; par d&eacute;faut sur les appareils modernes)</li>
+                <li>&#x1F510; Utiliser un code PIN de 6+ chiffres ou une phrase de passe (pas les sch&eacute;mas)</li>
+                <li>&#x1F4F5; D&eacute;sactiver l'installation d'apps hors store officiel</li>
+                <li>&#x1F4F4; Ne jamais laisser le d&eacute;bogage USB activ&eacute; en dehors d'une intervention</li>
+            </ul>
+
+            <h3>Niveau applicatif</h3>
+            <ul class="checklist">
+                <li>&#x1F9E0; Auditer les permissions de chaque app install&eacute;e (r&eacute;voquer ce qui n'est pas n&eacute;cessaire)</li>
+                <li>&#x1F6AB; Refuser syst&eacute;matiquement les demandes d'acc&egrave;s &agrave; l'Accessibilit&eacute; sauf usage l&eacute;gitime connu</li>
+                <li>&#x1F4E5; Ne jamais installer un APK re&ccedil;u par email, SMS ou lien externe</li>
+                <li>&#x1F4F2; Utiliser des messageries chiffr&eacute;es open source (Signal) pour les communications sensibles</li>
+            </ul>
+
+            <h3>Niveau compte &amp; acc&egrave;s</h3>
+            <ul class="checklist">
+                <li>&#x1F511; MDP unique par service, g&eacute;r&eacute; par un gestionnaire (Bitwarden, Passbolt)</li>
+                <li>&#x1F6E1; 2FA activ&eacute; sur Google, Apple ID et tous les comptes &agrave; enjeu</li>
+                <li>&#x1F4CB; Audit trimestriel des appareils connect&eacute;s et acc&egrave;s tiers sur les comptes Google / Apple</li>
+                <li>&#x1F4F6; Ne jamais se connecter &agrave; un WiFi public sans VPN pour les usages professionnels</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8eaf6 0%,#e3f2fd 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#0f3460,#533483);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.5em;margin-bottom:10px}
+        .header p{font-size:1.2em;opacity:0.9}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#0f3460;font-size:2em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #533483}
+        .section h3{color:#533483;font-size:1.5em;margin-top:30px;margin-bottom:15px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .procedure{background:#f8f9fa;border-radius:10px;padding:30px;margin:30px 0}
+        .step{display:flex;align-items:flex-start;margin-bottom:30px;padding:20px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-5px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#0f3460,#533483);color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;font-weight:bold;margin-right:20px;flex-shrink:0;box-shadow:0 4px 10px rgba(15,52,96,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#0f3460;margin-bottom:10px;font-size:1.3em}
+        .step-content p{color:#666;line-height:1.8}
+        .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;box-shadow:0 2px 15px rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+        .comparison-table thead{background:linear-gradient(135deg,#0f3460,#533483);color:white}
+        .comparison-table th{padding:20px;text-align:left;font-size:1.1em}
+        .comparison-table td{padding:15px 20px;border-bottom:1px solid #eee;vertical-align:top}
+        .comparison-table tbody tr:nth-child(even){background:#f9f9f9}
+        .comparison-table tbody tr:hover{background:#e8eaf6}
+        .good{color:#198754;font-weight:bold}
+        .bad{color:#dc3545;font-weight:bold}
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:30px 0}
+        .kpi-box{background:linear-gradient(135deg,#0f3460,#533483);color:white;border-radius:10px;padding:24px;text-align:center}
+        .kpi-box .value{font-size:2em;font-weight:700;display:block;margin-bottom:6px}
+        .kpi-box .label{font-size:0.9em;opacity:0.85}
+        .troubleshooting{background:#fff9e6;border-left:5px solid #ffc107;padding:20px;margin:20px 0;border-radius:0 10px 10px 0}
+        .troubleshooting h4{color:#856404;margin-bottom:10px}
+        code{background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#533483}
+        pre{background:#1e1e2e;color:#cdd6f4;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.9em;line-height:1.7}
+        pre code{background:none;color:#cdd6f4;padding:0}
+        .checklist{list-style:none;margin:20px 0;padding:0}
+        .checklist li{padding:12px 15px;margin:8px 0;background:#f8f9fa;border-radius:8px;border-left:4px solid #533483;font-size:1.05em}
+        .checklist li::before{content:"";margin-right:10px}
+        .tool-card{background:#f8f9fa;border-radius:12px;padding:24px;margin:20px 0;border-left:5px solid #0f3460;display:flex;align-items:flex-start;gap:15px}
+        .tool-icon{font-size:2.2em;min-width:50px}
+        .tool-info h4{color:#0f3460;font-size:1.2em;margin-bottom:6px}
+        .tool-info p{color:#555;font-size:0.95em;margin-bottom:8px}
+        .tool-info .badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:0.78em;font-weight:700;margin-right:6px}
+        .badge-android{background:#d4edda;color:#155724}
+        .badge-ios{background:#cce5ff;color:#004085}
+        .badge-free{background:#e2e3e5;color:#383d41}
+        .perm-table{width:100%;border-collapse:collapse;margin:20px 0}
+        .perm-table th{background:#0f3460;color:white;padding:12px 16px;text-align:left}
+        .perm-table td{padding:12px 16px;border-bottom:1px solid #eee}
+        .perm-table tr:nth-child(even){background:#f8f9fa}
+        .risk-critical{color:#dc3545;font-weight:bold}
+        .risk-high{color:#fd7e14;font-weight:bold}
+        .risk-medium{color:#ffc107;font-weight:bold}
+        .flow{background:#f0f4ff;border-radius:12px;padding:24px;margin:24px 0;font-family:'Courier New',monospace;font-size:0.95em;color:#333;line-height:2.2}
+        .flow .arrow{color:#533483;font-weight:bold}
+        .note-compat{background:#fff3e0;border:1px solid #ffc107;border-radius:8px;padding:14px 18px;margin:12px 0;font-size:0.93em}
+        .note-compat strong{color:#e65100}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0f3460;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(15,52,96,0.4)}
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0f3460,#533483);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        @media(max-width:600px){.header h1{font-size:1.6em}.content{padding:20px}.header-container,.contact-header,.footer-content{flex-direction:column;gap:10px}.tool-card{flex-direction:column}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop{display:none}.main-header,.main-footer{break-inside:avoid}}
+    
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

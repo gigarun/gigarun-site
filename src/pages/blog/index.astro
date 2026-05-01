@@ -2,79 +2,37 @@
 import Layout from '../../layouts/Layout.astro';
 
 const tabs = [
-  { id: 'tous', label: 'Tous', cats: [] },
-  { id: 'cyber', label: 'Cybersécurité', cats: ['Cybersécurité','Sécurité','Sécurité email','NIS2'] },
-  { id: 'infogerance', label: 'Infogérance', cats: ['Infogérance','Support IT','Expertise IT','Gestion IT'] },
-  { id: 'infra', label: 'Infrastructure', cats: ['Infrastructure','Cloud','Sauvegarde'] },
-  { id: 'm365', label: 'Microsoft & Messagerie', cats: ['Microsoft 365','Messagerie'] },
-  { id: 'solutions', label: 'Solutions', cats: ['Location matériel','Téléphonie','E-Commerce'] },
-  { id: 'gigarun', label: 'Gigarun', cats: ['Gigarun','Numérique responsable'] },
-];
-
-const articles = [
-  {slug:'comment-choisir-prestataire-informatique', cat:'Infogérance', date:'25 mars 2024', titre:'Comment choisir son prestataire informatique en tant que PME', desc:'Les critères essentiels pour évaluer et sélectionner un prestataire IT de confiance.'},
-  {slug:'infogerance-proactive-reduit-incidents', cat:'Infogérance', date:'22 mars 2024', titre:'Infogérance proactive : comment elle réduit les incidents de 60%', desc:'La différence entre réagir aux pannes et les empêcher — avec des chiffres concrets.'},
-  {slug:'top-5-risques-securite-pme', cat:'Sécurité', date:'20 mars 2024', titre:'Top 5 des risques de sécurité informatique pour les PME en 2024', desc:'Phishing, ransomware, mots de passe faibles — comment s\'en protéger.'},
-  {slug:'hebergement-cloud-vs-on-premise', cat:'Cloud', date:'18 mars 2024', titre:'Hébergement cloud vs on-premise : quel choix pour votre PME ?', desc:'Comparatif complet des deux options avec coûts et avantages.'},
-  {slug:'supervision-preventive-stabilite-informatique', cat:'Infogérance', date:'15 mars 2024', titre:'Supervision préventive : la clé d\'une informatique stable', desc:'Comment la surveillance continue permet d\'anticiper les pannes.'},
-  {slug:'externalisation-it-avantages-entreprises', cat:'Infogérance', date:'12 mars 2024', titre:'Externalisation IT : les 5 avantages pour les entreprises', desc:'Pourquoi confier son informatique à un prestataire spécialisé.'},
-  {slug:'cybersecurite-tpe-guide-protection', cat:'Cybersécurité', date:'10 mars 2024', titre:'Cybersécurité pour TPE : guide pratique de protection', desc:'Les gestes essentiels pour protéger votre entreprise sans budget IT.'},
-  {slug:'audit-securite-informatique-methodologie', cat:'Cybersécurité', date:'8 mars 2024', titre:'Audit de sécurité informatique : notre méthodologie', desc:'Comment on réalise un audit et ce qu\'on cherche exactement.'},
-  {slug:'sauvegardes-donnees-regle-3-2-1', cat:'Sauvegarde', date:'6 mars 2024', titre:'Sauvegardes de données : la règle 3-2-1 expliquée', desc:'La méthode simple pour ne jamais perdre vos données définitivement.'},
-  {slug:'pra-plan-reprise-activite-pme', cat:'Sauvegarde', date:'4 mars 2024', titre:'PRA : pourquoi toute PME doit avoir un plan de reprise', desc:'Préparer son entreprise à reprendre son activité en cas de sinistre.'},
-  {slug:'location-materiel-reduit-capex', cat:'Location matériel', date:'28 février 2024', titre:'Comment la location de matériel réduit vos CAPEX', desc:'Transformer vos dépenses d\'investissement en charges d\'exploitation.'},
-  {slug:'renouvellement-parc-location-achat', cat:'Location matériel', date:'1 mars 2024', titre:'Renouvellement parc informatique : location vs achat', desc:'Le calcul complet pour décider quelle option est la plus avantageuse.'},
-  {slug:'equipement-teletravail-guide', cat:'Location matériel', date:'5 mars 2024', titre:'Équiper ses collaborateurs pour le télétravail : guide complet', desc:'Matériel, logiciels, sécurité — tout pour un télétravail efficace.'},
-  {slug:'telephonie-voip-avantages-entreprises', cat:'Téléphonie', date:'10 mars 2024', titre:'Téléphonie VoIP : 7 avantages pour les entreprises', desc:'Pourquoi le passage à la VoIP est incontournable en 2024.'},
-  {slug:'standard-telephonique-virtuel-pme', cat:'Téléphonie', date:'15 mars 2024', titre:'Standard téléphonique virtuel : la solution moderne pour PME', desc:'Comment un standard cloud remplace avantageusement un PABX physique.'},
-  {slug:'lutte-contre-la-cybermalveillance', cat:'Cybersécurité', date:'30 juin 2025', titre:'Lutte contre la cybermalveillance', desc:'Prévenez la cybermalveillance à La Réunion : conseils, sensibilisation et protection pour entreprises.'},
-  {slug:'test-dintrusion-evaluez-la-robustesse-de-votre-cybersecurite', cat:'Cybersécurité', date:'2 juil. 2025', titre:'Test d\'intrusion : évaluez la robustesse de votre cybersécurité', desc:'Test d\'intrusion externe & interne à La Réunion : simulations de cyberattaques et détection de vulnérabilités.'},
-  {slug:'la-cybersecurite-managee-detection-et-reponse-aux-incidents-it', cat:'Cybersécurité', date:'30 juil. 2025', titre:'La cybersécurité managée : Détection et réponse aux incidents IT', desc:'Renforcez la sécurité de votre entreprise avec EDR SentinelOne, SIEM Wazuh et défense réactive.'},
-  {slug:'test-dintrusion-ou-dapplication-a-la-reunion-pentest-nis2-rgpd', cat:'Cybersécurité', date:'30 mars 2026', titre:'Test d\'intrusion ou d\'application à La Réunion — Pentest NIS2 & RGPD', desc:'Protégez votre entreprise contre les cyberattaques avec Gigarun. Diagnostics, accompagnement NIS2 & RGPD.'},
-  {slug:'budget-informatique-entreprise-le-guide-par-secteur-et-par-postes', cat:'Gestion IT', date:'26 juil. 2025', titre:'Budget informatique entreprise : Le guide par secteur et par postes', desc:'Les repères en % du chiffre d\'affaires, par secteur, et un tableau complet pour répartir votre budget IT.'},
-  {slug:'stockage-et-archivage-pour-pme', cat:'Infrastructure', date:'30 juin 2025', titre:'Stockage et archivage pour PME', desc:'Optimisez votre stockage et archivage des données à La Réunion : sécurité, accessibilité et conformité RGPD.'},
-  {slug:'office-365-entreprise-pour-les-pme-de-la-reunion', cat:'Microsoft 365', date:'30 juin 2025', titre:'Office 365 Entreprise pour les PME de la Réunion', desc:'Boostez la collaboration et la productivité de votre entreprise à La Réunion avec Office 365 Entreprise.'},
-  {slug:'souverainete-numerique-a-la-reunion-oui-cest-possible', cat:'Cloud', date:'28 août 2025', titre:'Souveraineté numérique à la Réunion : Oui c\'est possible !', desc:'Hébergez vos serveurs web et applicatifs avec Gigarun. Libérez-vous des GAFAM, sécurisez vos données.'},
-  {slug:'par-ou-commencer-pour-deleguer-mon-informatique-et-ma-cybersecurite-dentreprise', cat:'Infogérance', date:'22 mai 2025', titre:'Par où commencer pour déléguer mon informatique et ma cybersécurité ?', desc:'Infogérance d\'experts, maintenance, cybersécurité, cloud, support technique externalisé pour gagner en sérénité.'},
-  {slug:'guide-des-bonnes-pratiques-du-numerique-responsable-pour-les-entreprises-de-la-r', cat:'Numérique responsable', date:'15 avr. 2025', titre:'Guide du numérique responsable pour les entreprises de la Réunion', desc:'Adoptez un numérique responsable : bonnes pratiques écoresponsables, sensibilisation et achats durables.'},
-  {slug:'microsoft-hyper-v-la-virtualisation-fiable-et-performante-au-service-de-votre-en', cat:'Infrastructure', date:'4 juil. 2025', titre:'Microsoft Hyper-V : la virtualisation fiable et performante', desc:'Haute disponibilité, snapshots, migration live avec Microsoft Hyper‑V pour entreprises réunionnaises.'},
-  {slug:'clusters-de-donnees-haute-disponibilite-des-solutions-robustes-et-flexibles', cat:'Infrastructure', date:'4 juil. 2025', titre:'Clusters de données haute disponibilité : solutions robustes et flexibles', desc:'Solutions de cluster haute disponibilité à La Réunion. Proxmox & Windows Server déployés par des experts.'},
-  {slug:'envoi-demails-en-masse-faut-il-utiliser-la-messagerie-pro', cat:'Messagerie', date:'24 mai 2025', titre:'Envoi d\'emails en masse : Faut-il utiliser la messagerie pro ?', desc:'Risques pour votre domaine et bonnes pratiques pour les campagnes email en entreprise.'},
-  {slug:'e-commerce-et-applications-mobiles-a-la-reunion', cat:'E-Commerce', date:'18 juin 2025', titre:'E-Commerce et applications mobiles à la Réunion', desc:'Boostez vos ventes avec des solutions e-commerce sur mesure pour PME réunionnaises.'},
-  {slug:'pilotage-numerique-avance-et-conformite-nis2-obligations-des-spl-et-collectivite', cat:'NIS2', date:'30 mai 2025', titre:'Pilotage numérique et conformité NIS2 : obligations des SPL et collectivités', desc:'Respectez les obligations NIS2 à La Réunion : gouvernance sécurisée et accompagnement dédié.'},
-  {slug:'rto-et-rpo-comprendre-les-piliers-de-la-reprise-apres-sinistre', cat:'Sauvegarde', date:'16 mai 2025', titre:'RTO et RPO : Comprendre les piliers de la reprise après sinistre', desc:'Différences entre RTO et RPO pour optimiser votre plan de continuité d\'activité.'},
-  {slug:'les-8-benefices-de-gigabackup-pour-microsoft-365', cat:'Microsoft 365', date:'1 juil. 2025', titre:'Les 8 bénéfices de GigaBackup pour Microsoft 365', desc:'Sécurité, restauration granulaire, rétention longue, conformité : tout ce que GigaBackup apporte à votre M365.'},
-  {slug:'securiser-office-365-avec-hornetsecurity-ou-defender-for-office-365', cat:'Sécurité email', date:'1 juil. 2025', titre:'Sécuriser Office 365 avec HornetSecurity ou Defender for Office 365', desc:'Comparez HornetSecurity et Microsoft Defender pour une protection anti‑phishing optimale.'},
-  {slug:'securite-des-e-mails-comprendre-spf-dkim-dmarc-et-limportance-des-rapports-rua', cat:'Sécurité email', date:'15 avr. 2025', titre:'Sécurité des e-mails : SPF, DKIM, DMARC et rapports RUA', desc:'Protéger les mails contre le phishing : SPF, DKIM et DMARC expliqués avec le rôle du RSI.'},
-  {slug:'pme-pourquoi-investir-dans-une-solution-de-detection-et-reponse-nest-plus-une-op', cat:'Cybersécurité', date:'15 avr. 2025', titre:'PME : Pourquoi investir dans une solution de détection et réponse n\'est plus une option', desc:'Pourquoi les PME à La Réunion investissent dans des solutions MDR/EDR : prévention et réponse aux incidents.'},
-  {slug:'support-informatique-n1-n2-n3-guide-complet-des-niveaux-de-support-it', cat:'Support IT', date:'5 sept. 2025', titre:'Support informatique N1, N2, N3 : guide complet des niveaux de support IT', desc:'Organisation, rôles, escalade : tout comprendre pour optimiser votre assistance IT et helpdesk.'},
-  {slug:'expertise-operationnelle-en-informatique-expert-en-infrastructures-it', cat:'Expertise IT', date:'21 mai 2025', titre:'Expertise opérationnelle en informatique et infrastructures IT', desc:'Conseil technique Gigarun à La Réunion : audit, architecture réseau, supervision, conseil expert.'},
-  {slug:'gigarun-votre-partenaire-informatique-de-confiance-sur-la-reunion', cat:'Gigarun', date:'29 mai 2025', titre:'Gigarun, votre partenaire informatique de confiance sur la Réunion', desc:'Solutions informatiques sécurisées et managées à La Réunion : données souveraines, services sur mesure.'},
-  {slug:'mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux', cat:'Messagerie', date:'15 avr. 2025', titre:'Mieux utiliser l\'e-mail en entreprise : bonnes pratiques & enjeux', desc:'Boostez productivité et sobriété numérique en entreprise : bonnes pratiques e‑mail, organisation et archivage.'},
-  {slug:'infogerance-et-maintenance-informatique-a-la-reunion', cat:'Infogérance', date:'15 avr. 2025', titre:'Infogérance et maintenance informatique à La Réunion', desc:'Externalisez votre parc informatique à La Réunion. Support N1/N2/N3, maintenance préventive, supervision 24/7.'},
+  { id: 'tous', label: 'Tous', cats: [], types: [] },
+  { id: 'cyber', label: 'Cybersécurité', cats: ['Cybersécurité','Sécurité','Sécurité email','NIS2'], types: [] },
+  { id: 'infogerance', label: 'Infogérance', cats: ['Infogérance','Support IT','Expertise IT','Gestion IT'], types: [] },
+  { id: 'infra', label: 'Infrastructure', cats: ['Infrastructure','Cloud','Sauvegarde'], types: [] },
+  { id: 'm365', label: 'Microsoft 365', cats: ['Microsoft 365','Messagerie'], types: [] },
+  { id: 'solutions', label: 'Solutions', cats: ['Location matériel','Téléphonie','E-Commerce'], types: [] },
+  { id: 'ia', label: 'IA', cats: ['Intelligence artificielle'], types: [] },
+  { id: 'gigarun', label: 'Gigarun', cats: ['Gigarun','Numérique responsable'], types: [] },
+  { id: 'guides', label: '📘 Guides pratiques', cats: [], types: ['guide'] },
 ];
 ---
-<Layout title="Blog IT & Cybersécurité — Gigarun La Réunion" description="Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE réunionnaises. Sécurité, infogérance, cloud, Microsoft 365 et plus.">
+<Layout title="Blog & Guides IT — Gigarun La Réunion" description="Articles, conseils pratiques et guides techniques pour les PME et TPE réunionnaises. Cybersécurité, infogérance, Microsoft 365, IA et plus.">
 <section class="bg-[#07001C] pt-32 pb-20">
   <div class="max-w-6xl mx-auto px-6">
 
-    <!-- Header -->
     <div class="max-w-2xl mb-10">
       <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-6 rounded-full">
         <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
-        <span class="text-[#9B99AA] text-sm font-medium" id="blog-count">Blog · {articles.length} articles</span>
+        <span class="text-[#9B99AA] text-sm font-medium" id="blog-count">Blog & Guides · 69 ressources</span>
       </div>
       <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,48px);line-height:1.1;">Ressources IT pour<br/>les PME réunionnaises</h1>
-      <p class="text-[#9B99AA] text-lg">Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE de La Réunion.</p>
+      <p class="text-[#9B99AA] text-lg">Articles de fond, guides pratiques pas-à-pas et analyses pour les dirigeants et équipes IT de La Réunion.</p>
     </div>
 
-    <!-- Onglets -->
     <div class="flex flex-wrap gap-2 mb-10" id="blog-tabs" role="tablist">
       {tabs.map((tab, i) => (
         <button
           role="tab"
           data-tab={tab.id}
           data-cats={JSON.stringify(tab.cats)}
+          data-types={JSON.stringify(tab.types)}
           class={`tab-btn px-4 py-2 rounded-full text-sm font-medium transition-all border ${i === 0 ? 'bg-[#7C3AED] border-[#7C3AED] text-white' : 'bg-transparent border-[rgba(124,58,237,0.3)] text-[#9B99AA] hover:border-[#7C3AED] hover:text-[#F1F0F7]'}`}
           aria-selected={i === 0 ? 'true' : 'false'}>
           {tab.label}
@@ -82,29 +40,12 @@ const articles = [
       ))}
     </div>
 
-    <!-- Grille articles -->
     <div class="grid md:grid-cols-3 gap-6" id="blog-grid">
-      {articles.map(a => (
-        <a href={`/blog/${a.slug}`}
-           data-cat={a.cat}
-           class="article-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block group">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[10px] font-medium px-2 py-0.5 rounded-full">{a.cat}</span>
-            <span class="text-[#9B99AA] text-xs">{a.date}</span>
-          </div>
-          <h2 class="font-syne font-bold text-[#F1F0F7] text-sm leading-snug mb-2 group-hover:text-[#7C3AED] transition-colors">{a.titre}</h2>
-          <p class="text-[#9B99AA] text-xs leading-relaxed">{a.desc}</p>
-        </a>
-      ))}
     </div>
-
-    <!-- Message aucun résultat -->
-    <p id="blog-empty" class="hidden text-center text-[#9B99AA] py-16">Aucun article dans cette catégorie.</p>
-
+    <p id="blog-empty" class="hidden text-center text-[#9B99AA] py-16">Aucune ressource dans cette catégorie.</p>
   </div>
 </section>
 
-<!-- Bouton retour en haut -->
 <button id="back-to-top" title="Remonter en haut"
   style="position:fixed;bottom:2rem;right:2rem;z-index:50;width:44px;height:44px;border-radius:50%;background:#7C3AED;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(124,58,237,0.4);opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;transform:translateY(8px);">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
@@ -113,45 +54,135 @@ const articles = [
 </button>
 
 <script>
-  // --- Onglets ---
-  const tabs = document.querySelectorAll('.tab-btn');
-  const cards = document.querySelectorAll('.article-card');
-  const countEl = document.getElementById('blog-count');
-  const emptyEl = document.getElementById('blog-empty');
+const ALL_ITEMS = [
+  {href:'/blog/comment-choisir-prestataire-informatique',cat:'Infogérance',date:'25 mars 2024',titre:'Comment choisir son prestataire informatique en tant que PME',desc:'Les critères essentiels pour évaluer et sélectionner un prestataire IT de confiance.',type:'article'},
+  {href:'/blog/infogerance-proactive-reduit-incidents',cat:'Infogérance',date:'22 mars 2024',titre:'Infogérance proactive : comment elle réduit les incidents de 60%',desc:'La différence entre réagir aux pannes et les empêcher — avec des chiffres concrets.',type:'article'},
+  {href:'/blog/top-5-risques-securite-pme',cat:'Sécurité',date:'20 mars 2024',titre:'Top 5 des risques de sécurité informatique pour les PME en 2024',desc:'Phishing, ransomware, mots de passe faibles — comment s\'en protéger.',type:'article'},
+  {href:'/blog/hebergement-cloud-vs-on-premise',cat:'Cloud',date:'18 mars 2024',titre:'Hébergement cloud vs on-premise : quel choix pour votre PME ?',desc:'Comparatif complet des deux options avec coûts et avantages.',type:'article'},
+  {href:'/blog/supervision-preventive-stabilite-informatique',cat:'Infogérance',date:'15 mars 2024',titre:'Supervision préventive : la clé d\'une informatique stable',desc:'Comment la surveillance continue permet d\'anticiper les pannes.',type:'article'},
+  {href:'/blog/externalisation-it-avantages-entreprises',cat:'Infogérance',date:'12 mars 2024',titre:'Externalisation IT : les 5 avantages pour les entreprises',desc:'Pourquoi confier son informatique à un prestataire spécialisé.',type:'article'},
+  {href:'/blog/cybersecurite-tpe-guide-protection',cat:'Cybersécurité',date:'10 mars 2024',titre:'Cybersécurité pour TPE : guide pratique de protection',desc:'Les gestes essentiels pour protéger votre entreprise sans budget IT.',type:'article'},
+  {href:'/blog/audit-securite-informatique-methodologie',cat:'Cybersécurité',date:'8 mars 2024',titre:'Audit de sécurité informatique : notre méthodologie',desc:'Comment on réalise un audit et ce qu\'on cherche exactement.',type:'article'},
+  {href:'/blog/sauvegardes-donnees-regle-3-2-1',cat:'Sauvegarde',date:'6 mars 2024',titre:'Sauvegardes de données : la règle 3-2-1 expliquée',desc:'La méthode simple pour ne jamais perdre vos données définitivement.',type:'article'},
+  {href:'/blog/pra-plan-reprise-activite-pme',cat:'Sauvegarde',date:'4 mars 2024',titre:'PRA : pourquoi toute PME doit avoir un plan de reprise',desc:'Préparer son entreprise à reprendre son activité en cas de sinistre.',type:'article'},
+  {href:'/blog/location-materiel-reduit-capex',cat:'Location matériel',date:'28 février 2024',titre:'Comment la location de matériel réduit vos CAPEX',desc:'Transformer vos dépenses d\'investissement en charges d\'exploitation.',type:'article'},
+  {href:'/blog/renouvellement-parc-location-achat',cat:'Location matériel',date:'1 mars 2024',titre:'Renouvellement parc informatique : location vs achat',desc:'Le calcul complet pour décider quelle option est la plus avantageuse.',type:'article'},
+  {href:'/blog/equipement-teletravail-guide',cat:'Location matériel',date:'5 mars 2024',titre:'Équiper ses collaborateurs pour le télétravail : guide complet',desc:'Matériel, logiciels, sécurité — tout pour un télétravail efficace.',type:'article'},
+  {href:'/blog/telephonie-voip-avantages-entreprises',cat:'Téléphonie',date:'10 mars 2024',titre:'Téléphonie VoIP : 7 avantages pour les entreprises',desc:'Pourquoi le passage à la VoIP est incontournable en 2024.',type:'article'},
+  {href:'/blog/standard-telephonique-virtuel-pme',cat:'Téléphonie',date:'15 mars 2024',titre:'Standard téléphonique virtuel : la solution moderne pour PME',desc:'Comment un standard cloud remplace avantageusement un PABX physique.',type:'article'},
+  {href:'/blog/lutte-contre-la-cybermalveillance',cat:'Cybersécurité',date:'30 juin 2025',titre:'Lutte contre la cybermalveillance',desc:'Prévenez la cybermalveillance à La Réunion : conseils, sensibilisation et protection pour entreprises.',type:'article'},
+  {href:'/blog/test-dintrusion-evaluez-la-robustesse-de-votre-cybersecurite',cat:'Cybersécurité',date:'2 juil. 2025',titre:'Test d\'intrusion : évaluez la robustesse de votre cybersécurité',desc:'Test d\'intrusion externe & interne à La Réunion : simulations de cyberattaques et détection de vulnérabilités.',type:'article'},
+  {href:'/blog/la-cybersecurite-managee-detection-et-reponse-aux-incidents-it',cat:'Cybersécurité',date:'30 juil. 2025',titre:'La cybersécurité managée : Détection et réponse aux incidents IT',desc:'Renforcez la sécurité de votre entreprise avec EDR SentinelOne, SIEM Wazuh et défense réactive.',type:'article'},
+  {href:'/blog/test-dintrusion-ou-dapplication-a-la-reunion-pentest-nis2-rgpd',cat:'Cybersécurité',date:'30 mars 2026',titre:'Test d\'intrusion ou d\'application à La Réunion — Pentest NIS2 & RGPD',desc:'Protégez votre entreprise contre les cyberattaques avec Gigarun.',type:'article'},
+  {href:'/blog/budget-informatique-entreprise-le-guide-par-secteur-et-par-postes',cat:'Gestion IT',date:'26 juil. 2025',titre:'Budget informatique entreprise : Le guide par secteur et par postes',desc:'Les repères en % du CA, par secteur, et un tableau complet pour répartir votre budget IT.',type:'article'},
+  {href:'/blog/stockage-et-archivage-pour-pme',cat:'Infrastructure',date:'30 juin 2025',titre:'Stockage et archivage pour PME',desc:'Optimisez votre stockage et archivage des données à La Réunion.',type:'article'},
+  {href:'/blog/office-365-entreprise-pour-les-pme-de-la-reunion',cat:'Microsoft 365',date:'30 juin 2025',titre:'Office 365 Entreprise pour les PME de la Réunion',desc:'Boostez la collaboration et la productivité de votre entreprise à La Réunion avec Office 365.',type:'article'},
+  {href:'/blog/souverainete-numerique-a-la-reunion-oui-cest-possible',cat:'Cloud',date:'28 août 2025',titre:'Souveraineté numérique à la Réunion : Oui c\'est possible !',desc:'Hébergez vos serveurs web et applicatifs avec Gigarun. Libérez-vous des GAFAM.',type:'article'},
+  {href:'/blog/par-ou-commencer-pour-deleguer-mon-informatique-et-ma-cybersecurite-dentreprise',cat:'Infogérance',date:'22 mai 2025',titre:'Par où commencer pour déléguer mon informatique et ma cybersécurité ?',desc:'Infogérance d\'experts, maintenance, cybersécurité, cloud, support technique externalisé.',type:'article'},
+  {href:'/blog/guide-des-bonnes-pratiques-du-numerique-responsable-pour-les-entreprises-de-la-r',cat:'Numérique responsable',date:'15 avr. 2025',titre:'Guide du numérique responsable pour les entreprises de la Réunion',desc:'Adoptez un numérique responsable : bonnes pratiques écoresponsables et achats durables.',type:'article'},
+  {href:'/blog/microsoft-hyper-v-la-virtualisation-fiable-et-performante-au-service-de-votre-en',cat:'Infrastructure',date:'4 juil. 2025',titre:'Microsoft Hyper-V : la virtualisation fiable et performante',desc:'Haute disponibilité, snapshots, migration live avec Microsoft Hyper-V.',type:'article'},
+  {href:'/blog/clusters-de-donnees-haute-disponibilite-des-solutions-robustes-et-flexibles',cat:'Infrastructure',date:'4 juil. 2025',titre:'Clusters de données haute disponibilité : solutions robustes et flexibles',desc:'Solutions de cluster haute disponibilité à La Réunion. Proxmox & Windows Server.',type:'article'},
+  {href:'/blog/envoi-demails-en-masse-faut-il-utiliser-la-messagerie-pro',cat:'Messagerie',date:'24 mai 2025',titre:'Envoi d\'emails en masse : Faut-il utiliser la messagerie pro ?',desc:'Risques pour votre domaine et bonnes pratiques pour les campagnes email en entreprise.',type:'article'},
+  {href:'/blog/e-commerce-et-applications-mobiles-a-la-reunion',cat:'E-Commerce',date:'18 juin 2025',titre:'E-Commerce et applications mobiles à la Réunion',desc:'Boostez vos ventes avec des solutions e-commerce sur mesure pour PME réunionnaises.',type:'article'},
+  {href:'/blog/pilotage-numerique-avance-et-conformite-nis2-obligations-des-spl-et-collectivite',cat:'NIS2',date:'30 mai 2025',titre:'Pilotage numérique et conformité NIS2 : obligations des SPL et collectivités',desc:'Respectez les obligations NIS2 à La Réunion : gouvernance sécurisée et accompagnement dédié.',type:'article'},
+  {href:'/blog/rto-et-rpo-comprendre-les-piliers-de-la-reprise-apres-sinistre',cat:'Sauvegarde',date:'16 mai 2025',titre:'RTO et RPO : Comprendre les piliers de la reprise après sinistre',desc:'Différences entre RTO et RPO pour optimiser votre plan de continuité d\'activité.',type:'article'},
+  {href:'/blog/les-8-benefices-de-gigabackup-pour-microsoft-365',cat:'Microsoft 365',date:'1 juil. 2025',titre:'Les 8 bénéfices de GigaBackup pour Microsoft 365',desc:'Sécurité, restauration granulaire, rétention longue : tout ce que GigaBackup apporte à votre M365.',type:'article'},
+  {href:'/blog/securiser-office-365-avec-hornetsecurity-ou-defender-for-office-365',cat:'Sécurité email',date:'1 juil. 2025',titre:'Sécuriser Office 365 avec HornetSecurity ou Defender for Office 365',desc:'Comparez HornetSecurity et Microsoft Defender pour une protection anti-phishing optimale.',type:'article'},
+  {href:'/blog/securite-des-e-mails-comprendre-spf-dkim-dmarc-et-limportance-des-rapports-rua',cat:'Sécurité email',date:'15 avr. 2025',titre:'Sécurité des e-mails : SPF, DKIM, DMARC et rapports RUA',desc:'Protéger les mails contre le phishing : SPF, DKIM et DMARC expliqués.',type:'article'},
+  {href:'/blog/pme-pourquoi-investir-dans-une-solution-de-detection-et-reponse-nest-plus-une-op',cat:'Cybersécurité',date:'15 avr. 2025',titre:'PME : Pourquoi investir dans une solution de détection et réponse n\'est plus une option',desc:'Pourquoi les PME à La Réunion investissent dans des solutions MDR/EDR.',type:'article'},
+  {href:'/blog/support-informatique-n1-n2-n3-guide-complet-des-niveaux-de-support-it',cat:'Support IT',date:'5 sept. 2025',titre:'Support informatique N1, N2, N3 : guide complet des niveaux de support IT',desc:'Organisation, rôles, escalade : tout comprendre pour optimiser votre assistance IT.',type:'article'},
+  {href:'/blog/expertise-operationnelle-en-informatique-expert-en-infrastructures-it',cat:'Expertise IT',date:'21 mai 2025',titre:'Expertise opérationnelle en informatique et infrastructures IT',desc:'Conseil technique Gigarun à La Réunion : audit, architecture réseau, supervision.',type:'article'},
+  {href:'/blog/gigarun-votre-partenaire-informatique-de-confiance-sur-la-reunion',cat:'Gigarun',date:'29 mai 2025',titre:'Gigarun, votre partenaire informatique de confiance sur la Réunion',desc:'Solutions informatiques sécurisées et managées à La Réunion.',type:'article'},
+  {href:'/blog/mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux',cat:'Messagerie',date:'15 avr. 2025',titre:'Mieux utiliser l\'e-mail en entreprise : bonnes pratiques & enjeux',desc:'Boostez productivité et sobriété numérique en entreprise : bonnes pratiques e-mail.',type:'article'},
+  {href:'/blog/infogerance-et-maintenance-informatique-a-la-reunion',cat:'Infogérance',date:'15 avr. 2025',titre:'Infogérance et maintenance informatique à La Réunion',desc:'Externalisez votre parc informatique à La Réunion. Support N1/N2/N3, supervision 24/7.',type:'article'},
+  {href:'/guides/guide-hornetsecurity-utilisateur',cat:'Sécurité email',date:'2025',titre:'Guide Utilisateur HornetSecurity | Protection Messagerie',desc:'Guide utilisateur HornetSecurity : gérez votre quarantaine email, libérez les messages bloqués, con',type:'guide'},
+  {href:'/guides/guide-impression-rdp',cat:'Support IT',date:'2025',titre:'Guide d\'impression optimale en Bureau à Distance (RDP)',desc:'Imprimez rapidement depuis une session Bureau à Distance (RDP) avec la méthode PDF. 20x plus rapide, 100x ',type:'guide'},
+  {href:'/guides/guide-prise-en-main-mac',cat:'Support IT',date:'2025',titre:'Guide de prise en main Mac | Raccourcis, applications et bonnes pratiques',desc:'Guide complet Mac pour nouveaux utilisateurs : interface, Finder, raccourcis clavier, applications professionnelles, s&e',type:'guide'},
+  {href:'/guides/guide-stockage-fichiers-teams-share-point-one-drive',cat:'Microsoft 365',date:'2025',titre:'Où sont stockés les fichiers Teams ? SharePoint & OneDrive expliqués',desc:'Comprenez où vont vos fichiers dans Microsoft Teams : canaux standards (SharePoint), canaux privés, chats ',type:'guide'},
+  {href:'/guides/guide-multiagent-ollama',cat:'Intelligence artificielle',date:'2025',titre:'Guide Multi-Agents IA & Ollama | Architecture, Orchestration et Mémoire',desc:'',type:'guide'},
+  {href:'/guides/exocortex',cat:'Intelligence artificielle',date:'2025',titre:'Exocortex IA - Guide Complet | Copilote Cognitif avec l\'IA',desc:'Guide complet pour construire votre Exocortex : copilote cognitif personnel avec l',type:'guide'},
+  {href:'/guides/guide-exocortex-copilote-metier',cat:'Intelligence artificielle',date:'2025',titre:'Exocortex Métier — Copilote IA pour DSI, RSSI & Direction Commerciale',desc:'Guide complet de l',type:'guide'},
+  {href:'/guides/guide-exocortex-sync-multimachine',cat:'Intelligence artificielle',date:'2025',titre:'Exocortex Multi-Machine — Synchronisation bidirectionnelle du copilote IA',desc:'Guide complet pour synchroniser l',type:'guide'},
+  {href:'/guides/guide-mfa-microsoft-authenticator',cat:'Cybersécurité',date:'2025',titre:'Guide MFA & Microsoft Authenticator | Sécuriser son compte Microsoft 365',desc:'Guide pas à pas pour configurer l',type:'guide'},
+  {href:'/guides/guide-cybersecurite-utilisateur',cat:'Cybersécurité',date:'2025',titre:'Guide Cybersécurité Utilisateur | Bonnes pratiques au quotidien',desc:'Guide cybersécurité pour les collaborateurs : reconnaître le phishing, créer des mots de pass',type:'guide'},
+  {href:'/guides/guide-passbolt-gestionnaire-mots-de-passe',cat:'Cybersécurité',date:'2025',titre:'Guide Passbolt | Gestionnaire de mots de passe d\'entreprise',desc:'Guide Passbolt pour les collaborateurs : créer, stocker et partager vos mots de passe en toute sécurit&eac',type:'guide'},
+  {href:'/guides/guide-onboarding-premier-jour',cat:'Support IT',date:'2025',titre:'Guide Onboarding IT - Premier Jour | Nouvel arrivant',desc:'Guide d',type:'guide'},
+  {href:'/guides/guide-vpn-acces-distant',cat:'Infrastructure',date:'2025',titre:'Guide VPN & Accès Distant | Télétravail sécurisé',desc:'Guide VPN et accès distant pour le télétravail : connexion sécurisée, configuration, ',type:'guide'},
+  {href:'/guides/guide-restauration-fichiers',cat:'Sauvegarde',date:'2025',titre:'Guide Restauration de Fichiers | Récupérer un document perdu',desc:'Guide pour récupérer un fichier supprimé ou perdu : corbeille, versions précédentes, ',type:'guide'},
+  {href:'/guides/guide-outlook-messagerie-microsoft365',cat:'Microsoft 365',date:'2025',titre:'Guide Outlook & Messagerie Microsoft 365 | Bonnes pratiques email',desc:'Guide Outlook et messagerie Microsoft 365 : organisation des emails, calendrier partagé, règles automatiqu',type:'guide'},
+  {href:'/guides/guide-open-webui-ia-locale',cat:'Intelligence artificielle',date:'2025',titre:'Guide Open WebUI & Ollama | IA locale avec persistance et multi-modèles',desc:'Guide pratique Open WebUI + Ollama : déployer une IA locale persistante, exploiter le RAG, orchestrer plusieurs m',type:'guide'},
+  {href:'/guides/guide-ia-pour-pme',cat:'Intelligence artificielle',date:'2025',titre:'Guide IA pour PME | Intelligence artificielle au service de votre entreprise',desc:'Guide pratique IA pour les PME : Microsoft Copilot, ChatGPT, Claude, cas d',type:'guide'},
+  {href:'/guides/guide-wifi',cat:'Infrastructure',date:'2025',titre:'Guide Sécurisation WiFi | Filtrage MAC, portail captif & bonnes pratiques',desc:'Guide WiFi entreprise : comprendre le filtrage MAC, anticiper les demandes d',type:'guide'},
+  {href:'/guides/guide-bonnes-pratiques-onedrive',cat:'Microsoft 365',date:'2025',titre:'Guide Bonnes Pratiques OneDrive | Partage de fichiers sécurisé',desc:'Guide complet OneDrive : partagez vos fichiers par lien sécurisé au lieu de pièces jointes, organis',type:'guide'},
+  {href:'/guides/guide-environnement-optimal-microsoft365',cat:'Microsoft 365',date:'2025',titre:'Microsoft 365 — Environnement Optimal',desc:'Pourquoi Microsoft Edge est le navigateur optimal pour Microsoft 365 : SSO, Copilot, PWA Office, profils pro/perso. Conf',type:'guide'},
+  {href:'/guides/guide-virtualhosts-virtualmin-dolibarr',cat:'Infogérance',date:'2025',titre:'Créer un VirtualHost dans Virtualmin pour Dolibarr | Guide pas à pas',desc:'Guide pas à pas pour créer un hôte virtuel (VirtualHost) dans Webmin / Virtualmin pour un module Dolibarr',type:'guide'},
+  {href:'/guides/guide-coolify-astro-directus',cat:'Infogérance',date:'2025',titre:'Coolify + Astro + Directus — Site statique avec CMS headless | Guide technique',desc:'Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Directus comme CMS headless. ',type:'guide'},
+  {href:'/guides/guide-coolify-astro-strapi',cat:'Infogérance',date:'2025',titre:'Coolify + Astro + Strapi — Site statique avec CMS headless | Guide technique',desc:'Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Strapi comme CMS headless. Mi',type:'guide'},
+  {href:'/guides/guide-deploiement-agent-zabbix',cat:'Infrastructure',date:'2025',titre:'Guide Déploiement Agent Zabbix | Supervision infogérance',desc:'Guide interne de déploiement des agents Zabbix (Agent 2) sur Windows et Linux : installation, configuration, fire',type:'guide'},
+  {href:'/guides/guide-integration-hubspot-owa',cat:'Microsoft 365',date:'2025',titre:'Guide Intégration HubSpot Sales — OWA / Exchange Online',desc:'Guide complet de déploiement et dépannage du complément HubSpot Sales pour Outlook Web App (OWA) su',type:'guide'},
+  {href:'/guides/guide-notification-signature-dolibarr',cat:'Infogérance',date:'2025',titre:'Guide Notification Email Post-Signature Dolibarr',desc:'Configurer l',type:'guide'},
+  {href:'/guides/guide-deploiement-dolibarr23',cat:'Infogérance',date:'2025',titre:'Guide Déploiement Dolibarr 23 | ERP Production',desc:'Guide pas à pas pour déployer Dolibarr 23.0.1 en production sur Debian 12 : installation, configuration, s',type:'guide'},
+  {href:'/guides/guide-utilisateur-optimisation-gestion-batterie-portable',cat:'Support IT',date:'2025',titre:'Guide Batterie Portable | Optimisation et gestion de la durée de vie',desc:'Guide complet pour optimiser et prolonger la durée de vie de la batterie de votre ordinateur portable : bonnes pratiques',type:'guide'},
+  {href:'/guides/guide-audit-mobile-forensique',cat:'Cybersécurité',date:'2025',titre:'Audit Mobile Forensique | Détecter une compromission sur Android et iOS',desc:'Guide complet d',type:'guide'}
+];
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Style actif
-      tabs.forEach(t => {
-        t.classList.remove('bg-[#7C3AED]','border-[#7C3AED]','text-white');
-        t.classList.add('bg-transparent','border-[rgba(124,58,237,0.3)]','text-[#9B99AA]');
-        t.setAttribute('aria-selected','false');
-      });
-      tab.classList.add('bg-[#7C3AED]','border-[#7C3AED]','text-white');
-      tab.classList.remove('bg-transparent','border-[rgba(124,58,237,0.3)]','text-[#9B99AA]');
-      tab.setAttribute('aria-selected','true');
+const grid = document.getElementById('blog-grid');
+const countEl = document.getElementById('blog-count');
+const emptyEl = document.getElementById('blog-empty');
+const tabs = document.querySelectorAll('.tab-btn');
 
-      const cats = JSON.parse(tab.dataset.cats || '[]');
-      let visible = 0;
-      cards.forEach(card => {
-        const show = cats.length === 0 || cats.includes(card.dataset.cat);
-        card.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
+function renderItems(items) {
+  grid.innerHTML = items.map(a => `
+    <a href="${a.href}" data-cat="${a.cat}" data-type="${a.type}"
+       class="article-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block group">
+      <div class="flex items-center gap-2 mb-3 flex-wrap">
+        <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[10px] font-medium px-2 py-0.5 rounded-full">${a.cat}</span>
+        ${a.type === 'guide' ? '<span style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.35);color:#06B6D4;font-size:10px;font-weight:600;padding:1px 8px;border-radius:9999px;">Guide</span>' : ''}
+        ${a.date ? `<span class="text-[#9B99AA] text-xs">${a.date}</span>` : ''}
+      </div>
+      <h2 class="font-syne font-bold text-[#F1F0F7] text-sm leading-snug mb-2 group-hover:text-[#7C3AED] transition-colors">${a.titre}</h2>
+      <p class="text-[#9B99AA] text-xs leading-relaxed">${a.desc}</p>
+    </a>`).join('');
+}
 
-      countEl.textContent = `Blog · ${visible} article${visible > 1 ? 's' : ''}`;
-      emptyEl.classList.toggle('hidden', visible > 0);
-    });
+function filterAndRender(cats, types) {
+  let items = ALL_ITEMS.filter(a => {
+    const catOk = cats.length === 0 || cats.includes(a.cat);
+    const typeOk = types.length === 0 || types.includes(a.type);
+    return catOk && typeOk;
   });
+  renderItems(items);
+  countEl.textContent = `Blog & Guides · ${items.length} ressource${items.length > 1 ? 's' : ''}`;
+  emptyEl.classList.toggle('hidden', items.length > 0);
+}
 
-  // --- Bouton retour en haut ---
-  const btn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => {
-    const show = window.scrollY > 400;
-    btn.style.opacity = show ? '1' : '0';
-    btn.style.pointerEvents = show ? 'auto' : 'none';
-    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
-  }, { passive: true });
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+// Init : afficher tout
+renderItems(ALL_ITEMS);
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => {
+      t.classList.remove('bg-[#7C3AED]','border-[#7C3AED]','text-white');
+      t.classList.add('bg-transparent','border-[rgba(124,58,237,0.3)]','text-[#9B99AA]');
+      t.setAttribute('aria-selected','false');
+    });
+    tab.classList.add('bg-[#7C3AED]','border-[#7C3AED]','text-white');
+    tab.classList.remove('bg-transparent','border-[rgba(124,58,237,0.3)]','text-[#9B99AA]');
+    tab.setAttribute('aria-selected','true');
+    const cats = JSON.parse(tab.dataset.cats || '[]');
+    const types = JSON.parse(tab.dataset.types || '[]');
+    filterAndRender(cats, types);
+  });
+});
+
+// Bouton retour en haut
+const btn = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  const show = window.scrollY > 400;
+  btn.style.opacity = show ? '1' : '0';
+  btn.style.pointerEvents = show ? 'auto' : 'none';
+  btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+}, { passive: true });
+btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
 </Layout>

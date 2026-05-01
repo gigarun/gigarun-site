@@ -1,0 +1,611 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Coolify + Astro + Strapi — Site statique avec CMS headless | Guide technique — Gigarun La Réunion" description="Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Strapi comme CMS headless. Migration depuis Directus, comparatif Directus vs Strapi, cycl">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Infogérance</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">Coolify + Astro + Strapi — Site statique avec CMS headless | Guide technique</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Guide complet pour déployer un site vitrine statique avec Astro, hébergé sur Coolify, avec Strapi comme CMS headless. Migration depuis Directus, comparatif Directus vs Strapi, cycl</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="back-bar">
+    <a href="index.html" class="back-home">&larr; Retour aux guides</a>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h1>&#x1F680; Coolify + Astro + Strapi</h1>
+        <p>D&#233;ployer un site vitrine statique avec CMS headless &#233;ditorial en auto-h&#233;bergement</p>
+    </div>
+    <div class="content">
+
+        <!-- TABLE DES MATIERES -->
+        <div class="toc">
+            <h3>&#128218; Table des mati&#232;res</h3>
+            <ul>
+                <li><a href="#vue-ensemble">1. Vue d&#8217;ensemble de la stack</a></li>
+                <li><a href="#comparatif">2. Comparatif Directus vs Strapi &#8212; Quand choisir l&#8217;un ou l&#8217;autre ?</a></li>
+                <li><a href="#prerequis">3. Pr&#233;requis</a></li>
+                <li><a href="#deploiement-strapi">4. D&#233;ploiement Strapi via Coolify</a></li>
+                <li><a href="#collections">5. Cr&#233;ation des collections via l&#8217;API</a></li>
+                <li><a href="#api-token">6. G&#233;n&#233;rer un API Token Strapi</a></li>
+                <li><a href="#integration-astro">7. Int&#233;gration Astro &rarr; Strapi</a></li>
+                <li><a href="#webhook">8. Webhook Strapi &rarr; rebuild Coolify automatique</a></li>
+                <li><a href="#problemes">9. Probl&#232;mes rencontr&#233;s et solutions</a></li>
+                <li><a href="#commandes-utiles">10. R&#233;sum&#233; des commandes utiles</a></li>
+            </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="section" id="vue-ensemble">
+            <h2>1. Vue d&#8217;ensemble de la stack</h2>
+            <p>Cette stack assemble quatre composants pour produire un site vitrine statique performant, g&#233;rable par un non-d&#233;veloppeur via un &#233;diteur de contenu moderne, et d&#233;ploy&#233; automatiquement &#224; chaque modification.</p>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Coolify &#8212; PaaS self-hosted</h4>
+                        <p>Orchestre Docker, Traefik (reverse proxy) et les d&#233;ploiements via une interface web. Prend en charge le build des images, le routing des domaines, les certificats SSL et les webhooks de d&#233;clenchement. &#201;quivalent self-hosted de Railway ou Render.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Astro &#8212; Static Site Generator (SSG)</h4>
+                        <p>En mode <code>output: 'static'</code>, Astro g&#233;n&#232;re du HTML/CSS/JS statique. Il <strong>fetch l&#8217;API Strapi au build time</strong> &#8212; pas au runtime. Le site final est compl&#232;tement statique, sans d&#233;pendance vers Strapi en production.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Strapi &#8212; Headless CMS &#233;ditorial</h4>
+                        <p>CMS headless qui expose une API REST et GraphQL. L&#8217;interface d&#8217;administration offre un &#233;diteur WYSIWYG avec insertion d&#8217;images inline, une m&#233;diath&#232;que int&#233;gr&#233;e et un Content-Type Builder visuel. Les webhooks natifs de Strapi d&#233;clenchent le rebuild Coolify &#224; chaque modification de contenu.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>nginx &#8212; Serveur de fichiers statiques</h4>
+                        <p>Le <code>dist/</code> g&#233;n&#233;r&#233; par Astro est servi via nginx Alpine. Aucun Node.js en production &#8212; image finale l&#233;g&#232;re (~25 Mo), performante et s&#233;curis&#233;e.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Cycle complet de mise &#224; jour</h3>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F504;</div>
+                <div><strong>Dur&#233;e totale : ~2 &#224; 3 minutes</strong> entre la modification dans Strapi et le site mis &#224; jour en production.</div>
+            </div>
+            <ol style="margin:20px 0 20px 30px;line-height:2.2">
+                <li>Le gestionnaire de contenu cr&#233;e ou modifie un item dans Strapi</li>
+                <li>Le webhook Strapi se d&#233;clenche sur l&#8217;&#233;v&#233;nement (<code>entry.update</code>, <code>entry.publish</code>...)</li>
+                <li>Le webhook effectue un <strong>GET HTTP</strong> vers l&#8217;API Coolify avec l&#8217;UUID de l&#8217;application et <code>&amp;force=true</code></li>
+                <li>Coolify lance le build Docker du projet Astro</li>
+                <li>Astro fetch toutes les collections Strapi via l&#8217;API REST</li>
+                <li>Astro g&#233;n&#232;re le <code>dist/</code> statique avec les nouvelles donn&#233;es</li>
+                <li>nginx Alpine est construit avec le nouveau <code>dist/</code></li>
+                <li>Coolify remplace l&#8217;ancien container</li>
+                <li>Le site est &#224; jour</li>
+            </ol>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section" id="comparatif">
+            <h2>2. Comparatif Directus vs Strapi &#8212; Quand choisir l&#8217;un ou l&#8217;autre ?</h2>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Ce choix impacte directement l&#8217;autonomie de votre client.</strong> Le CMS le plus puissant techniquement n&#8217;est pas forc&#233;ment le bon choix pour un gestionnaire de contenu non-technique.</div>
+            </div>
+
+            <h3>Tableau comparatif d&#233;taill&#233;</h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Crit&#232;re</th>
+                        <th>Directus</th>
+                        <th>Strapi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>&#201;diteur de contenu</strong></td>
+                        <td class="neutral">&#x26A0; Champs structur&#233;s, pas de WYSIWYG par d&#233;faut</td>
+                        <td class="good">&#x2705; WYSIWYG natif (Tiptap/CKEditor)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insertion d&#8217;images inline</strong></td>
+                        <td class="bad">&#x274C; Non natif &#8212; image = champ s&#233;par&#233;</td>
+                        <td class="good">&#x2705; Oui, via m&#233;diath&#232;que dans l&#8217;&#233;diteur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M&#233;diath&#232;que</strong></td>
+                        <td class="neutral">&#x26A0; Existe mais d&#233;connect&#233;e de l&#8217;&#233;dition</td>
+                        <td class="good">&#x2705; Int&#233;gr&#233;e, upload drag&amp;drop, recadrage</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contenu &#233;ditorial (articles, blogs)</strong></td>
+                        <td class="bad">&#x274C; Laborieux &#8212; pas fait pour &#231;a</td>
+                        <td class="good">&#x2705; Usage principal de l&#8217;outil</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Donn&#233;es structur&#233;es (tarifs, services)</strong></td>
+                        <td class="good">&#x2705; Excellent &#8212; logique BDD native</td>
+                        <td class="good">&#x2705; Bon &#8212; Content-Type Builder visuel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UX pour non-technique</strong></td>
+                        <td class="bad">&#x274C; Interface type backoffice ERP, d&#233;routante</td>
+                        <td class="good">&#x2705; Plus accessible, terminologie CMS classique</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Automatisation / Flows</strong></td>
+                        <td class="good">&#x2705; Flows visuels puissants (nodes &#224; connecter)</td>
+                        <td class="neutral">&#x26A0; Webhooks simples uniquement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Webhooks natifs</strong></td>
+                        <td class="neutral">&#x26A0; Via Flows (configuration complexe)</td>
+                        <td class="good">&#x2705; Natifs, simples &#224; configurer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>D&#233;marrage Docker</strong></td>
+                        <td class="good">&#x2705; Rapide (&lt;30 secondes)</td>
+                        <td class="neutral">&#x26A0; Lent (3&#8211;5 min, compile l&#8217;admin au 1er start)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consommation ressources</strong></td>
+                        <td class="good">&#x2705; L&#233;ger</td>
+                        <td class="neutral">&#x26A0; Plus lourd (Node.js + build admin)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>API REST / GraphQL</strong></td>
+                        <td class="good">&#x2705; Complet, bien document&#233;</td>
+                        <td class="good">&#x2705; Complet, bien document&#233;</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Permissions et r&#244;les</strong></td>
+                        <td class="good">&#x2705; Tr&#232;s granulaire</td>
+                        <td class="good">&#x2705; Tr&#232;s granulaire</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Int&#233;gration Astro</strong></td>
+                        <td class="good">&#x2705; Identique &#8212; simple fetch REST</td>
+                        <td class="good">&#x2705; Identique &#8212; simple fetch REST</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Template Coolify</strong></td>
+                        <td class="good">&#x2705; Oui</td>
+                        <td class="good">&#x2705; Oui (image elestio/strapi-production)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Origine</strong></td>
+                        <td>Pays-Bas</td>
+                        <td>France (Paris) &#x1F1EB;&#x1F1F7;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>R&#232;gle de d&#233;cision</h3>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number" style="background:linear-gradient(135deg,#6d28d9,#4c1d95);">A</div>
+                    <div class="step-content">
+                        <h4>Choisir Strapi <span class="winner-badge">RECOMMAND&#201; pour les sites vitrine</span></h4>
+                        <ul class="checklist">
+                            <li>Le site doit publier du <strong>contenu &#233;ditorial</strong> (articles de blog, pages de service r&#233;dig&#233;es, guides, actualit&#233;s)</li>
+                            <li>Le gestionnaire de contenu est <strong>non-technique</strong> et doit pouvoir travailler en autonomie</li>
+                            <li>Les contenus incluent des <strong>images inline</strong> dans des textes (pas juste des images de couverture)</li>
+                            <li>Vous voulez livrer un CMS simple et former rapidement votre client</li>
+                            <li>Le site doit &#233;voluer vers un blog ou une base de ressources</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);">B</div>
+                    <div class="step-content">
+                        <h4>Choisir Directus</h4>
+                        <ul class="checklist">
+                            <li>Le site n&#8217;a que des <strong>donn&#233;es structur&#233;es</strong> &#8212; tarifs, listes de services, &#233;quipe (pas d&#8217;articles)</li>
+                            <li>Le gestionnaire est un <strong>d&#233;veloppeur ou un profil technique</strong> (&#224; l&#8217;aise avec une interface type backoffice ERP)</li>
+                            <li>Vous avez besoin d&#8217;automatisations complexes via les <strong>Flows</strong> (logique conditionnelle, cha&#238;nes d&#8217;actions)</li>
+                            <li>Vous construisez une <strong>interface d&#8217;administration sur-mesure</strong> qui consomme l&#8217;API Directus</li>
+                            <li>Vous faites une <strong>d&#233;mo technique</strong> ou une formation sur les CMS headless orient&#233;s BDD</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x1F4A1;</div>
+                <div><strong>Bon &#224; savoir :</strong> Les deux CMS peuvent coexister sur le m&#234;me Coolify. Il est possible de conserver Directus pour les d&#233;mos ou formations tout en utilisant Strapi en production. Astro peut fetch depuis les deux simultan&#233;ment si besoin &#8212; mais une seule source de v&#233;rit&#233; est recommand&#233;e en production.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section" id="prerequis">
+            <h2>3. Pr&#233;requis</h2>
+            <ul class="checklist">
+                <li>Coolify install&#233; et op&#233;rationnel (voir guide Coolify + Astro + Directus)</li>
+                <li>Acc&#232;s SSH au VPS Coolify</li>
+                <li>Repo GitHub du site Astro existant</li>
+                <li>Entr&#233;e DNS locale pour <code>strapi.monsite.local</code> point&#233;e sur l&#8217;IP du VPS (dans <code>/etc/hosts</code> du VPS et de la machine cliente)</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section" id="deploiement-strapi">
+            <h2>4. D&#233;ploiement Strapi via Coolify</h2>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Ne pas utiliser <code>strapi/strapi:latest</code></strong> &#8212; cette image n&#8217;existe plus sur Docker Hub. Utiliser le <strong>template Coolify natif</strong> qui utilise <code>elestio/strapi-production</code>.</div>
+            </div>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Cr&#233;er le projet dans Coolify</h4>
+                        <p>Coolify &#8594; <strong>Projects</strong> &#8594; <strong>+ New Project</strong> &#8594; nommer <code>mon-projet-strapi</code></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Ajouter Strapi via le template</h4>
+                        <p>Dans le projet &#8594; <strong>+ New Resource</strong> &#8594; rechercher <strong>Strapi</strong> dans les templates &#8594; s&#233;lectionner &#8594; <strong>Deploy</strong></p>
+                        <p style="margin-top:10px;color:#dc3545;"><strong>Attention :</strong> Le premier d&#233;marrage prend 3&#8211;5 minutes. Strapi compile l&#8217;interface d&#8217;administration React au premier boot. Ne pas interrompre.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Configurer le domaine local</h4>
+                        <p>Dans la ressource Strapi &#8594; <strong>Configuration</strong> &#8594; champ <strong>Domains</strong> &#8594; remplacer l&#8217;URL <code>sslip.io</code> g&#233;n&#233;r&#233;e par : <code>http://strapi.monsite.local</code></p>
+                        <p style="margin-top:10px;">Sur le VPS :</p>
+                        <pre><code>sudo bash -c 'echo "127.0.0.1 strapi.monsite.local" >> /etc/hosts'</code></pre>
+                        <p style="margin-top:10px;">Sur la machine cliente (Windows, en admin) :</p>
+                        <pre><code>echo [IP_VPS] strapi.monsite.local >> C:\Windows\System32\drivers\etc\hosts</code></pre>
+                        <p style="margin-top:10px;">Puis <strong>Redeploy</strong> (Stop + Deploy) pour appliquer le nouveau domaine dans Traefik.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Cr&#233;er le compte admin</h4>
+                        <p>Acc&#233;der &#224; <code>http://strapi.monsite.local/admin</code> &#8594; premier acc&#232;s = cr&#233;ation du compte administrateur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="section" id="collections">
+            <h2>5. Cr&#233;ation des collections via l&#8217;API</h2>
+
+            <p>Les collections peuvent &#234;tre cr&#233;&#233;es via l&#8217;API admin Strapi (token JWT) ou via l&#8217;interface Content-Type Builder. Voici la m&#233;thode API :</p>
+
+            <h3>Authentification admin</h3>
+            <pre><code>curl -X POST http://strapi.monsite.local/admin/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"admin@example.com","password":"motdepasse"}'
+# R&#233;cup&#233;rer le token dans data.token</code></pre>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Dur&#233;e de vie courte du token admin (30 min).</strong> Pour les injections de donn&#233;es, g&#233;n&#233;rer un API Token permanent dans Settings &#8594; API Tokens.</div>
+            </div>
+
+            <h3>Cr&#233;ation d&#8217;une collection (exemple : Service)</h3>
+            <pre><code>curl -X POST http://strapi.monsite.local/content-type-builder/content-types \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer [TOKEN_ADMIN]' \
+  -d '{
+    "contentType": {
+      "displayName": "Service",
+      "singularName": "service",
+      "pluralName": "services",
+      "kind": "collectionType",
+      "attributes": {
+        "titre": {"type": "string", "required": true},
+        "description": {"type": "text"},
+        "ordre": {"type": "integer"}
+      }
+    }
+  }'</code></pre>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x2139;</div>
+                <div>Strapi <strong>red&#233;marre automatiquement</strong> apr&#232;s chaque cr&#233;ation de collection pour appliquer le nouveau sch&#233;ma. Attendre ~30 secondes avant de cr&#233;er la collection suivante ou d&#8217;injecter des donn&#233;es.</div>
+            </div>
+
+            <h3>Injection de donn&#233;es (avec API Token)</h3>
+            <pre><code>curl -X POST http://strapi.monsite.local/api/services \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer [API_TOKEN]' \
+  -d '{"data": {"titre": "Infog&#233;rance IT", "description": "...", "ordre": 1}}'</code></pre>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Le token admin ne fonctionne pas sur <code>/api/</code>.</strong> Les endpoints publics n&#233;cessitent un API Token g&#233;n&#233;r&#233; dans Settings &#8594; API Tokens (type Full access).</div>
+            </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="section" id="api-token">
+            <h2>6. G&#233;n&#233;rer un API Token Strapi</h2>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Acc&#233;der aux API Tokens</h4>
+                        <p>Strapi Admin &#8594; menu gauche &#8594; <strong>Settings</strong> (tout en bas) &#8594; section <em>Global Settings</em> &#8594; <strong>API Tokens</strong></p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Cr&#233;er le token</h4>
+                        <p><strong>+ Create new API Token</strong> &#8594; Name : <code>astro-build</code> &#8594; Token type : <strong>Full access</strong> &#8594; <strong>Save</strong></p>
+                        <p style="margin-top:8px;color:#dc3545;">Copier le token imm&#233;diatement &#8212; il n&#8217;est affich&#233; qu&#8217;une seule fois.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7 -->
+        <div class="section" id="integration-astro">
+            <h2>7. Int&#233;gration Astro &rarr; Strapi</h2>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F6A8;</div>
+                <div><strong>Utiliser l&#8217;IP interne Docker, pas le nom DNS local.</strong> Le build Astro s&#8217;ex&#233;cute dans un container Docker qui ne r&#233;sout pas le nom DNS local. Utiliser l&#8217;IP du container Strapi sur le r&#233;seau Coolify.</div>
+            </div>
+
+            <h3>R&#233;cup&#233;rer l&#8217;IP interne de Strapi</h3>
+            <pre><code>sudo docker inspect [NOM_CONTAINER_STRAPI] | grep '"IPAddress"'
+# Ex : [IP_INTERNE_STRAPI]</code></pre>
+
+            <h3>Code Astro &#8212; fetch depuis Strapi</h3>
+            <pre><code>---
+const STRAPI = 'http://[IP_INTERNE_STRAPI]:1337';
+const STRAPI_TOKEN = 'votre_api_token_ici';
+const headers = { 'Authorization': `Bearer ${STRAPI_TOKEN}` };
+
+const [servicesRes, tarifsRes] = await Promise.all([
+  fetch(`${STRAPI}/api/services?sort=ordre&pagination[limit]=100`, { headers }),
+  fetch(`${STRAPI}/api/tarifs?sort=ordre&pagination[limit]=100`, { headers }),
+]);
+
+const services = (await servicesRes.json()).data ?? [];
+const tarifs = (await tarifsRes.json()).data ?? [];
+---</code></pre>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x2139;</div>
+                <div><strong>Structure de r&#233;ponse Strapi v5 :</strong> <code>data</code> est un tableau d&#8217;objets avec les champs directement &#224; la racine (pas de sous-objet <code>attributes</code> comme en v4). Ex : <code>item.titre</code> et non <code>item.attributes.titre</code>.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 8 -->
+        <div class="section" id="webhook">
+            <h2>8. Webhook Strapi &rarr; rebuild Coolify automatique</h2>
+
+            <p>Configuration via l&#8217;API admin Strapi. R&#233;cup&#233;rer d&#8217;abord un token admin frais, puis :</p>
+
+            <pre><code>curl -X POST http://strapi.monsite.local/admin/webhooks \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer [TOKEN_ADMIN]' \
+  -d '{
+    "name": "coolify-rebuild",
+    "url": "http://[IP_VPS]:8001/api/v1/deploy?uuid=[UUID_APP]&amp;force=true",
+    "headers": {
+      "Authorization": "Bearer [TOKEN_API_COOLIFY]"
+    },
+    "events": [
+      "entry.create",
+      "entry.update",
+      "entry.delete",
+      "entry.publish",
+      "entry.unpublish"
+    ]
+  }'</code></pre>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x26A0;</div>
+                <div>
+                    <strong>Points d&#8217;attention :</strong>
+                    <ul style="margin-top:8px;margin-left:20px;line-height:2">
+                        <li>Le champ <code>enabled</code> n&#8217;est pas accept&#233; en cr&#233;ation &#8212; il est activ&#233; par d&#233;faut</li>
+                        <li><code>headers</code> doit &#234;tre un objet cl&#233;/valeur, pas un tableau</li>
+                        <li>L&#8217;UUID de l&#8217;application Coolify est r&#233;cup&#233;rable via <code>GET /api/v1/applications</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 9 -->
+        <div class="section" id="problemes">
+            <h2>9. Probl&#232;mes rencontr&#233;s et solutions</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Probl&#232;me</th>
+                        <th>Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>pull access denied for strapi/strapi</code></td>
+                        <td>Image officielle supprim&#233;e de Docker Hub</td>
+                        <td>Utiliser le template Coolify natif (image <code>elestio/strapi-production</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>404 sur le domaine local configur&#233;</td>
+                        <td>Coolify utilise encore l&#8217;ancien domaine <code>sslip.io</code> dans les labels Traefik</td>
+                        <td>Changer le domaine dans Configuration &#8594; Save &#8594; puis <strong>Stop + Deploy</strong> (pas juste Restart)</td>
+                    </tr>
+                    <tr>
+                        <td><code>getaddrinfo ENOTFOUND strapi.monsite.local</code> au build</td>
+                        <td>Le container de build Docker ne r&#233;sout pas le DNS local</td>
+                        <td>Remplacer le hostname par l&#8217;IP interne Docker du container Strapi (ex: <code>172.20.x.x:1337</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>401 Unauthorized sur <code>/api/</code> avec token admin</td>
+                        <td>Le token JWT admin ne fonctionne que sur les endpoints <code>/admin/</code></td>
+                        <td>G&#233;n&#233;rer un API Token dans Settings &#8594; API Tokens pour les endpoints <code>/api/</code></td>
+                    </tr>
+                    <tr>
+                        <td>400 Bad Request &#8220;unspecified keys: enabled&#8221; sur cr&#233;ation webhook</td>
+                        <td>Le champ <code>enabled</code> n&#8217;est pas accept&#233; &#224; la cr&#233;ation</td>
+                        <td>Retirer <code>enabled</code> du payload &#8212; activ&#233; par d&#233;faut</td>
+                    </tr>
+                    <tr>
+                        <td>Strapi met 3&#8211;5 min &#224; d&#233;marrer</td>
+                        <td>Compilation de l&#8217;interface React au premier boot</td>
+                        <td>Normal. Attendre que le container soit <code>healthy</code> avant d&#8217;acc&#233;der &#224; l&#8217;admin</td>
+                    </tr>
+                    <tr>
+                        <td>URL <code>sslip.io</code> redirige vers un autre VPS</td>
+                        <td>L&#8217;IP publique du VPS local est partag&#233;e avec d&#8217;autres machines de l&#8217;infrastructure</td>
+                        <td>Toujours utiliser un domaine <code>.local</code> en d&#233;veloppement. Ne jamais exposer un service interne via sslip.io en multi-VPS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 10 -->
+        <div class="section" id="commandes-utiles">
+            <h2>10. R&#233;sum&#233; des commandes utiles</h2>
+
+            <h3>V&#233;rifier l&#8217;IP interne du container Strapi</h3>
+            <pre><code>sudo docker inspect $(sudo docker ps | grep strapi | grep -v postgres | awk '{print $1}') \
+  | python3 -c "import sys,json; nets=json.load(sys.stdin)[0]['NetworkSettings']['Networks']; \
+  [print(k, v['IPAddress']) for k,v in nets.items()]"</code></pre>
+
+            <h3>Forcer un rebuild via l&#8217;API Coolify</h3>
+            <pre><code>curl -X GET 'http://[IP_VPS]:8001/api/v1/deploy?uuid=[UUID_APP]&amp;force=true' \
+  -H 'Authorization: Bearer [TOKEN_COOLIFY]'</code></pre>
+
+            <h3>Lister les webhooks Strapi</h3>
+            <pre><code>curl http://strapi.monsite.local/admin/webhooks \
+  -H 'Authorization: Bearer [TOKEN_ADMIN]'</code></pre>
+
+            <h3>Exemple de r&#233;f&#233;rences &#224; adapter</h3>
+            <ul class="checklist">
+                <li>Coolify dev : <code>http://[IP_VPS]:8001</code> &#8212; user SSH : <code>[USER]</code></li>
+                <li>Strapi admin : <code>http://strapi.monsite.local/admin</code></li>
+                <li>IP interne Strapi : <code>[IP_INTERNE_STRAPI]:1337</code> (&#224; v&#233;rifier apr&#232;s restart)</li>
+                <li>UUID app : <code>[UUID_APP]</code> (r&#233;cup&#233;rable via <code>GET /api/v1/applications</code>)</li>
+                <li>Site : <code>http://monsite.local</code></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">&#8679;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f0fe 0%,#d4e4f7 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#6d28d9,#4c1d95);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.3em;margin-bottom:10px}
+        .header p{font-size:1.2em;opacity:0.9}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#6d28d9;font-size:1.8em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #6d28d9}
+        .section h3{color:#4c1d95;font-size:1.4em;margin-top:25px;margin-bottom:15px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#ede9fe;border-left:5px solid #6d28d9}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .procedure{background:#f8f9fa;border-radius:10px;padding:30px;margin:30px 0}
+        .step{display:flex;align-items:flex-start;margin-bottom:30px;padding:20px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-5px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#6d28d9,#4c1d95);color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;font-weight:bold;margin-right:20px;flex-shrink:0;box-shadow:0 4px 10px rgba(109,40,217,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#6d28d9;margin-bottom:10px;font-size:1.3em}
+        .step-content p{color:#666;line-height:1.8}
+        code{background:#e9ecef;padding:2px 8px;border-radius:3px;font-family:'Courier New',monospace;color:#4c1d95;font-size:0.95em}
+        pre{background:#1e1e1e;color:#d4d4d4;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.9em;line-height:1.7}
+        pre code{background:none;color:#d4d4d4;padding:0}
+        .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;box-shadow:0 2px 15px rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+        .comparison-table thead{background:linear-gradient(135deg,#6d28d9,#4c1d95);color:white}
+        .comparison-table th{padding:18px;text-align:left;font-size:1.05em}
+        .comparison-table td{padding:14px 18px;border-bottom:1px solid #eee}
+        .comparison-table tbody tr:nth-child(even){background:#f9f9f9}
+        .comparison-table tbody tr:hover{background:#ede9fe}
+        .bad{color:#dc3545;font-weight:bold}
+        .good{color:#198754;font-weight:bold}
+        .neutral{color:#856404;font-weight:bold}
+        .checklist{list-style:none;margin:20px 0;padding:0}
+        .checklist li{padding:12px 15px;margin:8px 0;background:#f8f9fa;border-radius:8px;border-left:4px solid #6d28d9;font-size:1.05em}
+        .toc{background:#f5f3ff;border:2px solid #ddd6fe;border-radius:10px;padding:25px 30px;margin:30px 0}
+        .toc h3{color:#6d28d9;margin-bottom:15px;font-size:1.2em}
+        .toc ul{list-style:none;padding:0}
+        .toc li{padding:6px 0}
+        .toc a{color:#4c1d95;text-decoration:none;font-weight:500;transition:color 0.2s}
+        .toc a:hover{color:#6d28d9;text-decoration:underline}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#6d28d9;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(109,40,217,0.4)}
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        .winner-badge{display:inline-block;background:#198754;color:white;padding:3px 10px;border-radius:20px;font-size:0.8em;font-weight:bold;margin-left:8px;vertical-align:middle}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#6d28d9,#4c1d95);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        @media(max-width:600px){.header h1{font-size:1.5em}.content{padding:20px}.header-container,.contact-header,.footer-content{flex-direction:column;gap:10px}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop{display:none}.main-header,.main-footer{break-inside:avoid}}
+    
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

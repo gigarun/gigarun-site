@@ -1,0 +1,630 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Microsoft 365 &mdash; Environnement Optimal — Gigarun La Réunion" description="Pourquoi Microsoft Edge est le navigateur optimal pour Microsoft 365 : SSO, Copilot, PWA Office, profils pro/perso. Configuration en 5 minutes.">
+<div class="bg-[#07001C] pt-28 pb-4">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-3">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Microsoft 365</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);">Microsoft 365 &mdash; Environnement Optimal</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0">Pourquoi Microsoft Edge est le navigateur optimal pour Microsoft 365 : SSO, Copilot, PWA Office, profils pro/perso. Configuration en 5 minutes.</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+
+<div class="container">
+    <div class="header">
+        <h1>Microsoft 365 &mdash; Environnement Optimal</h1>
+        <p>Pourquoi Edge change l'exp&eacute;rience M365, et comment le configurer en 5 minutes</p>
+    </div>
+    <div class="content">
+
+        <!-- SECTION 1 : Le constat -->
+        <div class="section">
+            <h2>Le probl&egrave;me que personne ne voit</h2>
+            <p>Microsoft 365 fonctionne dans n'importe quel navigateur. Mais &laquo; fonctionner &raquo; et &laquo; fonctionner de mani&egrave;re optimale &raquo; sont deux choses diff&eacute;rentes. La majorit&eacute; des probl&egrave;mes remontés au support &mdash; lenteurs, d&eacute;connexions, fonctionnalit&eacute;s manquantes &mdash; viennent du navigateur, pas de Microsoft 365.</p>
+
+            <div class="kpi-grid">
+                <div class="kpi-box">
+                    <span class="value">SSO</span>
+                    <span class="label">Connexion automatique uniquement sur Edge (compte Windows li&eacute;)</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">Copilot</span>
+                    <span class="label">L'assistant IA Microsoft n'est disponible que dans Edge</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">PWA</span>
+                    <span class="label">Teams, Outlook, Office en apps natives depuis Edge</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">Profils</span>
+                    <span class="label">S&eacute;paration nette entre comptes pro et perso</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2 : Ce qui casse sur les autres navigateurs -->
+        <div class="section">
+            <h2>Ce qui ne fonctionne pas (ou mal) hors Edge</h2>
+            <p>Voici les probl&egrave;mes concrets que rencontrent les utilisateurs sur Chrome ou Firefox avec Microsoft 365 :</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Fonctionnalit&eacute;</th><th>Edge</th><th>Chrome</th><th>Firefox</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Connexion automatique (SSO)</strong></td>
+                        <td class="good">Automatique via le compte Windows</td>
+                        <td class="bad">Demande le mot de passe r&eacute;guli&egrave;rement</td>
+                        <td class="bad">Demande le mot de passe r&eacute;guli&egrave;rement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Microsoft Copilot</strong></td>
+                        <td class="good">Int&eacute;gr&eacute; nativement (barre lat&eacute;rale)</td>
+                        <td class="bad">Non disponible</td>
+                        <td class="bad">Non disponible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Co-&eacute;dition temps r&eacute;el (Word, Excel)</strong></td>
+                        <td class="good">Fluide, pas de d&eacute;calage</td>
+                        <td class="neutral">Fonctionne, parfois lent</td>
+                        <td class="bad">D&eacute;calages fr&eacute;quents, perte de curseur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compl&eacute;ments Outlook (HubSpot, etc.)</strong></td>
+                        <td class="good">Chargement rapide et stable</td>
+                        <td class="neutral">Fonctionne g&eacute;n&eacute;ralement</td>
+                        <td class="bad">Chargement al&eacute;atoire, erreurs fr&eacute;quentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teams Web (r&eacute;unions)</strong></td>
+                        <td class="good">Partage d'&eacute;cran, arri&egrave;re-plan flou, galerie</td>
+                        <td class="neutral">Partage d'&eacute;cran limit&eacute;</td>
+                        <td class="bad">Fonctionnalit&eacute;s manquantes (arri&egrave;re-plan, r&eacute;actions)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ouverture fichiers dans l'app desktop</strong></td>
+                        <td class="good">Clic &rarr; ouverture directe dans Word/Excel</td>
+                        <td class="neutral">Fonctionne apr&egrave;s configuration</td>
+                        <td class="bad">Souvent bloqu&eacute;, t&eacute;l&eacute;charge le fichier au lieu d'ouvrir</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acc&egrave;s conditionnel (MFA entreprise)</strong></td>
+                        <td class="good">Transparent, g&eacute;r&eacute; par Windows</td>
+                        <td class="bad">Boucles de reconnexion possibles</td>
+                        <td class="bad">Boucles de reconnexion possibles</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x26A0;</div>
+                <div><strong>Cas r&eacute;el fr&eacute;quent :</strong> Un utilisateur sur Chrome se plaint de devoir &laquo; se reconnecter 3 fois par jour &raquo; &agrave; Outlook Web. Sur Edge, le SSO r&egrave;gle le probl&egrave;me imm&eacute;diatement &mdash; z&eacute;ro mot de passe &agrave; saisir.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 : Ce qui marche bien partout -->
+        <div class="section">
+            <h2>Ce qui fonctionne tr&egrave;s bien hors Edge</h2>
+            <p>Soyons honn&ecirc;tes : tout ne n&eacute;cessite pas Edge. Voici ce qui marche parfaitement sur Chrome :</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4E7;</span>
+                    <h4>Lecture d'emails (Outlook Web)</h4>
+                    <p>Lire et envoyer des mails fonctionne parfaitement sur Chrome. Les probl&egrave;mes apparaissent surtout avec les compl&eacute;ments et le SSO.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4C4;</span>
+                    <h4>Consultation de documents</h4>
+                    <p>Ouvrir un Word ou Excel en lecture dans le navigateur fonctionne partout. C'est la co-&eacute;dition et les macros qui posent probl&egrave;me.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4C1;</span>
+                    <h4>SharePoint &amp; OneDrive (navigation)</h4>
+                    <p>Parcourir ses fichiers, t&eacute;l&eacute;charger, partager des liens : aucune diff&eacute;rence notable entre navigateurs.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4A1;</div>
+                <div><strong>R&egrave;gle simple :</strong> Si vous <em>consultez</em> Microsoft 365, n'importe quel navigateur convient. Si vous <em>travaillez activement</em> dedans (co-&eacute;dition, r&eacute;unions, Copilot, compl&eacute;ments), Edge fait la diff&eacute;rence.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 4 : Configuration Edge en 5 min -->
+        <div class="section">
+            <h2>Configurer Edge en 5 minutes</h2>
+            <p>Edge est d&eacute;j&agrave; install&eacute; sur tous les postes Windows. Il suffit de le configurer correctement une seule fois.</p>
+
+            <h3>&Eacute;tape 1 &mdash; Cr&eacute;er votre profil professionnel</h3>
+            <p>Un profil Edge s&eacute;pare vos donn&eacute;es pro de vos donn&eacute;es personnelles : favoris, mots de passe, historique, extensions. Chacun dans son espace.</p>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Ouvrir les param&egrave;tres de profil</h4>
+                        <p>Lancez Edge. Cliquez sur l'ic&ocirc;ne de profil (avatar) en haut &agrave; droite &rarr; <strong>Ajouter un profil</strong> &rarr; <strong>Ajouter</strong>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Se connecter avec le compte professionnel</h4>
+                        <p>Choisissez <strong>Se connecter pour synchroniser les donn&eacute;es</strong>. Entrez votre adresse email professionnelle (celle de Microsoft 365). Validez le MFA si demand&eacute;.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>V&eacute;rifier la connexion</h4>
+                        <p>Ouvrez <code>office.com</code> &mdash; vous devriez &ecirc;tre connect&eacute; automatiquement sans saisir de mot de passe. C'est le SSO en action.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div><strong>R&eacute;sultat :</strong> Plus aucune fen&ecirc;tre de connexion pour acc&eacute;der &agrave; Outlook, Teams, OneDrive ou SharePoint. Le navigateur vous reconna&icirc;t automatiquement.</div>
+            </div>
+
+            <h3>&Eacute;tape 2 &mdash; &Eacute;pingler les applications M365</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Acc&eacute;der &agrave; Office.com</h4>
+                        <p>Rendez-vous sur <code>office.com</code> (ou <code>microsoft365.com</code>). Vous y trouverez toutes vos applications : Outlook, Word, Excel, Teams, OneDrive, SharePoint.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Installer en tant qu'application (PWA)</h4>
+                        <p>Ouvrez Outlook Web par exemple. Cliquez sur l'ic&ocirc;ne <strong>d'installation</strong> dans la barre d'adresse (carr&eacute; avec fl&egrave;che) ou allez dans le menu <strong>(...)</strong> &rarr; <strong>Apps</strong> &rarr; <strong>Installer ce site en tant qu'application</strong>. L'application s'ouvre dans sa propre fen&ecirc;tre, avec son ic&ocirc;ne dans la barre des t&acirc;ches.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>&Eacute;pingler dans la barre des t&acirc;ches</h4>
+                        <p>Faites un clic droit sur l'ic&ocirc;ne de l'application dans la barre des t&acirc;ches &rarr; <strong>&Eacute;pingler &agrave; la barre des t&acirc;ches</strong>. R&eacute;p&eacute;tez pour Outlook, Teams et les applications que vous utilisez quotidiennement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4CC;</div>
+                <div><strong>Les PWA (Progressive Web Apps)</strong> sont des applications web qui se comportent comme des applications de bureau : fen&ecirc;tre d&eacute;di&eacute;e, ic&ocirc;ne dans la barre des t&acirc;ches, notifications, lancement au d&eacute;marrage. Moins lourd qu'un client desktop, toujours &agrave; jour.</div>
+            </div>
+
+            <h3>&Eacute;tape 3 &mdash; Configurer la page de d&eacute;marrage</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Ouvrir les param&egrave;tres Edge</h4>
+                        <p>Allez dans <strong>Param&egrave;tres</strong> (ic&ocirc;ne <code>...</code> &rarr; Param&egrave;tres) &rarr; <strong>D&eacute;marrage, accueil et nouveaux onglets</strong>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>D&eacute;finir la page d'accueil</h4>
+                        <p>Dans <strong>Au d&eacute;marrage de Microsoft Edge</strong>, choisissez <strong>Ouvrir ces pages</strong> et ajoutez <code>https://microsoft365.com</code>. &Agrave; chaque ouverture d'Edge, votre tableau de bord M365 s'affiche directement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 : Fonctionnalités exclusives Edge -->
+        <div class="section">
+            <h2>Les fonctionnalit&eacute;s exclusives &agrave; Edge</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F916;</span>
+                    <h4>Microsoft Copilot</h4>
+                    <p>L'assistant IA Microsoft est accessible directement depuis la barre lat&eacute;rale d'Edge. R&eacute;sum&eacute; de pages, r&eacute;daction d'emails, analyse de documents &mdash; sans quitter le navigateur.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F50F;</span>
+                    <h4>SSO transparent</h4>
+                    <p>Edge partage l'authentification avec Windows. Si vous &ecirc;tes connect&eacute; &agrave; votre session Windows avec votre compte pro, tous les services M365 sont accessibles sans mot de passe suppl&eacute;mentaire.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4F1;</span>
+                    <h4>Applications PWA Office</h4>
+                    <p>Installez Outlook, Teams ou Word en tant qu'applications depuis Edge. Elles se lancent comme des apps natives, avec notifications, ic&ocirc;ne dans la barre des t&acirc;ches et fen&ecirc;tre d&eacute;di&eacute;e.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F465;</span>
+                    <h4>Profils pro / perso</h4>
+                    <p>Basculez entre votre profil professionnel et personnel en un clic. Chaque profil a ses propres favoris, mots de passe, extensions et historique. Z&eacute;ro m&eacute;lange.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4CA;</span>
+                    <h4>Barre lat&eacute;rale M365</h4>
+                    <p>Acc&eacute;dez &agrave; Outlook, Teams, Copilot et vos fichiers r&eacute;cents depuis la barre lat&eacute;rale d'Edge, sans ouvrir un nouvel onglet. Consultez un email pendant que vous travaillez sur un document.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F512;</span>
+                    <h4>S&eacute;curit&eacute; int&eacute;gr&eacute;e</h4>
+                    <p>Microsoft Defender SmartScreen et la protection contre le phishing sont activ&eacute;s par d&eacute;faut. Edge partage les signaux de s&eacute;curit&eacute; avec Windows Defender pour une protection compl&egrave;te.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6 : Raccourcis et astuces -->
+        <div class="section">
+            <h2>Raccourcis et astuces Edge</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Action</th><th>Raccourci</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Ouvrir Copilot</strong></td>
+                        <td><span class="shortcut">Ctrl</span> + <span class="shortcut">Shift</span> + <span class="shortcut">.</span></td>
+                        <td>Ouvre la barre lat&eacute;rale Copilot</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Changer de profil</strong></td>
+                        <td>Clic sur l'avatar</td>
+                        <td>Bascule entre profil pro et perso</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Barre lat&eacute;rale</strong></td>
+                        <td><span class="shortcut">Ctrl</span> + <span class="shortcut">Shift</span> + <span class="shortcut">/</span></td>
+                        <td>Affiche/masque la barre lat&eacute;rale M365</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Favoris rapides</strong></td>
+                        <td><span class="shortcut">Ctrl</span> + <span class="shortcut">D</span></td>
+                        <td>Ajouter la page actuelle aux favoris</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Collections</strong></td>
+                        <td><span class="shortcut">Ctrl</span> + <span class="shortcut">Shift</span> + <span class="shortcut">Y</span></td>
+                        <td>Organiser des liens et notes par projet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Onglet vertical</strong></td>
+                        <td><span class="shortcut">Ctrl</span> + <span class="shortcut">Shift</span> + <span class="shortcut">,</span></td>
+                        <td>Basculer les onglets en mode vertical (pratique avec beaucoup d'onglets)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 7 : Mots de passe -->
+        <div class="section">
+            <h2>Mots de passe : synchronisation et limites</h2>
+            <p>Edge int&egrave;gre un gestionnaire de mots de passe qui synchronise vos identifiants entre tous vos appareils (PC, mobile, tablette). C'est pratique, mais il faut comprendre <strong>ce qu'il couvre et ce qu'il ne couvre pas</strong>.</p>
+
+            <h3>Ce que fait le gestionnaire Edge</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F310;</span>
+                    <h4>Sites web courants</h4>
+                    <p>Edge enregistre et remplit automatiquement vos identifiants pour les sites web : portails fournisseurs, banque en ligne, services SaaS, outils internes. Un mot de passe enregistr&eacute; sur le PC est disponible sur le mobile et inversement.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F512;</span>
+                    <h4>G&eacute;n&eacute;rateur de mots de passe</h4>
+                    <p>Lors de la cr&eacute;ation d'un compte, Edge propose un mot de passe fort al&eacute;atoire. Il est enregistr&eacute; automatiquement &mdash; plus besoin de l'inventer ou de le noter.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x26A0;</span>
+                    <h4>Alertes de fuite</h4>
+                    <p>Edge v&eacute;rifie r&eacute;guli&egrave;rement si vos mots de passe apparaissent dans des fuites de donn&eacute;es connues et vous alerte pour les changer.</p>
+                </div>
+            </div>
+
+            <h3>Activer la synchronisation des mots de passe</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Ouvrir les param&egrave;tres de synchronisation</h4>
+                        <p>Dans Edge, cliquez sur votre avatar en haut &agrave; droite &rarr; <strong>G&eacute;rer les param&egrave;tres de profil</strong> &rarr; <strong>Synchronisation</strong>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Activer la synchronisation</h4>
+                        <p>V&eacute;rifiez que <strong>Mots de passe</strong> est activ&eacute;. Activez aussi <strong>Favoris</strong>, <strong>Param&egrave;tres</strong> et <strong>Adresses</strong> pour une exp&eacute;rience compl&egrave;te entre vos appareils.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Acc&eacute;der &agrave; vos mots de passe</h4>
+                        <p>Allez dans <code>edge://settings/passwords</code> pour consulter, modifier ou supprimer vos mots de passe enregistr&eacute;s. L'acc&egrave;s est prot&eacute;g&eacute; par votre code PIN Windows ou votre empreinte digitale.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">&#x1F511;</div>
+                <div><strong>Edge vs Passbolt &mdash; ne pas m&eacute;langer les usages</strong><br><br>
+                    &bull; <strong>Gestionnaire Edge</strong> = vos mots de passe <strong>personnels et sites web</strong> (banque, fournisseurs, portails). Propres &agrave; vous, synchronis&eacute;s entre vos appareils.<br><br>
+                    &bull; <strong>Passbolt</strong> = les mots de passe <strong>d'entreprise partag&eacute;s</strong> (serveurs, comptes de service, acc&egrave;s &eacute;quipe). G&eacute;r&eacute;s collectivement, avec tra&ccedil;abilit&eacute;.<br><br>
+                    Ne stockez jamais de mots de passe d'entreprise partag&eacute;s dans Edge, et inversement. Chaque outil a son p&eacute;rim&egrave;tre.<br><br>
+                    <a href="guide_passbolt_gestionnaire_mots_de_passe_gigarun.html" style="color:#856404;font-weight:bold;">Consulter le guide Passbolt &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 8 : Continuité mobile -->
+        <div class="section">
+            <h2>Continuit&eacute; sur mobile &mdash; Edge sur Android</h2>
+            <p>Configurer Edge sur le PC mais garder Chrome sur le t&eacute;l&eacute;phone, c'est perdre la moiti&eacute; du b&eacute;n&eacute;fice. Les favoris, mots de passe, historique et onglets ouverts se synchronisent entre PC et mobile &mdash; &agrave; condition d'utiliser Edge des deux c&ocirc;t&eacute;s.</p>
+
+            <h3>Ce que la synchronisation apporte</h3>
+            <div class="kpi-grid">
+                <div class="kpi-box">
+                    <span class="value">&#x1F512;</span>
+                    <span class="label">Mots de passe partag&eacute;s entre PC et mobile</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">&#x2B50;</span>
+                    <span class="label">Favoris identiques sur tous les appareils</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">&#x1F4CB;</span>
+                    <span class="label">Onglets ouverts accessibles depuis l'autre appareil</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="value">&#x1F50F;</span>
+                    <span class="label">SSO M365 actif sur mobile aussi</span>
+                </div>
+            </div>
+
+            <h3>Installer et configurer Edge sur Android</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Installer Microsoft Edge</h4>
+                        <p>Ouvrez le <strong>Google Play Store</strong> et recherchez <strong>Microsoft Edge</strong>. Installez l'application.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Se connecter avec le compte professionnel</h4>
+                        <p>Lancez Edge. L'application propose de vous connecter : choisissez votre <strong>compte professionnel Microsoft 365</strong> (le m&ecirc;me que sur le PC). Acceptez la synchronisation.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>D&eacute;clarer Edge comme navigateur par d&eacute;faut</h4>
+                        <p>Allez dans les <strong>Param&egrave;tres Android</strong> &rarr; <strong>Applications</strong> &rarr; <strong>Applications par d&eacute;faut</strong> &rarr; <strong>Application de navigateur</strong> &rarr; s&eacute;lectionnez <strong>Microsoft Edge</strong>.<br><br>
+                        Tous les liens (emails, Teams, notifications) s'ouvriront d&eacute;sormais dans Edge avec votre session M365 active &mdash; plus de reconnexion.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>V&eacute;rifier la synchronisation</h4>
+                        <p>Dans Edge mobile, appuyez sur <strong>(...)</strong> &rarr; <strong>Param&egrave;tres</strong> &rarr; <strong>Compte</strong> &rarr; <strong>Synchronisation</strong>. V&eacute;rifiez que <strong>Favoris</strong>, <strong>Mots de passe</strong>, <strong>Onglets ouverts</strong> et <strong>Historique</strong> sont activ&eacute;s.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Fonctionnalit&eacute;s utiles sur mobile</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4F2;</span>
+                    <h4>Continuer sur le mobile</h4>
+                    <p>Un onglet ouvert sur le PC appara&icirc;t dans Edge mobile (onglets &rarr; <strong>Onglets d'autres appareils</strong>). Reprenez votre lecture l&agrave; o&ugrave; vous l'avez laiss&eacute;e.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F4F7;</span>
+                    <h4>Scanner et partager</h4>
+                    <p>Edge mobile int&egrave;gre un scanner de QR codes et de documents. Num&eacute;risez un document et envoyez-le directement via un lien OneDrive.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feat-icon">&#x1F6E1;</span>
+                    <h4>Remplissage automatique</h4>
+                    <p>Les mots de passe enregistr&eacute;s sur le PC se remplissent automatiquement dans les applications et sites web sur le mobile. Activez Edge comme <strong>fournisseur de remplissage auto</strong> dans les param&egrave;tres Android.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4A1;</div>
+                <div><strong>Remplissage auto dans les autres apps :</strong> Pour que Edge remplisse aussi les mots de passe dans les applications Android (pas seulement le navigateur), allez dans <strong>Param&egrave;tres Android</strong> &rarr; <strong>Mots de passe et comptes</strong> (ou <strong>Syst&egrave;me &rarr; Langues et saisie &rarr; Service de saisie automatique</strong>) &rarr; s&eacute;lectionnez <strong>Microsoft Edge</strong> comme fournisseur.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 9 : FAQ / Dépannage -->
+        <div class="section">
+            <h2>Questions fr&eacute;quentes</h2>
+
+            <div class="troubleshooting">
+                <h4>&laquo; Je suis habitu&eacute; &agrave; Chrome, je ne veux pas changer &raquo;</h4>
+                <p>Edge est bas&eacute; sur Chromium (le m&ecirc;me moteur que Chrome). L'interface, les raccourcis et les extensions sont quasi identiques. Vos extensions Chrome fonctionnent dans Edge. La transition est transparente &mdash; vous ne perdez aucune habitude.</p>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>&laquo; Est-ce que je dois supprimer Chrome ? &raquo;</h4>
+                <p><strong>Non.</strong> Gardez Chrome pour vos usages personnels ou pour les services qui fonctionnent mieux dessus (Google Workspace par exemple). L'id&eacute;e est simple : <strong>Edge pour Microsoft 365, Chrome pour le reste</strong> si vous pr&eacute;f&eacute;rez.</p>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>&laquo; Edge me demande quand m&ecirc;me mon mot de passe &raquo;</h4>
+                <p><strong>Solutions :</strong></p>
+                <ul style="margin-left:20px;margin-top:10px;">
+                    <li>V&eacute;rifiez que vous &ecirc;tes connect&eacute; &agrave; Edge avec votre <strong>compte professionnel</strong> (pas un compte personnel)</li>
+                    <li>V&eacute;rifiez que votre session Windows utilise le m&ecirc;me compte (Param&egrave;tres &rarr; Comptes &rarr; Acc&egrave;s professionnel ou scolaire)</li>
+                    <li>Videz le cache Edge : <span class="shortcut">Ctrl</span> + <span class="shortcut">Shift</span> + <span class="shortcut">Suppr</span> &rarr; Cookies et cache &rarr; Effacer</li>
+                    <li>Si le probl&egrave;me persiste, contactez votre support IT &mdash; il peut s'agir d'une politique d'acc&egrave;s conditionnel</li>
+                </ul>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>&laquo; Mes extensions Chrome favorites ne sont pas dispo sur Edge &raquo;</h4>
+                <p>Edge acc&egrave;de au <strong>Chrome Web Store</strong> en plus de son propre store. Allez dans <code>edge://extensions</code> &rarr; activez <strong>Autoriser les extensions d'autres magasins</strong> (en bas de page). Vous pouvez ensuite installer n'importe quelle extension Chrome directement dans Edge.</p>
+            </div>
+
+            <div class="troubleshooting">
+                <h4>&laquo; Teams Web ou Teams Desktop ? &raquo;</h4>
+                <p>Pour les <strong>r&eacute;unions</strong>, le client desktop reste sup&eacute;rieur (partage d'&eacute;cran complet, arri&egrave;re-plans, r&eacute;actions). Pour le <strong>chat et la consultation rapide</strong>, la PWA Teams depuis Edge est parfaitement adapt&eacute;e et plus l&eacute;g&egrave;re.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 8 : Checklist -->
+        <div class="section">
+            <h2>Checklist de configuration</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>&Eacute;tape</th><th>Action</th><th>Dur&eacute;e</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1</strong></td><td>Cr&eacute;er un profil Edge avec le compte professionnel</td><td>1 min</td></tr>
+                    <tr><td><strong>2</strong></td><td>V&eacute;rifier le SSO sur office.com (connexion automatique)</td><td>30 sec</td></tr>
+                    <tr><td><strong>3</strong></td><td>D&eacute;finir microsoft365.com comme page de d&eacute;marrage</td><td>30 sec</td></tr>
+                    <tr><td><strong>4</strong></td><td>Installer Outlook Web en PWA et &eacute;pingler</td><td>1 min</td></tr>
+                    <tr><td><strong>5</strong></td><td>Activer la barre lat&eacute;rale (Outlook, Teams, Copilot)</td><td>30 sec</td></tr>
+                    <tr><td><strong>6</strong></td><td>Activer la synchronisation des mots de passe</td><td>30 sec</td></tr>
+                    <tr><td><strong>7</strong></td><td>Installer Edge sur Android et se connecter avec le compte pro</td><td>2 min</td></tr>
+                    <tr><td><strong>8</strong></td><td>D&eacute;clarer Edge navigateur par d&eacute;faut sur Android</td><td>30 sec</td></tr>
+                    <tr><td><strong>9</strong></td><td>Importer les extensions Chrome si n&eacute;cessaire</td><td>2 min</td></tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div><strong>En 10 minutes</strong>, votre environnement Microsoft 365 est optimis&eacute; sur PC et mobile : connexion automatique, applications &eacute;pingl&eacute;es, mots de passe synchronis&eacute;s, Copilot accessible, z&eacute;ro mot de passe &agrave; saisir au quotidien.</div>
+            </div>
+        </div>
+
+        <!-- SECTION 9 : Support -->
+        <div class="section">
+            <h2>Besoin d'aide ?</h2>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4DE;</div>
+                <div><strong>Support technique GiGaRuN</strong><br>Probl&egrave;me avec la configuration Edge, le SSO ou Microsoft 365 ? Nous sommes l&agrave; pour vous aider.</div>
+            </div>
+            <p style="text-align:center;margin-top:30px;">
+                <a href="https://support.gigarun.net/index.php?a=add" class="btn">Contacter le support</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+<style>
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e3f2fd 0%,#bbdefb 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#0078d4,#00bcf2);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.5em;margin-bottom:10px}
+        .header p{font-size:1.2em;opacity:0.9}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#0078d4;font-size:2em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #0078d4}
+        .section h3{color:#004578;font-size:1.5em;margin-top:30px;margin-bottom:15px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .procedure{background:#f8f9fa;border-radius:10px;padding:30px;margin:30px 0}
+        .step{display:flex;align-items:flex-start;margin-bottom:30px;padding:20px;background:white;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform 0.3s,box-shadow 0.3s}
+        .step:hover{transform:translateY(-5px);box-shadow:0 5px 20px rgba(0,0,0,0.1)}
+        .step-number{background:linear-gradient(135deg,#0078d4,#00bcf2);color:white;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5em;font-weight:bold;margin-right:20px;flex-shrink:0;box-shadow:0 4px 10px rgba(0,120,212,0.3)}
+        .step-content{flex:1}
+        .step-content h4{color:#0078d4;margin-bottom:10px;font-size:1.3em}
+        .step-content p{color:#666;line-height:1.8}
+        .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;box-shadow:0 2px 15px rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+        .comparison-table thead{background:linear-gradient(135deg,#0078d4,#00bcf2);color:white}
+        .comparison-table th{padding:20px;text-align:left;font-size:1.1em}
+        .comparison-table td{padding:15px 20px;border-bottom:1px solid #eee}
+        .comparison-table tbody tr:nth-child(even){background:#f9f9f9}
+        .comparison-table tbody tr:hover{background:#e3f2fd}
+        .good{color:#198754;font-weight:bold}
+        .bad{color:#dc3545;font-weight:bold}
+        .neutral{color:#6c757d;font-weight:bold}
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:30px 0}
+        .kpi-box{background:linear-gradient(135deg,#0078d4,#00bcf2);color:white;border-radius:10px;padding:24px;text-align:center}
+        .kpi-box .value{font-size:2em;font-weight:700;display:block;margin-bottom:6px}
+        .kpi-box .label{font-size:0.9em;opacity:0.85}
+        .troubleshooting{background:#fff9e6;border-left:5px solid #ffc107;padding:20px;margin:20px 0;border-radius:0 10px 10px 0}
+        .troubleshooting h4{color:#856404;margin-bottom:10px}
+        code{background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#0078d4}
+        .shortcut{display:inline-block;background:linear-gradient(135deg,#f0f0f0,#e0e0e0);color:#333;padding:4px 10px;border-radius:5px;font-family:'Courier New',monospace;font-weight:bold;border:1px solid #ccc;box-shadow:0 2px 0 #999;margin:2px}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0078d4;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,120,212,0.4)}
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0078d4,#00bcf2);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        .btn{display:inline-block;padding:12px 30px;background:linear-gradient(135deg,#0078d4,#00bcf2);color:white;text-decoration:none;border-radius:25px;font-weight:bold;margin-top:20px;transition:transform 0.3s,box-shadow 0.3s}
+        .btn:hover{transform:translateY(-3px);box-shadow:0 5px 20px rgba(0,120,212,0.4)}
+        .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+        .vs-box{padding:20px;border-radius:10px}
+        .vs-bad{background:#fef2f2;border:2px solid #dc3545}
+        .vs-good{background:#f0fdf4;border:2px solid #198754}
+        .vs-box h4{margin-bottom:10px}
+        .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:30px 0}
+        .feature-card{background:white;border:2px solid #e3f2fd;border-radius:12px;padding:24px;transition:transform 0.2s,box-shadow 0.2s}
+        .feature-card:hover{transform:translateY(-3px);box-shadow:0 4px 15px rgba(0,120,212,0.15)}
+        .feature-card .feat-icon{font-size:2em;margin-bottom:10px;display:block}
+        .feature-card h4{color:#0078d4;margin-bottom:8px;font-size:1.15em}
+        .feature-card p{color:#666;font-size:0.95em;line-height:1.7}
+        @media(max-width:600px){.header h1{font-size:1.6em}.content{padding:20px}.header-container,.contact-header,.footer-content{flex-direction:column;gap:10px}.vs-grid{grid-template-columns:1fr}.feature-grid{grid-template-columns:1fr}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop{display:none}.main-header,.main-footer{break-inside:avoid}}
+    
+/* Corrections d'intégration */
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>
