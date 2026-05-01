@@ -1,5 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const tabs = [
+  { id: 'tous', label: 'Tous', cats: [] },
+  { id: 'cyber', label: 'Cybersécurité', cats: ['Cybersécurité','Sécurité','Sécurité email','NIS2'] },
+  { id: 'infogerance', label: 'Infogérance', cats: ['Infogérance','Support IT','Expertise IT','Gestion IT'] },
+  { id: 'infra', label: 'Infrastructure', cats: ['Infrastructure','Cloud','Sauvegarde'] },
+  { id: 'm365', label: 'Microsoft & Messagerie', cats: ['Microsoft 365','Messagerie'] },
+  { id: 'solutions', label: 'Solutions', cats: ['Location matériel','Téléphonie','E-Commerce'] },
+  { id: 'gigarun', label: 'Gigarun', cats: ['Gigarun','Numérique responsable'] },
+];
+
 const articles = [
   {slug:'comment-choisir-prestataire-informatique', cat:'Infogérance', date:'25 mars 2024', titre:'Comment choisir son prestataire informatique en tant que PME', desc:'Les critères essentiels pour évaluer et sélectionner un prestataire IT de confiance.'},
   {slug:'infogerance-proactive-reduit-incidents', cat:'Infogérance', date:'22 mars 2024', titre:'Infogérance proactive : comment elle réduit les incidents de 60%', desc:'La différence entre réagir aux pannes et les empêcher — avec des chiffres concrets.'},
@@ -46,17 +57,37 @@ const articles = [
 <Layout title="Blog IT & Cybersécurité — Gigarun La Réunion" description="Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE réunionnaises. Sécurité, infogérance, cloud, Microsoft 365 et plus.">
 <section class="bg-[#07001C] pt-32 pb-20">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="max-w-2xl mb-16">
+
+    <!-- Header -->
+    <div class="max-w-2xl mb-10">
       <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-6 rounded-full">
         <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
-        <span class="text-[#9B99AA] text-sm font-medium">Blog · {articles.length} articles</span>
+        <span class="text-[#9B99AA] text-sm font-medium" id="blog-count">Blog · {articles.length} articles</span>
       </div>
       <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,48px);line-height:1.1;">Ressources IT pour<br/>les PME réunionnaises</h1>
       <p class="text-[#9B99AA] text-lg">Conseils pratiques, guides techniques et analyses pour les dirigeants de PME et TPE de La Réunion.</p>
     </div>
-    <div class="grid md:grid-cols-3 gap-6">
+
+    <!-- Onglets -->
+    <div class="flex flex-wrap gap-2 mb-10" id="blog-tabs" role="tablist">
+      {tabs.map((tab, i) => (
+        <button
+          role="tab"
+          data-tab={tab.id}
+          data-cats={JSON.stringify(tab.cats)}
+          class={`tab-btn px-4 py-2 rounded-full text-sm font-medium transition-all border ${i === 0 ? 'bg-[#7C3AED] border-[#7C3AED] text-white' : 'bg-transparent border-[rgba(124,58,237,0.3)] text-[#9B99AA] hover:border-[#7C3AED] hover:text-[#F1F0F7]'}`}
+          aria-selected={i === 0 ? 'true' : 'false'}>
+          {tab.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grille articles -->
+    <div class="grid md:grid-cols-3 gap-6" id="blog-grid">
       {articles.map(a => (
-        <a href={`/blog/${a.slug}`} class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block group">
+        <a href={`/blog/${a.slug}`}
+           data-cat={a.cat}
+           class="article-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block group">
           <div class="flex items-center gap-2 mb-3">
             <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[10px] font-medium px-2 py-0.5 rounded-full">{a.cat}</span>
             <span class="text-[#9B99AA] text-xs">{a.date}</span>
@@ -66,6 +97,61 @@ const articles = [
         </a>
       ))}
     </div>
+
+    <!-- Message aucun résultat -->
+    <p id="blog-empty" class="hidden text-center text-[#9B99AA] py-16">Aucun article dans cette catégorie.</p>
+
   </div>
 </section>
+
+<!-- Bouton retour en haut -->
+<button id="back-to-top" title="Remonter en haut"
+  style="position:fixed;bottom:2rem;right:2rem;z-index:50;width:44px;height:44px;border-radius:50%;background:#7C3AED;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(124,58,237,0.4);opacity:0;pointer-events:none;transition:opacity 0.25s,transform 0.25s;transform:translateY(8px);">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
+
+<script>
+  // --- Onglets ---
+  const tabs = document.querySelectorAll('.tab-btn');
+  const cards = document.querySelectorAll('.article-card');
+  const countEl = document.getElementById('blog-count');
+  const emptyEl = document.getElementById('blog-empty');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Style actif
+      tabs.forEach(t => {
+        t.classList.remove('bg-[#7C3AED]','border-[#7C3AED]','text-white');
+        t.classList.add('bg-transparent','border-[rgba(124,58,237,0.3)]','text-[#9B99AA]');
+        t.setAttribute('aria-selected','false');
+      });
+      tab.classList.add('bg-[#7C3AED]','border-[#7C3AED]','text-white');
+      tab.classList.remove('bg-transparent','border-[rgba(124,58,237,0.3)]','text-[#9B99AA]');
+      tab.setAttribute('aria-selected','true');
+
+      const cats = JSON.parse(tab.dataset.cats || '[]');
+      let visible = 0;
+      cards.forEach(card => {
+        const show = cats.length === 0 || cats.includes(card.dataset.cat);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      countEl.textContent = `Blog · ${visible} article${visible > 1 ? 's' : ''}`;
+      emptyEl.classList.toggle('hidden', visible > 0);
+    });
+  });
+
+  // --- Bouton retour en haut ---
+  const btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    const show = window.scrollY > 400;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.pointerEvents = show ? 'auto' : 'none';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+  }, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
 </Layout>
