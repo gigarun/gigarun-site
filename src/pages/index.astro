@@ -37,10 +37,14 @@ const contact = {
 
 <!-- HERO -->
 <section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:80vh; max-height:80vh;">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full" style="object-fit:cover; z-index:0; opacity:0.45;">
+    <source src="/gigarun-hero.mp4" type="video/mp4" />
+  </video>
+  <div class="absolute inset-0 pointer-events-none" style="z-index:1; background:linear-gradient(135deg, rgba(7,0,28,0.82) 0%, rgba(17,8,51,0.72) 50%, rgba(7,0,28,0.88) 100%);"></div>
   <div class="absolute pointer-events-none" style="bottom:-60px; left:50%; transform:translateX(-50%); width:700px; height:400px; background:rgba(124,58,237,0.18); border-radius:50%; filter:blur(120px);"></div>
   <div class="absolute pointer-events-none" style="bottom:-40px; right:-60px; width:400px; height:300px; background:rgba(192,38,211,0.15); border-radius:50%; filter:blur(100px);"></div>
 
-  <div class="relative max-w-4xl mx-auto px-6 pt-28 pb-16 w-full flex flex-col items-center text-center">
+  <div class="relative max-w-4xl mx-auto px-6 pt-28 pb-16 w-full flex flex-col items-center text-center" style="z-index:2;">
     <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8" style="border-radius:9999px;">
       <span class="w-2 h-2 bg-[#7C3AED] pulse-dot" style="border-radius:50%;"></span>
       <span class="text-[#9B99AA] text-sm font-medium tracking-wide">{hero?.badge ?? 'La Réunion · DSI Externalisé'}</span>
