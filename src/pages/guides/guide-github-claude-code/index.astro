@@ -1,0 +1,950 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="GitHub &amp; Claude Code &mdash; Utiliser les repos sans se faire pi&eacute;ger | GiGaRuN — Gigarun La Réunion" description="Guide complet sur l'utilisation des repos GitHub pour Claude Code : skills, agents, MCP servers. M&eacute;thodologie d'&eacute;valuation, risques, exemples concrets et retours d'exp&eacute;rience GiGaRuN.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Intelligence artificielle</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">GitHub &amp; Claude Code &mdash; Utiliser les repos sans se faire pi&eacute;ger | GiGaRuN</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide complet sur l'utilisation des repos GitHub pour Claude Code : skills, agents, MCP servers. M&eacute;thodologie d'&eacute;valuation, risques, exemples concrets et retours d'exp&eacute;rience GiGaRuN.</p>
+  </div>
+</div>
+<div id="guide-wrapper">
+<section class="hero">
+    <h1>GitHub &amp; Claude Code</h1>
+    <div class="version">Guide Pratique v1.0 &mdash; Mai 2026</div>
+    <p>Utiliser les repos GitHub pour &eacute;tendre Claude Code : skills, agents, MCP servers. Comment &eacute;valuer, installer sans risque et tirer le meilleur de l&rsquo;&eacute;cosyst&egrave;me open source.</p>
+</section>
+
+<main class="container">
+
+    <div class="toc">
+        <h3>&#x1F4CB; Sommaire</h3>
+        <ol>
+            <li><a href="#intro">Pourquoi GitHub + Claude Code ?</a></li>
+            <li><a href="#types">Les 3 types de ressources GitHub pour Claude Code</a></li>
+            <li><a href="#anatomie">Anatomie d&rsquo;un bon repo</a></li>
+            <li><a href="#risques">Les pi&egrave;ges &agrave; &eacute;viter</a></li>
+            <li><a href="#methode">M&eacute;thodologie d&rsquo;&eacute;valuation GiGaRuN</a></li>
+            <li><a href="#installation">Proc&eacute;dure d&rsquo;installation s&eacute;curis&eacute;e</a></li>
+            <li><a href="#exemples">Exemples concrets &mdash; 25 repos &eacute;valu&eacute;s</a></li>
+            <li><a href="#maintenance">Maintenance et mises &agrave; jour</a></li>
+            <li><a href="#checklist">Checklist rapide</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. INTRO -->
+    <div class="section" id="intro">
+        <h2>&#x1F30D; 1. Pourquoi GitHub + Claude Code ?</h2>
+
+        <div class="intro-box">
+            <p>Claude Code est extensible par design. GitHub est devenu le d&eacute;p&ocirc;t mondial de ces extensions : des centaines de d&eacute;veloppeurs publient des <strong>skills</strong>, des <strong>agents</strong> et des <strong>serveurs MCP</strong> qui ajoutent des capacit&eacute;s sp&eacute;cialis&eacute;es &agrave; votre IA. C&rsquo;est puissant &mdash; mais &ccedil;a demande du discernement.</p>
+        </div>
+
+        <p>Claude Code natif est d&eacute;j&agrave; capable. Ce que GitHub apporte, c&rsquo;est la <strong>sp&eacute;cialisation verticale</strong> : des workflows pr&ecirc;ts &agrave; l&rsquo;emploi pour des m&eacute;tiers pr&eacute;cis (pentest, sales, marketing, forensique, DevOps&hellip;) et des int&eacute;grations avec des outils externes (n8n, Ahrefs, Gmail, Jira).</p>
+
+        <h3>Ce que l&rsquo;&eacute;cosyst&egrave;me GitHub apporte</h3>
+        <ul>
+            <li><strong>Vitesse :</strong> des workflows qui auraient pris des jours &agrave; construire sont disponibles en 5 minutes</li>
+            <li><strong>Sp&eacute;cialisation :</strong> des prompts affin&eacute;s par des praticiens de chaque domaine</li>
+            <li><strong>Int&eacute;grations :</strong> connexion native avec des outils tiers via MCP</li>
+            <li><strong>Communaut&eacute; :</strong> des patterns &eacute;prouv&eacute;s, des retours d&rsquo;exp&eacute;rience publi&eacute;s</li>
+        </ul>
+
+        <h3>Ce que &ccedil;a ne remplace pas</h3>
+        <ul>
+            <li>Votre contexte m&eacute;tier (fichier <code>CLAUDE.md</code>, fichier contexte personnel)</li>
+            <li>La connaissance de vos clients et contraintes sp&eacute;cifiques</li>
+            <li>Le jugement humain sur les d&eacute;cisions importantes</li>
+        </ul>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0; Point de vigilance</strong>
+            <p>L&rsquo;&eacute;cosyst&egrave;me GitHub pour Claude Code est tr&egrave;s jeune (la plupart des repos datent de d&eacute;but 2026). La qualit&eacute; est tr&egrave;s in&eacute;gale. Un repo &agrave; 10 000 stars peut &ecirc;tre inutile, un repo &agrave; 50 stars peut &ecirc;tre excellent. Ce guide vous donne les cl&eacute;s pour faire la diff&eacute;rence.</p>
+        </div>
+    </div>
+
+    <!-- 2. TYPES -->
+    <div class="section" id="types">
+        <h2>&#x1F9E9; 2. Les 3 types de ressources GitHub pour Claude Code</h2>
+
+        <div class="type-grid">
+            <div class="type-card" style="border-color: #059669;">
+                <span class="card-icon">&#x1F4DC;</span>
+                <h4>Skills (slash commands)</h4>
+                <p>Des fichiers Markdown dans <code>~/.claude/skills/</code> qui d&eacute;finissent des commandes <code>/mon-skill</code>. Ils guident le comportement de Claude sur une t&acirc;che pr&eacute;cise : grille d&rsquo;analyse, workflow, protocole.</p>
+                <div class="tag-row">
+                    <span class="tag tag-green">Fichiers .md</span>
+                    <span class="tag tag-gray">~/.claude/skills/</span>
+                    <span class="tag tag-green">Risque bas</span>
+                </div>
+                <p style="margin-top: 8px; color: #065f46; font-size: 0.85em;"><strong>Exemples :</strong> /audit, /sales-prospect, /market-audit, /pentest-recon</p>
+            </div>
+
+            <div class="type-card" style="border-color: #7c3aed;">
+                <span class="card-icon">&#x1F916;</span>
+                <h4>Agents (subagents sp&eacute;cialis&eacute;s)</h4>
+                <p>Des fichiers Markdown dans <code>~/.claude/agents/</code> qui d&eacute;finissent des sous-agents autonomes avec un r&ocirc;le, des outils autoris&eacute;s et un scope. Claude Code les invoque automatiquement selon le contexte.</p>
+                <div class="tag-row">
+                    <span class="tag tag-purple">Fichiers .md</span>
+                    <span class="tag tag-gray">~/.claude/agents/</span>
+                    <span class="tag tag-orange">Risque moyen</span>
+                </div>
+                <p style="margin-top: 8px; color: #4c1d95; font-size: 0.85em;"><strong>Exemples :</strong> recon-agent, vuln-scanner, report-writer, db-analyst</p>
+            </div>
+
+            <div class="type-card" style="border-color: #2563eb;">
+                <span class="card-icon">&#x1F50C;</span>
+                <h4>Serveurs MCP</h4>
+                <p>Des serveurs (Node.js, Python, Rust) qui exposent des outils Claude via le protocole MCP. Ils permettent des int&eacute;grations avec des APIs externes : Ahrefs, Gmail, Jira, bases de donn&eacute;es&hellip;</p>
+                <div class="tag-row">
+                    <span class="tag tag-blue">Node / Python</span>
+                    <span class="tag tag-gray">settings.json</span>
+                    <span class="tag tag-red">Risque plus &eacute;lev&eacute;</span>
+                </div>
+                <p style="margin-top: 8px; color: #1e40af; font-size: 0.85em;"><strong>Exemples :</strong> n8n-mcp, ahrefs-mcp, github-mcp, postgres-mcp</p>
+            </div>
+        </div>
+
+        <h3>O&ugrave; se trouvent ces repos sur GitHub ?</h3>
+        <p>Il n&rsquo;y a pas de registre officiel. Les ressources se trouvent en cherchant :</p>
+        <ul>
+            <li><code>claude code skills</code> &mdash; pour les skills</li>
+            <li><code>claude code agents</code> &mdash; pour les agents</li>
+            <li><code>MCP server claude</code> &mdash; pour les serveurs MCP</li>
+            <li>Le repo <strong>hesreallyhim/awesome-claude-code</strong> &mdash; liste cur&eacute;e et maintenue</li>
+            <li>Le repo <strong>punkpeye/awesome-mcp-servers</strong> &mdash; r&eacute;f&eacute;rence pour les MCP</li>
+        </ul>
+
+        <div class="callout callout-info">
+            <strong>&#x1F4A1; Conseil</strong>
+            <p>Commencez toujours par <strong>hesreallyhim/awesome-claude-code</strong> avant de chercher vous-m&ecirc;me. C&rsquo;est une liste cur&eacute;e par la communaut&eacute; Claude Code &mdash; les ressources y ont d&eacute;j&agrave; pass&eacute; un premier filtre de qualit&eacute;.</p>
+        </div>
+    </div>
+
+    <!-- 3. ANATOMIE -->
+    <div class="section" id="anatomie">
+        <h2>&#x1F52C; 3. Anatomie d&rsquo;un bon repo</h2>
+
+        <p>En 3 minutes de lecture d&rsquo;un repo, vous devez pouvoir r&eacute;pondre &agrave; ces questions :</p>
+
+        <table class="grille-table">
+            <thead>
+                <tr>
+                    <th>Signal</th>
+                    <th>Bon signe</th>
+                    <th>Signal d&rsquo;alarme</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="criterion">README clair</td>
+                    <td>Explique CE QUE &ccedil;a fait en 2 phrases, donne des exemples de commandes r&eacute;elles</td>
+                    <td>Titres marketings vagues (&laquo; AI-powered &raquo;), pas d&rsquo;exemples concrets</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Version / releases</td>
+                    <td>v1.0+ sur GitHub Releases, changelog visible</td>
+                    <td>Aucune release, tag &laquo; v0.0.1 &raquo; jamais boug&eacute;</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Activit&eacute; r&eacute;cente</td>
+                    <td>Commits dans les 3 derniers mois, issues trait&eacute;es</td>
+                    <td>Dernier commit = jour de cr&eacute;ation, issues ignor&eacute;es</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Licence</td>
+                    <td>MIT, Apache 2.0, GPL (usage libre)</td>
+                    <td>Pas de licence, licence &laquo; Commercial use prohibited &raquo;</td>
+                </tr>
+                <tr>
+                    <td class="criterion">D&eacute;pendances</td>
+                    <td>D&eacute;pendances minimales, coh&eacute;rentes avec la t&acirc;che</td>
+                    <td>20+ d&eacute;pendances npm pour un skill Markdown, ou paquets obscurs</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Stars vs &acirc;ge</td>
+                    <td>Croissance organique r&eacute;guli&egrave;re sur 6+ mois</td>
+                    <td>1500 stars en 2 semaines sur un compte cr&eacute;&eacute; il y a 1 mois</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Auteur</td>
+                    <td>Profil existant avec d&rsquo;autres projets, contributions &agrave; l&rsquo;&eacute;cosyst&egrave;me</td>
+                    <td>Compte cr&eacute;&eacute; le m&ecirc;me jour que le repo, 0 autre projet</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Installation</td>
+                    <td>Clone + lecture du code + commande manuelle explicit&eacute;e</td>
+                    <td><code>curl https://... | bash</code> comme seule m&eacute;thode</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Ce que contient un bon skill</h3>
+        <div class="file-tree">
+<span class="folder">mon-skill/</span>
+<span class="file">├── SKILL.md</span>          <span class="comment"># Le fichier principal — prompt + protocole</span>
+<span class="file">├── README.md</span>         <span class="comment"># Doc lisible par un humain</span>
+<span class="file">└── examples/</span>         <span class="comment"># Exemples d'usage concrets (optionnel mais précieux)</span>
+        </div>
+
+        <h3>Ce que contient un bon agent</h3>
+        <div class="file-tree">
+<span class="folder">agents/</span>
+<span class="file">├── recon-agent.md</span>    <span class="comment"># Rôle, outils autorisés, scope, comportement</span>
+<span class="file">├── report-writer.md</span>
+<span class="file">└── _scope-guard.md</span>   <span class="comment"># Agent de garde qui limite les actions des autres</span>
+        </div>
+
+        <div class="callout callout-success">
+            <strong>&#x2714; Exemple de bon agent</strong>
+            <p>Un bon fichier d&rsquo;agent commence par : <em>role</em> (ce qu&rsquo;il est), <em>tools</em> (ce qu&rsquo;il peut utiliser), <em>scope</em> (ce qu&rsquo;il ne doit PAS faire). Un agent sans <code>scope</code> ni <code>tools</code> limit&eacute;s est un risque de s&eacute;curit&eacute;.</p>
+        </div>
+    </div>
+
+    <!-- 4. RISQUES -->
+    <div class="section" id="risques">
+        <h2>&#x26A0; 4. Les pi&egrave;ges &agrave; &eacute;viter</h2>
+
+        <p>L&rsquo;&eacute;cosyst&egrave;me Claude Code est ouvert et non modifi&eacute;. Voici les risques r&eacute;els, class&eacute;s par gravit&eacute; :</p>
+
+        <div class="risk-grid">
+            <div class="risk-card risk-high">
+                <h4>&#x1F6A8; Risque &eacute;lev&eacute; &mdash; Malware / Code malveillant</h4>
+                <p>Des repos peuvent contenir des scripts qui ex&egrave;cutent du code malveillant sur votre machine. La d&eacute;tection Malwarebytes <code>riskypattern</code> sur un profil GitHub est un signal &agrave; prendre tr&egrave;s au s&eacute;rieux. Ne jamais <code>curl | bash</code> sans avoir lu le script en entier au pr&eacute;alable.</p>
+            </div>
+            <div class="risk-card risk-high">
+                <h4>&#x1F6A8; Risque &eacute;lev&eacute; &mdash; Exfiltration via MCP</h4>
+                <p>Un serveur MCP malveillant peut lire vos fichiers, vos cl&eacute;s API, votre historique Claude Code, et les envoyer &agrave; un serveur distant. Tout serveur MCP tiers doit &ecirc;tre lu ligne par ligne avant installation.</p>
+            </div>
+            <div class="risk-card risk-medium">
+                <h4>&#x26A0; Risque moyen &mdash; Stars artificielles</h4>
+                <p>Des services vendent des &eacute;toiles GitHub. Un repo &agrave; 1500 stars en 60 jours sur un compte neuf est suspect. La popularit&eacute; ne garantit pas la qualit&eacute; ni la s&eacute;curit&eacute;. V&eacute;rifiez toujours le ratio stars/age/activit&eacute;.</p>
+            </div>
+            <div class="risk-card risk-medium">
+                <h4>&#x26A0; Risque moyen &mdash; Licence restrictive</h4>
+                <p>Certains repos interdisent l&rsquo;usage commercial dans leur licence. Si vous utilisez le skill dans un contexte professionnel ou client, v&eacute;rifiez toujours. Pas de licence = droits incertains par d&eacute;faut.</p>
+            </div>
+            <div class="risk-card risk-medium">
+                <h4>&#x26A0; Risque moyen &mdash; Token crypto</h4>
+                <p>Certains projets &laquo; open source &raquo; sont en r&eacute;alit&eacute; des vecteurs de promotion d&rsquo;une cryptomonnaie. Le code peut &ecirc;tre fonctionnel mais l&rsquo;objectif est de vous faire d&eacute;tenir leur token pour gonfler sa valeur.</p>
+            </div>
+            <div class="risk-card risk-low">
+                <h4>&#x2139; Risque faible &mdash; Abandonment</h4>
+                <p>La majorit&eacute; des repos Claude Code sont cr&eacute;&eacute;s dans l&rsquo;enthousiasme et abandonn&eacute;s en quelques semaines. Le risque est faible (vous perdez du temps) mais r&eacute;el : d&eacute;pendance &agrave; un code qui ne sera plus maintenu.</p>
+            </div>
+        </div>
+
+        <h3>La r&egrave;gle d&rsquo;or : jamais <code>curl | bash</code></h3>
+
+        <div class="callout callout-danger">
+            <strong>&#x1F6AB; Ne jamais faire &ccedil;a</strong>
+            <div class="cmd-block" style="margin-top: 8px;">
+                <div><span class="danger"># INTERDIT &mdash; t&eacute;l&eacute;charge et ex&eacute;cute en aveugle</span></div>
+                <div><span class="danger">curl -fsSL https://example.com/install.sh | bash</span></div>
+            </div>
+        </div>
+
+        <div class="callout callout-success">
+            <strong>&#x2714; Toujours faire &ccedil;a</strong>
+            <div class="cmd-block" style="margin-top: 8px;">
+                <div class="os-label">BASH</div>
+                <div><span class="comment"># 1. Cloner d'abord</span></div>
+                <div><span class="cmd">git clone</span> <span class="arg">--depth 1 https://github.com/auteur/repo.git /tmp/repo-test</span></div>
+                <div></div>
+                <div><span class="comment"># 2. Lire le script avant de l'ex&eacute;cuter</span></div>
+                <div><span class="cmd">cat</span> <span class="arg">/tmp/repo-test/install.sh</span></div>
+                <div></div>
+                <div><span class="comment"># 3. Seulement si le contenu est propre, ex&eacute;cuter</span></div>
+                <div><span class="cmd">bash</span> <span class="arg">/tmp/repo-test/install.sh</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. METHODE -->
+    <div class="section" id="methode">
+        <h2>&#x1F4CB; 5. M&eacute;thodologie d&rsquo;&eacute;valuation GiGaRuN</h2>
+
+        <p>GiGaRuN a d&eacute;velopp&eacute; une grille d&rsquo;&eacute;valuation structur&eacute;e, impl&eacute;ment&eacute;e comme skill Claude Code (<code>/lab-test</code>). Elle s&rsquo;applique &agrave; tout repo GitHub envisag&eacute; pour l&rsquo;Exocortex ou pour des clients.</p>
+
+        <h3>La grille des 7 crit&egrave;res</h3>
+
+        <table class="grille-table">
+            <thead>
+                <tr>
+                    <th>Crit&egrave;re</th>
+                    <th>Question cl&eacute;</th>
+                    <th>Temps allou&eacute;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="criterion">Maturit&eacute;</td>
+                    <td>Version stable ? Fr&eacute;quence commits ? Contributeurs actifs ? Historique &gt; 3 mois ?</td>
+                    <td>30 sec (git log)</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Qualit&eacute; code</td>
+                    <td>Stack coh&eacute;rente ? D&eacute;pendances raisonnables ? Tests ? Doc technique ?</td>
+                    <td>1 min</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Pertinence m&eacute;tier</td>
+                    <td>R&eacute;pond &agrave; un besoin r&eacute;el ? Remplace / am&eacute;liore un outil existant ?</td>
+                    <td>30 sec</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Effort d&rsquo;adoption</td>
+                    <td>Temps pour installer et tester ? Complexit&eacute; d&rsquo;int&eacute;gration ? (multiplier par 2 l&rsquo;estimation README)</td>
+                    <td>30 sec</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Risques</td>
+                    <td>Licence ? S&eacute;curit&eacute; ? D&eacute;pendance service tiers ? Projet abandonnable ?</td>
+                    <td>30 sec</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Red flags</td>
+                    <td>Token crypto ? Stars artificielles ? Marketing &gt; substance ? <code>curl | bash</code> obligatoire ?</td>
+                    <td>30 sec</td>
+                </tr>
+                <tr>
+                    <td class="criterion">Alternatives</td>
+                    <td>Existe-t-il une solution native ou plus simple qui fait la m&ecirc;me chose ?</td>
+                    <td>30 sec</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 8px; color: #6b7280; font-size: 0.9em;"><em>Dur&eacute;e totale : 3-4 minutes. Si ce n&rsquo;est pas clair en 4 minutes de lecture, c&rsquo;est lui-m&ecirc;me un red flag.</em></p>
+
+        <h3>Les 4 verdicts possibles</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Verdict</th>
+                    <th>Crit&egrave;re</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Stable, utile, effort faible, pas de red flag</td>
+                    <td>Proposer un plan d&rsquo;installation concret</td>
+                </tr>
+                <tr>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>Bon concept mais immature, instable, ou il manque un &eacute;l&eacute;ment cl&eacute;</td>
+                    <td>Inscrire avec date de re-check dans 3-6 mois</td>
+                </tr>
+                <tr>
+                    <td><span class="verdict-inutile">INUTILE</span></td>
+                    <td>Doublon d&rsquo;une solution existante, ou ne r&eacute;pond &agrave; aucun besoin r&eacute;el</td>
+                    <td>Documenter pourquoi pour ne pas y revenir</td>
+                </tr>
+                <tr>
+                    <td><span class="verdict-dangereux">DANGEREUX</span></td>
+                    <td>Risque s&eacute;curit&eacute;, licence toxique, pratiques douteuses, d&eacute;tection antivirus</td>
+                    <td>Documenter et ne jamais installer</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Principe fondamental : comparer avant d&rsquo;installer</h3>
+        <div class="callout callout-info">
+            <strong>&#x1F4A1; R&egrave;gle GiGaRuN</strong>
+            <p>Avant toute installation, poser la question : <strong>&laquo; Est-ce qu&rsquo;on a d&eacute;j&agrave; quelque chose qui fait &ccedil;a ? &raquo;</strong> Un nouveau skill qui double un skill existant fragmente votre espace de travail. Chaque outil install&eacute; est une chose &agrave; maintenir.</p>
+        </div>
+    </div>
+
+    <!-- 6. INSTALLATION -->
+    <div class="section" id="installation">
+        <h2>&#x1F6E0; 6. Proc&eacute;dure d&rsquo;installation s&eacute;curis&eacute;e</h2>
+
+        <p>Que vous installiez un skill, un agent ou un serveur MCP, la proc&eacute;dure est identique :</p>
+
+        <ol class="workflow-steps">
+            <li>
+                <strong>Cloner en profondeur limit&eacute;e</strong><br>
+                <code>git clone --depth 1 https://github.com/auteur/repo /tmp/lab-[nom]</code><br>
+                <span style="color: #6b7280; font-size: 0.9em;">Le <code>--depth 1</code> ne t&eacute;l&eacute;charge que le dernier commit. Plus rapide, moins de surface.</span>
+            </li>
+            <li>
+                <strong>Lire les fichiers cl&eacute;s avant tout</strong><br>
+                README.md &rarr; SKILL.md ou fichier principal &rarr; install.sh (si pr&eacute;sent) &rarr; package.json ou requirements.txt
+            </li>
+            <li>
+                <strong>V&eacute;rifier l&rsquo;install script si pr&eacute;sent</strong><br>
+                Chercher : appels r&eacute;seau (<code>curl</code>, <code>wget</code>), acc&egrave;s syst&egrave;me (<code>sudo</code>, <code>chmod</code>), lecture de fichiers sensibles (<code>~/.ssh</code>, <code>~/.aws</code>)
+            </li>
+            <li>
+                <strong>Tester en isolation avant d&rsquo;int&eacute;grer</strong><br>
+                Pour les skills : copier dans <code>~/.claude/skills/</code> et tester sur une t&acirc;che sans donn&eacute;es sensibles d&rsquo;abord.
+            </li>
+            <li>
+                <strong>V&eacute;rifier le r&eacute;sultat</strong><br>
+                Le skill r&eacute;pond-il comme attendu ? Y a-t-il des appels r&eacute;seau inattendus ? Les fichiers cr&eacute;&eacute;s sont-ils l&agrave; o&ugrave; ils devraient &ecirc;tre ?
+            </li>
+            <li>
+                <strong>Nettoyer le dossier temporaire</strong><br>
+                <code>rm -rf /tmp/lab-[nom]</code> &mdash; garder votre <code>/tmp</code> propre.
+            </li>
+        </ol>
+
+        <h3>Pour les skills &mdash; installation manuelle recommand&eacute;e</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">BASH &mdash; WINDOWS (Git Bash)</div>
+            <div><span class="comment"># Cloner le repo</span></div>
+            <div><span class="cmd">git clone</span> <span class="arg">--depth 1 https://github.com/auteur/repo /tmp/lab-skill</span></div>
+            <div></div>
+            <div><span class="comment"># Lire le skill principal</span></div>
+            <div><span class="cmd">cat</span> <span class="arg">/tmp/lab-skill/skills/mon-skill/SKILL.md</span></div>
+            <div></div>
+            <div><span class="comment"># Si satisfaisant, copier dans Claude Code</span></div>
+            <div><span class="cmd">cp -r</span> <span class="arg">/tmp/lab-skill/skills/mon-skill ~/.claude/skills/</span></div>
+            <div></div>
+            <div><span class="comment"># Tester imm&eacute;diatement</span></div>
+            <div><span class="cmd">claude</span> <span class="comment"># puis taper /mon-skill dans la session</span></div>
+        </div>
+
+        <h3>Pour les serveurs MCP &mdash; pr&eacute;cautions suppl&eacute;mentaires</h3>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0; MCP = acc&egrave;s syst&egrave;me</strong>
+            <p>Un serveur MCP tourne comme un processus local avec les droits de votre session. Il peut lire vos fichiers, acc&eacute;der &agrave; vos variables d&rsquo;environnement (donc vos cl&eacute;s API), faire des requ&ecirc;tes r&eacute;seau. <strong>Ne jamais installer un serveur MCP tiers sans avoir lu l&rsquo;int&eacute;gralit&eacute; de son code source.</strong></p>
+        </div>
+
+        <ul>
+            <li>Pr&eacute;f&eacute;rer les serveurs MCP publi&eacute;s par des organisations reconnues (Anthropic, Microsoft, Ahrefs) ou avec un audit de s&eacute;curit&eacute; public</li>
+            <li>V&eacute;rifier <code>package.json</code> : les d&eacute;pendances <code>axios</code>, <code>node-fetch</code> peuvent indiquer des appels r&eacute;seau &mdash; v&eacute;rifier vers quelle URL</li>
+            <li>Tester sur un poste de test avant d&eacute;ploiement g&eacute;n&eacute;ral</li>
+            <li>Configurer dans <code>settings.json</code> avec des <strong>permissions minimales</strong></li>
+        </ul>
+    </div>
+
+    <!-- 7. EXEMPLES -->
+    <div class="section" id="exemples">
+        <h2>&#x1F4CA; 7. Exemples concrets &mdash; 25 repos &eacute;valu&eacute;s par GiGaRuN</h2>
+
+        <p>Voici l&rsquo;int&eacute;gralit&eacute; des &eacute;valuations r&eacute;alis&eacute;es par GiGaRuN sur l&rsquo;&eacute;cosyst&egrave;me Claude Code. Elles illustrent concr&egrave;tement la m&eacute;thodologie et servent de r&eacute;f&eacute;rence pour vos propres analyses.</p>
+
+        <div class="callout callout-info">
+            <strong>&#x1F4C5; Date des &eacute;valuations</strong>
+            <p>Ces &eacute;valuations ont &eacute;t&eacute; r&eacute;alis&eacute;es entre mars et mai 2026. L&rsquo;&eacute;cosyst&egrave;me &eacute;volue rapidement : un verdict &laquo; A SUIVRE &raquo; peut devenir &laquo; DEPLOYER &raquo; en quelques mois. V&eacute;rifiez toujours la date et re-&eacute;valuez avant d&rsquo;installer.</p>
+        </div>
+
+        <h3>Repos d&eacute;ploy&eacute;s en production GiGaRuN</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Repo</th>
+                    <th>Verdict</th>
+                    <th>Raison</th>
+                    <th>&Eacute;valu&eacute;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>hesreallyhim/awesome-claude-code</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Liste cur&eacute;e d&rsquo;outils Claude Code, r&eacute;f&eacute;rence de veille incontournable</td>
+                    <td>Mars 2026</td>
+                </tr>
+                <tr>
+                    <td><code>czlonkowski/n8n-mcp</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Serveur MCP pour n8n, compl&egrave;te parfaitement le skill n8n existant</td>
+                    <td>Mars 2026</td>
+                </tr>
+                <tr>
+                    <td><code>rtk-ai/rtk</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Proxy CLI Rust r&eacute;duisant les tokens LLM de 60&ndash;90&nbsp;%, Windows natif, t&eacute;l&eacute;m&eacute;trie d&eacute;sactivable</td>
+                    <td>Avr. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>usestrix/strix</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Agent IA pentest autonome avec PoC, 22&nbsp;k stars, Apache 2.0, pertinent missions DSI/RSSI</td>
+                    <td>Avr. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>AvillaDaniel/AvillaForensics</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>APK downgrade + d&eacute;chiffrement WhatsApp, laur&eacute;at SANS 2023, Windows natif</td>
+                    <td>Avr. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>agno-agi/agno</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Framework agents Python, Ollama natif, teams multi-agents, m&eacute;moire SQLite/PG int&eacute;gr&eacute;e, v2.5 stable</td>
+                    <td>Avr. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>mem0ai/mem0</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>Couche m&eacute;moire long-terme pour agents, Ollama LLM+embeddings, YC S24, v1.0 stable</td>
+                    <td>Avr. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>0xSteph/pentest-ai-agents</code></td>
+                    <td><span class="verdict-deployer">DEPLOYER</span></td>
+                    <td>31 subagents pentest Claude Code, z&eacute;ro d&eacute;pendance, MIT, Ollama-compatible</td>
+                    <td>Mai 2026</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Repos &agrave; surveiller</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Repo</th>
+                    <th>Verdict</th>
+                    <th>Raison</th>
+                    <th>Re-check</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>0x4m4/hexstrike-ai</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>Concept pertinent pentest, mais immature (1 commit, d&eacute;pendances lourdes)</td>
+                    <td>Juil. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>AgriciDaniel/claude-seo</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>Skill SEO bien structur&eacute;, mais jeune (&lt; 3 mois), &agrave; stabiliser</td>
+                    <td>Juin 2026</td>
+                </tr>
+                <tr>
+                    <td><code>onyx-dot-app/onyx</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>Plateforme RAG/chat solide pour revente client PME, pas pour usage perso</td>
+                    <td>Sur besoin client</td>
+                </tr>
+                <tr>
+                    <td><code>langgenius/dify</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>LLMOps 136&nbsp;k stars, workflow builder + RAG, potentiel revente client PME</td>
+                    <td>Sur besoin client</td>
+                </tr>
+                <tr>
+                    <td><code>coollabsio/jean</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>Cockpit multi-agent Tauri (cr&eacute;ateur Coolify), worktrees Git isol&eacute;s, v0.1.x, Windows non test&eacute;</td>
+                    <td>Oct. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>chtitus/lumiqo</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>Outil audit ISO 27001+HDS standalone HTML, tr&egrave;s pertinent DSI, mais 2 jours de vie</td>
+                    <td>Juil. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>JacobJandon/OnionClaw</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>OSINT dark web Tor, pipeline threat intel, pertinent DSI/RSSI, pas Windows natif</td>
+                    <td>Juil. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>zubair-trabzada/ai-sales-team-claude</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>14 skills sales BANT/MEDDIC utiles, mais pas calibr&eacute; march&eacute; Oc&eacute;an Indien, pas stable</td>
+                    <td>Oct. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>zubair-trabzada/ai-marketing-claude</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>15 skills audit marketing, 1546 stars suspects en &lt; 60j, 0 commit post-launch</td>
+                    <td>Nov. 2026</td>
+                </tr>
+                <tr>
+                    <td><code>sst/opencode</code></td>
+                    <td><span class="verdict-suivre">A SUIVRE</span></td>
+                    <td>3&egrave;me orchestrateur Exocortex sous Ollama, hooks JS, MCP compatibles, effort portage 2&ndash;3j</td>
+                    <td>Juil. 2026</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Repos inutiles &mdash; pourquoi on a dit non</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Repo</th>
+                    <th>Raison du refus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>thedotmack/claude-mem</code></td>
+                    <td>La m&eacute;moire native de Claude Code suffit. Stack lourde, token crypto.</td>
+                </tr>
+                <tr>
+                    <td><code>breferrari/obsidian-mind</code></td>
+                    <td>L&rsquo;Exocortex existant couvre le besoin. D&eacute;pendance &agrave; Obsidian inutile.</td>
+                </tr>
+                <tr>
+                    <td><code>nextlevelbuilder/ui-ux-pro-max-skill</code></td>
+                    <td>Doublon du skill <code>frontend-design</code> d&eacute;j&agrave; d&eacute;ploy&eacute;.</td>
+                </tr>
+                <tr>
+                    <td><code>gsd-build/get-shit-done</code></td>
+                    <td>Token crypto $GSD. Meta-prompting spec-driven d&eacute;j&agrave; couvert par nos skills.</td>
+                </tr>
+                <tr>
+                    <td><code>affaan-m/everything-claude-code</code></td>
+                    <td>Collection massive mais g&eacute;n&eacute;rique, pas actionnable. Pr&eacute;f&eacute;rer awesome-claude-code.</td>
+                </tr>
+                <tr>
+                    <td><code>AgriciDaniel/claude-ads</code></td>
+                    <td>Audit pub Google/Meta. Z&eacute;ro client ads chez GiGaRuN &mdash; hors p&eacute;rim&egrave;tre.</td>
+                </tr>
+                <tr>
+                    <td><code>SajalSinha/Ai-agent-command-center</code></td>
+                    <td>App web Next.js + Groq, non int&eacute;grable Claude Code. 1 star, sans licence.</td>
+                </tr>
+                <tr>
+                    <td><code>explorium-ai/vibeprospecting-plugin</code></td>
+                    <td>Skill prospection B2B SaaS payant. Serveur MCP tiers non ma&icirc;tris&eacute;.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Repos dangereux &mdash; ne pas installer</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Repo</th>
+                    <th>Motif</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>RedEyesNCode/ExSpy</code></td>
+                    <td>Outil d&rsquo;exfiltration de donn&eacute;es vers AWS d&eacute;guis&eacute; en outil forensique. Malveillant confirm&eacute;.</td>
+                </tr>
+                <tr>
+                    <td><code>alirezarezvani</code> (profil)</td>
+                    <td>D&eacute;tection Malwarebytes <code>riskypattern</code> active sur le profil GitHub. Non visit&eacute;, non clon&eacute;.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Enseignements tir&eacute;s de ces 25 &eacute;valuations</h3>
+
+        <div class="pros-cons">
+            <div class="pros">
+                <h4>&#x2714; Ce qui fonctionne bien</h4>
+                <ul>
+                    <li>Les skills sp&eacute;cialis&eacute;s m&eacute;tiers (pentest, forensique) apportent une vraie valeur ajout&eacute;e</li>
+                    <li>Les frameworks Python avec Ollama natif (Agno, mem0) sont solides</li>
+                    <li>Les serveurs MCP d&rsquo;&eacute;diteurs reconnus (n8n-mcp) sont fiables</li>
+                    <li>Les outils &agrave; usage unique bien cibl&eacute; (AvillaForensics) sont souvent excellents</li>
+                </ul>
+            </div>
+            <div class="cons">
+                <h4>&#x26A0; Ce qui d&eacute;coit souvent</h4>
+                <ul>
+                    <li>Les skills &laquo; all-in-one &raquo; (marketing, sales) sont rarement calibr&eacute;s pour votre contexte</li>
+                    <li>Les repos &agrave; forte croissance rapide de stars sont souvent du marketing</li>
+                    <li>Les projets &laquo; fork + rebrand &raquo; r&eacute;cup&egrave;rent la cr&eacute;dibilit&eacute; de l&rsquo;original sans valeur ajout&eacute;e</li>
+                    <li>L&rsquo;&eacute;cosyst&egrave;me est tr&egrave;s jeune : 80&nbsp;% des repos cr&eacute;&eacute;s en 2026 seront abandonn&eacute;s avant 2027</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. MAINTENANCE -->
+    <div class="section" id="maintenance">
+        <h2>&#x1F504; 8. Maintenance et mises &agrave; jour</h2>
+
+        <h3>Mise &agrave; jour des skills</h3>
+        <p>Un skill est un fichier Markdown : pas de d&eacute;pendance, pas de version binaire. La mise &agrave; jour est simple :</p>
+        <ol class="workflow-steps">
+            <li>Cloner ou <code>git pull</code> le repo source</li>
+            <li>Comparer le nouveau SKILL.md avec votre version actuelle</li>
+            <li>Copier si les changements sont pertinents &mdash; ou personnaliser plut&ocirc;t que remplacer si vous avez adapt&eacute; le skill &agrave; votre contexte</li>
+        </ol>
+
+        <h3>Mise &agrave; jour des agents</h3>
+        <div class="cmd-block">
+            <div class="os-label">BASH</div>
+            <div><span class="comment"># Pour pentest-ai-agents par exemple :</span></div>
+            <div><span class="cmd">cd</span> <span class="arg">C:/tools/pentest-ai-agents</span></div>
+            <div><span class="cmd">git pull</span></div>
+            <div><span class="cmd">bash</span> <span class="arg">install.sh --global</span></div>
+            <div><span class="output"># Le script est idempotent &mdash; n&rsquo;installe que les agents modifi&eacute;s</span></div>
+        </div>
+
+        <h3>Savoir quand re-&eacute;valuer</h3>
+        <ul>
+            <li>Un repo class&eacute; &laquo; A SUIVRE &raquo; avec une date de re-check d&eacute;pass&eacute;e</li>
+            <li>Un repo utilis&eacute; en production qui n&rsquo;a plus de commits depuis 6+ mois</li>
+            <li>Une alerte s&eacute;curit&eacute; publi&eacute;e sur un repo que vous utilisez</li>
+            <li>Un changement de licence publi&eacute; par l&rsquo;auteur</li>
+        </ul>
+
+        <h3>G&eacute;rer les conflits entre skills</h3>
+        <div class="callout callout-warn">
+            <strong>&#x26A0; Deux skills, m&ecirc;me commande</strong>
+            <p>Si deux skills installent la m&ecirc;me commande (ex : <code>/sales</code> de deux repos diff&eacute;rents), Claude Code chargera les deux et sera confus. <strong>R&egrave;gle : une commande = un skill.</strong> Nommez explicitement vos skills avec un pr&eacute;fixe si vous en avez plusieurs du m&ecirc;me domaine.</p>
+        </div>
+
+        <h3>D&eacute;sinstaller un skill ou agent</h3>
+        <div class="cmd-block">
+            <div class="os-label">BASH</div>
+            <div><span class="comment"># Supprimer un skill</span></div>
+            <div><span class="cmd">rm -rf</span> <span class="arg">~/.claude/skills/nom-du-skill/</span></div>
+            <div></div>
+            <div><span class="comment"># Supprimer un agent</span></div>
+            <div><span class="cmd">rm</span> <span class="arg">~/.claude/agents/nom-de-agent.md</span></div>
+        </div>
+    </div>
+
+    <!-- 9. CHECKLIST -->
+    <div class="section" id="checklist">
+        <h2>&#x2705; 9. Checklist rapide avant installation</h2>
+
+        <p>Avant d&rsquo;installer n&rsquo;importe quel repo GitHub dans votre environnement Claude Code :</p>
+
+        <ul class="checklist">
+            <li>J&rsquo;ai lu le README et je comprends CE QUE &ccedil;a fait en 2 phrases</li>
+            <li>J&rsquo;ai v&eacute;rifi&eacute; la date du dernier commit (&lt; 3 mois = actif)</li>
+            <li>J&rsquo;ai v&eacute;rifi&eacute; la licence (MIT / Apache 2.0 = libre)</li>
+            <li>J&rsquo;ai v&eacute;rifi&eacute; l&rsquo;&acirc;ge du compte auteur et coh&eacute;rence avec les stars</li>
+            <li>Je n&rsquo;ai PAS utilis&eacute; <code>curl | bash</code> &mdash; j&rsquo;ai clon&eacute; et lu le script d&rsquo;abord</li>
+            <li>J&rsquo;ai v&eacute;rifi&eacute; si un outil existant couvre d&eacute;j&agrave; le besoin</li>
+            <li>Pour un MCP : j&rsquo;ai lu l&rsquo;int&eacute;gralit&eacute; du code source</li>
+            <li>J&rsquo;ai test&eacute; sur une t&acirc;che non sensible avant d&rsquo;utiliser en production</li>
+            <li>J&rsquo;ai document&eacute; l&rsquo;&eacute;valuation (verdict + raison + date) pour ne pas y revenir</li>
+        </ul>
+
+        <h3>Ressources de r&eacute;f&eacute;rence</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Ressource</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>hesreallyhim/awesome-claude-code</code></td>
+                    <td>Point d&rsquo;entr&eacute;e principal pour d&eacute;couvrir des resources Claude Code de qualit&eacute;</td>
+                </tr>
+                <tr>
+                    <td><code>punkpeye/awesome-mcp-servers</code></td>
+                    <td>R&eacute;f&eacute;rence pour les serveurs MCP</td>
+                </tr>
+                <tr>
+                    <td>docs.anthropic.com/claude-code</td>
+                    <td>Documentation officielle Claude Code &mdash; source de v&eacute;rit&eacute;</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tag-row" style="margin-top: 24px;">
+            <span class="tag tag-teal">Claude Code</span>
+            <span class="tag tag-green">GitHub</span>
+            <span class="tag tag-blue">Skills</span>
+            <span class="tag tag-purple">Agents</span>
+            <span class="tag tag-blue">MCP Servers</span>
+            <span class="tag tag-orange">S&eacute;curit&eacute;</span>
+            <span class="tag tag-gray">Open Source</span>
+            <span class="tag tag-teal">Exocortex</span>
+        </div>
+    </div>
+
+</main>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+<div class="bg-[#07001C] py-10">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+<button id="guide-back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:2rem;right:2rem;z-index:9999;width:44px;height:44px;border-radius:50%;background:#7C3AED;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateY(8px);box-shadow:0 4px 16px rgba(124,58,237,0.4);">
+  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function(){var b=document.getElementById('guide-back-to-top');window.addEventListener('scroll',function(){var s=window.scrollY>400;b.style.opacity=s?'1':'0';b.style.pointerEvents=s?'auto':'none';b.style.transform=s?'translateY(0)':'translateY(8px)';},{passive:true});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
+</script>
+<style>
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+
+        .main-header { background: linear-gradient(135deg, #0088cc, #004080); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .company-info { display: flex; align-items: center; gap: 10px; }
+        .company-tagline { font-size: 0.9em; opacity: 0.9; }
+        .contact-header { display: flex; align-items: center; gap: 30px; }
+        .contact-item { font-size: 0.9em; opacity: 0.95; }
+
+        .hero { background: linear-gradient(135deg, #064e3b, #059669); color: white; padding: 70px 20px; text-align: center; }
+        .hero h1 { font-size: 2.6em; font-weight: 300; margin-bottom: 12px; }
+        .hero .version { display: inline-block; background: rgba(255,255,255,0.15); padding: 4px 16px; border-radius: 20px; font-size: 0.85em; margin-bottom: 16px; letter-spacing: 1px; }
+        .hero p { font-size: 1.15em; opacity: 0.9; max-width: 750px; margin: 0 auto; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .section { background: white; margin: 24px 0; padding: 36px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .section h2 { color: #064e3b; font-size: 1.6em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #059669; }
+        .section h3 { color: #1a5276; font-size: 1.2em; margin: 24px 0 12px; padding-left: 14px; border-left: 4px solid #059669; }
+        .section h4 { color: #2c3e50; margin: 16px 0 8px; font-size: 1.05em; }
+        .section p, .section li { font-size: 0.95em; }
+        .section ul, .section ol { margin-left: 20px; margin-bottom: 14px; }
+        .section li { margin-bottom: 6px; }
+
+        .intro-box { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-left: 5px solid #059669; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+        .intro-box p { font-size: 1em; color: #064e3b; }
+
+        .type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 20px 0; }
+        .type-card { background: white; border: 2px solid #e8e8e8; border-radius: 12px; padding: 22px; transition: transform 0.2s, box-shadow 0.2s; }
+        .type-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        .type-card .card-icon { font-size: 2em; margin-bottom: 10px; display: block; }
+        .type-card h4 { color: #064e3b; margin: 0 0 8px; font-size: 1.05em; }
+        .type-card p { color: #555; font-size: 0.88em; margin-bottom: 10px; }
+        .type-card code { background: #f1f5f9; padding: 1px 5px; border-radius: 3px; font-size: 0.85em; color: #065f46; }
+        .type-card .card-border-blue { border-color: #3b82f6; }
+        .type-card .card-border-purple { border-color: #7c3aed; }
+        .type-card .card-border-green { border-color: #059669; }
+
+        .risk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 20px 0; }
+        .risk-card { border-radius: 10px; padding: 20px; }
+        .risk-card h4 { margin-bottom: 8px; font-size: 1em; }
+        .risk-card p { font-size: 0.88em; }
+        .risk-high { background: #fef2f2; border: 2px solid #fca5a5; }
+        .risk-high h4 { color: #991b1b; }
+        .risk-medium { background: #fffbeb; border: 2px solid #fcd34d; }
+        .risk-medium h4 { color: #92400e; }
+        .risk-low { background: #f0fdf4; border: 2px solid #86efac; }
+        .risk-low h4 { color: #166534; }
+
+        .workflow-steps { counter-reset: step-counter; list-style: none; margin-left: 0; padding-left: 0; }
+        .workflow-steps li { counter-increment: step-counter; position: relative; padding: 16px 16px 16px 60px; margin-bottom: 12px; background: #fafbfc; border-radius: 8px; border-left: 3px solid #059669; }
+        .workflow-steps li::before { content: counter(step-counter, decimal-leading-zero); position: absolute; left: 14px; top: 16px; font-size: 1.3em; font-weight: 700; color: #059669; }
+
+        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+        .tag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
+        .tag-blue { background: #e0f2fe; color: #0369a1; }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-orange { background: #fff7ed; color: #9a3412; }
+        .tag-purple { background: #f3e8ff; color: #6b21a8; }
+        .tag-gray { background: #f1f5f9; color: #475569; }
+        .tag-red { background: #fef2f2; color: #991b1b; }
+        .tag-teal { background: #ccfbf1; color: #115e59; }
+
+        .callout { padding: 20px; border-radius: 8px; margin: 16px 0; }
+        .callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        .callout-warn { background: #fffbeb; border-left: 4px solid #f59e0b; }
+        .callout-success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+        .callout-danger { background: #fef2f2; border-left: 4px solid #ef4444; }
+        .callout strong { display: block; margin-bottom: 6px; }
+        .callout p, .callout li { font-size: 0.93em; }
+
+        .cmd-block { position: relative; background: #1e293b; color: #e2e8f0; padding: 20px 20px 20px 24px; border-radius: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88em; line-height: 1.9; overflow-x: auto; margin: 12px 0; }
+        .cmd-block .os-label { display: inline-block; background: #334155; color: #94a3b8; font-size: 0.75em; padding: 2px 10px; border-radius: 4px; margin-bottom: 10px; letter-spacing: 0.5px; font-family: 'Segoe UI', sans-serif; }
+        .cmd-block .comment { color: #64748b; }
+        .cmd-block .cmd { color: #7dd3fc; }
+        .cmd-block .arg { color: #a5b4fc; }
+        .cmd-block .output { color: #86efac; font-style: italic; }
+        .cmd-block .ok { color: #4ade80; }
+        .cmd-block .warn { color: #fbbf24; }
+        .cmd-block .danger { color: #f87171; }
+
+        .file-tree { font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88em; background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; line-height: 1.8; overflow-x: auto; }
+        .file-tree .folder { color: #60a5fa; }
+        .file-tree .file { color: #a5b4fc; }
+        .file-tree .comment { color: #64748b; }
+
+        .table-std { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+        .table-std th { background: #064e3b; color: white; padding: 12px 14px; text-align: left; font-weight: 600; }
+        .table-std td { padding: 10px 14px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .table-std tr:nth-child(even) { background: #f8f9fa; }
+        .table-std tr:hover { background: #ecfdf5; }
+        .table-std code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.9em; color: #065f46; }
+
+        .verdict-deployer { display: inline-block; padding: 3px 10px; border-radius: 20px; background: #dcfce7; color: #166534; font-size: 0.82em; font-weight: 700; }
+        .verdict-suivre { display: inline-block; padding: 3px 10px; border-radius: 20px; background: #e0f2fe; color: #0369a1; font-size: 0.82em; font-weight: 700; }
+        .verdict-inutile { display: inline-block; padding: 3px 10px; border-radius: 20px; background: #f1f5f9; color: #475569; font-size: 0.82em; font-weight: 700; }
+        .verdict-dangereux { display: inline-block; padding: 3px 10px; border-radius: 20px; background: #fef2f2; color: #991b1b; font-size: 0.82em; font-weight: 700; }
+
+        .grille-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+        .grille-table th { background: #065f46; color: white; padding: 12px 14px; text-align: left; }
+        .grille-table td { padding: 10px 14px; border-bottom: 1px solid #d1fae5; vertical-align: top; }
+        .grille-table tr:nth-child(even) { background: #f0fdf4; }
+        .grille-table .criterion { font-weight: 600; color: #064e3b; }
+
+        .toc { background: white; border: 2px solid #d1fae5; border-radius: 10px; padding: 24px; margin: 24px 0; }
+        .toc h3 { color: #064e3b; margin-bottom: 12px; }
+        .toc ol { margin-left: 20px; }
+        .toc a { color: #059669; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .toc li { margin-bottom: 4px; font-size: 0.93em; }
+
+        .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .pros { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 20px; }
+        .cons { background: #fffbeb; border: 2px solid #fcd34d; border-radius: 10px; padding: 20px; }
+        .pros h4 { color: #166534; margin-bottom: 10px; }
+        .cons h4 { color: #92400e; margin-bottom: 10px; }
+        .pros ul, .cons ul { margin-left: 16px; }
+        .pros li, .cons li { font-size: 0.9em; margin-bottom: 5px; }
+
+        .checklist { list-style: none; padding: 0; margin: 0; }
+        .checklist li { padding: 10px 12px 10px 44px; position: relative; border-bottom: 1px solid #e5e7eb; font-size: 0.93em; }
+        .checklist li::before { content: '☐'; position: absolute; left: 12px; font-size: 1.3em; color: #059669; }
+        .checklist li:last-child { border-bottom: none; }
+
+        @media (max-width: 700px) {
+            .pros-cons { grid-template-columns: 1fr; }
+            .type-grid { grid-template-columns: 1fr; }
+            .risk-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8em; }
+        }
+
+        .main-footer { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 40px 0 20px; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-section { flex: 1; min-width: 200px; }
+        .footer-section h4 { color: #3498db; margin-bottom: 15px; font-size: 1.1em; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section li { padding: 5px 0; border-bottom: 1px dotted rgba(255,255,255,0.2); }
+        .footer-section a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
+        .footer-section a:hover { color: #3498db; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; color: #bdc3c7; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+
+        #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #064e3b, #059669); color: white; border: none; font-size: 1.4em; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.25); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.2s; z-index: 999; display: flex; align-items: center; justify-content: center; }
+        #scrollTop.visible { opacity: 1; visibility: visible; }
+        #scrollTop:hover { transform: translateY(-3px); }
+    
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>
