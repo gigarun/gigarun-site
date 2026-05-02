@@ -1,0 +1,675 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Exocortex Bootstrap &mdash; R&eacute;installation compl&egrave;te sur nouvelle machine | GiGaRuN — Gigarun La Réunion" description="Guide complet pour r&eacute;installer l">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Intelligence artificielle</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Exocortex Bootstrap &mdash; R&eacute;installation compl&egrave;te sur nouvelle machine | GiGaRuN</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide complet pour r&eacute;installer l</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<section class="hero">
+    <span class="version">EXOCORTEX V3 &mdash; MAI 2026</span>
+    <h1>Exocortex Bootstrap</h1>
+    <p>R&eacute;installez votre copilote IA complet &mdash; skills, agents pentest, hooks, m&eacute;moire &mdash; sur n'importe quelle nouvelle machine en une seule commande.</p>
+</section>
+
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+
+<main class="container">
+
+    <nav class="toc">
+        <h3>Sommaire</h3>
+        <ol>
+            <li><a href="#contexte">Contexte et objectif</a></li>
+            <li><a href="#anatomie">Anatomie de l&rsquo;Exocortex</a></li>
+            <li><a href="#ce-qui-a-ete-fait">Ce qui a &eacute;t&eacute; fait et pourquoi</a></li>
+            <li><a href="#structure-repo">Structure du repo Exocortex</a></li>
+            <li><a href="#procedure">Proc&eacute;dure de r&eacute;installation compl&egrave;te</a></li>
+            <li><a href="#script">Le script setup.sh en d&eacute;tail</a></li>
+            <li><a href="#avantages-inconvenients">Avantages et inconv&eacute;nients</a></li>
+            <li><a href="#apres-bootstrap">Apr&egrave;s le bootstrap : ce qu&rsquo;il reste &agrave; faire</a></li>
+            <li><a href="#mise-a-jour">Maintenir l&rsquo;Exocortex &agrave; jour</a></li>
+        </ol>
+    </nav>
+
+    <!-- 1. CONTEXTE -->
+    <div class="section" id="contexte">
+        <h2>1. Contexte et objectif</h2>
+
+        <div class="intro-box">
+            <p><strong>Probl&egrave;me :</strong> l&rsquo;Exocortex repose sur des fichiers locaux dispers&eacute;s entre <code>~/.claude/</code> et <code>~/Exocortex/</code>. Changer de machine ou reinstaller Windows signifiait tout reconfigurer &agrave; la main : skills, agents, hooks, m&eacute;moire. Aucun script, aucune proc&eacute;dure document&eacute;e, tout en m&eacute;moire.</p>
+        </div>
+
+        <p><strong>Ce guide documente :</strong></p>
+        <ul>
+            <li>Pourquoi on a vers&eacute; les skills dans le repo Exocortex (avant, ils &eacute;taient hors versioning)</li>
+            <li>Comment le script <code>setup.sh</code> automatise le bootstrap sur une nouvelle machine</li>
+            <li>Quels composants sont automatis&eacute;s, lesquels restent manuels, et pourquoi</li>
+            <li>Les avantages et les limites de cette approche</li>
+        </ul>
+
+        <div class="callout callout-success">
+            <strong>R&eacute;sultat :</strong> sur une nouvelle machine Windows, l&rsquo;Exocortex complet (16 skills m&eacute;tier, 31 agents pentest, hooks, settings) est op&eacute;rationnel apr&egrave;s un <code>git clone</code> et un <code>bash setup.sh</code>. Dur&eacute;e r&eacute;elle : 10 minutes pr&eacute;requis inclus.
+        </div>
+    </div>
+
+    <!-- 2. ANATOMIE -->
+    <div class="section" id="anatomie">
+        <h2>2. Anatomie de l&rsquo;Exocortex</h2>
+
+        <p>L&rsquo;Exocortex est compos&eacute; de quatre couches distinctes, install&eacute;es &agrave; des emplacements diff&eacute;rents sur la machine :</p>
+
+        <div class="arch-grid">
+            <div class="arch-card">
+                <span class="card-icon">&#x1F9E0;</span>
+                <h4>Contexte m&eacute;tier</h4>
+                <p>Qui vous &ecirc;tes, vos projets, vos contraintes, vos objectifs. Lu &agrave; chaque session par l&rsquo;IA via <code>contexte.md</code>.</p>
+                <p><code>~/Exocortex/</code></p>
+            </div>
+            <div class="arch-card">
+                <span class="card-icon">&#x1F6E0;</span>
+                <h4>Skills m&eacute;tier (protocoles)</h4>
+                <p>Les comportements sp&eacute;cialis&eacute;s de l&rsquo;Exocortex : audit, commercial, DSI/RSSI, compta, devops, handoff, etc. 16 skills au total.</p>
+                <p><code>~/.claude/skills/</code></p>
+            </div>
+            <div class="arch-card">
+                <span class="card-icon">&#x1F916;</span>
+                <h4>Agents pentest</h4>
+                <p>31 sous-agents Claude Code sp&eacute;cialis&eacute;s : recon, web, Active Directory, cloud, mobile, forensics, reverse engineering, reporting.</p>
+                <p><code>~/.claude/agents/</code></p>
+            </div>
+            <div class="arch-card">
+                <span class="card-icon">&#x1F4DA;</span>
+                <h4>M&eacute;moire persistante</h4>
+                <p>Ce que le copilote a appris au fil des sessions : feedbacks, pr&eacute;f&eacute;rences, r&eacute;f&eacute;rences techniques, &eacute;tat des projets.</p>
+                <p><code>~/.claude/projects/.../memory/</code></p>
+            </div>
+            <div class="arch-card">
+                <span class="card-icon">&#x1F4CB;</span>
+                <h4>Persona et r&egrave;gles (CLAUDE.md)</h4>
+                <p>Le fichier lu en priorit&eacute; par Claude Code. D&eacute;finit le r&ocirc;le de copilote, les r&egrave;gles de comportement, la langue, l&rsquo;optimisation des tokens.</p>
+                <p><code>~/CLAUDE.md</code></p>
+            </div>
+            <div class="arch-card">
+                <span class="card-icon">&#x1F527;</span>
+                <h4>Hooks et settings</h4>
+                <p>Les automatismes : protection contre les suppressions critiques, rappel handoff en fin de session, analyse de session, mod&egrave;le par d&eacute;faut (Sonnet).</p>
+                <p><code>~/.claude/hooks/</code> &amp; <code>settings.json</code></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. CE QUI A ETE FAIT -->
+    <div class="section" id="ce-qui-a-ete-fait">
+        <h2>3. Ce qui a &eacute;t&eacute; fait et pourquoi</h2>
+
+        <h3>3.1 Versioning des skills dans le repo Exocortex</h3>
+
+        <p>Avant cette mise &agrave; jour, les 16 skills Gigarun n&rsquo;&eacute;taient pr&eacute;sents que dans <code>~/.claude/skills/</code> sur la machine principale. Ils n&rsquo;&eacute;taient <strong>pas dans le repo Git</strong> de l&rsquo;Exocortex.</p>
+
+        <p><strong>Cons&eacute;quence :</strong> cloner le repo sur une autre machine ne suffisait pas. Les skills (audit, commercial, DSI, compta, devops, handoff, lab-test, etc.) &eacute;taient absents.</p>
+
+        <p><strong>D&eacute;cision :</strong> copier <code>~/.claude/skills/</code> dans <code>Exocortex/skills/</code> et les versionner. Tous les fichiers skills ont &eacute;t&eacute; v&eacute;rifi&eacute;s pour l&rsquo;absence de donn&eacute;es sensibles (cl&eacute;s API, mots de passe) avant commit. Un seul faux positif d&eacute;tect&eacute; : un placeholder <code>sk-...</code> dans la doc n8n, sans valeur r&eacute;elle.</p>
+
+        <h3>3.2 Installation des agents pentest (pentest-ai-agents)</h3>
+
+        <p>Le repo <a href="https://github.com/0xSteph/pentest-ai-agents" target="_blank" rel="noopener">0xSteph/pentest-ai-agents</a> fournit 31 sous-agents Claude Code sp&eacute;cialis&eacute;s en s&eacute;curit&eacute; offensive. Ils sont install&eacute;s dans <code>~/.claude/agents/</code> via un script.</p>
+
+        <p><strong>Pourquoi ce repo plut&ocirc;t que d&rsquo;autres :</strong></p>
+        <ul>
+            <li>Z&eacute;ro d&eacute;pendance externe : juste des fichiers <code>.md</code> avec frontmatter YAML</li>
+            <li>Compatible Ollama via conversion OpenCode (<code>./opencode-setup.sh --full</code>)</li>
+            <li>MIT, actif depuis mars 2026, d&eacute;j&agrave; en v3.1.0</li>
+            <li>Compl&eacute;mentaire &agrave; Strix (pentest applicatif autonome) &mdash; les deux ne se recoupent pas</li>
+            <li>Script <code>install.sh</code> audit&eacute; : ne fait que copier des fichiers, aucune ex&eacute;cution r&eacute;seau, idempotent</li>
+        </ul>
+
+        <p>Les agents sont <strong>clonables depuis GitHub</strong> et ne sont pas versionn&eacute;s dans l&rsquo;Exocortex lui-m&ecirc;me &mdash; le script <code>setup.sh</code> les t&eacute;l&eacute;charge automatiquement.</p>
+
+        <h3>3.3 Cr&eacute;ation du script setup.sh</h3>
+
+        <p>Le script <code>Exocortex/setup.sh</code> automatise l&rsquo;int&eacute;gralit&eacute; du bootstrap en 6 &eacute;tapes :</p>
+
+        <ol class="workflow-steps">
+            <li><strong>V&eacute;rification des pr&eacute;requis</strong> : git, Claude Code CLI</li>
+            <li><strong>Installation des skills</strong> depuis <code>Exocortex/skills/</code> vers <code>~/.claude/skills/</code> (diff par r&eacute;pertoire, mise &agrave; jour uniquement si modifi&eacute;)</li>
+            <li><strong>Installation des agents pentest</strong> : clone du repo pentest-ai-agents + <code>install.sh --global</code></li>
+            <li><strong>Installation du hook</strong> <code>auto-debug-log.py</code> vers <code>~/.claude/hooks/</code></li>
+            <li><strong>V&eacute;rification du settings.json</strong> (cr&eacute;ation minimale si absent)</li>
+            <li><strong>V&eacute;rification de CLAUDE.md</strong> et de la m&eacute;moire persistante, avec avertissements cibl&eacute;s si manquants</li>
+        </ol>
+
+        <div class="callout callout-info">
+            <strong>Mode dry-run :</strong> le script accepte <code>--dry-run</code> pour simuler toutes les op&eacute;rations sans rien modifier. Utile pour v&eacute;rifier l&rsquo;&eacute;tat d&rsquo;une machine avant d&rsquo;agir.
+        </div>
+    </div>
+
+    <!-- 4. STRUCTURE REPO -->
+    <div class="section" id="structure-repo">
+        <h2>4. Structure du repo Exocortex apr&egrave;s mise &agrave; jour</h2>
+
+        <div class="file-tree">
+            <div><span class="folder">Exocortex/</span> <span class="comment">&larr; repo Git principal</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">setup.sh</span> <span class="comment">&larr; &lt;NOUVEAU&gt; script de bootstrap nouvelle machine</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">CLAUDE.md</span> <span class="comment">&larr; persona et r&egrave;gles du copilote (&agrave; la racine ~/ sur la machine)</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">contexte.md</span> <span class="comment">&larr; profil, projets, contraintes</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">skills/</span> <span class="comment">&larr; &lt;NOUVEAU&gt; 16 skills m&eacute;tier versionn&eacute;s</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">audit/</span> <span class="comment">&larr; audit mobile/forensique</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">commercial/</span> <span class="comment">&larr; chiffrage, propositions commerciales</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">dsi/</span> <span class="comment">&larr; DSI/RSSI externalis&eacute;</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">devops/</span> <span class="comment">&larr; d&eacute;ploiement, infrastructure</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">handoff/</span> <span class="comment">&larr; continuit&eacute; entre sessions</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">lab-test/</span> <span class="comment">&larr; &eacute;valuation de repos GitHub</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">...</span> <span class="comment">&larr; + 10 autres skills</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">scripts/</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">auto-debug-log.py</span> <span class="comment">&larr; &lt;NOUVEAU&gt; hook Stop versionn&eacute;</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="folder">knowledge/</span> <span class="comment">&larr; base de connaissances m&eacute;tier</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">projets.md</span></div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">handoff-journal.md</span></div>
+        </div>
+
+        <h3>Ce qui n&rsquo;est <em>pas</em> dans le repo (et pourquoi)</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr><th>Composant</th><th>Emplacement r&eacute;el</th><th>Raison d&rsquo;exclusion</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>settings.local.json</code></td>
+                    <td><code>~/.claude/settings.local.json</code></td>
+                    <td>Contient des cl&eacute;s API (Mailjet, Brevo) &mdash; ne jamais versionner</td>
+                </tr>
+                <tr>
+                    <td>Agents pentest</td>
+                    <td><code>~/.claude/agents/</code></td>
+                    <td>T&eacute;l&eacute;charg&eacute;s depuis GitHub par <code>setup.sh</code> &mdash; maintenus s&eacute;par&eacute;ment</td>
+                </tr>
+                <tr>
+                    <td>M&eacute;moire persistante</td>
+                    <td><code>~/.claude/projects/.../memory/</code></td>
+                    <td>Sp&eacute;cifique &agrave; chaque machine, synchronis&eacute;e via git Exocortex s&eacute;par&eacute;ment</td>
+                </tr>
+                <tr>
+                    <td>Historique de sessions</td>
+                    <td><code>~/.claude/projects/</code></td>
+                    <td>Trop volumineux, local par d&eacute;finition</td>
+                </tr>
+                <tr>
+                    <td>Cache, backups, sessions</td>
+                    <td><code>~/.claude/cache/</code> etc.</td>
+                    <td>Donn&eacute;es temporaires machines-sp&eacute;cifiques</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 5. PROCEDURE -->
+    <div class="section" id="procedure">
+        <h2>5. Proc&eacute;dure de r&eacute;installation compl&egrave;te</h2>
+
+        <p>Suivez ces &eacute;tapes dans l&rsquo;ordre sur la <strong>nouvelle machine Windows</strong>.</p>
+
+        <h3>&Eacute;tape 1 &mdash; Pr&eacute;requis</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">POWERSHELL / CMD &mdash; WINDOWS</div>
+            <div><span class="comment"># Git pour Windows (git-scm.com) + Node.js (nodejs.org) doivent &ecirc;tre install&eacute;s</span></div>
+            <div><span class="cmd">git</span> <span class="arg">--version</span> <span class="output"># doit afficher git version 2.x</span></div>
+            <div><span class="cmd">node</span> <span class="arg">--version</span> <span class="output"># doit afficher v20.x ou sup&eacute;rieur</span></div>
+            <div>&nbsp;</div>
+            <div><span class="comment"># Installer Claude Code CLI</span></div>
+            <div><span class="cmd">npm install -g</span> <span class="arg">@anthropic-ai/claude-code</span></div>
+            <div><span class="cmd">claude</span> <span class="arg">--version</span> <span class="output"># v&eacute;rification</span></div>
+        </div>
+
+        <h3>&Eacute;tape 2 &mdash; Cloner l&rsquo;Exocortex</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">BASH (Git Bash) &mdash; WINDOWS</div>
+            <div><span class="cmd">git clone</span> <span class="arg">[URL-de-votre-repo-prive-Exocortex]</span> <span class="arg">~/Exocortex</span></div>
+            <div>&nbsp;</div>
+            <div><span class="comment"># V&eacute;rifier que les skills sont pr&eacute;sents</span></div>
+            <div><span class="cmd">ls</span> <span class="arg">~/Exocortex/skills/</span></div>
+            <div><span class="output"># doit lister : audit commercial compta devops dsi handoff lab-test ...</span></div>
+        </div>
+
+        <h3>&Eacute;tape 3 &mdash; Copier CLAUDE.md &agrave; la racine de votre profil</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">BASH (Git Bash) &mdash; WINDOWS</div>
+            <div><span class="cmd">cp</span> <span class="arg">~/Exocortex/CLAUDE.md</span> <span class="arg">~/CLAUDE.md</span></div>
+            <div><span class="comment"># CLAUDE.md doit &ecirc;tre dans ~ (C:\Users\vous\) pour que Claude Code le lise automatiquement</span></div>
+        </div>
+
+        <div class="callout callout-warn">
+            <strong>Important :</strong> <code>CLAUDE.md</code> doit se trouver dans <code>C:\Users\[votre-nom]\</code> (racine du profil utilisateur), pas dans un sous-dossier. Claude Code le cherche dans le dossier courant et ses parents jusqu&rsquo;&agrave; la racine.
+        </div>
+
+        <h3>&Eacute;tape 4 &mdash; Lancer le bootstrap</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">BASH (Git Bash) &mdash; WINDOWS</div>
+            <div><span class="comment"># Test d&rsquo;abord en dry-run pour voir ce qui sera fait</span></div>
+            <div><span class="cmd">bash</span> <span class="arg">~/Exocortex/setup.sh --dry-run</span></div>
+            <div>&nbsp;</div>
+            <div><span class="comment"># Si tout est correct, lancer r&eacute;ellement</span></div>
+            <div><span class="cmd">bash</span> <span class="arg">~/Exocortex/setup.sh</span></div>
+        </div>
+
+        <p>Sortie attendue :</p>
+        <div class="cmd-block">
+            <div class="ok">  ✓ git OK</div>
+            <div class="ok">  ✓ Claude Code CLI OK</div>
+            <div class="ok">  ✓ 16 skills — 16 install&eacute;s, 0 mis &agrave; jour</div>
+            <div class="ok">  ✓ 31 agents pentest install&eacute;s dans ~/.claude/agents/</div>
+            <div class="ok">  ✓ auto-debug-log.py install&eacute;</div>
+            <div class="ok">  ✓ settings.json cr&eacute;&eacute; (model: sonnet)</div>
+            <div class="ok">  ✓ CLAUDE.md pr&eacute;sent dans ~/</div>
+            <div class="warn">  ! M&eacute;moire absente — &agrave; copier manuellement</div>
+        </div>
+
+        <h3>&Eacute;tape 5 &mdash; Restaurer les &eacute;l&eacute;ments non automatis&eacute;s</h3>
+
+        <p>Depuis l&rsquo;ancienne machine (ou OneDrive si synchronis&eacute;) :</p>
+
+        <ol>
+            <li><strong>settings.local.json</strong> &mdash; copier dans <code>~/.claude/settings.local.json</code>. Contient les hooks PreToolUse (protection dossiers critiques), le hook Stop (rappel handoff), les permissions avanc&eacute;es et les cl&eacute;s API n&eacute;cessaires.</li>
+            <li><strong>M&eacute;moire</strong> &mdash; copier <code>~/.claude/projects/C--Users-[nom]/memory/</code> depuis l&rsquo;ancienne machine. Contient les 30+ fichiers de m&eacute;moire accumul&eacute;s (feedbacks, r&eacute;f&eacute;rences, projets).</li>
+            <li><strong>ANTHROPIC_API_KEY</strong> &mdash; configurer la variable d&rsquo;environnement dans le syst&egrave;me Windows.</li>
+        </ol>
+
+        <h3>&Eacute;tape 6 &mdash; Lancer Claude Code et v&eacute;rifier</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">TERMINAL &mdash; WINDOWS</div>
+            <div><span class="cmd">claude</span></div>
+            <div><span class="comment"># Une fois dans Claude Code :</span></div>
+            <div><span class="arg">/skills</span> <span class="output"># doit lister les 16 skills Gigarun</span></div>
+            <div><span class="arg">/agents</span> <span class="output"># doit lister les 31 agents pentest</span></div>
+        </div>
+    </div>
+
+    <!-- 6. SCRIPT -->
+    <div class="section" id="script">
+        <h2>6. Le script setup.sh en d&eacute;tail</h2>
+
+        <p>Le script est versionn&eacute; dans <code>Exocortex/setup.sh</code>. Il est idempotent : on peut le relancer autant de fois qu&rsquo;on veut sans risque. Il ne modifie que ce qui est absent ou obsol&egrave;te.</p>
+
+        <h3>Logique de mise &agrave; jour des skills</h3>
+
+        <p>Pour chaque skill du repo, le script compare le r&eacute;pertoire source avec la destination via <code>diff -rq</code>. Il &eacute;crase uniquement si une diff&eacute;rence existe. Cela permet de <strong>pousser une mise &agrave; jour d&rsquo;un skill sur toutes les machines</strong> via un simple <code>git pull + bash setup.sh</code>.</p>
+
+        <h3>Logique d&rsquo;installation des agents pentest</h3>
+
+        <p>Le script v&eacute;rifie si <code>~/.claude/agents/</code> contient d&eacute;j&agrave; des fichiers <code>.md</code>. Si oui, il consid&egrave;re les agents comme install&eacute;s et saute cette &eacute;tape. Si non, il clone <code>pentest-ai-agents</code> dans <code>C:/tools/pentest-ai-agents</code> et lance <code>install.sh --global</code>.</p>
+
+        <div class="callout callout-info">
+            <strong>Pour mettre &agrave; jour les agents pentest</strong> ind&eacute;pendamment du bootstrap :<br>
+            <code>cd C:/tools/pentest-ai-agents &amp;&amp; git pull &amp;&amp; bash install.sh --global</code>
+        </div>
+
+        <h3>Composants install&eacute;s par le script</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr><th>Composant</th><th>Source</th><th>Destination</th><th>Comportement</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>16 skills m&eacute;tier</td>
+                    <td><code>Exocortex/skills/</code></td>
+                    <td><code>~/.claude/skills/</code></td>
+                    <td>Install ou mise &agrave; jour si diff</td>
+                </tr>
+                <tr>
+                    <td>31 agents pentest</td>
+                    <td>GitHub pentest-ai-agents</td>
+                    <td><code>~/.claude/agents/</code></td>
+                    <td>Clone + install si dossier vide</td>
+                </tr>
+                <tr>
+                    <td>Hook auto-debug-log.py</td>
+                    <td><code>Exocortex/scripts/</code></td>
+                    <td><code>~/.claude/hooks/</code></td>
+                    <td>Copie si absent</td>
+                </tr>
+                <tr>
+                    <td>settings.json</td>
+                    <td>G&eacute;n&eacute;r&eacute; &agrave; la vol&eacute;e</td>
+                    <td><code>~/.claude/settings.json</code></td>
+                    <td>Cr&eacute;ation minimale si absent</td>
+                </tr>
+                <tr>
+                    <td>CLAUDE.md</td>
+                    <td><code>Exocortex/CLAUDE.md</code></td>
+                    <td><code>~/CLAUDE.md</code></td>
+                    <td>Copie si absent</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 7. AVANTAGES / INCONVENIENTS -->
+    <div class="section" id="avantages-inconvenients">
+        <h2>7. Avantages et inconv&eacute;nients de ce param&eacute;trage</h2>
+
+        <div class="pros-cons">
+            <div class="pros">
+                <h4>&#x2705; Avantages</h4>
+                <ul>
+                    <li><strong>Une seule commande</strong> pour r&eacute;installer l&rsquo;essentiel de l&rsquo;Exocortex sur une nouvelle machine</li>
+                    <li><strong>Skills versionn&eacute;s dans Git</strong> : un <code>git pull + setup.sh</code> propage les mises &agrave; jour sur toutes les machines</li>
+                    <li><strong>Idempotent</strong> : on peut relancer <code>setup.sh</code> sans risque de casser quoi que ce soit</li>
+                    <li><strong>Dry-run</strong> : auditer ce qui sera fait avant d&rsquo;agir</li>
+                    <li><strong>Agents pentest s&eacute;par&eacute;s</strong> : maintenus ind&eacute;pendamment via leur propre repo, mise &agrave; jour en autonomie</li>
+                    <li><strong>Aucun secret dans le repo</strong> : <code>settings.local.json</code> est exclu, les cl&eacute;s API ne peuvent pas fuiter</li>
+                    <li><strong>Pas de d&eacute;pendance cloud</strong> : tout est local apr&egrave;s le clone initial</li>
+                </ul>
+            </div>
+            <div class="cons">
+                <h4>&#x26A0; Inconv&eacute;nients</h4>
+                <ul>
+                    <li><strong>M&eacute;moire non automatis&eacute;e</strong> : les 30+ fichiers de m&eacute;moire restent &agrave; copier manuellement depuis l&rsquo;ancienne machine</li>
+                    <li><strong>settings.local.json non automatis&eacute;</strong> : les hooks avanc&eacute;s et permissions sp&eacute;cifiques doivent &ecirc;tre recopi&eacute;s manuellement (contient des cl&eacute;s API)</li>
+                    <li><s><strong>Skills dupliqu&eacute;s</strong></s> &#x2705; <strong>R&eacute;solu par junction Windows</strong> : <code>~/.claude/skills/</code> est une junction qui pointe vers <code>Exocortex/skills/</code>. Un seul emplacement physique, z&eacute;ro duplication &mdash; voir ci-dessous.</li>
+                    <li><strong>Agents pentest n&eacute;cessitent Git</strong> : si la machine n&rsquo;a pas acc&egrave;s &agrave; GitHub, l&rsquo;&eacute;tape 3 &eacute;choue</li>
+                    <li><strong>Script Bash uniquement</strong> : ne fonctionne pas nativement dans PowerShell pur (n&eacute;cessite Git Bash ou WSL)</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Source unique pour les skills : la junction Windows</h3>
+
+        <div class="callout callout-success">
+            <strong>Probl&egrave;me r&eacute;solu.</strong> <code>~/.claude/skills/</code> est une <strong>junction Windows</strong> (l&rsquo;&eacute;quivalent d&rsquo;un lien symbolique de dossier) qui pointe directement vers <code>Exocortex/skills/</code>. Il n&rsquo;existe qu&rsquo;une seule copie physique des skills, dans le repo. Claude Code lit le lien de fa&ccedil;on transparente.
+        </div>
+
+        <p><strong>Cons&eacute;quence pratique :</strong> quand Claude Code cr&eacute;e ou modifie un skill, il &eacute;crit directement dans <code>Exocortex/skills/</code>. Il suffit ensuite de committer dans le repo pour propager la mise &agrave; jour sur toutes les machines.</p>
+
+        <div class="cmd-block">
+            <div class="os-label">BASH &mdash; WORKFLOW MISE &Agrave; JOUR SKILL</div>
+            <div><span class="comment"># Cr&eacute;er ou modifier un skill via Claude Code (il &eacute;crit dans Exocortex/skills/ directement)</span></div>
+            <div><span class="comment"># Puis committer :</span></div>
+            <div><span class="cmd">cd</span> <span class="arg">~/Exocortex</span></div>
+            <div><span class="cmd">git add</span> <span class="arg">skills/</span></div>
+            <div><span class="cmd">git commit -m</span> <span class="arg">"update skill [nom]"</span></div>
+            <div><span class="cmd">git push</span></div>
+            <div><span class="comment"># Sur les autres machines : git pull suffit — la junction lit d&eacute;j&agrave; le bon dossier</span></div>
+        </div>
+
+        <p>La junction est cr&eacute;&eacute;e automatiquement par <code>setup.sh</code> sur chaque nouvelle machine. Sur Linux/Mac (lors d&rsquo;une utilisation &eacute;ventuelle), le script cr&eacute;e un symlink classique via <code>ln -s</code> &agrave; la place.</p>
+    </div>
+
+    <!-- 8. APRES BOOTSTRAP -->
+    <div class="section" id="apres-bootstrap">
+        <h2>8. Apr&egrave;s le bootstrap : ce qu&rsquo;il reste &agrave; faire</h2>
+
+        <p>Le <code>setup.sh</code> installe le &ldquo;squelette fonctionnel&rdquo;. Pour avoir l&rsquo;Exocortex &agrave; l&rsquo;identique de la machine source, il reste trois op&eacute;rations manuelles :</p>
+
+        <h3>1. Restaurer settings.local.json</h3>
+        <p>Ce fichier contient :</p>
+        <ul>
+            <li>Les hooks <strong>PreToolUse</strong> : protection contre les suppressions dans les dossiers critiques (Exocortex, Clients, OneDrive)</li>
+            <li>Le hook <strong>Stop</strong> : rappel handoff en fin de session + analyse automatique de la session</li>
+            <li>Les <strong>permissions avanc&eacute;es</strong> (<code>allow</code>) pour les commandes courantes (SSH, ADB, PowerShell, etc.)</li>
+            <li>Des r&eacute;f&eacute;rences &agrave; des <strong>cl&eacute;s API</strong> (Mailjet, Brevo) utilis&eacute;es dans les checks de connectivit&eacute;</li>
+        </ul>
+        <p>Copier depuis l&rsquo;ancienne machine vers <code>~/.claude/settings.local.json</code>.</p>
+
+        <h3>2. Restaurer la m&eacute;moire persistante</h3>
+        <p>La m&eacute;moire se trouve dans <code>~/.claude/projects/C--Users-[nom]/memory/</code>. Elle contient une quarantaine de fichiers <code>.md</code> structur&eacute;s en quatre types :</p>
+        <ul>
+            <li><strong>feedback_*.md</strong> : corrections apprises, comportements &agrave; &eacute;viter ou &agrave; conserver</li>
+            <li><strong>project_*.md</strong> : &eacute;tat des projets en cours (Vetilog, Intense Piscine, etc.)</li>
+            <li><strong>reference_*.md</strong> : r&eacute;f&eacute;rences techniques (serveurs, acc&egrave;s, SMTP, etc.)</li>
+            <li><strong>user_*.md</strong> : profil de l&rsquo;utilisateur appris par le copilote</li>
+        </ul>
+        <p>Sans cette m&eacute;moire, le copilote repart de z&eacute;ro et ne conna&icirc;t plus les pr&eacute;f&eacute;rences, les projets en cours ni les r&eacute;f&eacute;rences techniques accumul&eacute;es.</p>
+
+        <h3>3. Configurer ANTHROPIC_API_KEY</h3>
+        <p>Claude Code a besoin de la cl&eacute; API Anthropic pour fonctionner. La configurer dans les variables d&rsquo;environnement syst&egrave;me Windows (Syst&egrave;me &rarr; Param&egrave;tres avanc&eacute;s &rarr; Variables d&rsquo;environnement) ou dans le profil Git Bash.</p>
+
+        <div class="callout callout-success">
+            <strong>V&eacute;rification finale :</strong> lancer <code>claude</code>, taper &ldquo;Qui suis-je ?&rdquo;. Si le copilote r&eacute;pond avec votre contexte (Thomas, Gigarun, La R&eacute;union&hellip;), la m&eacute;moire est bien charg&eacute;e. Si il r&eacute;pond de fa&ccedil;on g&eacute;n&eacute;rique, la m&eacute;moire n&rsquo;est pas restaur&eacute;e.
+        </div>
+    </div>
+
+    <!-- 9. MISE A JOUR -->
+    <div class="section" id="mise-a-jour">
+        <h2>9. Maintenir l&rsquo;Exocortex &agrave; jour</h2>
+
+        <h3>Mettre &agrave; jour les skills sur toutes les machines</h3>
+
+        <div class="callout callout-info">
+            <strong>Gr&acirc;ce &agrave; la junction</strong>, <code>~/.claude/skills/</code> et <code>Exocortex/skills/</code> sont le m&ecirc;me dossier physique. Modifier un skill via Claude Code &eacute;crit directement dans le repo &mdash; pas de copie manuelle n&eacute;cessaire.
+        </div>
+
+        <ol class="workflow-steps">
+            <li>Modifier ou cr&eacute;er le skill via Claude Code (il &eacute;crit dans <code>Exocortex/skills/</code> via la junction)</li>
+            <li>Committer et pusher : <code>cd ~/Exocortex &amp;&amp; git add skills/ &amp;&amp; git commit -m "update skill [nom]" &amp;&amp; git push</code></li>
+            <li>Sur les autres machines : <code>git pull</code> &mdash; la junction lit d&eacute;j&agrave; le bon dossier, aucun <code>setup.sh</code> requis</li>
+        </ol>
+
+        <h3>Mettre &agrave; jour les agents pentest</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">BASH &mdash; WINDOWS</div>
+            <div><span class="cmd">cd</span> <span class="arg">C:/tools/pentest-ai-agents</span></div>
+            <div><span class="cmd">git pull</span></div>
+            <div><span class="cmd">bash</span> <span class="arg">install.sh --global</span></div>
+            <div><span class="output"># Le script est idempotent : il met &agrave; jour uniquement les agents modifi&eacute;s</span></div>
+        </div>
+
+        <h3>Ajouter un nouveau skill au repo</h3>
+        <ol class="workflow-steps">
+            <li>Cr&eacute;er le skill via <code>/skill-creator</code> dans Claude Code (il &eacute;crit dans <code>~/.claude/skills/</code>)</li>
+            <li><code>cp -r ~/.claude/skills/[nouveau-skill] ~/Exocortex/skills/</code></li>
+            <li>Committer dans le repo Exocortex</li>
+            <li>Le skill sera d&eacute;ploy&eacute; sur les autres machines au prochain <code>git pull + setup.sh</code></li>
+        </ol>
+
+        <div class="tag-row" style="margin-top: 24px;">
+            <span class="tag tag-purple">Exocortex v3</span>
+            <span class="tag tag-blue">Bootstrap</span>
+            <span class="tag tag-blue">Claude Code</span>
+            <span class="tag tag-green">Skills</span>
+            <span class="tag tag-orange">Agents Pentest</span>
+            <span class="tag tag-gray">Git</span>
+            <span class="tag tag-gray">Windows</span>
+            <span class="tag tag-purple">Copilote IA</span>
+        </div>
+    </div>
+
+</main>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+</div>
+
+<div class="bg-[#07001C] py-10">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;">
+    <a href="/blog" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
+    <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
+  </div>
+</div>
+
+
+<button id="guide-back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:2rem;right:2rem;z-index:9999;width:44px;height:44px;border-radius:50%;background:#7C3AED;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateY(8px);box-shadow:0 4px 16px rgba(124,58,237,0.4);">
+  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function() {
+  var btn = document.getElementById('guide-back-to-top');
+  window.addEventListener('scroll', function() {
+    var show = window.scrollY > 400;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.pointerEvents = show ? 'auto' : 'none';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+  }, { passive: true });
+  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+</script>
+
+<style>
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+
+        .main-header { background: linear-gradient(135deg, #0088cc, #004080); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .company-info { display: flex; align-items: center; gap: 10px; }
+        .company-tagline { font-size: 0.9em; opacity: 0.9; }
+        .contact-header { display: flex; align-items: center; gap: 30px; }
+        .contact-item { font-size: 0.9em; opacity: 0.95; }
+
+        .hero { background: linear-gradient(135deg, #1e3a5f, #7c3aed); color: white; padding: 70px 20px; text-align: center; }
+        .hero h1 { font-size: 2.6em; font-weight: 300; margin-bottom: 12px; }
+        .hero .version { display: inline-block; background: rgba(255,255,255,0.15); padding: 4px 16px; border-radius: 20px; font-size: 0.85em; margin-bottom: 16px; letter-spacing: 1px; }
+        .hero p { font-size: 1.15em; opacity: 0.9; max-width: 750px; margin: 0 auto; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .section { background: white; margin: 24px 0; padding: 36px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .section h2 { color: #0f3460; font-size: 1.6em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #7c3aed; }
+        .section h3 { color: #1a5276; font-size: 1.2em; margin: 24px 0 12px; padding-left: 14px; border-left: 4px solid #7c3aed; }
+        .section h4 { color: #2c3e50; margin: 16px 0 8px; font-size: 1.05em; }
+        .section p, .section li { font-size: 0.95em; }
+        .section ul, .section ol { margin-left: 20px; margin-bottom: 14px; }
+        .section li { margin-bottom: 6px; }
+
+        .intro-box { background: linear-gradient(135deg, #f3e8ff, #ede9fe); border-left: 5px solid #7c3aed; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+        .intro-box p { font-size: 1em; color: #3b0764; }
+
+        .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 20px 0; }
+        .arch-card { background: white; border: 2px solid #e8e8e8; border-radius: 12px; padding: 22px; transition: transform 0.2s, box-shadow 0.2s; }
+        .arch-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        .arch-card .card-icon { font-size: 2em; margin-bottom: 10px; display: block; }
+        .arch-card h4 { color: #0f3460; margin: 0 0 8px; font-size: 1.05em; }
+        .arch-card p { color: #555; font-size: 0.88em; }
+        .arch-card code { background: #f1f5f9; padding: 1px 5px; border-radius: 3px; font-size: 0.85em; color: #6b21a8; }
+
+        .workflow-steps { counter-reset: step-counter; list-style: none; margin-left: 0; padding-left: 0; }
+        .workflow-steps li { counter-increment: step-counter; position: relative; padding: 16px 16px 16px 60px; margin-bottom: 12px; background: #fafbfc; border-radius: 8px; border-left: 3px solid #7c3aed; }
+        .workflow-steps li::before { content: counter(step-counter, decimal-leading-zero); position: absolute; left: 14px; top: 16px; font-size: 1.3em; font-weight: 700; color: #7c3aed; }
+
+        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+        .tag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
+        .tag-blue { background: #e0f2fe; color: #0369a1; }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-orange { background: #fff7ed; color: #9a3412; }
+        .tag-purple { background: #f3e8ff; color: #6b21a8; }
+        .tag-gray { background: #f1f5f9; color: #475569; }
+        .tag-red { background: #fef2f2; color: #991b1b; }
+
+        .callout { padding: 20px; border-radius: 8px; margin: 16px 0; }
+        .callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        .callout-warn { background: #fffbeb; border-left: 4px solid #f59e0b; }
+        .callout-success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+        .callout-danger { background: #fef2f2; border-left: 4px solid #ef4444; }
+
+        .cmd-block { position: relative; background: #1e293b; color: #e2e8f0; padding: 20px 20px 20px 24px; border-radius: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88em; line-height: 1.9; overflow-x: auto; margin: 12px 0; }
+        .cmd-block .os-label { display: inline-block; background: #334155; color: #94a3b8; font-size: 0.75em; padding: 2px 10px; border-radius: 4px; margin-bottom: 10px; letter-spacing: 0.5px; font-family: 'Segoe UI', sans-serif; }
+        .cmd-block .comment { color: #64748b; }
+        .cmd-block .cmd { color: #7dd3fc; }
+        .cmd-block .arg { color: #a5b4fc; }
+        .cmd-block .output { color: #86efac; font-style: italic; }
+        .cmd-block .ok { color: #4ade80; }
+        .cmd-block .warn { color: #fbbf24; }
+
+        .file-tree { font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88em; background: #1e293b; color: #e2e8f0; padding: 20px; border-radius: 8px; line-height: 1.8; overflow-x: auto; }
+        .file-tree .folder { color: #60a5fa; }
+        .file-tree .file { color: #a5b4fc; }
+        .file-tree .comment { color: #64748b; }
+
+        .table-std { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+        .table-std th { background: #1e3a5f; color: white; padding: 12px 14px; text-align: left; font-weight: 600; }
+        .table-std td { padding: 10px 14px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .table-std tr:nth-child(even) { background: #f8f9fa; }
+        .table-std tr:hover { background: #f3e8ff; }
+        .table-std code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.9em; color: #6b21a8; }
+
+        .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .pros { background: #f0fdf4; border: 2px solid #86efac; border-radius: 10px; padding: 20px; }
+        .cons { background: #fffbeb; border: 2px solid #fcd34d; border-radius: 10px; padding: 20px; }
+        .pros h4 { color: #166534; margin-bottom: 10px; }
+        .cons h4 { color: #92400e; margin-bottom: 10px; }
+
+        .toc { background: white; border: 2px solid #e2e8f0; border-radius: 10px; padding: 24px; margin: 24px 0; }
+        .toc h3 { color: #0f3460; margin-bottom: 12px; }
+        .toc ol { margin-left: 20px; }
+        .toc a { color: #7c3aed; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        .back-bar { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; }
+        .back-home { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #1e3a5f; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 0.9em; transition: transform 0.2s, box-shadow 0.2s; }
+        .back-home:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30,58,95,0.4); }
+
+        .main-footer { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 40px 0 20px; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-section { flex: 1; min-width: 200px; }
+        .footer-section h4 { color: #3498db; margin-bottom: 15px; font-size: 1.1em; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section li { padding: 5px 0; border-bottom: 1px dotted rgba(255,255,255,0.2); }
+        .footer-section a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
+        .footer-section a:hover { color: #3498db; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; color: #bdc3c7; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 1.7em; }
+            .header-container { flex-direction: column; gap: 10px; }
+            .contact-header { flex-direction: column; gap: 5px; }
+            .arch-grid { grid-template-columns: 1fr; }
+            .pros-cons { grid-template-columns: 1fr; }
+            .section { padding: 24px 16px; }
+        }
+
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1e3a5f,#7c3aed);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+
+        @media print {
+            .main-header, .main-footer { break-inside: avoid; }
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+            .hero { background: #1e3a5f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .back-bar, #scrollTop { display: none; }
+        }
+    
+
+/* Override site dark theme for guide content */
+#guide-wrapper {
+  background: white;
+  color: #333;
+}
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+
+/* Hide original guide header elements (replaced by Astro dark header) */
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+
+/* Override site dark theme for guide content */
+#guide-wrapper {
+  background: white;
+  color: #333;
+}
+</style>
+</Layout>
