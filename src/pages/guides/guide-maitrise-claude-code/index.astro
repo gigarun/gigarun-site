@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 ---
-<Layout title="Maîtrise de Claude Code — Architecture, Skills &amp; Roadmap 4 semaines | Guide technique — Gigarun La Réunion" description="Guide complet pour maîtriser Claude Code : métaphore anatomique, architecture CLAUDE.md, création de skills, hooks, subagents, roadmap 4 semaines et 10 anti-patterns à éviter.">
+<Layout title="Maîtrise de Claude Code — Architecture, Skills & Roadmap 4 semaines | Gigarun La Réunion" description="Guide complet pour maîtriser Claude Code : métaphore anatomique, architecture CLAUDE.md, création de skills, hooks, subagents, roadmap 4 semaines et 10 anti-patterns à éviter.">
 <div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
   <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
     <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
@@ -10,27 +10,187 @@ import Layout from '../../../layouts/Layout.astro';
     <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
       <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Intelligence artificielle</span>
     </div>
-    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Maîtrise de Claude Code — Architecture, Skills &amp; Roadmap 4 semaines</h1>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Maîtrise de Claude Code — Architecture, Skills & Roadmap 4 semaines</h1>
     <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide complet pour maîtriser Claude Code : métaphore anatomique, architecture CLAUDE.md, création de skills, hooks, subagents, roadmap 4 semaines et 10 anti-patterns à éviter.</p>
   </div>
 </div>
+
+<!-- Contenu guide avec son propre style -->
 <div id="guide-wrapper">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+
+        .main-header { background: linear-gradient(135deg, #0088cc, #004080); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .company-info { display: flex; align-items: center; gap: 10px; }
+        .company-tagline { font-size: 0.9em; opacity: 0.9; }
+        .contact-header { display: flex; align-items: center; gap: 30px; }
+        .contact-item { font-size: 0.9em; opacity: 0.95; }
+
+        .hero { background: linear-gradient(135deg, #0f2027, #2c5364); color: white; padding: 70px 20px; text-align: center; }
+        .hero h1 { font-size: 2.6em; font-weight: 300; margin-bottom: 12px; }
+        .hero .version { display: inline-block; background: rgba(255,255,255,0.15); padding: 4px 16px; border-radius: 20px; font-size: 0.85em; margin-bottom: 16px; letter-spacing: 1px; }
+        .hero p { font-size: 1.15em; opacity: 0.9; max-width: 750px; margin: 0 auto; }
+
+        .back-bar { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; }
+        .back-home { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #0f2027; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 0.9em; transition: transform 0.2s, box-shadow 0.2s; }
+        .back-home:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(15,32,39,0.4); }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .section { background: white; margin: 24px 0; padding: 36px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .section h2 { color: #0f2027; font-size: 1.6em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #2c5364; }
+        .section h3 { color: #1a5276; font-size: 1.2em; margin: 24px 0 12px; padding-left: 14px; border-left: 4px solid #2c5364; }
+        .section h4 { color: #2c3e50; margin: 16px 0 8px; font-size: 1.05em; }
+        .section p, .section li { font-size: 0.95em; }
+        .section ul, .section ol { margin-left: 20px; margin-bottom: 14px; }
+        .section li { margin-bottom: 6px; }
+
+        .intro-box { background: linear-gradient(135deg, #e8f4fd, #d6eaf8); border-left: 5px solid #2c5364; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+        .intro-box p { font-size: 1em; color: #0f2027; }
+
+        .source-credit { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-size: 0.88em; color: #6b7280; }
+        .source-credit a { color: #2c5364; font-weight: 600; }
+
+        /* Anatomy grid */
+        .anatomy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin: 20px 0; }
+        .anatomy-card { border-radius: 12px; padding: 22px; border: 2px solid transparent; transition: transform 0.2s, box-shadow 0.2s; }
+        .anatomy-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        .anatomy-card .card-icon { font-size: 2em; margin-bottom: 10px; display: block; }
+        .anatomy-card h4 { margin: 0 0 6px; font-size: 1.05em; }
+        .anatomy-card .label { font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        .anatomy-card p { font-size: 0.88em; }
+        .anatomy-card code { font-size: 0.82em; padding: 1px 5px; border-radius: 3px; background: rgba(0,0,0,0.08); }
+
+        .card-brain { background: #fef3c7; border-color: #f59e0b; }
+        .card-brain h4, .card-brain .label { color: #92400e; }
+        .card-muscle { background: #dbeafe; border-color: #3b82f6; }
+        .card-muscle h4, .card-muscle .label { color: #1e40af; }
+        .card-reflex { background: #dcfce7; border-color: #22c55e; }
+        .card-reflex h4, .card-reflex .label { color: #166534; }
+        .card-sense { background: #f3e8ff; border-color: #a855f7; }
+        .card-sense h4, .card-sense .label { color: #6b21a8; }
+        .card-member { background: #ffedd5; border-color: #f97316; }
+        .card-member h4, .card-member .label { color: #9a3412; }
+
+        /* Week roadmap */
+        .week-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin: 20px 0; }
+        .week-card { border-radius: 12px; padding: 22px; position: relative; overflow: hidden; }
+        .week-card::before { content: attr(data-week); position: absolute; top: -10px; right: 10px; font-size: 4em; font-weight: 900; opacity: 0.08; line-height: 1; }
+        .week-card h4 { font-size: 1em; margin-bottom: 12px; }
+        .week-card ul { margin-left: 16px; }
+        .week-card li { font-size: 0.87em; margin-bottom: 5px; }
+        .week1 { background: #eff6ff; border: 2px solid #93c5fd; }
+        .week1 h4 { color: #1e40af; }
+        .week2 { background: #f0fdf4; border: 2px solid #86efac; }
+        .week2 h4 { color: #166534; }
+        .week3 { background: #fff7ed; border: 2px solid #fdba74; }
+        .week3 h4 { color: #9a3412; }
+        .week4 { background: #fdf4ff; border: 2px solid #d8b4fe; }
+        .week4 h4 { color: #6b21a8; }
+
+        /* Anti-patterns */
+        .antipattern-list { list-style: none; padding: 0; margin: 0; }
+        .antipattern-list li { display: flex; gap: 16px; padding: 14px 16px; margin-bottom: 10px; background: #fef2f2; border-radius: 8px; border-left: 4px solid #ef4444; }
+        .antipattern-list li .ap-num { font-weight: 900; color: #ef4444; font-size: 1.1em; flex-shrink: 0; width: 24px; }
+        .antipattern-list li .ap-body strong { color: #991b1b; display: block; margin-bottom: 2px; font-size: 0.93em; }
+        .antipattern-list li .ap-body span { color: #7f1d1d; font-size: 0.88em; }
+
+        /* Skill framework */
+        .skill-blocks { counter-reset: block-counter; list-style: none; margin: 0; padding: 0; }
+        .skill-blocks li { counter-increment: block-counter; position: relative; padding: 18px 18px 18px 64px; margin-bottom: 12px; background: #f8fafc; border-radius: 10px; border-left: 4px solid #2c5364; }
+        .skill-blocks li::before { content: counter(block-counter); position: absolute; left: 16px; top: 18px; width: 32px; height: 32px; background: #2c5364; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1em; }
+        .skill-blocks li strong { color: #0f2027; display: block; margin-bottom: 4px; }
+        .skill-blocks li span { font-size: 0.9em; color: #555; }
+
+        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+        .tag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
+        .tag-blue { background: #e0f2fe; color: #0369a1; }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-orange { background: #fff7ed; color: #9a3412; }
+        .tag-purple { background: #f3e8ff; color: #6b21a8; }
+        .tag-gray { background: #f1f5f9; color: #475569; }
+        .tag-slate { background: #e2e8f0; color: #334155; }
+
+        .callout { padding: 20px; border-radius: 8px; margin: 16px 0; }
+        .callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        .callout-warn { background: #fffbeb; border-left: 4px solid #f59e0b; }
+        .callout-success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+        .callout-danger { background: #fef2f2; border-left: 4px solid #ef4444; }
+        .callout strong { display: block; margin-bottom: 6px; }
+        .callout p, .callout li { font-size: 0.93em; }
+        .callout ul { margin-left: 18px; }
+
+        .cmd-block { background: #1e293b; color: #e2e8f0; padding: 20px 20px 20px 24px; border-radius: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88em; line-height: 1.9; overflow-x: auto; margin: 12px 0; }
+        .cmd-block .os-label { display: inline-block; background: #334155; color: #94a3b8; font-size: 0.75em; padding: 2px 10px; border-radius: 4px; margin-bottom: 10px; letter-spacing: 0.5px; font-family: 'Segoe UI', sans-serif; }
+        .cmd-block .comment { color: #64748b; }
+        .cmd-block .cmd { color: #7dd3fc; }
+        .cmd-block .arg { color: #a5b4fc; }
+        .cmd-block .key { color: #fbbf24; }
+        .cmd-block .val { color: #86efac; }
+
+        .table-std { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+        .table-std th { background: #0f2027; color: white; padding: 12px 14px; text-align: left; font-weight: 600; }
+        .table-std td { padding: 10px 14px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .table-std tr:nth-child(even) { background: #f8f9fa; }
+        .table-std tr:hover { background: #e8f4fd; }
+        .table-std code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.9em; color: #2c5364; }
+
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 20px 0; }
+        .kpi-box { background: linear-gradient(135deg, #0f2027, #2c5364); color: white; border-radius: 12px; padding: 22px; text-align: center; }
+        .kpi-box .kpi-num { font-size: 2.2em; font-weight: 700; display: block; }
+        .kpi-box .kpi-label { font-size: 0.82em; opacity: 0.85; margin-top: 4px; }
+
+        .checklist { list-style: none; padding: 0; margin: 0; }
+        .checklist li { padding: 10px 12px 10px 44px; position: relative; border-bottom: 1px solid #e5e7eb; font-size: 0.93em; }
+        .checklist li::before { content: '☐'; position: absolute; left: 12px; font-size: 1.3em; color: #2c5364; }
+        .checklist li:last-child { border-bottom: none; }
+
+        .toc { background: white; border: 2px solid #d6eaf8; border-radius: 10px; padding: 24px; margin: 24px 0; }
+        .toc h3 { color: #0f2027; margin-bottom: 12px; }
+        .toc ol { margin-left: 20px; }
+        .toc a { color: #2c5364; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .toc li { margin-bottom: 4px; font-size: 0.93em; }
+
+        @media print {
+            .main-header, .main-footer { break-inside: avoid; }
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+            .back-bar, #scrollTop { display: none; }
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 1.8em; }
+            .header-container { flex-direction: column; gap: 10px; }
+            .contact-header { flex-direction: column; gap: 5px; }
+            .anatomy-grid { grid-template-columns: 1fr; }
+            .week-grid { grid-template-columns: 1fr; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .section { padding: 24px 16px; }
+        }
+
+        .main-footer { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 40px 0 20px; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-section { flex: 1; min-width: 200px; }
+        .footer-section h4 { color: #3498db; margin-bottom: 15px; font-size: 1.1em; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section li { padding: 5px 0; border-bottom: 1px dotted rgba(255,255,255,0.2); }
+        .footer-section a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
+        .footer-section a:hover { color: #3498db; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; color: #bdc3c7; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+
+        #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #0f2027, #2c5364); color: white; border: none; font-size: 1.4em; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.25); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.2s; z-index: 999; display: flex; align-items: center; justify-content: center; }
+        #scrollTop.visible { opacity: 1; visibility: visible; }
+        #scrollTop:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+    </style>
 
 
-<header class="main-header">
-    <div class="header-container">
-        <div class="logo-section">
-            <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="120" height="40" style="filter: brightness(0) invert(1);">
-            <div class="company-info">
-                <span class="company-tagline">Vos m&eacute;tiers, nos solutions</span>
-                <span class="company-tagline">Excellence IT - La R&eacute;union</span>
-            </div>
-        </div>
-        <div class="contact-header">
-            <div class="contact-item"><span>+262 692 31 11 91</span></div>
-        </div>
-    </div>
-</header>
+
 
 <section class="hero">
     <div class="version">CLAUDE CODE &mdash; GUIDE PRATIQUE</div>
@@ -553,47 +713,7 @@ import Layout from '../../../layouts/Layout.astro';
 
 </main>
 
-<footer class="main-footer">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="80" height="30" style="filter: brightness(0) invert(1);">
-                    <span style="font-size: 1.1em; font-weight: bold;">ing&eacute;nierie TIC</span>
-                </div>
-                <p>Expert en infog&eacute;rance et cybers&eacute;curit&eacute;<br>Bas&eacute; &agrave; La R&eacute;union, rayonnement Oc&eacute;an Indien</p>
-                <div style="margin-top: 15px;">
-                    <div>Saint-Pierre &amp; Saint-Denis, La R&eacute;union</div>
-                    <div><a href="tel:+262692311191">+262 692 31 11 91</a></div>
-                    <div><a href="https://gigarun.re" target="_blank" rel="noopener">www.gigarun.re</a></div>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>Nos Services</h4>
-                <ul>
-                    <li><a href="https://gigarun.re/informatique/services/offre-erp-cloud-sur-mesure" target="_blank" rel="noopener"><strong>ERP cloud PME</strong></a></li>
-                    <li><a href="https://gigarun.re/informatique/services/infog%C3%A9rance-et-maintenance-informatique.html" target="_blank" rel="noopener">Infog&eacute;rance compl&egrave;te</a></li>
-                    <li><a href="https://gigarun.re/s%C3%A9curit%C3%A9/gouvernance-cybers%C3%A9curit%C3%A9.html" target="_blank" rel="noopener">Cybers&eacute;curit&eacute; &amp; SOC 24/7</a></li>
-                    <li><a href="https://gigarun.re/informatique/services/sauvegarde-et-r%C3%A9plication-de-donn%C3%A9es.html" target="_blank" rel="noopener">Sauvegarde &amp; PRA</a></li>
-                    <li><a href="https://gigarun.re/communication/solutions-de-messagerie-d-entreprise.html" target="_blank" rel="noopener">Messagerie d&rsquo;entreprise</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Certifications</h4>
-                <ul>
-                    <li>Microsoft Partner</li>
-                    <li>N-able Gold Partner</li>
-                    <li>SentinelOne Certified</li>
-                    <li>VEEAM ProPartner</li>
-                    <li>cybermalveillance.gouv.fr</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 GiGaRuN Solutions - Tous droits r&eacute;serv&eacute;s | SIREN&nbsp;: 504015181 | RC Pro 8M&euro;</p>
-        </div>
-    </div>
-</footer>
+
 
 <button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
 <script>(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();</script>
@@ -601,10 +721,14 @@ import Layout from '../../../layouts/Layout.astro';
 
 </div>
 <style>
+/* Override site dark theme for guide content */
 #guide-wrapper { background: white; color: #333; }
+#guide-wrapper body { background: none !important; padding: 0 !important; }
 #guide-wrapper .main-header { display: none !important; }
 #guide-wrapper .header { display: none !important; }
 #guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
 #guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
 </Layout>

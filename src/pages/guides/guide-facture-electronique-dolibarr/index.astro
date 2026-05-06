@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 ---
-<Layout title="Guide Facturation Électronique Dolibarr 2026 — PA agréée, Factur-X, mise en conformité | Gigarun La Réunion" description="Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : choisir une PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation. Guide GiGaRuN — La Réunion.">
+<Layout title="Facturation Électronique Dolibarr 2026 — PA agréée, Factur-X, mise en conformité | Gigarun La Réunion" description="Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation.">
 <div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
   <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
     <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
@@ -10,26 +10,163 @@ import Layout from '../../../layouts/Layout.astro';
     <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
       <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Infogérance</span>
     </div>
-    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Guide Facturation Électronique Dolibarr 2026 — PA agréée, Factur-X, mise en conformité</h1>
-    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : choisir une PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation.</p>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Facturation Électronique Dolibarr 2026 — PA agréée, Factur-X, mise en conformité</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation.</p>
   </div>
 </div>
+
+<!-- Contenu guide avec son propre style -->
 <div id="guide-wrapper">
+<style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f4fd 0%,#d6eaf8 100%);padding:20px}
+
+        /* HEADER */
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-item{font-size:0.9em;opacity:0.95}
+
+        /* CONTAINER */
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .page-header{background:linear-gradient(135deg,#004080,#0088cc);color:white;padding:50px 40px;text-align:center}
+        .page-header h1{font-size:2.4em;margin-bottom:12px;line-height:1.2}
+        .page-header p{font-size:1.15em;opacity:0.9;max-width:700px;margin:0 auto;color:white}
+        .content{padding:40px}
+
+        /* SECTIONS */
+        .section{margin-bottom:50px}
+        .section h2{color:#004080;font-size:1.9em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #0088cc}
+        .section h3{color:#0088cc;font-size:1.3em;margin-top:30px;margin-bottom:12px}
+        p{margin-bottom:12px;color:#444}
+        ul,ol{padding-left:1.4em;margin-bottom:12px;color:#444}
+        li{margin-bottom:6px}
+        strong{color:#222}
+        code{background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#004080;font-size:0.9em}
+        a{color:#0088cc}
+
+        /* ALERTS */
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-icon{font-size:2em;min-width:40px;line-height:1}
+        .alert-urgent{background:#fff3cd;border-left:5px solid #e67e22}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0088cc}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+
+        /* KPI / TIMELINE */
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:24px 0}
+        .kpi-box{border-radius:10px;padding:24px;text-align:center;color:white}
+        .kpi-box .value{font-size:1.8em;font-weight:700;display:block;margin-bottom:6px}
+        .kpi-box .label{font-size:0.88em;opacity:0.9;line-height:1.3}
+        .kpi-blue{background:linear-gradient(135deg,#004080,#0088cc)}
+        .kpi-orange{background:linear-gradient(135deg,#b8460e,#e67e22)}
+        .kpi-green{background:linear-gradient(135deg,#0f6b35,#198754)}
+        .kpi-slate{background:linear-gradient(135deg,#2c3e50,#5d6d7e)}
+
+        /* ÉTAPES */
+        .procedure{background:#f8f9fa;border-radius:10px;padding:24px;margin:20px 0}
+        .step{display:flex;align-items:flex-start;margin-bottom:20px;padding:18px;background:white;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:transform 0.2s,box-shadow 0.2s}
+        .step:hover{transform:translateY(-3px);box-shadow:0 5px 18px rgba(0,0,0,0.1)}
+        .step:last-child{margin-bottom:0}
+        .step-number{background:linear-gradient(135deg,#004080,#0088cc);color:white;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3em;font-weight:bold;margin-right:18px;flex-shrink:0;box-shadow:0 3px 8px rgba(0,136,204,0.35)}
+        .step-content h4{color:#004080;margin-bottom:8px;font-size:1.1em}
+        .step-content p{margin:0;font-size:0.95em;color:#555}
+
+        /* CHECKLIST */
+        .checklist{list-style:none;padding:0;margin:20px 0}
+        .checklist li{padding:12px 16px;margin:8px 0;background:#f8f9fa;border-radius:8px;border-left:4px solid #0088cc;display:flex;align-items:flex-start;gap:10px;font-size:0.97em}
+        .checklist li::before{content:"☐";color:#0088cc;font-size:1.2em;flex-shrink:0;line-height:1.2}
+
+        /* TABLE */
+        .data-table{width:100%;border-collapse:collapse;margin:20px 0;box-shadow:0 2px 12px rgba(0,0,0,0.08);border-radius:10px;overflow:hidden;font-size:0.95em}
+        .data-table thead{background:linear-gradient(135deg,#004080,#0088cc);color:white}
+        .data-table th{padding:16px 18px;text-align:left}
+        .data-table td{padding:13px 18px;border-bottom:1px solid #eee;color:#444}
+        .data-table tbody tr:nth-child(even){background:#f9f9f9}
+        .data-table tbody tr:hover{background:#e8f4fd}
+        .tag{display:inline-block;font-size:0.78em;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:0.03em}
+        .tag-green{background:#d1e7dd;color:#0f5132}
+        .tag-blue{background:#cfe2ff;color:#084298}
+        .tag-orange{background:#fff3cd;color:#664d03}
+
+        /* POSITION GIGARUN */
+        .gigarun-block{background:linear-gradient(135deg,#004080,#0088cc);color:white;border-radius:15px;padding:36px;margin:30px 0}
+        .gigarun-block h2{color:white;border:none;font-size:1.6em;margin-bottom:8px;padding-bottom:0}
+        .gigarun-block .subtitle{opacity:0.85;margin-bottom:28px;font-size:1em}
+        .gigarun-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:28px}
+        .gigarun-card{background:rgba(255,255,255,0.12);border-radius:10px;padding:20px;border:1px solid rgba(255,255,255,0.2)}
+        .gigarun-card .card-icon{font-size:2em;margin-bottom:10px;display:block}
+        .gigarun-card .card-title{font-weight:700;font-size:0.95em;margin-bottom:6px;color:white}
+        .gigarun-card .card-text{font-size:0.85em;opacity:0.85;line-height:1.5}
+        .btn-cta{display:inline-block;background:white;color:#004080;padding:13px 30px;border-radius:25px;font-weight:700;text-decoration:none;font-size:1em;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 14px rgba(0,0,0,0.2)}
+        .btn-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.25);color:#004080}
+
+        /* PDP CARDS */
+        .pdp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;margin:24px 0}
+        .pdp-card{background:#f8f9fa;border-radius:12px;padding:24px;border-top:4px solid #0088cc}
+        .pdp-card.alt{border-top-color:#198754}
+        .pdp-card.alt2{border-top-color:#e67e22}
+        .pdp-name{font-size:1.2em;font-weight:700;color:#004080;margin-bottom:6px}
+        .pdp-card.alt .pdp-name{color:#0f6b35}
+        .pdp-card.alt2 .pdp-name{color:#8b4a0a}
+        .pdp-card.alt3{border-top-color:#6f42c1}
+        .pdp-card.alt3 .pdp-name{color:#4a2585}
+        .tag-purple{background:#e8d5ff;color:#4a2585}
+        .pdp-card.recommended{border-top-color:#004080;border:2px solid #004080;border-top:4px solid #004080}
+        .pdp-card.recommended .pdp-name{color:#004080}
+        .tag-recommended{background:#004080;color:white}
+        .pdp-card ul{font-size:0.88em;color:#555;margin-top:12px}
+        .pdp-card li{margin-bottom:5px}
+
+        /* BLOCKQUOTE */
+        blockquote{border-left:4px solid #0088cc;padding:16px 20px;background:#e8f4fd;margin:20px 0;border-radius:0 8px 8px 0;font-style:italic;color:#444;font-size:0.95em}
+        blockquote footer{margin-top:10px;font-style:normal;font-size:0.85em;color:#666;font-weight:600}
+
+        /* WARNING */
+        .warn{background:#fff9e6;border-left:5px solid #e67e22;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;font-size:0.94em}
+        .warn strong{color:#7d4a00}
+
+        /* BACK BAR */
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#004080;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,64,128,0.4);color:white}
+
+        /* FOOTER */
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.05em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2);font-size:0.9em;color:white}
+        .footer-section p,.footer-section div{color:white}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom p{color:#bdc3c7}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7;font-size:0.88em}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+
+        /* SCROLL TOP */
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#004080,#0088cc);color:white;border:none;font-size:1.3em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+
+        @media(max-width:600px){
+            .page-header h1{font-size:1.7em}
+            .content{padding:20px}
+            .header-container,.footer-content{flex-direction:column;gap:10px}
+            .gigarun-cards{grid-template-columns:1fr}
+        }
+        @media print{
+            body{background:white;padding:0}
+            .container{box-shadow:none}
+            .back-bar,#scrollTop,.main-header,.main-footer{display:none}
+        }
+    </style>
 
 
 <!-- ========== HEADER ========== -->
-<header class="main-header">
-    <div class="header-container">
-        <div class="logo-section">
-            <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="120" height="40" style="filter:brightness(0) invert(1);">
-            <div>
-                <div class="company-tagline">Vos m&eacute;tiers, nos solutions</div>
-                <div class="company-tagline">Excellence IT &mdash; La R&eacute;union</div>
-            </div>
-        </div>
-        <div class="contact-item">+262 692 31 11 91 &nbsp;|&nbsp; <a href="https://factuzen.re/" target="_blank" style="color:white;font-weight:600;">factuzen.re</a></div>
-    </div>
-</header>
+
 
 <div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
 
@@ -299,7 +436,7 @@ import Layout from '../../../layouts/Layout.astro';
 
             <blockquote>
                 &laquo;&nbsp;La facture finale doit pr&eacute;senter le prix total de l&rsquo;op&eacute;ration &mdash; avec sa base HT, la TVA correspondante et le total TTC &mdash; puis faire appara&icirc;tre, en pied de facture ou dans une zone distincte, les acomptes d&eacute;j&agrave; factur&eacute;s, afin de d&eacute;terminer uniquement le solde restant &agrave; payer.&nbsp;&raquo;
-                <footer>&mdash; David Chung-Poo-Lun, Expert-Comptable, A.C.C.E. (art. 289 I-1-c CGI)</footer>
+                
             </blockquote>
         </div>
 
@@ -445,51 +582,7 @@ import Layout from '../../../layouts/Layout.astro';
 </div><!-- /container -->
 
 <!-- ========== FOOTER ========== -->
-<footer class="main-footer">
-    <div class="footer-container">
-        <div class="footer-content">
 
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="80" height="30" style="filter:brightness(0) invert(1);">
-                    <span style="font-size:1.1em;font-weight:bold;">ing&eacute;nierie TIC</span>
-                </div>
-                <p>Expert en infog&eacute;rance et cybers&eacute;curit&eacute;<br>Bas&eacute; &agrave; La R&eacute;union, rayonnement Oc&eacute;an Indien</p>
-                <div style="margin-top:15px;">
-                    <div>Saint-Pierre &amp; Saint-Denis, La R&eacute;union</div>
-                    <div><a href="tel:+262692311191">+262 692 31 11 91</a></div>
-                    <div><a href="https://gigarun.re" target="_blank" rel="noopener">www.gigarun.re</a></div>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h4>Nos Services</h4>
-                <ul>
-                    <li><a href="https://factuzen.re/" target="_blank" rel="noopener"><strong>FactuZen &mdash; Facturation &eacute;lectronique</strong></a></li>
-                    <li><a href="https://gigarun.re/informatique/services/offre-erp-cloud-sur-mesure" target="_blank" rel="noopener">ERP cloud PME (Dolibarr)</a></li>
-                    <li><a href="https://gigarun.re/informatique/services/infog%C3%A9rance-et-maintenance-informatique.html" target="_blank" rel="noopener">Infog&eacute;rance compl&egrave;te</a></li>
-                    <li><a href="https://gigarun.re/s%C3%A9curit%C3%A9/gouvernance-cybers%C3%A9curit%C3%A9.html" target="_blank" rel="noopener">Cybers&eacute;curit&eacute; &amp; SOC 24/7</a></li>
-                    <li><a href="https://gigarun.re/communication/solutions-de-messagerie-d-entreprise.html" target="_blank" rel="noopener">Messagerie d&rsquo;entreprise</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Certifications</h4>
-                <ul>
-                    <li>Microsoft Partner</li>
-                    <li>N-able Gold Partner</li>
-                    <li>SentinelOne Certified</li>
-                    <li>VEEAM ProPartner</li>
-                    <li>cybermalveillance.gouv.fr</li>
-                </ul>
-            </div>
-
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 GiGaRuN Solutions - Tous droits r&eacute;serv&eacute;s | SIREN : 504015181 | RC Pro 8M&euro;</p>
-        </div>
-    </div>
-</footer>
 
 <button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
 <script>
@@ -499,10 +592,14 @@ import Layout from '../../../layouts/Layout.astro';
 
 </div>
 <style>
+/* Override site dark theme for guide content */
 #guide-wrapper { background: white; color: #333; }
+#guide-wrapper body { background: none !important; padding: 0 !important; }
 #guide-wrapper .main-header { display: none !important; }
 #guide-wrapper .header { display: none !important; }
 #guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
 #guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
 </Layout>
