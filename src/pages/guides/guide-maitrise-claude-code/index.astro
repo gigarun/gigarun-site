@@ -1,4 +1,4 @@
-﻿---
+---
 import Layout from '../../../layouts/Layout.astro';
 ---
 <Layout title="Maîtrise de Claude Code — Architecture, Skills &amp; Roadmap 4 semaines | Guide technique — Gigarun La Réunion" description="Guide complet pour maîtriser Claude Code : métaphore anatomique, architecture CLAUDE.md, création de skills, hooks, subagents, roadmap 4 semaines et 10 anti-patterns à éviter.">
@@ -297,10 +297,10 @@ import Layout from '../../../layouts/Layout.astro';
             <div><span class="comment"># Bloquer rm -rf sur des dossiers critiques</span></div>
             <div><span class="key">import</span> <span class="val">sys, json</span></div>
             <div><span class="key">data</span> = json.load(sys.stdin)</div>
-            <div><span class="key">cmd</span> = data.get(<span class="val">"tool_input"</span>, {}).get(<span class="val">"command"</span>, <span class="val">""</span>)</div>
+            <div><span class="key">cmd</span> = data.get(<span class="val">"tool_input"</span>, &#123;&#125;).get(<span class="val">"command"</span>, <span class="val">""</span>)</div>
             <div><span class="key">protected</span> = [<span class="val">"~/.claude"</span>, <span class="val">"~/Exocortex"</span>, <span class="val">"/prod"</span>]</div>
             <div><span class="key">if</span> <span class="val">"rm -rf"</span> <span class="key">in</span> cmd <span class="key">and any</span>(p <span class="key">in</span> cmd <span class="key">for</span> p <span class="key">in</span> protected):</div>
-            <div>    print(json.dumps({<span class="val">"decision"</span>: <span class="val">"block"</span>, <span class="val">"reason"</span>: <span class="val">"Dossier prot&eacute;g&eacute;"</span>}))</div>
+            <div>    print(json.dumps(&#123;<span class="val">"decision"</span>: <span class="val">"block"</span>, <span class="val">"reason"</span>: <span class="val">"Dossier prot&eacute;g&eacute;"</span>&#125;))</div>
         </div>
 
         <div class="callout callout-info">
@@ -319,15 +319,15 @@ import Layout from '../../../layouts/Layout.astro';
 
         <div class="cmd-block">
             <div class="os-label">~/.claude/settings.json</div>
-            <div>{</div>
-            <div>  <span class="key">"mcpServers"</span>: {</div>
-            <div>    <span class="key">"n8n"</span>: {</div>
+            <div>&#123;</div>
+            <div>  <span class="key">"mcpServers"</span>: &#123;</div>
+            <div>    <span class="key">"n8n"</span>: &#123;</div>
             <div>      <span class="key">"command"</span>: <span class="val">"npx"</span>,</div>
             <div>      <span class="key">"args"</span>: [<span class="val">"-y"</span>, <span class="val">"n8n-mcp"</span>],</div>
-            <div>      <span class="key">"env"</span>: { <span class="key">"N8N_API_URL"</span>: <span class="val">"https://votre-n8n.example.com"</span> }</div>
-            <div>    }</div>
-            <div>  }</div>
-            <div>}</div>
+            <div>      <span class="key">"env"</span>: &#123; <span class="key">"N8N_API_URL"</span>: <span class="val">"https://votre-n8n.example.com"</span> &#125;</div>
+            <div>    &#125;</div>
+            <div>  &#125;</div>
+            <div>&#125;</div>
         </div>
 
         <h3>Exemples d&rsquo;int&eacute;grations utiles</h3>
