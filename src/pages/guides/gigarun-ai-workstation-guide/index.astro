@@ -12,6 +12,13 @@ import Layout from '../../../layouts/Layout.astro';
     </div>
     <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Workstation IA Locale — Architecture, GPU & LLM On-Premise</h1>
     <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide technique complet pour monter une workstation IA locale : Arc Pro B70, Ryzen 9 7900, 192 Go RAM, Ollama, Claude Code, stack LLM on-premise pour PME et ESN.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:1rem;">
+      <span style="background:#110833;border:1px solid rgba(124,58,237,0.3);color:#9B99AA;font-size:11px;padding:3px 10px;border-radius:9999px;">OS <strong style="color:#F1F0F7;">Ubuntu 26.04 LTS</strong></span>
+      <span style="background:#110833;border:1px solid rgba(124,58,237,0.3);color:#9B99AA;font-size:11px;padding:3px 10px;border-radius:9999px;">CPU <strong style="color:#F1F0F7;">Ryzen 9 7900 &middot; 12C/24T</strong></span>
+      <span style="background:#110833;border:1px solid rgba(124,58,237,0.3);color:#9B99AA;font-size:11px;padding:3px 10px;border-radius:9999px;">GPU <strong style="color:#F1F0F7;">Arc Pro B70 &middot; 32 Go VRAM</strong></span>
+      <span style="background:#110833;border:1px solid rgba(124,58,237,0.3);color:#9B99AA;font-size:11px;padding:3px 10px;border-radius:9999px;">RAM <strong style="color:#F1F0F7;">192 Go DDR5</strong></span>
+      <span style="background:#110833;border:1px solid rgba(124,58,237,0.3);color:#9B99AA;font-size:11px;padding:3px 10px;border-radius:9999px;">Stockage <strong style="color:#F1F0F7;">8 To RAID0 + 14,25 To bruts</strong></span>
+    </div>
   </div>
 </div>
 
@@ -747,7 +754,6 @@ footer {
 
 
 
-<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l&rsquo;accueil des guides</a></div>
 
 <!-- NAV -->
 <nav class="sidenav" aria-label="Navigation sections">
@@ -761,22 +767,6 @@ footer {
   <a href="#comparatif" data-label="comparatif"></a>
   <a href="#llm-service" data-label="llm service"></a>
 </nav>
-
-<!-- HERO -->
-<section class="hero" id="hero" aria-label="Introduction">
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-
-  <h1>Workstation IA locale —<br><em>architecture complète</em></h1>
-  <p class="hero-sub">Guide technique de configuration d'un poste de travail haute performance pour l'inférence IA locale, l'infogérance multi-clients et la stratégie de dispatch LLM hybride.</p>
-  <div class="hero-meta">
-    <div class="hero-chip">OS <span>Ubuntu 26.04 LTS</span></div>
-    <div class="hero-chip">CPU <span>Ryzen 9 7900 · 12C/24T</span></div>
-    <div class="hero-chip">GPU <span>Arc Pro B70 · 32 Go VRAM</span></div>
-    <div class="hero-chip">RAM <span>192 Go DDR5</span></div>
-    <div class="hero-chip">Stockage <span>8 To RAID0 + 14,25 To bruts</span></div>
-  </div>
-</section>
 
 <!-- HARDWARE -->
 <section id="hardware">
