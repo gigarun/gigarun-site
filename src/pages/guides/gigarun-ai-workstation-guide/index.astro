@@ -16,7 +16,7 @@ import Layout from '../../../layouts/Layout.astro';
 </div>
 
 <!-- Contenu guide avec son propre style -->
-<div id="guide-wrapper">
+<div id="guide-wrapper" style="background:#07090b;color:#d4dde6;">
 <style>
 :root {
   --bg:       #07090b;
@@ -1891,15 +1891,4 @@ document.querySelectorAll('.hw-card, .big-bar').forEach(el => barObserver.observ
 </script>
 
 </div>
-<style>
-/* Override site dark theme for guide content */
-#guide-wrapper { background: white; color: #333; }
-#guide-wrapper body { background: none !important; padding: 0 !important; }
-#guide-wrapper .main-header { display: none !important; }
-#guide-wrapper .header { display: none !important; }
-#guide-wrapper .back-bar { display: none !important; }
-#guide-wrapper .main-footer { display: none !important; }
-#guide-wrapper footer { display: none !important; }
-#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
-</style>
 </Layout>
