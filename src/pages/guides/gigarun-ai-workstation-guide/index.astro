@@ -1,0 +1,1226 @@
+﻿---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Workstation IA Locale — Architecture, GPU &amp; LLM On-Premise | Guide technique — Gigarun La Réunion" description="Guide technique complet pour monter une workstation IA locale sous Ubuntu : Arc Pro B70, Ryzen 9 7900, 192 Go RAM, Ollama, Claude Code, stack LLM on-premise pour PME et ESN.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Intelligence artificielle</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Workstation IA Locale — Architecture, GPU &amp; LLM On-Premise</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide technique complet pour monter une workstation IA locale sous Ubuntu : Arc Pro B70, Ryzen 9 7900, 192 Go RAM, Ollama, Claude Code, stack LLM on-premise pour PME et ESN.</p>
+  </div>
+</div>
+<div id="guide-wrapper">
+
+
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo-section">
+            <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="120" height="40" style="filter: brightness(0) invert(1);">
+            <div class="company-info">
+                <span class="company-tagline">Vos m&eacute;tiers, nos solutions</span>
+                <span class="company-tagline">Excellence IT &mdash; La R&eacute;union</span>
+            </div>
+        </div>
+        <div class="contact-header">
+            <div class="contact-item"><span>+262 692 31 11 91</span></div>
+        </div>
+    </div>
+</header>
+
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l&rsquo;accueil des guides</a></div>
+
+<!-- NAV -->
+<nav class="sidenav" aria-label="Navigation sections">
+  <a href="#hero" data-label="intro" class="active"></a>
+  <a href="#hardware" data-label="hardware"></a>
+  <a href="#storage" data-label="stockage"></a>
+  <a href="#partitions" data-label="partitions"></a>
+  <a href="#ia-locale" data-label="IA locale"></a>
+  <a href="#dispatch" data-label="dispatch"></a>
+  <a href="#setup" data-label="setup"></a>
+  <a href="#comparatif" data-label="comparatif"></a>
+  <a href="#llm-service" data-label="llm service"></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <h1>Workstation IA locale —<br><em>architecture complète</em></h1>
+  <p class="hero-sub">Guide technique de configuration d'un poste de travail haute performance pour l'inférence IA locale, l'infogérance multi-clients et la stratégie de dispatch LLM hybride.</p>
+  <div class="hero-meta">
+    <div class="hero-chip">OS <span>Ubuntu 26.04 LTS</span></div>
+    <div class="hero-chip">CPU <span>Ryzen 9 7900 · 12C/24T</span></div>
+    <div class="hero-chip">GPU <span>Arc Pro B70 · 32 Go VRAM</span></div>
+    <div class="hero-chip">RAM <span>192 Go DDR5</span></div>
+    <div class="hero-chip">Stockage <span>8 To RAID0 + 14,25 To bruts</span></div>
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section id="hardware">
+<div class="container">
+  <p class="sec-eyebrow">01 · Architecture matérielle</p>
+  <h2 class="sec-title">Une config taillée pour<br>l'inférence sans compromis</h2>
+  <p class="sec-lead">Chaque composant a été choisi pour servir un rôle précis dans une architecture IA locale — de la capacité VRAM pour faire tourner des modèles 30B+ jusqu'au volume de RAM système qui permet de faire coexister inférence GPU, machines virtuelles clientes et services d'infogérance.</p>
+
+  <div class="hw-grid" role="list">
+
+    <div class="hw-card" role="listitem">
+      <div class="hw-cat">Processeur · AM5</div>
+      <div class="hw-name">AMD Ryzen 9 7900</div>
+      <div class="hw-spec">12 cœurs / 24 threads · Zen 4 · jusqu'à 5,4 GHz · 65W TDP · cache L3 64 Mo</div>
+      <div class="hw-perf">
+        <div class="perf-row">
+          <div class="perf-label">Multi-thread</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:82%;background:var(--teal)"></div></div>
+          <div class="perf-val">~24 000 pts</div>
+        </div>
+        <div class="perf-row">
+          <div class="perf-label">Single-thread</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:78%;background:var(--teal)"></div></div>
+          <div class="perf-val">~2 050 pts</div>
+        </div>
+      </div>
+      <p style="margin-top:1rem;font-size:12px;color:var(--text3)">Le 65W TDP est un avantage réel sur cette carte B650M — VRM adaptés, thermique maîtrisée, idéal pour un usage continu 24/7.</p>
+    </div>
+
+    <div class="hw-card" role="listitem">
+      <div class="hw-cat">GPU IA · PCIe 4.0 x16</div>
+      <div class="hw-name">Intel Arc Pro B70</div>
+      <div class="hw-spec">32 Xe2 cores · 256 moteurs XMX · 32 Go GDDR6 ECC · Battlemage G31 · TSMC 5nm</div>
+      <div class="hw-perf">
+        <div class="perf-row">
+          <div class="perf-label">Bande passante</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:100%;background:var(--teal)"></div></div>
+          <div class="perf-val">608 Go/s</div>
+        </div>
+        <div class="perf-row">
+          <div class="perf-label">TOPS INT8</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:87%;background:var(--amber)"></div></div>
+          <div class="perf-val">367 TOPS</div>
+        </div>
+        <div class="perf-row">
+          <div class="perf-label">FP32</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:55%;background:var(--blue)"></div></div>
+          <div class="perf-val">22,9 TFLOPS</div>
+        </div>
+      </div>
+      <p style="margin-top:1rem;font-size:12px;color:var(--text3)">La bande passante mémoire est le facteur clé pour la vitesse de génération de tokens en LLM. 608 Go/s = 5× le Mac mini M4.</p>
+    </div>
+
+    <div class="hw-card" role="listitem">
+      <div class="hw-cat">Mémoire système · DDR5</div>
+      <div class="hw-name">192 Go DDR5 (4×48 Go)</div>
+      <div class="hw-spec">Dual channel · Ryzen 9 7900 · B650M DS3H · 4 slots DIMM · jusqu'à 256 Go supportés</div>
+      <div class="hw-perf">
+        <div class="perf-row">
+          <div class="perf-label">Capacité GPU</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:100%;background:var(--teal)"></div></div>
+          <div class="perf-val">32 Go VRAM</div>
+        </div>
+        <div class="perf-row">
+          <div class="perf-label">RAM système</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:75%;background:var(--blue)"></div></div>
+          <div class="perf-val">192 Go DDR5</div>
+        </div>
+      </div>
+      <p style="margin-top:1rem;font-size:12px;color:var(--text3)">192 Go = VMs clientes isolées + Wazuh + services + modèles LLM CPU-side en parallèle, sans jamais swapper.</p>
+    </div>
+
+    <div class="hw-card" role="listitem">
+      <div class="hw-cat">Carte mère · Micro-ATX</div>
+      <div class="hw-name">Gigabyte B650M DS3H</div>
+      <div class="hw-spec">AM5 · B650 chipset · 2× M.2 PCIe 4.0 CPU-direct · 4× SATA III · 2,5 GbE · USB 3.2 Gen2×2</div>
+      <div class="hw-perf">
+        <div class="perf-row">
+          <div class="perf-label">Slots M.2</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:50%;background:var(--teal)"></div></div>
+          <div class="perf-val">2× PCIe 4.0</div>
+        </div>
+        <div class="perf-row">
+          <div class="perf-label">Ports SATA</div>
+          <div class="perf-bar"><div class="perf-fill" style="width:100%;background:var(--amber)"></div></div>
+          <div class="perf-val">4× SATA III</div>
+        </div>
+      </div>
+      <div class="callout info" style="margin-top:1rem;padding:.75rem 1rem">
+        <div class="callout-icon">✓</div>
+        <div class="callout-text" style="font-size:12px"><strong>Topologie optimale pour le RAID0 :</strong> les deux slots M2A_CPU et M2B_CPU sont CPU-direct PCIe 4.0 x4 — aucun uplink chipset, aucun goulot. Le RAID0 atteint ses vitesses théoriques sur cette carte.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LLM CAPACITY -->
+  <div style="margin-top:3rem">
+    <h3 style="font-family:var(--display);font-weight:500;font-size:1.3rem;color:var(--white);margin-bottom:1.5rem">Capacité LLM par mode d'inférence</h3>
+    <table class="data-table" aria-label="Capacité LLM selon le mode d'inférence">
+      <thead>
+        <tr>
+          <th>Modèle</th>
+          <th>Quantisation</th>
+          <th>Taille mémoire</th>
+          <th>Mode</th>
+          <th>Tokens/s estimés</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Llama 3.1 8B</td>
+          <td style="color:var(--teal)">Q4_K_M</td>
+          <td>~5 Go</td>
+          <td><span class="tag tag-local">GPU pur</span></td>
+          <td style="color:var(--teal)">~80–120 t/s</td>
+        </tr>
+        <tr>
+          <td>Qwen3 14B</td>
+          <td style="color:var(--teal)">Q4_K_M</td>
+          <td>~9 Go</td>
+          <td><span class="tag tag-local">GPU pur</span></td>
+          <td style="color:var(--teal)">~50–80 t/s</td>
+        </tr>
+        <tr>
+          <td>Qwen3 30B</td>
+          <td style="color:var(--teal)">Q4_K_M</td>
+          <td>~18 Go</td>
+          <td><span class="tag tag-local">GPU pur</span></td>
+          <td style="color:var(--teal)">~25–40 t/s</td>
+        </tr>
+        <tr>
+          <td>Llama 3.3 70B</td>
+          <td style="color:var(--amber)">Q4_K_M</td>
+          <td>~43 Go</td>
+          <td><span class="tag tag-local">GPU+CPU hybride</span></td>
+          <td style="color:var(--amber)">~8–15 t/s</td>
+        </tr>
+        <tr>
+          <td>Qwen3 72B</td>
+          <td style="color:var(--amber)">Q3_K_M</td>
+          <td>~31 Go</td>
+          <td><span class="tag tag-local">GPU pur</span></td>
+          <td style="color:var(--amber)">~12–20 t/s</td>
+        </tr>
+        <tr>
+          <td>DeepSeek R1 70B</td>
+          <td style="color:var(--red)">Q2_K</td>
+          <td>~28 Go</td>
+          <td><span class="tag tag-local">GPU pur</span></td>
+          <td style="color:var(--red)">~10–18 t/s (qualité dégradée)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--text3);font-family:var(--mono);margin-top:.5rem">* Mode hybride via llama.cpp --n-gpu-layers : couches critiques en VRAM, reste en RAM DDR5. Vitesse réduite mais modèles >32 Go accessibles.</p>
+  </div>
+</div>
+</section>
+
+<!-- STORAGE -->
+<section id="storage">
+<div class="container">
+  <p class="sec-eyebrow">02 · Stratégie de stockage</p>
+  <h2 class="sec-title">Quatre niveaux de stockage,<br>un rôle précis chacun</h2>
+  <p class="sec-lead">L'architecture retenue sépare clairement le système (SATA, fiable, isolé), les données chaudes (RAID0 NVMe, performance maximale), et l'archivage/backup (HDD, haute capacité, endurance 24/7). Chaque niveau répond à une contrainte spécifique de la workstation IA + infogérance.</p>
+
+  <div class="storage-layout">
+
+    <!-- OS -->
+    <div class="storage-card">
+      <div class="storage-header">
+        <div class="storage-icon icon-sata">SATA</div>
+        <div class="storage-id">
+          <strong>Kingston A400 256 Go</strong>
+          SATA III 6Gb/s · 2,5" · 7mm
+        </div>
+      </div>
+      <div class="storage-body">
+        <span class="storage-badge badge-os">SYSTÈME / OS</span>
+        <p class="storage-desc">Disque dédié à Ubuntu 26.04. Isoler le système sur un disque SATA séparé est une décision d'architecture volontaire : si le RAID0 NVMe subit une défaillance, l'OS reste intact et opérationnel. Aucun service critique ne dépend de ce disque sauf le boot.</p>
+        <div class="storage-specs">
+          <div class="spec-item"><span class="k">LECTURE SÉQ.</span><span class="v">~500 Mo/s</span></div>
+          <div class="spec-item"><span class="k">ÉCRITURE SÉQ.</span><span class="v">~450 Mo/s</span></div>
+          <div class="spec-item"><span class="k">INTERFACE</span><span class="v">SATA 6Gb/s</span></div>
+          <div class="spec-item"><span class="k">PORT CARTE MÈRE</span><span class="v">SATA 0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HDD -->
+    <div class="storage-card">
+      <div class="storage-header">
+        <div class="storage-icon icon-hdd">HDD</div>
+        <div class="storage-id">
+          <strong>Toshiba N300 14 To</strong>
+          7200 rpm · 512 Mo cache · 3,5" · NAS grade
+        </div>
+      </div>
+      <div class="storage-body">
+        <span class="storage-badge badge-backup">BACKUP + ARCHIVE FROIDE</span>
+        <p class="storage-desc">Le N300 est un disque NAS 24/7 avec 180 To/an de workload rating et vibration compensation — conçu exactement pour cet usage. Destination de backup du RAID0, bibliothèque de modèles froids, stockage DPO longue durée, et snapshots VM. C'est le filet de sécurité de toute la config.</p>
+        <div class="storage-specs">
+          <div class="spec-item"><span class="k">LECTURE SÉQ.</span><span class="v">~250 Mo/s</span></div>
+          <div class="spec-item"><span class="k">CACHE</span><span class="v">512 Mo</span></div>
+          <div class="spec-item"><span class="k">ROTATION</span><span class="v">7200 rpm</span></div>
+          <div class="spec-item"><span class="k">PORT CARTE MÈRE</span><span class="v">SATA 1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAID0 -->
+    <div class="storage-card raid">
+      <div class="storage-header">
+        <div class="storage-icon icon-raid">RAID</div>
+        <div class="storage-id">
+          <strong>/dev/md0 — RAID0 NVMe · 8 To bruts</strong>
+          mdadm software RAID · CPU-direct PCIe 4.0 x4 × 2 · Aucun goulot chipset
+        </div>
+      </div>
+      <div class="storage-body">
+        <span class="storage-badge badge-raid">DONNÉES CHAUDES · IA · VMs</span>
+        <p class="storage-desc">Les deux slots M2A_CPU et M2B_CPU de la B650M DS3H sont CPU-direct — aucun uplink chipset entre les drives et le processeur. Cette topologie est exactement ce qu'il faut pour que le RAID0 atteigne ses vitesses théoriques. Le striping double la bande passante effective pour les lectures/écritures larges : modèles LLM (gros fichiers séquentiels), images de VMs, datasets de training. C'est le cœur de performance de la machine.</p>
+        <div class="storage-specs">
+          <div class="spec-item"><span class="k">LECTURE THÉORIQUE</span><span class="v">~14 750 Mo/s</span></div>
+          <div class="spec-item"><span class="k">ÉCRITURE THÉORIQUE</span><span class="v">~13 900 Mo/s</span></div>
+          <div class="spec-item"><span class="k">CAPACITÉ UTILE</span><span class="v">8 To (2×4 To)</span></div>
+          <div class="spec-item"><span class="k">OUTIL</span><span class="v">mdadm level=0</span></div>
+        </div>
+        <div class="callout warn" style="margin-top:1rem">
+          <div class="callout-icon">⚠</div>
+          <div class="callout-text"><strong>RAID0 = zéro redondance.</strong> Un NVMe qui lâche = perte totale des 8 To. Le backup nocturne vers le Toshiba N300 est <em>obligatoire</em>, pas optionnel. Configurer restic ou rsync en cron dès la mise en route.</div>
+        </div>
+        <div class="raid-drives">
+          <div class="raid-drive">
+            <div class="rd-label">M2A_CPU · DRIVE 1</div>
+            <div class="rd-name">Samsung 990 Pro 4 To</div>
+            <div class="rd-spec">7 450 Mo/s R · 6 900 Mo/s W · Samsung Pascal · V-NAND TLC · 1 600K IOPS</div>
+          </div>
+          <div class="raid-drive">
+            <div class="rd-label">M2B_CPU · DRIVE 2</div>
+            <div class="rd-name">Kingston FURY Renegade 4 To</div>
+            <div class="rd-spec">7 300 Mo/s R · 7 000 Mo/s W · Phison E18 · 3D TLC · 1 000K IOPS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+</section>
+
+<!-- PARTITIONS -->
+<section id="partitions">
+<div class="container">
+  <p class="sec-eyebrow">03 · Partitionnement</p>
+  <h2 class="sec-title">Schéma de partitionnement<br>Ubuntu 26.04</h2>
+  <p class="sec-lead">L'objectif est de protéger le système (A400) des données chaudes (RAID0), tout en évitant que des services comme Ollama ou Docker saturent le disque OS en écrivant dans /var par défaut.</p>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem">Kingston A400 — /dev/sda</h3>
+  <table class="partition-table" aria-label="Partitions Kingston A400">
+    <thead>
+      <tr>
+        <th>Point de montage</th>
+        <th>Taille</th>
+        <th>Système de fichiers</th>
+        <th>Rôle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pt-mount">/boot/efi</td>
+        <td class="pt-size">512 Mo</td>
+        <td class="pt-fs">FAT32</td>
+        <td class="pt-role">Partition EFI — boot UEFI Ubuntu</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/boot</td>
+        <td class="pt-size">2 Go</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Noyaux Linux, initramfs, grub</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/</td>
+        <td class="pt-size">~253 Go</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Système Ubuntu, binaires, packages apt — <em>pas de /home ni /var</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin:2rem 0 1rem">/dev/md0 — RAID0 NVMe (8 To)</h3>
+  <table class="partition-table" aria-label="Partitions RAID0 NVMe">
+    <thead>
+      <tr>
+        <th>Point de montage</th>
+        <th>Taille</th>
+        <th>Système de fichiers</th>
+        <th>Rôle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pt-mount">/home</td>
+        <td class="pt-size">2 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Profil utilisateur, projets GiGaRuN, configurations, dépôts git</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/var</td>
+        <td class="pt-size">1 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Docker layers, Ollama /var/lib/ollama, logs applicatifs, bases de données</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/data/models</td>
+        <td class="pt-size">2 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Modèles LLM actifs (GGUF, safetensors) — bibliothèque chaude</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/data/vms</td>
+        <td class="pt-size">2 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Images libvirt/QEMU-KVM — VMs clientes isolées (Wazuh, Dolibarr, Windows)</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/data/workspace</td>
+        <td class="pt-size">~1 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Données de travail chaudes, cache inference, datasets temporaires</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:.1em;text-transform:uppercase;margin:2rem 0 1rem">/dev/sdb — Toshiba N300 14 To</h3>
+  <table class="partition-table" aria-label="Partitions Toshiba N300">
+    <thead>
+      <tr>
+        <th>Point de montage</th>
+        <th>Taille</th>
+        <th>Système de fichiers</th>
+        <th>Rôle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pt-mount">/backup/raid0</td>
+        <td class="pt-size">8 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Sauvegarde nocturne du RAID0 — restic ou rsync incrémental</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/backup/models-cold</td>
+        <td class="pt-size">3 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Bibliothèque froide de modèles LLM — chargés sur demande vers /data/models</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/backup/dpo</td>
+        <td class="pt-size">1 To</td>
+        <td class="pt-role">ext4</td>
+        <td class="pt-role">Logs, documents DPO longue durée, archives RGPD</td>
+      </tr>
+      <tr>
+        <td class="pt-mount">/backup/snapshots</td>
+        <td class="pt-size">~2 To</td>
+        <td class="pt-fs">ext4</td>
+        <td class="pt-role">Snapshots VM froids, images disque clientes, exports Dolibarr</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- IA LOCALE -->
+<section id="ia-locale">
+<div class="container">
+  <p class="sec-eyebrow">04 · Inférence IA locale</p>
+  <h2 class="sec-title">Pourquoi cette config est<br>une vraie plateforme IA</h2>
+  <p class="sec-lead">La combinaison Arc Pro B70 (32 Go VRAM / 608 Go/s) + 192 Go DDR5 + RAID0 14 750 Mo/s place cette machine dans une catégorie rare : capable de faire tourner des modèles 30B en temps réel et des 70B en mode hybride, sans aucun service cloud, sans latence réseau, sans données qui sortent du périmètre.</p>
+
+  <div class="callout info">
+    <div class="callout-icon">💡</div>
+    <div class="callout-text">
+      <strong>La bande passante mémoire GPU est le facteur numéro 1 en inférence LLM.</strong> Pas les TFLOPS, pas les TOPS — la quantité de données que le GPU peut lire par seconde depuis sa mémoire. À 608 Go/s, le B70 charge et traite les poids du modèle 5× plus vite qu'un Mac mini M4 (120 Go/s), ce qui se traduit directement en tokens par seconde.
+    </div>
+  </div>
+
+  <div style="margin-top:2.5rem">
+    <h3 style="font-family:var(--display);font-weight:500;font-size:1.2rem;color:var(--white);margin-bottom:1.25rem">Stack logiciel recommandé</h3>
+    <table class="data-table" aria-label="Stack logiciel IA recommandé">
+      <thead>
+        <tr>
+          <th>Composant</th>
+          <th>Rôle</th>
+          <th>Raison du choix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ollama</td>
+          <td>Serveur LLM local · API OpenAI-compatible</td>
+          <td style="color:var(--text2)">Interface unifiée, support llama.cpp backend, gestion automatique du VRAM, API REST localhost:11434</td>
+        </tr>
+        <tr>
+          <td>llama.cpp</td>
+          <td>Backend inférence bas niveau</td>
+          <td style="color:var(--text2)">Support SYCL/OpenCL pour Arc B70 sous Linux, mode hybride GPU+CPU via --n-gpu-layers</td>
+        </tr>
+        <tr>
+          <td>OpenVINO</td>
+          <td>Optimisation Intel hardware</td>
+          <td style="color:var(--text2)">Runtime Intel optimisé pour Xe2 — INT8/INT4 quantization nativement sur B70, meilleure efficacité que PyTorch générique</td>
+        </tr>
+        <tr>
+          <td>Open WebUI</td>
+          <td>Interface utilisateur LLM</td>
+          <td style="color:var(--text2)">Frontend Ollama-compatible, multi-modèles, gestion de contexte, RAG intégré</td>
+        </tr>
+        <tr>
+          <td>AnythingLLM</td>
+          <td>RAG local sur documents clients</td>
+          <td style="color:var(--text2)">Indexation de documents clients sensibles en local, vecteurs stockés sur RAID0, zéro cloud</td>
+        </tr>
+        <tr>
+          <td>QEMU-KVM + libvirt</td>
+          <td>Virtualisation clientes</td>
+          <td style="color:var(--text2)">192 Go DDR5 permettent 8–12 VMs clientes isolées simultanées avec resources dédiées</td>
+        </tr>
+        <tr>
+          <td>Wazuh</td>
+          <td>SIEM/XDR infogérance</td>
+          <td style="color:var(--text2)">Déployé en conteneur Docker sur /var, collecte agents clients via VPN</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COMMANDES RAID0 -->
+  <h3 style="font-family:var(--display);font-weight:500;font-size:1.2rem;color:var(--white);margin-top:2.5rem;margin-bottom:1rem">Montage du RAID0 — commandes Ubuntu 26.04</h3>
+  <div class="code-block" role="region" aria-label="Commandes RAID0 Ubuntu">
+<span class="comment"># ── Vérifier que les deux NVMe sont détectés ──────────────────────────</span>
+<span class="cmd">lsblk</span> <span class="comment"># → nvme0n1, nvme1n1 attendus</span>
+<span class="cmd">nvme list</span>
+
+<span class="comment"># ── Créer l'array RAID0 ───────────────────────────────────────────────</span>
+<span class="cmd">sudo mdadm</span> <span class="arg">--create /dev/md0</span> \
+  <span class="arg">--level=0</span> \
+  <span class="arg">--raid-devices=2</span> \
+  <span class="arg">--chunk=512</span> \
+  <span class="str">/dev/nvme0n1 /dev/nvme1n1</span>
+
+<span class="comment"># ── Formater et partitionner l'array ─────────────────────────────────</span>
+<span class="cmd">sudo parted</span> <span class="arg">/dev/md0</span> mklabel gpt
+<span class="cmd">sudo parted</span> <span class="arg">/dev/md0</span> mkpart primary ext4 0% 25%   <span class="comment"># /home  ~2To</span>
+<span class="cmd">sudo parted</span> <span class="arg">/dev/md0</span> mkpart primary ext4 25% 37%  <span class="comment"># /var   ~1To</span>
+<span class="cmd">sudo parted</span> <span class="arg">/dev/md0</span> mkpart primary ext4 37% 62%  <span class="comment"># models ~2To</span>
+<span class="cmd">sudo parted</span> <span class="arg">/dev/md0</span> mkpart primary ext4 62% 87%  <span class="comment"># vms    ~2To</span>
+<span class="cmd">sudo parted</span> <span class="arg">/dev/md0</span> mkpart primary ext4 87% 100% <span class="comment"># workspace</span>
+
+<span class="cmd">sudo mkfs.ext4</span> <span class="arg">-L home</span>      <span class="str">/dev/md0p1</span>
+<span class="cmd">sudo mkfs.ext4</span> <span class="arg">-L var_data</span>  <span class="str">/dev/md0p2</span>
+<span class="cmd">sudo mkfs.ext4</span> <span class="arg">-L ai_models</span> <span class="str">/dev/md0p3</span>
+<span class="cmd">sudo mkfs.ext4</span> <span class="arg">-L vms</span>       <span class="str">/dev/md0p4</span>
+<span class="cmd">sudo mkfs.ext4</span> <span class="arg">-L workspace</span> <span class="str">/dev/md0p5</span>
+
+<span class="comment"># ── Déplacer /var sur le RAID (AVANT Docker/Ollama) ─────────────────</span>
+<span class="cmd">sudo mkdir</span> <span class="arg">-p</span> /mnt/var_new
+<span class="cmd">sudo mount</span> /dev/md0p2 /mnt/var_new
+<span class="cmd">sudo rsync</span> <span class="arg">-aAXv</span> /var/ /mnt/var_new/
+
+<span class="comment"># ── Persistance mdadm ────────────────────────────────────────────────</span>
+<span class="cmd">sudo mdadm</span> <span class="arg">--detail --scan</span> | <span class="cmd">sudo tee</span> <span class="arg">-a</span> /etc/mdadm/mdadm.conf
+<span class="cmd">sudo update-initramfs</span> <span class="arg">-u</span>
+
+<span class="comment"># ── fstab — ajouter les montages ─────────────────────────────────────</span>
+<span class="cmd">sudo blkid</span> /dev/md0p1 <span class="comment"># récupérer les UUID</span>
+<span class="comment"># Ajouter dans /etc/fstab :</span>
+<span class="comment"># UUID=XXXX  /home           ext4  defaults,nofail  0 2</span>
+<span class="comment"># UUID=XXXX  /var            ext4  defaults,nofail  0 2</span>
+<span class="comment"># UUID=XXXX  /data/models    ext4  defaults,nofail  0 2</span>
+<span class="comment"># UUID=XXXX  /data/vms       ext4  defaults,nofail  0 2</span>
+<span class="comment"># UUID=XXXX  /data/workspace ext4  defaults,nofail  0 2</span>
+
+<span class="comment"># ── Backup RAID0 → N300 (cron quotidien) ─────────────────────────────</span>
+<span class="cmd">sudo apt install</span> restic
+<span class="cmd">restic init</span> <span class="arg">--repo</span> /backup/raid0
+<span class="comment"># Ajouter dans crontab -e :</span>
+<span class="comment"># 0 2 * * * restic backup /data /home /var --repo /backup/raid0</span>
+  </div>
+
+  <!-- OLLAMA + ARC B70 -->
+  <h3 style="font-family:var(--display);font-weight:500;font-size:1.2rem;color:var(--white);margin-top:2.5rem;margin-bottom:1rem">Configurer Ollama pour l'Arc Pro B70</h3>
+  <div class="code-block" role="region" aria-label="Configuration Ollama Arc Pro B70">
+<span class="comment"># ── Driver Intel Xe / compute runtime ────────────────────────────────</span>
+<span class="cmd">sudo apt</span> install -y intel-opencl-icd intel-level-zero-gpu level-zero
+<span class="cmd">sudo apt</span> install -y intel-oneapi-runtime-opencl intel-oneapi-runtime-level-zero
+
+<span class="comment"># ── Vérifier que le B70 est vu ───────────────────────────────────────</span>
+<span class="cmd">clinfo</span> | grep <span class="str">"Device Name"</span>
+<span class="comment"># → Intel(R) Arc(TM) Pro B70 Graphics</span>
+
+<span class="comment"># ── Installer Ollama ─────────────────────────────────────────────────</span>
+<span class="cmd">curl</span> <span class="arg">-fsSL</span> https://ollama.ai/install.sh | sh
+
+<span class="comment"># ── Variables d'environnement pour forcer le GPU Intel ───────────────</span>
+<span class="cmd">sudo systemctl edit</span> ollama.service
+<span class="comment"># Ajouter :</span>
+<span class="comment"># [Service]</span>
+<span class="comment"># Environment="OLLAMA_GPU=true"</span>
+<span class="comment"># Environment="ZES_ENABLE_SYSMAN=1"</span>
+<span class="comment"># Environment="SYCL_DEVICE_FILTER=level_zero:gpu"</span>
+
+<span class="comment"># ── Mode hybride pour les grands modèles ─────────────────────────────</span>
+<span class="comment"># Dans Modelfile ou via llama.cpp direct :</span>
+<span class="cmd">llama-server</span> \
+  <span class="arg">--model</span> /data/models/llama-3.3-70b.Q4_K_M.gguf \
+  <span class="arg">--n-gpu-layers</span> 48 \         <span class="comment"># couches en VRAM (ajuster selon le modèle)</span>
+  <span class="arg">--ctx-size</span> 8192 \
+  <span class="arg">--threads</span> 12 \               <span class="comment"># 12 cœurs Ryzen 9 7900</span>
+  <span class="arg">--port</span> 8080
+  </div>
+</div>
+</section>
+
+<!-- DISPATCH -->
+<section id="dispatch">
+<div class="container">
+  <p class="sec-eyebrow">05 · Stratégie de dispatch IA</p>
+  <h2 class="sec-title">Local vs cloud — politique<br>de dispatch LLM</h2>
+  <p class="sec-lead">En tant que DSI/RSSI externalisé et DPO, la question du dispatch n'est pas que technique — c'est une obligation légale et contractuelle. Toute donnée client, élément de configuration sensible, ou information à caractère personnel doit rester dans le périmètre local. Claude Code ou Codex ne reçoivent que ce qui est explicitement classé non-sensible.</p>
+
+  <div class="dispatch-grid">
+    <div class="dispatch-card local">
+      <div class="dispatch-header">
+        <div class="dispatch-dot dot-local"></div>
+        <div class="dispatch-title">Inférence locale — modèles on-prem</div>
+      </div>
+      <ul class="dispatch-list">
+        <li>Données personnelles clients (RGPD art. 28 — sous-traitance)</li>
+        <li>Configurations réseau, credentials, secrets d'infrastructure</li>
+        <li>Logs Wazuh, alertes SIEM, incidents de sécurité</li>
+        <li>Documents contractuels clients, devis, factures Dolibarr</li>
+        <li>Code source propriétaire clients (Dolibarr custom, API internes)</li>
+        <li>Données de supervision (inventaires, topologie réseau)</li>
+        <li>Analyses forensiques et rapports de pentest</li>
+        <li>Données DPO : registre des traitements, violations, DPIA</li>
+        <li>Communications sensibles (messagerie chiffrée, contrats NDA)</li>
+        <li>Mots de passe, clés API, certificats TLS/SSL</li>
+      </ul>
+    </div>
+    <div class="dispatch-card cloud">
+      <div class="dispatch-header">
+        <div class="dispatch-dot dot-cloud"></div>
+        <div class="dispatch-title">Dispatch cloud — Claude Code / Codex</div>
+      </div>
+      <ul class="dispatch-list">
+        <li>Génération de code générique non lié à un client (scripts utilitaires, boilerplate)</li>
+        <li>Refactoring de code public ou open source anonymisé</li>
+        <li>Documentation technique générale, README, wikis publics</li>
+        <li>Rédaction de contenu marketing GiGaRuN (site, plaquettes)</li>
+        <li>Brainstorming commercial, argumentation offres, pricing</li>
+        <li>Génération de rapports à partir de données anonymisées</li>
+        <li>Templates de contrats avec placeholders (sans données réelles)</li>
+        <li>Formation et veille technologique (résumés, synthèses)</li>
+        <li>Problèmes de dev génériques non contextualisés client</li>
+        <li>Tests unitaires sur code anonymisé sans logique métier sensible</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FLOW DIAGRAM -->
+  <div class="flow" role="figure" aria-label="Arbre de décision dispatch LLM">
+  <span class="white">REQUÊTE ENTRANTE</span>
+         │
+         ▼
+  <span class="white">┌─────────────────────────────────────┐</span>
+  <span class="white">│  Contient des données client ?      │</span>
+  <span class="white">│  PII / config / secrets / logs ?    │</span>
+  <span class="white">└────────────┬────────────────────────┘</span>
+             │
+      <span class="teal">OUI</span> ──────────────────────────── <span class="red">NON</span>
+       │                                   │
+       ▼                                   ▼
+  <span class="teal">INFÉRENCE LOCALE</span>            <span class="white">┌─────────────────────┐</span>
+  <span class="teal">Ollama · Arc Pro B70</span>        <span class="white">│ Requis une capacité │</span>
+  <span class="teal">Qwen3 30B / Llama 70B</span>      <span class="white">│ > modèle local ?    │</span>
+  <span class="teal">Zéro donnée sortante</span>        <span class="white">└────────┬────────────┘</span>
+                                         │
+                               <span class="blue">OUI</span> ──── <span class="amber">NON</span>
+                                │          │
+                                ▼          ▼
+                         <span class="blue">Claude Code</span>   <span class="amber">Ollama local</span>
+                         <span class="blue">OpenAI Codex</span>  <span class="amber">(suffisant)</span>
+                         <span class="dim">(non-sensible</span>
+                         <span class="dim"> uniquement)</span>
+  </div>
+
+  <!-- CLAUDE CODE CONFIG -->
+  <h3 style="font-family:var(--display);font-weight:500;font-size:1.2rem;color:var(--white);margin-top:2.5rem;margin-bottom:1rem">Configurer Claude Code en mode hybride local/cloud</h3>
+  <div class="code-block" role="region" aria-label="Configuration Claude Code hybride">
+<span class="comment"># ── Installer Claude Code (Node.js requis) ───────────────────────────</span>
+<span class="cmd">npm install</span> <span class="arg">-g</span> @anthropic-ai/claude-code
+
+<span class="comment"># ── Configurer un proxy local (LiteLLM) pour router local vs cloud ───</span>
+<span class="cmd">pip install</span> litellm
+<span class="cmd">cat</span> > litellm_config.yaml <span class="str">&lt;&lt;EOF</span>
+<span class="str">model_list:</span>
+<span class="str">  - model_name: local-30b</span>
+<span class="str">    litellm_params:</span>
+<span class="str">      model: ollama/qwen3:30b</span>
+<span class="str">      api_base: http://localhost:11434</span>
+<span class="str">  - model_name: claude-cloud</span>
+<span class="str">    litellm_params:</span>
+<span class="str">      model: claude-sonnet-4-6</span>
+<span class="str">      api_key: os.environ/ANTHROPIC_API_KEY</span>
+<span class="str">EOF</span>
+
+<span class="cmd">litellm</span> <span class="arg">--config</span> litellm_config.yaml <span class="arg">--port</span> 4000
+
+<span class="comment"># ── Claude Code pointe vers le proxy local par défaut ────────────────</span>
+<span class="cmd">export</span> ANTHROPIC_BASE_URL=http://localhost:4000
+<span class="cmd">claude</span> <span class="comment"># → route vers local-30b par défaut, cloud sur demande explicite</span>
+
+<span class="comment"># ── Règle .claudeignore pour protéger les données sensibles ──────────</span>
+<span class="cmd">cat</span> > ~/.claude/.claudeignore <span class="str">&lt;&lt;EOF</span>
+<span class="str">**/client_data/**</span>
+<span class="str">**/wazuh_logs/**</span>
+<span class="str">**/*.env</span>
+<span class="str">**/*.pem</span>
+<span class="str">**/*.key</span>
+<span class="str">**/dolibarr/conf/conf.php</span>
+<span class="str">**/backup/**</span>
+<span class="str">EOF</span>
+  </div>
+</div>
+</section>
+
+<!-- SETUP -->
+<section id="setup">
+<div class="container">
+  <p class="sec-eyebrow">06 · Mise en route</p>
+  <h2 class="sec-title">Séquence d'installation<br>complète</h2>
+  <p class="sec-lead">Ordre des opérations recommandé pour un déploiement propre. L'isolation des services dès le début évite les migrations douloureuses plus tard.</p>
+
+  <table class="data-table" aria-label="Séquence de mise en route">
+    <thead>
+      <tr>
+        <th>Étape</th>
+        <th>Action</th>
+        <th>Notes critiques</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td>Installer Ubuntu 26.04 sur A400 (SATA)</td>
+        <td style="color:var(--text2)">Partitionnement manuel — ne pas toucher aux NVMe pendant l'install. Boot UEFI sur A400.</td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>Créer le RAID0 NVMe avec mdadm</td>
+        <td style="color:var(--text2)">APRÈS premier boot. Vérifier que nvme0n1 et nvme1n1 sont vierges. Ne pas activer BIOS RAID mode.</td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>Partitionner md0, formater, migrer /var</td>
+        <td style="color:var(--text2)">Migrer /var AVANT d'installer Docker ou Ollama — sinon migration post-installation complexe.</td>
+      </tr>
+      <tr>
+        <td>04</td>
+        <td>Installer drivers Intel Xe (compute runtime)</td>
+        <td style="color:var(--text2)">intel-opencl-icd + level-zero. Vérifier avec clinfo que le B70 est visible.</td>
+      </tr>
+      <tr>
+        <td>05</td>
+        <td>Installer Ollama, tester avec un modèle 8B</td>
+        <td style="color:var(--text2)">ollama run llama3.1:8b — vérifier GPU offload dans les logs (n_gpu_layers > 0).</td>
+      </tr>
+      <tr>
+        <td>06</td>
+        <td>Configurer restic → /backup/raid0 (N300)</td>
+        <td style="color:var(--text2)">Cron 2h du matin. Premier backup complet avant tout usage production. Tester la restauration.</td>
+      </tr>
+      <tr>
+        <td>07</td>
+        <td>Installer Docker, déployer Wazuh + Open WebUI</td>
+        <td style="color:var(--text2)">/var/lib/docker est sur le RAID0 — OK. Wazuh consomme beaucoup de RAM, allouer 8-16 Go.</td>
+      </tr>
+      <tr>
+        <td>08</td>
+        <td>Configurer QEMU-KVM + libvirt</td>
+        <td style="color:var(--text2)">Images VM dans /data/vms. Activer nested virtualization si besoin (AMD-V).</td>
+      </tr>
+      <tr>
+        <td>09</td>
+        <td>Déployer LiteLLM proxy + Claude Code</td>
+        <td style="color:var(--text2)">Configurer .claudeignore immédiatement. Tester que les fichiers sensibles sont exclus.</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Charger les modèles LLM dans /data/models</td>
+        <td style="color:var(--text2)">Démarrer par Qwen3 14B (9 Go) et Llama 3.1 8B. Tester les débits avec llama-bench.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout info" style="margin-top:2rem">
+    <div class="callout-icon">🔑</div>
+    <div class="callout-text">
+      <strong>Point de vigilance RSSI :</strong> avec 192 Go de RAM et un GPU 32 Go, cette machine peut stocker et inférer sur des données très sensibles. Documenter le traitement dans le registre DPO de GiGaRuN (en tant que responsable de traitement pour l'usage interne) et dans les registres des clients si leurs données sont traitées localement.
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- COMPARATIF OS -->
+<section id="comparatif">
+<div class="container">
+  <p class="sec-eyebrow">Comparatif · Choix d&apos;OS</p>
+  <h2 class="sec-title">Ubuntu, Proxmox ou Windows ?</h2>
+  <p class="sec-lead">Trois architectures possibles pour cette machine — chacune répond à un profil d&apos;usage différent. Les onglets ci-dessous détaillent les avantages, inconvénients et verdict pour chaque option.</p>
+
+  <div class="os-tabs">
+    <button class="os-tab active" data-tab="ubuntu">Ubuntu Desktop</button>
+    <button class="os-tab" data-tab="proxmox">Proxmox VE</button>
+    <button class="os-tab" data-tab="windows">Windows 11 Pro</button>
+  </div>
+
+  <!-- UBUNTU -->
+  <div class="os-panel active" id="tab-ubuntu">
+    <div class="os-panel-hero ubuntu-hero">
+      <span class="os-badge">Recommandé · usage actuel</span>
+      <div class="os-panel-title">Ubuntu 26.04 LTS</div>
+      <div class="os-panel-sub">Poste de travail IA direct, sans couche de virtualisation. Simplicité maximale, performances GPU natives.</div>
+    </div>
+    <div class="os-content-grid">
+      <div class="os-col">
+        <div class="os-col-title plus">Avantages</div>
+        <ul class="pro-con-list">
+          <li class="pro">Drivers Intel Xe natifs — GPU accessible directement à Ollama sans passthrough</li>
+          <li class="pro">Installation simple — pas de configuration IOMMU/VFIO nécessaire</li>
+          <li class="pro">Performances GPU maximales — pas d'overhead virtualisation</li>
+          <li class="pro">Claude Code, Docker, QEMU-KVM cohabitent sans friction</li>
+          <li class="pro">Support Arc Pro B70 en pleine maturité sous Linux kernel 6.8+</li>
+          <li class="pro">Débogage direct — pas de couche intermédiaire à traverser</li>
+        </ul>
+      </div>
+      <div class="os-col">
+        <div class="os-col-title minus">Inconvénients</div>
+        <ul class="pro-con-list">
+          <li class="con">Pas d'isolation native entre services clients — tout tourne sur le même OS</li>
+          <li class="con">Snapshots système limités — btrfs/LVM requis, moins ergonomique que Proxmox</li>
+          <li class="con">Scalabilité cluster impossible nativement — pas prévu pour évoluer vers du multi-nœud</li>
+          <li class="con">Gestion des VMs Windows clients plus artisanale (virt-manager vs interface web Proxmox)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict-box ubuntu-verdict">
+      <div class="verdict-icon">🎯</div>
+      <div>
+        <strong>Verdict :</strong> meilleur choix pour démarrer vite et maximiser les performances IA. Idéal si la machine est principalement un <em>poste de travail IA personnel</em> avec quelques services annexes. C&apos;est l&apos;architecture documentée dans ce guide.
+      </div>
+    </div>
+  </div>
+
+  <!-- PROXMOX -->
+  <div class="os-panel" id="tab-proxmox">
+    <div class="os-panel-hero proxmox-hero">
+      <span class="os-badge">Recommandé · usage DSI multi-clients</span>
+      <div class="os-panel-title">Proxmox VE 9</div>
+      <div class="os-panel-sub">Hyperviseur professionnel basé Debian 13 trixie, kernel 6.14+. Héberge VMs et LXC, gestion web centralisée, ZFS natif. La réponse longue durée pour un DSI externalisé — et le kernel 6.14 améliore significativement le support Intel Arc vs VE 8.</div>
+    </div>
+    <div class="os-content-grid">
+      <div class="os-col">
+        <div class="os-col-title plus">Avantages</div>
+        <ul class="pro-con-list">
+          <li class="pro">Isolation réelle par client — chaque client dans son propre LXC/VM, réseau cloisonné</li>
+          <li class="pro">Snapshots natifs instantanés — VM entière + données en un clic, restauration testable</li>
+          <li class="pro">ZFS natif dans l&apos;installeur — ARC cache RAM, checksums, snapshots incrémentaux</li>
+          <li class="pro">Interface web centralisée — Wazuh, Dolibarr, VMs Windows, tout dans un seul panel</li>
+          <li class="pro">Arc Pro B70 supporte SR-IOV — conçu pour la virtualisation GPU, meilleur que les Arc grand public</li>
+          <li class="pro">Kernel 6.14+ (PVE 9) — support Intel Xe/Arc nettement amélioré vs kernel 6.8 de PVE 8 : meilleure stabilité passthrough, GuC/HuC firmware chargés automatiquement</li>
+          <li class="pro">Scalabilité cluster — ajout d&apos;un nœud natif si l&apos;activité grandit</li>
+          <li class="pro">192 Go RAM → allocation généreuse sans manque : ia-node 64 Go, Windows 16 Go, LXC 8 Go chacun</li>
+        </ul>
+      </div>
+      <div class="os-col">
+        <div class="os-col-title minus">Inconvénients</div>
+        <ul class="pro-con-list">
+          <li class="con">GPU passthrough Arc Pro B70 — 1 à 2h de setup VFIO/IOMMU, à valider sur ta machine spécifique</li>
+          <li class="con">SR-IOV Arc sur Linux encore en maturation — moins stable qu&apos;un passthrough complet (amélioré sur kernel 6.14 de PVE 9, mais pas encore au niveau NVIDIA)</li>
+          <li class="con">Host headless — pas d&apos;interface graphique sur Proxmox lui-même, tout passe par SSH ou web</li>
+          <li class="con">Légère perte de performances GPU vs bare metal (overhead hyperviseur)</li>
+          <li class="con">Complexité initiale supérieure — groupes IOMMU à vérifier, configuration BIOS spécifique</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flow" style="margin-top:1.5rem;font-size:11px;">
+<span class="white">Proxmox VE 9 (Debian trixie)</span>
+│
+├── <span class="teal">ZFS stripe</span> — 990 Pro + FURY Renegade (8 To)
+│   ├── /rpool/data/vm-disks      <span class="dim">→ images VM</span>
+│   └── /rpool/data/ct-volumes    <span class="dim">→ volumes LXC</span>
+│
+├── <span class="teal">VM : Ubuntu Server 24.04</span> — "ia-node"
+│   ├── GPU passthrough : Arc Pro B70 (VFIO)
+│   ├── RAM : 64 Go · vCPU : 8 cores
+│   └── Ollama + Open WebUI + AnythingLLM
+│
+├── <span class="blue">VM : Windows 11</span> (tests clients)
+│   └── 16 Go RAM · pas de GPU
+│
+├── <span class="amber">LXC : wazuh-stack</span>
+│   └── 16 Go RAM · Docker inside LXC
+│
+├── <span class="amber">LXC : dolibarr</span>
+│   └── 8 Go RAM · MariaDB + PHP
+│
+└── <span class="amber">LXC : services</span>
+    └── Nginx reverse proxy · Vaultwarden · etc.</div>
+
+    <div class="verdict-box proxmox-verdict">
+      <div class="verdict-icon">🏗️</div>
+      <div>
+        <strong>Verdict :</strong> meilleur choix <em>à long terme</em> pour GiGaRuN en tant que DSI externalisé. L&apos;isolation clients, les snapshots et la gestion centralisée justifient la complexité initiale. PVE 9 / kernel 6.14 lève une partie des réserves sur le support Arc — c&apos;est le bon moment pour s&apos;y mettre. Point bloquant à valider en premier : vérifier que le B70 est seul dans son groupe IOMMU sur ce B650M avant de migrer.
+      </div>
+    </div>
+  </div>
+
+  <!-- WINDOWS -->
+  <div class="os-panel" id="tab-windows">
+    <div class="os-panel-hero windows-hero">
+      <span class="os-badge">Non recommandé · usage IA locale</span>
+      <div class="os-panel-title">Windows 11 Pro</div>
+      <div class="os-panel-sub">Option de dernier recours si contrainte logicielle forte. Support Ollama existant mais performances et flexibilité très en deçà des alternatives Linux.</div>
+    </div>
+    <div class="os-content-grid">
+      <div class="os-col">
+        <div class="os-col-title plus">Avantages</div>
+        <ul class="pro-con-list">
+          <li class="pro">Pas de friction pour les outils Microsoft (Office, Teams, RDP)</li>
+          <li class="pro">Ollama disponible sur Windows — installation simple via .exe</li>
+          <li class="pro">WSL2 permet de faire tourner des outils Linux sans dual-boot</li>
+          <li class="pro">Familiarité — courbe d&apos;apprentissage nulle si déjà sur Windows</li>
+        </ul>
+      </div>
+      <div class="os-col">
+        <div class="os-col-title minus">Inconvénients</div>
+        <ul class="pro-con-list">
+          <li class="con">Support Intel Arc sur Windows instable pour le compute — drivers OneAPI moins matures que Linux</li>
+          <li class="con">Performances GPU Ollama inférieures à Linux native (tests réels : -20 à -40% tokens/s)</li>
+          <li class="con">Docker Desktop sous Windows — overhead significatif, moins fiable qu&apos;un Docker Linux natif</li>
+          <li class="con">Pas de ZFS natif — storage pools et snapshots absents ou limités (Storage Spaces)</li>
+          <li class="con">Licences Windows Server requises pour vraie isolation clients</li>
+          <li class="con">Mises à jour forcées — risque de redémarrage non planifié en production</li>
+          <li class="con">Télémétrie et surface d&apos;attaque supérieure — problématique pour des données clients sensibles</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict-box windows-verdict">
+      <div class="verdict-icon">⚠️</div>
+      <div>
+        <strong>Verdict :</strong> à éviter pour une workstation IA principale. Le support Intel Arc pour le compute ML est significativement moins bon sous Windows. Acceptable uniquement comme VM cliente dans Proxmox ou si une contrainte logicielle spécifique l&apos;impose.
+      </div>
+    </div>
+  </div>
+
+  <!-- VLLLM NOTE -->
+  <div class="callout info" style="margin-top:2rem;margin-bottom:2rem">
+    <div class="callout-icon">⚡</div>
+    <div class="callout-text">
+      <strong>vLLM sur Arc Pro B70 :</strong> vLLM dispose d&apos;un backend Intel XPU via <code style="background:var(--bg);padding:2px 6px;border-radius:2px;font-family:var(--mono);font-size:11px;">--device xpu</code> et OpenVINO. Moins mature que CUDA mais fonctionnel sur B70 — avantage principal vs Ollama : <em>batching continu multi-utilisateurs</em>, indispensable pour un service SaaS avec plusieurs clients simultanés. Voir la section <a href="#llm-service" style="color:var(--teal)">Architecture LLM Service</a> ci-dessous.
+    </div>
+  </div>
+
+  <!-- TABLEAU SYNTHÈSE -->
+  <div style="margin-top:3rem">
+    <div class="sec-eyebrow" style="margin-bottom:1rem">Synthèse · tableau comparatif</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Critère</th>
+          <th>Ubuntu Desktop</th>
+          <th>Proxmox VE</th>
+          <th>Windows 11 Pro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Simplicité de démarrage</td><td><span class="score-high">✓✓ Excellent</span></td><td><span class="score-mid">∼ Moyen</span></td><td><span class="score-high">✓ Bon</span></td></tr>
+        <tr><td>Performances GPU Ollama</td><td><span class="score-high">✓✓ Natives</span></td><td><span class="score-mid">∼ -5 à -10%</span></td><td><span class="score-low">✗ -20 à -40%</span></td></tr>
+        <tr><td>Isolation services clients</td><td><span class="score-low">✗ Faible</span></td><td><span class="score-high">✓✓ Forte</span></td><td><span class="score-low">✗ Faible</span></td></tr>
+        <tr><td>Snapshots infra</td><td><span class="score-mid">∼ Manuel</span></td><td><span class="score-high">✓✓ Natifs</span></td><td><span class="score-low">✗ Limités</span></td></tr>
+        <tr><td>Stack Docker/Linux</td><td><span class="score-high">✓✓ Native</span></td><td><span class="score-high">✓✓ Native (VM)</span></td><td><span class="score-mid">∼ WSL2</span></td></tr>
+        <tr><td>Scalabilité cluster</td><td><span class="score-low">✗ Non</span></td><td><span class="score-high">✓✓ Oui</span></td><td><span class="score-low">✗ Non</span></td></tr>
+        <tr><td>Gestion multi-VMs clients</td><td><span class="score-mid">∼ virt-manager</span></td><td><span class="score-high">✓✓ Interface web</span></td><td><span class="score-mid">∼ Hyper-V</span></td></tr>
+        <tr><td>Adapté DSI externalisé</td><td><span class="score-mid">∼ Moyen</span></td><td><span class="score-high">✓✓ Très bien</span></td><td><span class="score-low">✗ Non</span></td></tr>
+        <tr><td>Complexité setup GPU IA</td><td><span class="score-high">✓✓ Simple</span></td><td><span class="score-mid">∼ VFIO/IOMMU</span></td><td><span class="score-low">✗ Drivers instables</span></td></tr>
+        <tr><td>Sécurité données clients</td><td><span class="score-mid">∼ Correcte</span></td><td><span class="score-high">✓✓ Isolation forte</span></td><td><span class="score-low">✗ Télémétrie</span></td></tr>
+        <tr><td>vLLM (batching multi-clients)</td><td><span class="score-high">✓✓ Natif XPU</span></td><td><span class="score-high">✓✓ Via VM Ubuntu</span></td><td><span class="score-low">✗ Non supporté</span></td></tr>
+        <tr><td>LiteLLM billing abonnements</td><td><span class="score-high">✓✓ Docker natif</span></td><td><span class="score-high">✓✓ LXC/VM</span></td><td><span class="score-mid">∼ WSL2 instable</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</section>
+
+<!-- LLM SERVICE -->
+<section id="llm-service">
+<div class="container">
+  <p class="sec-eyebrow">Architecture commerciale · LLM as a Service</p>
+  <h2 class="sec-title">Offrir des abonnements LLM<br><em>à vos clients PME</em></h2>
+  <p class="sec-lead">La stack ci-dessous transforme la workstation en un service LLM facturable — modèles locaux sur le B70 pour la confidentialité, fallback cloud pour les surcharges, LiteLLM comme couche d&apos;orchestration et de billing.</p>
+
+  <div class="flow">
+<span class="dim">Internet</span>
+    │
+    ▼
+<span class="teal">[ Cloudflare Tunnel ]</span>  <span class="dim">← HTTPS automatique · DDoS · aucun port ouvert sur le firewall</span>
+    │
+    ▼
+<span class="white">[ Nginx reverse proxy :443 ]</span>  <span class="dim">← rate limiting · logs · WAF basique</span>
+    │
+    ▼
+<span class="amber">[ LiteLLM Proxy :4000 ]</span>  <span class="dim">← auth API keys · routing · budget par client · logs billing</span>
+    │
+    ├──────────────────────────────────────────────────┐
+    ▼                                                  ▼
+<span class="teal">[ vLLM :8000 ]</span>  <span class="dim">← local, privé</span>          <span class="blue">[ API Cloud ]</span>  <span class="dim">← fallback</span>
+<span class="dim">  Gemma 3 27B / Qwen3 32B                Claude Sonnet / GPT-4o</span>
+<span class="dim">  --device xpu · batching continu          DeepSeek V4-Flash / V4-Pro</span>
+<span class="dim">                                           (si quota local dépassé)</span>
+    │
+    ▼
+<span class="teal">[ Arc Pro B70 · 32 Go VRAM ]</span>
+<span class="dim">  ~25-40 tokens/s sur Qwen3 14B · ~15 tok/s sur 32B</span></div>
+
+  <div class="os-content-grid" style="margin-top:2rem">
+    <div class="os-col">
+      <div class="os-col-title plus" style="color:var(--amber)">Composants stack</div>
+      <ul class="pro-con-list" style="gap:14px">
+        <li class="pro">
+          <strong style="color:var(--white);display:block;margin-bottom:3px">Cloudflare Tunnel</strong>
+          <span>Expose le service sans ouvrir de port. HTTPS automatique. Protection DDoS incluse. Gratuit jusqu&apos;à usage raisonnable.</span>
+        </li>
+        <li class="pro">
+          <strong style="color:var(--white);display:block;margin-bottom:3px">Nginx</strong>
+          <span>Rate limiting par IP, logs structurés, terminaison TLS locale. Filtre avant que la requête atteigne LiteLLM.</span>
+        </li>
+        <li class="pro">
+          <strong style="color:var(--white);display:block;margin-bottom:3px">LiteLLM Proxy</strong>
+          <span>Une API key par client, budget mensuel en tokens configurable, dashboard usage, routage local/cloud automatique selon disponibilité.</span>
+        </li>
+        <li class="pro">
+          <strong style="color:var(--white);display:block;margin-bottom:3px">vLLM <code style="font-size:10px;background:var(--bg);padding:1px 5px;border-radius:2px">--device xpu</code></strong>
+          <span>Batching continu — 5 clients simultanés sans dégradation notable. Ollama ne fait qu&apos;une requête à la fois. Indispensable pour un SaaS.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="os-col">
+      <div class="os-col-title plus" style="color:var(--blue)">Modèles recommandés B70</div>
+      <table class="data-table" style="margin:0;font-size:12px">
+        <thead>
+          <tr>
+            <th>Modèle</th>
+            <th>VRAM</th>
+            <th>Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Qwen3 14B</td><td style="color:var(--teal);font-family:var(--mono)">~9 Go</td><td style="color:var(--text2)">Standard · rapide · multilingue</td></tr>
+          <tr><td>Qwen3 32B</td><td style="color:var(--teal);font-family:var(--mono)">~20 Go</td><td style="color:var(--text2)">Premium · raisonnement</td></tr>
+          <tr><td>Gemma 3 27B</td><td style="color:var(--teal);font-family:var(--mono)">~17 Go</td><td style="color:var(--text2)">Rédaction · instruction</td></tr>
+          <tr><td>Llama 3.1 8B</td><td style="color:var(--teal);font-family:var(--mono)">~5 Go</td><td style="color:var(--text2)">Free tier · réponses rapides</td></tr>
+          <tr><td>DeepSeek-R1 14B</td><td style="color:var(--teal);font-family:var(--mono)">~9 Go</td><td style="color:var(--text2)">Analyse · code</td></tr>
+          <tr>
+            <td colspan="3" style="padding-top:1rem;padding-bottom:.5rem;font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--border)">Fallback cloud — via API DeepSeek (trop grands pour le B70)</td>
+          </tr>
+          <tr><td>DeepSeek V4-Flash</td><td style="color:var(--blue);font-family:var(--mono)">API</td><td style="color:var(--text2)">Rapide · code · $0.14/M tokens · quasi-égal à Pro sur le code</td></tr>
+          <tr><td>DeepSeek V4-Pro</td><td style="color:var(--blue);font-family:var(--mono)">API</td><td style="color:var(--text2)">Agents · raisonnement · factual · $1.74/M tokens · 1M ctx</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:1rem;font-size:12px;color:var(--text3);font-family:var(--mono)">Avec 32 Go VRAM : deux modèles locaux simultanés — ex. Qwen3 14B + Llama 8B. DeepSeek V4 = fallback cloud via LiteLLM, jamais en local.</div>
+    </div>
+  </div>
+
+  <div class="os-col-title plus" style="color:var(--teal);margin-top:2rem;margin-bottom:1rem;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding-bottom:.75rem;border-bottom:1px solid var(--border)">Installation vLLM Intel XPU</div>
+  <div class="code-block">
+<span class="comment"># Prérequis — drivers Intel compute runtime (déjà installés si Ubuntu guide suivi)</span>
+<span class="cmd">sudo apt install</span> <span class="arg">intel-opencl-icd level-zero intel-level-zero-gpu</span>
+
+<span class="comment"># Environnement Python isolé</span>
+<span class="cmd">python3 -m venv</span> <span class="arg">/opt/vllm-xpu</span>
+<span class="cmd">source</span> <span class="arg">/opt/vllm-xpu/bin/activate</span>
+
+<span class="comment"># vLLM avec support Intel XPU (via ipex)</span>
+<span class="cmd">pip install</span> <span class="arg">vllm</span> <span class="arg">--extra-index-url https://download.pytorch.org/whl/xpu</span>
+
+<span class="comment"># Lancer vLLM sur le B70 avec batching continu</span>
+<span class="cmd">vllm serve</span> <span class="arg">Qwen/Qwen3-14B-Instruct</span> \
+  <span class="arg">--device xpu</span> \
+  <span class="arg">--dtype float16</span> \
+  <span class="arg">--max-model-len 8192</span> \
+  <span class="arg">--port 8000</span> \
+  <span class="arg">--host 127.0.0.1</span>  <span class="comment">← jamais exposé directement</span>
+
+<span class="comment"># Vérifier que le B70 est utilisé</span>
+<span class="cmd">vllm serve</span> <span class="arg">... --device xpu --gpu-memory-utilization 0.85</span></div>
+
+  <div class="os-col-title plus" style="color:var(--amber);margin-top:2rem;margin-bottom:1rem;font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding-bottom:.75rem;border-bottom:1px solid var(--border)">Configuration LiteLLM — billing par client</div>
+  <div class="code-block">
+<span class="comment"># /opt/litellm/config.yaml</span>
+<span class="arg">model_list:</span>
+  - <span class="arg">model_name:</span> <span class="str">"local/qwen3-14b"</span>
+    <span class="arg">litellm_params:</span>
+      <span class="arg">model:</span> <span class="str">"openai/qwen3-14b"</span>
+      <span class="arg">api_base:</span> <span class="str">"http://127.0.0.1:8000/v1"</span>
+      <span class="arg">api_key:</span> <span class="str">"none"</span>
+
+  - <span class="arg">model_name:</span> <span class="str">"cloud/claude-sonnet"</span>
+    <span class="arg">litellm_params:</span>
+      <span class="arg">model:</span> <span class="str">"claude-sonnet-4-5"</span>
+      <span class="arg">api_key:</span> <span class="str">"os.environ/ANTHROPIC_API_KEY"</span>
+
+  - <span class="arg">model_name:</span> <span class="str">"cloud/deepseek-flash"</span>
+    <span class="arg">litellm_params:</span>
+      <span class="arg">model:</span> <span class="str">"deepseek/deepseek-v4-flash"</span>
+      <span class="arg">api_key:</span> <span class="str">"os.environ/DEEPSEEK_API_KEY"</span>
+
+  - <span class="arg">model_name:</span> <span class="str">"cloud/deepseek-pro"</span>
+    <span class="arg">litellm_params:</span>
+      <span class="arg">model:</span> <span class="str">"deepseek/deepseek-v4-pro"</span>
+      <span class="arg">api_key:</span> <span class="str">"os.environ/DEEPSEEK_API_KEY"</span>
+
+<span class="arg">router_settings:</span>
+  <span class="arg">routing_strategy:</span> <span class="str">"least-busy"</span>
+  <span class="arg">fallbacks:</span>
+    - <span class="str">"local/qwen3-14b"</span>: [<span class="str">"cloud/deepseek-flash"</span>, <span class="str">"cloud/claude-sonnet"</span>]
+
+<span class="arg">litellm_settings:</span>
+  <span class="arg">success_callback:</span> [<span class="str">"langfuse"</span>]  <span class="comment">← logs billing</span>
+  <span class="arg">failure_callback:</span> [<span class="str">"langfuse"</span>]
+
+<span class="comment"># Créer une clé API par client avec budget mensuel</span>
+<span class="cmd">curl -X POST</span> <span class="str">http://localhost:4000/key/generate</span> \
+  -H <span class="str">"Authorization: Bearer $MASTER_KEY"</span> \
+  -d <span class="str">'{"key_alias":"client-acme","max_budget":50,"budget_duration":"monthly","models":["local/qwen3-14b"]}'</span></div>
+
+  <div class="callout warn" style="margin-top:2rem">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-text">
+      <strong>Maturité Intel XPU sur vLLM :</strong> le backend <code style="background:var(--bg);padding:2px 5px;border-radius:2px;font-family:var(--mono);font-size:11px">--device xpu</code> est fonctionnel mais moins stable que CUDA. Tester impérativement en bench avant mise en production. Alternative plus stable à court terme : <strong>Ollama + LiteLLM proxy</strong> (pas de batching continu, mais zéro friction driver). Migrer vers vLLM quand le support XPU sera consolidé (fin 2025 estimé).
+    </div>
+  </div>
+
+  <div class="callout info" style="margin-top:1rem">
+    <div class="callout-icon">💡</div>
+    <div class="callout-text">
+      <strong>Modèle commercial suggéré :</strong> Free tier (Llama 8B, 50k tokens/mois) · Standard 29€/mois (Qwen3 14B local, 2M tokens) · Premium 79€/mois (Qwen3 32B local illimité + fallback DeepSeek V4-Flash) · Enterprise sur devis (DeepSeek V4-Pro + Claude Sonnet pour les agents complexes). LiteLLM gère les budgets automatiquement — clé suspendue quand le quota est atteint.
+    </div>
+  </div>
+
+</div>
+</section>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="80" height="30" style="filter: brightness(0) invert(1);">
+                    <span style="font-size: 1.1em; font-weight: bold;">ing&eacute;nierie TIC</span>
+                </div>
+                <p style="font-size:0.9em;">Expert en infog&eacute;rance et cybers&eacute;curit&eacute;<br>Bas&eacute; &agrave; La R&eacute;union, rayonnement Oc&eacute;an Indien</p>
+                <div style="margin-top: 15px; font-size:0.9em;">
+                    <div>Saint-Pierre &amp; Saint-Denis, La R&eacute;union</div>
+                    <div><a href="tel:+262692311191">+262 692 31 11 91</a></div>
+                    <div><a href="https://gigarun.re" target="_blank" rel="noopener">www.gigarun.re</a></div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Nos Services</h4>
+                <ul>
+                    <li><a href="https://gigarun.re/informatique/services/offre-erp-cloud-sur-mesure" target="_blank" rel="noopener"><strong>ERP cloud PME</strong></a></li>
+                    <li><a href="https://gigarun.re/informatique/services/infog%C3%A9rance-et-maintenance-informatique.html" target="_blank" rel="noopener">Infog&eacute;rance compl&egrave;te</a></li>
+                    <li><a href="https://gigarun.re/s%C3%A9curit%C3%A9/gouvernance-cybers%C3%A9curit%C3%A9.html" target="_blank" rel="noopener">Cybers&eacute;curit&eacute; &amp; SOC 24/7</a></li>
+                    <li><a href="https://gigarun.re/informatique/services/sauvegarde-et-r%C3%A9plication-de-donn%C3%A9es.html" target="_blank" rel="noopener">Sauvegarde &amp; PRA</a></li>
+                    <li><a href="https://gigarun.re/communication/solutions-de-messagerie-d-entreprise.html" target="_blank" rel="noopener">Messagerie d&rsquo;entreprise</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Certifications</h4>
+                <ul>
+                    <li>Microsoft Partner</li>
+                    <li>N-able Gold Partner</li>
+                    <li>SentinelOne Certified</li>
+                    <li>VEEAM ProPartner</li>
+                    <li>cybermalveillance.gouv.fr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GiGaRuN Solutions &mdash; Tous droits r&eacute;serv&eacute;s | SIREN&nbsp;: 504015181 | RC Pro 8M&euro;</p>
+        </div>
+    </div>
+</footer>
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+<script>
+// OS tabs
+document.querySelectorAll('.os-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.os-panel').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+  });
+});
+
+// Sidenav active state
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.sidenav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector('.sidenav a[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+
+// Animate bars on scroll
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.perf-fill, .big-fill').forEach(bar => {
+        bar.style.animationPlayState = 'running';
+      });
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.hw-card, .big-bar').forEach(el => barObserver.observe(el));
+
+// Scroll top
+(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
+</script>
+
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

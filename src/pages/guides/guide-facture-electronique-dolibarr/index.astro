@@ -1,0 +1,508 @@
+﻿---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Guide Facturation Électronique Dolibarr 2026 — PA agréée, Factur-X, mise en conformité | Gigarun La Réunion" description="Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : choisir une PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation. Guide GiGaRuN — La Réunion.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Infogérance</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Guide Facturation Électronique Dolibarr 2026 — PA agréée, Factur-X, mise en conformité</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : choisir une PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation.</p>
+  </div>
+</div>
+<div id="guide-wrapper">
+
+
+<!-- ========== HEADER ========== -->
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo-section">
+            <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="120" height="40" style="filter:brightness(0) invert(1);">
+            <div>
+                <div class="company-tagline">Vos m&eacute;tiers, nos solutions</div>
+                <div class="company-tagline">Excellence IT &mdash; La R&eacute;union</div>
+            </div>
+        </div>
+        <div class="contact-item">+262 692 31 11 91 &nbsp;|&nbsp; <a href="https://factuzen.re/" target="_blank" style="color:white;font-weight:600;">factuzen.re</a></div>
+    </div>
+</header>
+
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+
+<div class="container">
+
+    <!-- ========== PAGE HEADER ========== -->
+    <div class="page-header">
+        <h1>&#x1F4C4; Guide Facturation &Eacute;lectronique</h1>
+        <p>Obligation l&eacute;gale d&egrave;s septembre 2026 &mdash; ce qu&rsquo;il faut faire avec votre Dolibarr</p>
+    </div>
+
+    <div class="content">
+
+        <!-- ========== 1. RÉFORME ========== -->
+        <div class="section">
+            <h2>La r&eacute;forme en bref</h2>
+
+            <p>L&rsquo;administration fiscale impose &agrave; toutes les entreprises assujetties &agrave; la TVA de passer &agrave; la <strong>facturation &eacute;lectronique structur&eacute;e</strong> dans leurs &eacute;changes B2B. Il ne s&rsquo;agit pas d&rsquo;envoyer un PDF par mail &mdash; les factures doivent &ecirc;tre dans des formats normalis&eacute;s (<strong>Factur-X, UBL, CII</strong>) et transiter par une plateforme agr&eacute;&eacute;e (PA).</p>
+
+            <div class="kpi-grid">
+                <div class="kpi-box kpi-orange">
+                    <span class="value">Sep. 2026</span>
+                    <span class="label">R&eacute;ception obligatoire<br>Toutes entreprises TVA</span>
+                </div>
+                <div class="kpi-box kpi-blue">
+                    <span class="value">Sep. 2027</span>
+                    <span class="label">&Eacute;mission obligatoire<br>en format structur&eacute;</span>
+                </div>
+                <div class="kpi-box kpi-slate">
+                    <span class="value">D&egrave;s 2025</span>
+                    <span class="label">Ouverture de l&rsquo;annuaire PPF<br>pour d&eacute;signer sa PA</span>
+                </div>
+                <div class="kpi-box kpi-green">
+                    <span class="value">10 ans</span>
+                    <span class="label">Dur&eacute;e d&rsquo;archivage l&eacute;gal<br>obligatoire des factures</span>
+                </div>
+            </div>
+
+            <div class="alert alert-urgent">
+                <div class="alert-icon">&#x26A0;&#xFE0F;</div>
+                <div>
+                    <strong>Ce qui change imm&eacute;diatement :</strong> avant septembre 2026, chaque entreprise doit <strong>d&eacute;signer une PA de r&eacute;ception</strong> dans l&rsquo;annuaire du PPF. Sans cette d&eacute;marche, vos fournisseurs ne pourront pas vous adresser leurs factures &eacute;lectroniques.
+                </div>
+            </div>
+
+            <h3>Les acteurs</h3>
+            <table class="data-table">
+                <thead><tr><th>Acteur</th><th>R&ocirc;le</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>PPF</strong> &mdash; Portail Public de Facturation</td><td>Plateforme publique DGFiP/AIFE. Tient l&rsquo;annuaire central des entreprises et de leurs PA. Plateforme par d&eacute;faut si aucune PA n&rsquo;est d&eacute;sign&eacute;e.</td></tr>
+                    <tr><td><strong>PA</strong> &mdash; Plateforme Agr&eacute;&eacute;e</td><td>Anciennement appel&eacute;e PDP. Interm&eacute;diaire priv&eacute; agr&eacute;&eacute; DGFiP qui &eacute;met et/ou re&ccedil;oit les factures pour votre compte.</td></tr>
+                    <tr><td><strong>PEPPOL</strong></td><td>R&eacute;seau europ&eacute;en d&rsquo;interop&eacute;rabilit&eacute; : garantit que toutes les PA peuvent communiquer entre elles.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========== 2. POSITION GIGARUN ========== -->
+        <div class="gigarun-block">
+            <h2>Notre approche</h2>
+            <div class="gigarun-cards">
+                <div class="gigarun-card">
+                    <span class="card-icon">&#x1F1EB;&#x1F1F7;</span>
+                    <div class="card-title">S&eacute;lection souveraine</div>
+                    <div class="card-text">Uniquement des PA fran&ccedil;aises, agr&eacute;&eacute;es DGFiP, h&eacute;berg&eacute;es en France. Vos donn&eacute;es de facturation restent hors juridiction am&eacute;ricaine.</div>
+                </div>
+                <div class="gigarun-card">
+                    <span class="card-icon">&#x1F91D;</span>
+                    <div class="card-title">Choix avec votre comptable</div>
+                    <div class="card-text">La PA id&eacute;ale d&eacute;pend souvent de votre expert-comptable. Nous facilitons ce dialogue et int&eacute;grons Dolibarr avec la plateforme retenue ensemble.</div>
+                </div>
+                <div class="gigarun-card">
+                    <span class="card-icon">&#x1F527;</span>
+                    <div class="card-title">D&eacute;ploiement cl&eacute; en main</div>
+                    <div class="card-text">Installation du connecteur Dolibarr &harr; PA, tests bout-en-bout &eacute;mission + r&eacute;ception, enregistrement dans l&rsquo;annuaire PPF.</div>
+                </div>
+                <div class="gigarun-card">
+                    <span class="card-icon">&#x1F50D;</span>
+                    <div class="card-title">Audit pr&eacute;alable gratuit</div>
+                    <div class="card-text">Avant tout d&eacute;ploiement, nous analysons votre Dolibarr et identifions les points &agrave; corriger : avoirs, acomptes, TVA, situations.</div>
+                </div>
+            </div>
+            <a href="https://factuzen.re/" target="_blank" class="btn-cta">D&eacute;couvrir notre service FactuZen &rarr;</a>
+        </div>
+
+        <!-- ========== 3. PDP COMPATIBLES ========== -->
+        <div class="section">
+            <h2>Plateformes agr&eacute;&eacute;es compatibles Dolibarr</h2>
+
+            <p>Toutes les PA ne proposent pas de connecteur Dolibarr. Gigarun a pr&eacute;-s&eacute;lectionn&eacute; les solutions <strong>fran&ccedil;aises, agr&eacute;&eacute;es et techniquement int&eacute;gr&eacute;es</strong> &agrave; Dolibarr.</p>
+
+            <div class="pdp-grid">
+
+                <div class="pdp-card">
+                    <div class="pdp-name">Pennylane</div>
+                    <span class="tag tag-green">PA agr&eacute;&eacute;e n&deg;22 &mdash; DGFiP</span>
+                    <ul>
+                        <li>Immatricul&eacute;e depuis septembre 2024</li>
+                        <li>Formats : Factur-X, UBL 2.1, CII D22B</li>
+                        <li>Point d&rsquo;acc&egrave;s PEPPOL en production</li>
+                        <li>Connecteur natif Dolibarr disponible</li>
+                        <li>R&eacute;ception + &eacute;mission incluses dans l&rsquo;abonnement comptable</li>
+                        <li>Activation par le dirigeant ou par le cabinet comptable (mandat)</li>
+                    </ul>
+                </div>
+
+                <div class="pdp-card alt">
+                    <div class="pdp-name">Super PDP</div>
+                    <span class="tag tag-blue">En production &mdash; avril 2026</span>
+                    <ul>
+                        <li>Ouvert en production depuis avril 2026</li>
+                        <li>API standardis&eacute;e AFNOR XP-Z12-013 disponible</li>
+                        <li>Module Dolibarr en d&eacute;veloppement (tests API en cours)</li>
+                        <li>Interop&eacute;rabilit&eacute; valid&eacute;e avec de nombreuses PA</li>
+                        <li>R&eacute;f&eacute;renc&eacute; par la DGFiP et l&rsquo;AIFE</li>
+                        <li>Pr&eacute;sent aux JFE, 5&ndash;6 mai 2026 &mdash; Palais Brongniart</li>
+                    </ul>
+                </div>
+
+<div class="pdp-card alt3">
+                    <div class="pdp-name">PDP Libre</div>
+                    <span class="tag tag-purple">Projet communautaire &mdash; Agrément en cours</span>
+                    <ul>
+                        <li>Association &agrave; but non lucratif &mdash; <a href="https://pdplibre.org/" target="_blank" rel="noopener">pdplibre.org</a></li>
+                        <li>Code source ouvert (open source), h&eacute;berg&eacute; sur Forgejo</li>
+                        <li>Z&eacute;ro collecte de donn&eacute;es, z&eacute;ro revente &mdash; souverainet&eacute; maximale</li>
+                        <li>Support PEPPOL en d&eacute;veloppement communautaire</li>
+                        <li>Compatible API AFNOR XP-Z12-013 (objectif)</li>
+                        <li>Pas d&rsquo;agr&eacute;ment DGFiP confirm&eacute; &agrave; ce jour &mdash; &agrave; suivre</li>
+                        <li>Connecteur Dolibarr non disponible &agrave; ce stade</li>
+                    </ul>
+                </div>
+
+            </div>
+
+                <div class="pdp-card recommended">
+                    <div class="pdp-name">Esalink &mdash; Hubtimize</div>
+                    <span class="tag tag-recommended">&#x2B50; Recommand&eacute;e par Dolibarr.org</span>
+                    <ul>
+                        <li>Premi&egrave;re PA op&eacute;rationnelle et test&eacute;e avec Dolibarr (bac &agrave; sable disponible)</li>
+                        <li>API AFNOR XP-Z12-013 impl&eacute;ment&eacute;e</li>
+                        <li>H&eacute;bergement France &mdash; certification ISO 27001</li>
+                        <li>15 ans d&rsquo;expertise EDI</li>
+                        <li>Compatible module Dolibarr externe (v18&ndash;23+)</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4D6;</div>
+                <div><strong>Source officielle Dolibarr :</strong> <a href="https://www.dolibarr.org/fr/Facturationelectronique2026toutcomprendre.php" target="_blank" rel="noopener">dolibarr.org &mdash; Facturation &eacute;lectronique 2026, tout comprendre</a>. La communaut&eacute; Dolibarr liste les PA valid&eacute;es avec Dolibarr et publie le module externe de connexion (gratuit, v18&ndash;23+, disponible courant juin 2026).</div>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">&#x1F4AC;</div>
+                <div><strong>Comment choisir ?</strong> Si votre expert-comptable utilise d&eacute;j&agrave; Pennylane, la synchronisation Dolibarr &harr; Pennylane est la solution naturelle. Gigarun d&eacute;ploie le connecteur quelle que soit la PA retenue dans notre liste.</div>
+            </div>
+        </div>
+
+        <!-- ========== 4. PENNYLANE DÉTAIL ========== -->
+        <div class="section">
+            <h2>Pennylane &harr; Dolibarr : ce que &ccedil;a change</h2>
+
+            <p>Pennylane a confirm&eacute; par &eacute;crit (mai 2026) les modalit&eacute;s techniques pour les clients utilisant l&rsquo;int&eacute;gration Dolibarr-Pennylane.</p>
+
+            <h3>R&eacute;ception des factures fournisseurs</h3>
+            <ul>
+                <li>Pennylane sera <strong>pleinement op&eacute;rationnelle en r&eacute;ception d&egrave;s le 1<sup>er</sup> septembre 2026</strong></li>
+                <li>Formats accept&eacute;s : Factur-X, UBL 2.1, CII D22B</li>
+                <li>Routage automatique via l&rsquo;annuaire PPF &mdash; aucune action requise sur Dolibarr</li>
+                <li>Point d&rsquo;acc&egrave;s PEPPOL garanti : interop&eacute;rabilit&eacute; avec toutes les PA</li>
+            </ul>
+
+            <h3>Flux automatiques avec Dolibarr</h3>
+            <ul>
+                <li>Factures clients finalis&eacute;es dans Dolibarr &rarr; import automatique dans Pennylane</li>
+                <li>Factures fournisseurs re&ccedil;ues dans Pennylane &rarr; remontent dans Dolibarr</li>
+                <li>Paiements rapproch&eacute;s dans Pennylane &rarr; statut mis &agrave; jour dans Dolibarr</li>
+            </ul>
+
+            <div class="warn">
+                <strong>&#x26A0; Point d&rsquo;attention :</strong> le rapprochement bancaire doit se faire dans <strong>Pennylane</strong>, pas dans Dolibarr. Un rapprochement fait c&ocirc;t&eacute; Dolibarr ne remonte pas dans Pennylane.
+            </div>
+
+            <h3>Activation de Pennylane comme PA de r&eacute;ception</h3>
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Acc&egrave;s au menu d&rsquo;activation</h4>
+                        <p>Dans Pennylane : <strong>Param&egrave;tres &rarr; Transmission de factures</strong>. Pr&eacute;requis : &ecirc;tre repr&eacute;sentant l&eacute;gal, avoir activ&eacute; la double authentification (2FA).</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>V&eacute;rification d&rsquo;identit&eacute;</h4>
+                        <p>Via <strong>Vialink</strong> : pi&egrave;ce d&rsquo;identit&eacute; valide + selfie. Puis signature &eacute;lectronique via <strong>Universign</strong> + validation SMS.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Mise &agrave; jour de l&rsquo;annuaire PPF</h4>
+                        <p>Pennylane met automatiquement &agrave; jour votre ligne dans l&rsquo;annuaire &mdash; votre SIRET est d&eacute;sormais rout&eacute; vers Pennylane.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Alternative : activation par le cabinet</h4>
+                        <p>Votre expert-comptable peut activer au nom de l&rsquo;entreprise via un <strong>mandat de d&eacute;signation</strong> simple, sign&eacute; depuis l&rsquo;interface cabinet Pennylane.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div>La fonctionnalit&eacute; PA est <strong>incluse dans tous les plans Pennylane</strong> (Basique, Essentiel, Premium). Aucun module ni abonnement suppl&eacute;mentaire n&rsquo;est requis.</div>
+            </div>
+        </div>
+
+        <!-- ========== 5. CONFORMITÉ DOLIBARR ========== -->
+        <div class="section">
+            <h2>Ce qui doit &ecirc;tre conforme dans Dolibarr avant septembre 2026</h2>
+
+            <p>La facturation &eacute;lectronique impose des r&egrave;gles strictes sur la structure des donn&eacute;es. Plusieurs pratiques courantes doivent &ecirc;tre corrig&eacute;es avant de brancher une PA.</p>
+
+            <h3>1 &mdash; Les acomptes ne doivent pas appara&icirc;tre en lignes n&eacute;gatives</h3>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x274C;</div>
+                <div><strong>Non-conformit&eacute; critique :</strong> placer le montant d&rsquo;un acompte comme ligne n&eacute;gative dans le corps de la facture finale est interdit. Cela fausse la base taxable et la TVA transmises &agrave; l&rsquo;administration fiscale.</div>
+            </div>
+
+            <p><strong>Pr&eacute;sentation correcte de la facture finale :</strong></p>
+            <table class="data-table">
+                <thead><tr><th>Zone</th><th>Contenu attendu</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Corps de facture</strong></td><td>Prix total de l&rsquo;op&eacute;ration : Total HT + TVA + Total TTC. <u>Sans d&eacute;duction</u> de l&rsquo;acompte.</td></tr>
+                    <tr><td><strong>Pied de facture</strong></td><td>Mention de l&rsquo;acompte d&eacute;j&agrave; factur&eacute; avec n&deg;, date et montant.</td></tr>
+                    <tr><td><strong>Solde</strong></td><td>Total TTC &minus; Acompte(s) = Reste &agrave; payer</td></tr>
+                </tbody>
+            </table>
+
+            <p>Dans Dolibarr, activer : <code>FACTURE_DEPOSITS_ARE_JUST_PAYMENTS = 1</code> dans Configuration &rarr; Divers.</p>
+            <p style="font-size:0.9em;color:#666;">R&eacute;f&eacute;rence l&eacute;gale : art. 289 I-1-c du CGI &mdash; une facture d&rsquo;acompte est une facture &agrave; part enti&egrave;re, soumise &agrave; TVA. Elle ne constitue pas une remise commerciale.</p>
+
+            <h3>2 &mdash; Aucune ligne &agrave; montant n&eacute;gatif dans le corps</h3>
+            <p>Les lignes n&eacute;gatives (remises commerciales mal saisies, acomptes d&eacute;duits) g&eacute;n&egrave;rent des erreurs &agrave; la g&eacute;n&eacute;ration du Factur-X. Chaque avoir doit &ecirc;tre &eacute;mis comme document s&eacute;par&eacute;.</p>
+
+            <h3>3 &mdash; Avoirs correctement sold&eacute;s</h3>
+            <ul>
+                <li>Marqué en <strong>cr&eacute;dit disponible</strong>, puis appliqu&eacute; sur la facture concern&eacute;e</li>
+                <li>Montant correspondant au reste &agrave; payer r&eacute;el (pas &agrave; la totalit&eacute; si un acompte a d&eacute;j&agrave; &eacute;t&eacute; r&eacute;gl&eacute;)</li>
+                <li>Aucune ligne &agrave; TVA 0 % sur des prestations taxables</li>
+            </ul>
+
+            <h3>4 &mdash; Factures de situation (BTP / march&eacute;s &agrave; tranches)</h3>
+            <p>Le mode &laquo; situation &raquo; doit &ecirc;tre activ&eacute; dans Dolibarr. Toutes les situations en cours doivent &ecirc;tre sold&eacute;es avant activation de la conformit&eacute; Factur-X.</p>
+
+            <h3>5 &mdash; TVA DOM</h3>
+            <p>Pour La R&eacute;union et les DOM : v&eacute;rifier que les taux <strong>8,5 % / 2,1 % / 1,05 %</strong> sont correctement configur&eacute;s et appliqu&eacute;s sur chaque ligne. Une facture avec TVA 0 % sur des prestations taxables sera rejet&eacute;e.</p>
+
+            <h3>6 &mdash; Outil de diagnostic : FxPreflight</h3>
+            <p><strong>FxPreflight</strong> (CAP-REL, Preferred Partner Dolibarr) est un module de diagnostic disponible sur le <a href="https://www.dolistore.com" target="_blank" rel="noopener">Dolistore</a>. Il analyse automatiquement votre Dolibarr sur 4 domaines cl&eacute;s de conformit&eacute; Factur-X et produit un rapport des non-conformit&eacute;s &agrave; corriger avant le branchement sur une PA. Gigarun l&rsquo;utilise dans le cadre de l&rsquo;audit pr&eacute;alable gratuit.</p>
+
+            <blockquote>
+                &laquo;&nbsp;La facture finale doit pr&eacute;senter le prix total de l&rsquo;op&eacute;ration &mdash; avec sa base HT, la TVA correspondante et le total TTC &mdash; puis faire appara&icirc;tre, en pied de facture ou dans une zone distincte, les acomptes d&eacute;j&agrave; factur&eacute;s, afin de d&eacute;terminer uniquement le solde restant &agrave; payer.&nbsp;&raquo;
+                <footer>&mdash; David Chung-Poo-Lun, Expert-Comptable, A.C.C.E. (art. 289 I-1-c CGI)</footer>
+            </blockquote>
+        </div>
+
+        <!-- ========== 5b. QONTO + DOLIBARR ========== -->
+        <div class="section">
+            <h2>Vous utilisez Qonto ? Le module DoliQonto</h2>
+
+            <p>Pour les clients Dolibarr dont la banque principale est <strong>Qonto</strong>, le module <a href="https://www.dolistore.com/product.php?id=2596&amp;l=fr" target="_blank" rel="noopener"><strong>DoliQonto</strong></a> (ITized SAS, 90&nbsp;&euro;&nbsp;HT) automatise la synchronisation bancaire et le rapprochement des factures. Il est pertinent dans le contexte de la mise en conformit&eacute; &eacute;lectronique car <strong>des factures correctement sold&eacute;es sont un pr&eacute;requis</strong> avant de brancher une PA.</p>
+
+            <h3>Ce que fait DoliQonto</h3>
+            <ul>
+                <li>Import automatique (t&acirc;che cron horaire) des transactions Qonto dans Dolibarr</li>
+                <li>Rapprochement bancaire automatis&eacute; par montant et date</li>
+                <li>Proposition intelligente des factures &agrave; associer (class&eacute;es par similarit&eacute; et &eacute;ch&eacute;ance)</li>
+                <li>Synchronisation des justificatifs entre Qonto et Dolibarr</li>
+                <li>T&eacute;l&eacute;chargement des relev&eacute;s PDF Qonto directement dans Dolibarr</li>
+                <li>Authentification OAuth 2.0 ou cl&eacute; API &mdash; Dolibarr V20+, PHP 7&ndash;8.2</li>
+            </ul>
+
+            <div class="alert alert-urgent">
+                <div class="alert-icon">&#x26A0;&#xFE0F;</div>
+                <div>
+                    <strong>Incompatibilit&eacute; si votre PA est Pennylane :</strong> Pennylane exige que le rapprochement bancaire se fasse dans son interface, pas dans Dolibarr. Utiliser DoliQonto pour rapprocher les m&ecirc;mes transactions cr&eacute;erait un double traitement et des &eacute;carts comptables. Dans ce cas, <strong>ne pas activer DoliQonto</strong> ou le cantonner &agrave; l&rsquo;import des relev&eacute;s uniquement.
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <div class="alert-icon">&#x2705;</div>
+                <div>
+                    <strong>Compatible avec Super PDP ou PDP Libre</strong> : si votre PA ne joue pas le r&ocirc;le d&rsquo;outil comptable, DoliQonto reste pleinement utilisable pour tenir &agrave; jour le statut de paiement des factures dans Dolibarr, ce qui facilite la conformit&eacute; pr&eacute;alable &agrave; la facturation &eacute;lectronique.
+                </div>
+            </div>
+
+            <p style="font-size:0.9em;color:#666;">N&eacute;cessite un compte Qonto professionnel (d&egrave;s 9&nbsp;&euro;/mois). Mis &agrave; jour incluses 2&nbsp;ans. &Eacute;diteur&nbsp;: ITized SAS &mdash; support : ionut.finta@itized.com</p>
+        </div>
+
+        <!-- ========== 6. PROCESSUS CLIENT ========== -->
+        <div class="section">
+            <h2>Notre processus d&rsquo;accompagnement</h2>
+
+            <div class="procedure">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Premier &eacute;change &mdash; pr&eacute;sentation des options</h4>
+                        <p>Gigarun pr&eacute;sente la liste des PA souveraines compatibles Dolibarr et remet ce guide de r&eacute;f&eacute;rence pour pr&eacute;parer la discussion avec le comptable.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Choix de la PA avec l&rsquo;expert-comptable</h4>
+                        <p>Le client consulte son comptable pour valider la PA qui s&rsquo;int&egrave;gre &agrave; son environnement. Gigarun peut participer &agrave; cet &eacute;change si besoin.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Audit de conformit&eacute; Dolibarr (gratuit)</h4>
+                        <p>Gigarun analyse l&rsquo;&eacute;tat du Dolibarr : avoirs non sold&eacute;s, acomptes mal trait&eacute;s, lignes n&eacute;gatives, TVA manquante. Un rapport d&rsquo;&eacute;tat est remis avec la liste des corrections &agrave; apporter.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4a</div>
+                    <div class="step-content">
+                        <h4>Le client prend en charge la remise en conformit&eacute;</h4>
+                        <p>Sur la base du rapport d&rsquo;audit, le client corrige lui-m&ecirc;me les points identifi&eacute;s : avoirs &agrave; solder, acomptes &agrave; repositionner, TVA &agrave; corriger. Gigarun reste disponible pour r&eacute;pondre aux questions en cours de traitement.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4b</div>
+                    <div class="step-content">
+                        <h4>Gigarun prend en charge la remise en conformit&eacute; (sur devis)</h4>
+                        <p>Si le volume de corrections est important ou si le client pr&eacute;f&egrave;re d&eacute;l&eacute;guer, Gigarun &eacute;tablit un <strong>devis de mise en conformit&eacute;</strong> d&eacute;taill&eacute; sur la base du rapport d&rsquo;audit. Les travaux sont r&eacute;alis&eacute;s par Gigarun (avoirs, acomptes, param&eacute;trage) avant de passer &agrave; l&rsquo;&eacute;tape suivante.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>D&eacute;ploiement du connecteur Dolibarr &harr; PA</h4>
+                        <p>Gigarun installe et configure le module de connexion, effectue les tests bout-en-bout (&eacute;mission + r&eacute;ception), puis enregistre l&rsquo;entreprise dans l&rsquo;annuaire PPF.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Formation (incluse &mdash; moins d&rsquo;1h)</h4>
+                        <p>Prise en main du nouveau workflow dans Dolibarr : &eacute;mission d&rsquo;une facture via la PA, v&eacute;rification de la transmission, r&eacute;ception fournisseur, points de vigilance selon la PA choisie. Incluse dans le d&eacute;ploiement.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h4>Suivi post-d&eacute;ploiement (inclus)</h4>
+                        <p>Contr&ocirc;le &agrave; J+30 : v&eacute;rification que les factures transitent correctement, absence d&rsquo;erreurs de transmission, statuts &agrave; jour dans Dolibarr. Intervention corrective si n&eacute;cessaire.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== 7. CHECKLIST ========== -->
+        <div class="section">
+            <h2>Checklist pr&eacute;alable &agrave; la facturation &eacute;lectronique</h2>
+            <p>V&eacute;rifiez ces points avant de brancher votre Dolibarr &agrave; une PA :</p>
+
+            <ul class="checklist">
+                <li>Aucun avoir non appliqu&eacute; sur des factures impay&eacute;es (avoirs en cr&eacute;dit disponible et sold&eacute;s)</li>
+                <li>Aucune ligne n&eacute;gative dans le corps des factures finales (acomptes pr&eacute;sent&eacute;s en pied)</li>
+                <li>Param&egrave;tre <code>FACTURE_DEPOSITS_ARE_JUST_PAYMENTS = 1</code> activ&eacute; dans Configuration &rarr; Divers</li>
+                <li>Taux de TVA corrects sur toutes les lignes (8,5 % / 2,1 % pour les DOM &mdash; aucune ligne &agrave; 0 % sur prestations taxables)</li>
+                <li>Mode &laquo; facture de situation &raquo; activ&eacute; et toutes les situations en cours sold&eacute;es</li>
+                <li>Informations l&eacute;gales compl&egrave;tes : SIRET, n&deg; TVA intracommunautaire, num&eacute;rotation s&eacute;quentielle</li>
+                <li>Expert-comptable consult&eacute; sur le choix de la PA</li>
+                <li>PA d&eacute;sign&eacute;e dans l&rsquo;annuaire PPF avant le 1<sup>er</sup> septembre 2026</li>
+                <li>Archivage des factures organis&eacute; sur 10 ans (solution backup ou infog&eacute;rance Gigarun)</li>
+            </ul>
+        </div>
+
+        <!-- ========== 8. FAQ ========== -->
+        <div class="section">
+            <h2>Questions fr&eacute;quentes</h2>
+
+            <h3>Toutes les PA agr&eacute;&eacute;es DGFiP fonctionnent-elles avec Dolibarr ?</h3>
+            <p>Non. La liste officielle compte plusieurs dizaines de PA, mais toutes ne disposent pas de connecteur Dolibarr. Gigarun a pr&eacute;-s&eacute;lectionn&eacute; uniquement celles avec une int&eacute;gration fonctionnelle et test&eacute;e.</p>
+
+            <h3>Pourquoi une PA souveraine ?</h3>
+            <p>Vos factures contiennent des donn&eacute;es commerciales sensibles (clients, montants, fr&eacute;quences). Confier ces donn&eacute;es &agrave; une plateforme sous juridiction am&eacute;ricaine expose au <em>Cloud Act</em>. Gigarun s&rsquo;engage sur la souverainet&eacute; num&eacute;rique.</p>
+
+            <h3>Mon comptable utilise Pennylane. Y a-t-il une d&eacute;marche sp&eacute;cifique ?</h3>
+            <p>Non. Le comptable peut activer votre PA depuis son interface cabinet via un mandat de d&eacute;signation. Gigarun branche ensuite le connecteur Dolibarr de son c&ocirc;t&eacute;.</p>
+
+            <h3>Que se passe-t-il si je ne fais rien avant septembre 2026 ?</h3>
+            <p>Votre SIREN sera dans l&rsquo;annuaire PPF avec le PPF lui-m&ecirc;me comme plateforme fictive. Vos fournisseurs ne pourront pas vous router leurs factures &eacute;lectroniques, et vous serez en infraction avec vos obligations de r&eacute;ception.</p>
+
+            <h3>Dois-je migrer tout mon historique de factures vers la PA ?</h3>
+            <p>Non. Seules les factures &eacute;mises apr&egrave;s la date d&rsquo;activation transitent par la PA. Pennylane r&eacute;cup&egrave;re les 30 derniers jours gratuitement ; l&rsquo;historique complet est une option payante.</p>
+
+            <h3>Quel est le co&ucirc;t du service Gigarun ?</h3>
+            <p>L&rsquo;audit de conformit&eacute; pr&eacute;alable est <strong>gratuit</strong>. Le d&eacute;ploiement du connecteur et la remise en conformit&eacute; font l&rsquo;objet d&rsquo;une proposition adapt&eacute;e. D&eacute;tails et tarifs sur <a href="https://factuzen.re/" target="_blank"><strong>factuzen.re</strong></a>.</p>
+        </div>
+
+    </div><!-- /content -->
+</div><!-- /container -->
+
+<!-- ========== FOOTER ========== -->
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-content">
+
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="80" height="30" style="filter:brightness(0) invert(1);">
+                    <span style="font-size:1.1em;font-weight:bold;">ing&eacute;nierie TIC</span>
+                </div>
+                <p>Expert en infog&eacute;rance et cybers&eacute;curit&eacute;<br>Bas&eacute; &agrave; La R&eacute;union, rayonnement Oc&eacute;an Indien</p>
+                <div style="margin-top:15px;">
+                    <div>Saint-Pierre &amp; Saint-Denis, La R&eacute;union</div>
+                    <div><a href="tel:+262692311191">+262 692 31 11 91</a></div>
+                    <div><a href="https://gigarun.re" target="_blank" rel="noopener">www.gigarun.re</a></div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Nos Services</h4>
+                <ul>
+                    <li><a href="https://factuzen.re/" target="_blank" rel="noopener"><strong>FactuZen &mdash; Facturation &eacute;lectronique</strong></a></li>
+                    <li><a href="https://gigarun.re/informatique/services/offre-erp-cloud-sur-mesure" target="_blank" rel="noopener">ERP cloud PME (Dolibarr)</a></li>
+                    <li><a href="https://gigarun.re/informatique/services/infog%C3%A9rance-et-maintenance-informatique.html" target="_blank" rel="noopener">Infog&eacute;rance compl&egrave;te</a></li>
+                    <li><a href="https://gigarun.re/s%C3%A9curit%C3%A9/gouvernance-cybers%C3%A9curit%C3%A9.html" target="_blank" rel="noopener">Cybers&eacute;curit&eacute; &amp; SOC 24/7</a></li>
+                    <li><a href="https://gigarun.re/communication/solutions-de-messagerie-d-entreprise.html" target="_blank" rel="noopener">Messagerie d&rsquo;entreprise</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Certifications</h4>
+                <ul>
+                    <li>Microsoft Partner</li>
+                    <li>N-able Gold Partner</li>
+                    <li>SentinelOne Certified</li>
+                    <li>VEEAM ProPartner</li>
+                    <li>cybermalveillance.gouv.fr</li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GiGaRuN Solutions - Tous droits r&eacute;serv&eacute;s | SIREN : 504015181 | RC Pro 8M&euro;</p>
+        </div>
+    </div>
+</footer>
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+<script>
+(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
+</script>
+
+
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

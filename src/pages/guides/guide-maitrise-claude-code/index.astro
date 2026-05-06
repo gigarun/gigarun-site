@@ -1,0 +1,610 @@
+﻿---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Maîtrise de Claude Code — Architecture, Skills &amp; Roadmap 4 semaines | Guide technique — Gigarun La Réunion" description="Guide complet pour maîtriser Claude Code : métaphore anatomique, architecture CLAUDE.md, création de skills, hooks, subagents, roadmap 4 semaines et 10 anti-patterns à éviter.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Intelligence artificielle</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Maîtrise de Claude Code — Architecture, Skills &amp; Roadmap 4 semaines</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide complet pour maîtriser Claude Code : métaphore anatomique, architecture CLAUDE.md, création de skills, hooks, subagents, roadmap 4 semaines et 10 anti-patterns à éviter.</p>
+  </div>
+</div>
+<div id="guide-wrapper">
+
+
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo-section">
+            <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="120" height="40" style="filter: brightness(0) invert(1);">
+            <div class="company-info">
+                <span class="company-tagline">Vos m&eacute;tiers, nos solutions</span>
+                <span class="company-tagline">Excellence IT - La R&eacute;union</span>
+            </div>
+        </div>
+        <div class="contact-header">
+            <div class="contact-item"><span>+262 692 31 11 91</span></div>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="version">CLAUDE CODE &mdash; GUIDE PRATIQUE</div>
+    <h1>Ma&icirc;triser Claude Code</h1>
+    <p>Architecture, skills, hooks et subagents : de z&eacute;ro &agrave; un copilote IA op&eacute;rationnel en 4 semaines. Roadmap progressive, framework de cr&eacute;ation de skills et 10 anti-patterns &agrave; &eacute;viter absolument.</p>
+</section>
+
+<div class="back-bar"><a href="index.html" class="back-home">&larr; Retour &agrave; l&rsquo;accueil des guides</a></div>
+
+<main class="container">
+
+    <div class="source-credit">
+        &#x1F4DA; Ce guide s&rsquo;inspire du travail de <strong>MAGIPA</strong> &mdash; <a href="https://claudecode.magipa.fr/" target="_blank" rel="noopener">claudecode.magipa.fr</a>. La structure p&eacute;dagogique, la m&eacute;taphore anatomique et la roadmap 4 semaines sont adapt&eacute;es et enrichies du retour d&rsquo;exp&eacute;rience GiGaRuN. Consultez l&rsquo;original pour les templates t&eacute;l&eacute;chargeables et le coaching associ&eacute;.
+    </div>
+
+    <div class="toc">
+        <h3>&#x1F4CB; Sommaire</h3>
+        <ol>
+            <li><a href="#comprendre">Ce qu&rsquo;est vraiment Claude Code</a></li>
+            <li><a href="#anatomie">L&rsquo;anatomie d&rsquo;un copilote IA</a></li>
+            <li><a href="#claudemd">Le cerveau : CLAUDE.md</a></li>
+            <li><a href="#skills">Les muscles : cr&eacute;er des skills efficaces</a></li>
+            <li><a href="#hooks">Les r&eacute;flexes : hooks automatiques</a></li>
+            <li><a href="#mcp">Les sens : serveurs MCP</a></li>
+            <li><a href="#subagents">Les membres : subagents</a></li>
+            <li><a href="#roadmap">Roadmap 4 semaines</a></li>
+            <li><a href="#antipatterns">10 anti-patterns &agrave; &eacute;viter</a></li>
+            <li><a href="#ressources">Ressources et r&eacute;f&eacute;rences</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. COMPRENDRE -->
+    <div class="section" id="comprendre">
+        <h2>&#x1F9E0; 1. Ce qu&rsquo;est vraiment Claude Code</h2>
+
+        <div class="intro-box">
+            <p>Claude Code n&rsquo;est pas un chatbot am&eacute;lior&eacute;. C&rsquo;est un <strong>agent autonome</strong> qui ex&eacute;cute des t&acirc;ches dans votre environnement r&eacute;el : lire et &eacute;crire des fichiers, lancer des commandes, appeler des APIs, orchestrer d&rsquo;autres agents. Sa puissance vient de la fa&ccedil;on dont vous le <em>configurez</em>, pas de la fa&ccedil;on dont vous lui <em>parlez</em>.</p>
+        </div>
+
+        <p>La diff&eacute;rence entre un utilisateur qui &laquo;&nbsp;essaie Claude Code&nbsp;&raquo; et un utilisateur qui en tire un multiplicateur de productivit&eacute; r&eacute;el tient &agrave; une seule chose : <strong>l&rsquo;architecture mise en place avant de travailler</strong>.</p>
+
+        <div class="kpi-grid">
+            <div class="kpi-box">
+                <span class="kpi-num">&times;10</span>
+                <div class="kpi-label">Multiplicateur de productivit&eacute; vis&eacute; apr&egrave;s 4 semaines</div>
+            </div>
+            <div class="kpi-box">
+                <span class="kpi-num">2&ndash;4h</span>
+                <div class="kpi-label">Heures r&eacute;cup&eacute;r&eacute;es par semaine d&egrave;s le premier skill automatis&eacute;</div>
+            </div>
+            <div class="kpi-box">
+                <span class="kpi-num">150</span>
+                <div class="kpi-label">Limite d&rsquo;instructions dans CLAUDE.md pour rester pr&eacute;cis</div>
+            </div>
+            <div class="kpi-box">
+                <span class="kpi-num">5</span>
+                <div class="kpi-label">Tests minimum avant de syst&eacute;matiser un skill</div>
+            </div>
+        </div>
+
+        <div class="callout callout-info">
+            <strong>&#x1F4A1; Principe fondateur</strong>
+            <p>Tester avant de syst&eacute;matiser. Syst&eacute;matiser avant de sc&eacute;nariser. <strong>Ne jamais automatiser ce qu&rsquo;on ne ma&icirc;trise pas encore manuellement.</strong> Un skill cr&eacute;&eacute; trop t&ocirc;t sur un processus mal compris produit des r&eacute;sultats incorrects &agrave; grande vitesse.</p>
+        </div>
+    </div>
+
+    <!-- 2. ANATOMIE -->
+    <div class="section" id="anatomie">
+        <h2>&#x1F9EC; 2. L&rsquo;anatomie d&rsquo;un copilote IA</h2>
+
+        <p>Pour comprendre comment les composants s&rsquo;articulent, MAGIPA propose une m&eacute;taphore anatomique. Chaque &eacute;l&eacute;ment de Claude Code correspond &agrave; une fonction biologique pr&eacute;cise. C&rsquo;est la meilleure grille de lecture pour d&eacute;cider <em>quoi construire en premier</em>.</p>
+
+        <div class="anatomy-grid">
+            <div class="anatomy-card card-brain">
+                <span class="card-icon">&#x1F9E0;</span>
+                <span class="label">Le cerveau</span>
+                <h4>CLAUDE.md</h4>
+                <p>M&eacute;moire persistante et permanente. D&eacute;finit qui est l&rsquo;IA, comment elle pense, ses r&egrave;gles fondamentales. Lu &agrave; chaque session, en priorit&eacute; absolue.</p>
+                <p style="margin-top: 8px;"><code>~/CLAUDE.md</code></p>
+            </div>
+            <div class="anatomy-card card-muscle">
+                <span class="card-icon">&#x1F4AA;</span>
+                <span class="label">Les muscles</span>
+                <h4>Skills</h4>
+                <p>Workflows r&eacute;utilisables activ&eacute;s par une commande <code>/skill-name</code>. Chaque skill est un protocole pr&eacute;cis pour une t&acirc;che r&eacute;currente : audit, r&eacute;daction, analyse, d&eacute;ploiement.</p>
+                <p style="margin-top: 8px;"><code>~/.claude/skills/</code></p>
+            </div>
+            <div class="anatomy-card card-reflex">
+                <span class="card-icon">&#x26A1;</span>
+                <span class="label">Les r&eacute;flexes</span>
+                <h4>Hooks</h4>
+                <p>V&eacute;rifications automatiques d&eacute;clench&eacute;es avant/apr&egrave;s chaque action. Ils prot&egrave;gent contre les erreurs, appliquent des standards sans y penser.</p>
+                <p style="margin-top: 8px;"><code>~/.claude/hooks/</code></p>
+            </div>
+            <div class="anatomy-card card-sense">
+                <span class="card-icon">&#x1F50C;</span>
+                <span class="label">Les sens</span>
+                <h4>Serveurs MCP</h4>
+                <p>Connexions vers le monde ext&eacute;rieur. Notion, Slack, HubSpot, Gmail, bases de donn&eacute;es, APIs m&eacute;tier. L&rsquo;IA perçoit et agit sur des syst&egrave;mes tiers.</p>
+                <p style="margin-top: 8px;"><code>settings.json → mcpServers</code></p>
+            </div>
+            <div class="anatomy-card card-member">
+                <span class="card-icon">&#x1F91D;</span>
+                <span class="label">Les membres</span>
+                <h4>Subagents</h4>
+                <p>Travailleurs d&eacute;l&eacute;gu&eacute;s, chacun sp&eacute;cialis&eacute; dans un domaine. L&rsquo;agent principal orchestre, les subagents ex&eacute;cutent en parall&egrave;le.</p>
+                <p style="margin-top: 8px;"><code>~/.claude/agents/</code></p>
+            </div>
+        </div>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0; Ordre de construction</strong>
+            <p>Ne pas tout construire en m&ecirc;me temps. L&rsquo;ordre optimal : <strong>CLAUDE.md</strong> d&rsquo;abord (cerveau), puis <strong>1 skill</strong> test&eacute; 5 fois (muscle), puis <strong>hooks</strong> (r&eacute;flexes), puis <strong>MCP</strong> (sens), enfin <strong>subagents</strong> (membres) quand les bases sont solides.</p>
+        </div>
+    </div>
+
+    <!-- 3. CLAUDEMD -->
+    <div class="section" id="claudemd">
+        <h2>&#x1F4CB; 3. Le cerveau : CLAUDE.md</h2>
+
+        <p><code>CLAUDE.md</code> est le fichier le plus important de toute votre configuration. Il est lu en priorit&eacute; absolue &agrave; chaque session. Ce qu&rsquo;il contient conditionne tout le reste.</p>
+
+        <h3>Ce que CLAUDE.md doit contenir</h3>
+        <ul>
+            <li><strong>Qui vous &ecirc;tes</strong> : r&ocirc;le, secteur, contraintes sp&eacute;cifiques</li>
+            <li><strong>Comment l&rsquo;IA doit se comporter</strong> : ton, langue, niveau de d&eacute;tail, ce qu&rsquo;elle ne doit jamais faire</li>
+            <li><strong>Vos outils et conventions</strong> : stack technique, standards de nommage, chemins importants</li>
+            <li><strong>Les r&egrave;gles m&eacute;tier non-n&eacute;gociables</strong> : s&eacute;curit&eacute;, conformit&eacute;, processus obligatoires</li>
+        </ul>
+
+        <h3>La r&egrave;gle des 150 instructions</h3>
+
+        <div class="callout callout-danger">
+            <strong>&#x1F6AB; Ne pas d&eacute;passer 150 instructions dans CLAUDE.md</strong>
+            <p>Au-del&agrave; de 150 instructions, la pr&eacute;cision chute. L&rsquo;IA commence &agrave; &laquo;&nbsp;oublier&nbsp;&raquo; certaines r&egrave;gles au profit d&rsquo;autres. <strong>Solution :</strong> utiliser des <code>@imports</code> pour d&eacute;l&eacute;guer les r&egrave;gles sp&eacute;cifiques &agrave; des fichiers modulaires. CLAUDE.md reste le noyau dur, les d&eacute;tails sont externalis&eacute;s.</p>
+        </div>
+
+        <h3>Structure recommand&eacute;e avec @imports</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">CLAUDE.md</div>
+            <div><span class="comment"># R&ocirc;le et identit&eacute; (5-10 lignes max)</span></div>
+            <div><span class="key">Tu es mon copilote IA sp&eacute;cialis&eacute; en [domaine].</span></div>
+            <div><span class="key">Tu travailles pour [contexte m&eacute;tier].</span></div>
+            <div></div>
+            <div><span class="comment"># R&egrave;gles fondamentales (15-20 r&egrave;gles)</span></div>
+            <div><span class="key">- Ne jamais [action interdite]</span></div>
+            <div><span class="key">- Toujours [comportement attendu]</span></div>
+            <div></div>
+            <div><span class="comment"># R&egrave;gles sp&eacute;cifiques externalis&eacute;es</span></div>
+            <div><span class="val">@rules/securite.md</span></div>
+            <div><span class="val">@rules/style-redaction.md</span></div>
+            <div><span class="val">@rules/conventions-code.md</span></div>
+        </div>
+
+        <div class="callout callout-success">
+            <strong>&#x2714; Bonne pratique GiGaRuN</strong>
+            <p>Commencer avec <strong>5 &agrave; 10 r&egrave;gles seulement</strong>. Ajouter une r&egrave;gle uniquement quand un comportement ind&eacute;sirable s&rsquo;est manifest&eacute; en pratique. Un CLAUDE.md de 200 lignes jamais test&eacute; vaut moins qu&rsquo;un CLAUDE.md de 15 lignes affin&eacute; sur 3 mois d&rsquo;usage r&eacute;el.</p>
+        </div>
+    </div>
+
+    <!-- 4. SKILLS -->
+    <div class="section" id="skills">
+        <h2>&#x1F4AA; 4. Les muscles : cr&eacute;er des skills efficaces</h2>
+
+        <p>Un skill est un fichier Markdown qui d&eacute;crit un workflow pr&eacute;cis. Il s&rsquo;active avec <code>/nom-du-skill</code> dans Claude Code. La qualit&eacute; d&rsquo;un skill se mesure &agrave; sa capacit&eacute; &agrave; produire un r&eacute;sultat coh&eacute;rent &agrave; chaque ex&eacute;cution, sans que vous ayez besoin de r&eacute;expliquer le contexte.</p>
+
+        <h3>Le frontmatter obligatoire</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">SKILL.md &mdash; EN-T&Ecirc;TE</div>
+            <div><span class="key">---</span></div>
+            <div><span class="key">name:</span> <span class="val">/brief-client</span></div>
+            <div><span class="key">description:</span> <span class="val">G&eacute;n&egrave;re un brief client complet &agrave; partir d&rsquo;un URL ou nom d&rsquo;entreprise</span></div>
+            <div><span class="key">tools:</span> <span class="val">[WebSearch, Read, Write]</span>    <span class="comment"># Whitelist s&eacute;curit&eacute;</span></div>
+            <div><span class="key">model:</span> <span class="val">sonnet</span>                    <span class="comment"># sonnet (standard) ou opus (complexe)</span></div>
+            <div><span class="key">---</span></div>
+        </div>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0; Le champ <code>description</code> est critique</strong>
+            <p>C&rsquo;est lui qui d&eacute;termine si Claude Code propose automatiquement le skill dans le bon contexte. Une description vague (&laquo;&nbsp;fait des trucs&nbsp;&raquo;) = skill jamais propos&eacute; spontan&eacute;ment. Une description pr&eacute;cise = skill activ&eacute; au bon moment.</p>
+        </div>
+
+        <h3>Le framework en 5 blocs obligatoires</h3>
+
+        <p>Tout skill efficace contient exactement ces 5 blocs, dans cet ordre :</p>
+
+        <ol class="skill-blocks">
+            <li>
+                <strong>INPUTS &mdash; Ce dont le skill a besoin</strong>
+                <span>Les informations obligatoires avant de d&eacute;marrer. Si un input manque, le skill demande explicitement avant de continuer. Ex : URL du client, nom du projet, type de prestation.</span>
+            </li>
+            <li>
+                <strong>STEPS &mdash; Les &eacute;tapes num&eacute;rot&eacute;es</strong>
+                <span>Actions pr&eacute;cises, dans l&rsquo;ordre, v&eacute;rifiables. Chaque &eacute;tape doit &ecirc;tre observable : soit &ccedil;a produit un fichier, soit &ccedil;a affiche un r&eacute;sultat, soit &ccedil;a attend une confirmation.</span>
+            </li>
+            <li>
+                <strong>OUTPUT &mdash; Le format exact attendu</strong>
+                <span>Sp&eacute;cifier le format de sortie : Markdown, JSON, tableau, PDF, email. La longueur, les sections, la langue. Sans format d&eacute;fini, chaque ex&eacute;cution donne un r&eacute;sultat diff&eacute;rent.</span>
+            </li>
+            <li>
+                <strong>SELF-CHECK &mdash; 3 &agrave; 5 crit&egrave;res de v&eacute;rification</strong>
+                <span>L&rsquo;IA v&eacute;rifie elle-m&ecirc;me son travail avant de livrer. Ex : &laquo;&nbsp;Le brief contient-il un budget estim&eacute; ?&nbsp;&raquo;, &laquo;&nbsp;Tous les contacts identifi&eacute;s sont-ils v&eacute;rifiables ?&nbsp;&raquo;</span>
+            </li>
+            <li>
+                <strong>DEFINITION OF DONE &mdash; La condition de fin</strong>
+                <span>Quand le skill est-il termin&eacute; ? Une condition claire &eacute;vite les livraisons partielles et les boucles infinies. Ex : &laquo;&nbsp;Fichier <code>brief-[client].md</code> cr&eacute;&eacute; dans le dossier courant&nbsp;&raquo;.</span>
+            </li>
+        </ol>
+
+        <h3>R&egrave;gles de cr&eacute;ation</h3>
+        <ul>
+            <li>Tester le skill <strong>minimum 5 fois</strong> avec des cas diff&eacute;rents avant de le consid&eacute;rer stable</li>
+            <li>Un skill = une t&acirc;che. Ne pas essayer de tout faire dans un seul skill</li>
+            <li>Nommer les skills avec des verbes d&rsquo;action : <code>/audit-securite</code>, <code>/rediger-proposition</code>, <code>/analyser-logs</code></li>
+            <li>Si un skill prend &gt; 5 minutes &agrave; ex&eacute;cuter, le d&eacute;couper en sous-skills cha&icirc;n&eacute;s</li>
+        </ul>
+
+        <h3>O&ugrave; trouver des skills existants</h3>
+
+        <table class="table-std">
+            <thead><tr><th>Source</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td><code>skillhub.club</code></td><td>Plus de 7 000 skills class&eacute;s par domaine</td></tr>
+                <tr><td><code>ayclaude.com</code></td><td>Skills cur&eacute;s par la communaut&eacute;</td></tr>
+                <tr><td><code>awesomeclaude.ai</code></td><td>Ressources s&eacute;lectionn&eacute;es</td></tr>
+                <tr><td><code>hesreallyhim/awesome-claude-code</code></td><td>Repo GitHub, liste maintenue par la communaut&eacute;</td></tr>
+                <tr><td>docs.anthropic.com/claude-code/skills</td><td>Documentation officielle Anthropic</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 5. HOOKS -->
+    <div class="section" id="hooks">
+        <h2>&#x26A1; 5. Les r&eacute;flexes : hooks automatiques</h2>
+
+        <p>Les hooks sont des scripts qui s&rsquo;ex&eacute;cutent automatiquement avant ou apr&egrave;s certaines actions de Claude Code. Ils fonctionnent ind&eacute;pendamment de l&rsquo;IA &mdash; ce sont des gardes-fous syst&egrave;me.</p>
+
+        <h3>Les deux types de hooks</h3>
+
+        <table class="table-std">
+            <thead>
+                <tr><th>Type</th><th>D&eacute;clenchement</th><th>Usage typique</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PreToolUse</strong></td>
+                    <td>Avant qu&rsquo;un outil soit utilis&eacute;</td>
+                    <td>Bloquer une suppression critique, valider un param&egrave;tre, demander confirmation</td>
+                </tr>
+                <tr>
+                    <td><strong>Stop</strong></td>
+                    <td>Apr&egrave;s la fin d&rsquo;une session</td>
+                    <td>Analyser la session, g&eacute;n&eacute;rer un rapport, rappeler de faire un handoff</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Exemple : hook de protection contre les suppressions</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">~/.claude/hooks/protect-delete.py &mdash; PreToolUse</div>
+            <div><span class="comment"># Bloquer rm -rf sur des dossiers critiques</span></div>
+            <div><span class="key">import</span> <span class="val">sys, json</span></div>
+            <div><span class="key">data</span> = json.load(sys.stdin)</div>
+            <div><span class="key">cmd</span> = data.get(<span class="val">"tool_input"</span>, {}).get(<span class="val">"command"</span>, <span class="val">""</span>)</div>
+            <div><span class="key">protected</span> = [<span class="val">"~/.claude"</span>, <span class="val">"~/Exocortex"</span>, <span class="val">"/prod"</span>]</div>
+            <div><span class="key">if</span> <span class="val">"rm -rf"</span> <span class="key">in</span> cmd <span class="key">and any</span>(p <span class="key">in</span> cmd <span class="key">for</span> p <span class="key">in</span> protected):</div>
+            <div>    print(json.dumps({<span class="val">"decision"</span>: <span class="val">"block"</span>, <span class="val">"reason"</span>: <span class="val">"Dossier prot&eacute;g&eacute;"</span>}))</div>
+        </div>
+
+        <div class="callout callout-info">
+            <strong>&#x1F4A1; R&egrave;gle d&rsquo;ordre</strong>
+            <p>Installer les hooks <strong>apr&egrave;s</strong> avoir ma&icirc;tris&eacute; les skills (semaine 3 dans la roadmap). Un hook mal configur&eacute; peut bloquer des actions l&eacute;gitimes. Les comprendre avant de les d&eacute;ployer.</p>
+        </div>
+    </div>
+
+    <!-- 6. MCP -->
+    <div class="section" id="mcp">
+        <h2>&#x1F50C; 6. Les sens : serveurs MCP</h2>
+
+        <p>Les serveurs MCP (Model Context Protocol) connectent Claude Code &agrave; des syst&egrave;mes externes. L&rsquo;IA peut alors lire et &eacute;crire dans Notion, envoyer des emails via Gmail, requ&ecirc;ter une base de donn&eacute;es, appeler une API m&eacute;tier.</p>
+
+        <h3>Configuration dans settings.json</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">~/.claude/settings.json</div>
+            <div>{</div>
+            <div>  <span class="key">"mcpServers"</span>: {</div>
+            <div>    <span class="key">"n8n"</span>: {</div>
+            <div>      <span class="key">"command"</span>: <span class="val">"npx"</span>,</div>
+            <div>      <span class="key">"args"</span>: [<span class="val">"-y"</span>, <span class="val">"n8n-mcp"</span>],</div>
+            <div>      <span class="key">"env"</span>: { <span class="key">"N8N_API_URL"</span>: <span class="val">"https://votre-n8n.example.com"</span> }</div>
+            <div>    }</div>
+            <div>  }</div>
+            <div>}</div>
+        </div>
+
+        <h3>Exemples d&rsquo;int&eacute;grations utiles</h3>
+
+        <table class="table-std">
+            <thead><tr><th>MCP Server</th><th>Ce que &ccedil;a permet</th><th>Pertinence GiGaRuN</th></tr></thead>
+            <tbody>
+                <tr><td><code>n8n-mcp</code></td><td>Cr&eacute;er et g&eacute;rer des workflows n8n depuis Claude Code</td><td>&#x2B50; Haute</td></tr>
+                <tr><td>Ahrefs MCP</td><td>Analyse SEO, mots-cl&eacute;s, backlinks en temps r&eacute;el</td><td>&#x2B50; Haute</td></tr>
+                <tr><td>Microsoft 365 MCP</td><td>Lecture emails Outlook, calendrier, SharePoint</td><td>&#x2B50; Haute</td></tr>
+                <tr><td>GitHub MCP</td><td>Issues, PRs, repos directement dans le workflow</td><td>&#x2B50; Haute</td></tr>
+                <tr><td>PostgreSQL MCP</td><td>Requ&ecirc;tes SQL sur base de donn&eacute;es</td><td>Moyenne</td></tr>
+                <tr><td>Slack MCP</td><td>Envoyer des messages, lire des canaux</td><td>Moyenne</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout callout-danger">
+            <strong>&#x1F6A8; S&eacute;curit&eacute; MCP &mdash; lire le code avant d&rsquo;installer</strong>
+            <p>Un serveur MCP tourne avec les droits de votre session. Il peut lire vos fichiers et vos cl&eacute;s API. <strong>Ne jamais installer un MCP tiers sans avoir lu son code source en entier.</strong> Voir le guide <a href="guide_github_claude_code_gigarun.html">GitHub &amp; Claude Code</a> pour la proc&eacute;dure compl&egrave;te.</p>
+        </div>
+    </div>
+
+    <!-- 7. SUBAGENTS -->
+    <div class="section" id="subagents">
+        <h2>&#x1F91D; 7. Les membres : subagents</h2>
+
+        <p>Les subagents sont des agents sp&eacute;cialis&eacute;s qui travaillent en parall&egrave;le, chacun dans son domaine. L&rsquo;agent principal orchestre, les subagents ex&eacute;cutent. C&rsquo;est ce qui permet de passer des t&acirc;ches s&eacute;quentielles aux t&acirc;ches parall&egrave;les.</p>
+
+        <h3>Structure d&rsquo;un subagent</h3>
+
+        <div class="cmd-block">
+            <div class="os-label">~/.claude/agents/analyste-securite.md</div>
+            <div><span class="key">---</span></div>
+            <div><span class="key">name:</span> <span class="val">analyste-securite</span></div>
+            <div><span class="key">description:</span> <span class="val">Analyse les vuln&eacute;rabilit&eacute;s et produit des rapports de s&eacute;curit&eacute;</span></div>
+            <div><span class="key">tools:</span> <span class="val">[Bash, Read, Write]</span>     <span class="comment"># Jamais de suppression</span></div>
+            <div><span class="key">---</span></div>
+            <div></div>
+            <div><span class="comment"># R&ocirc;le</span></div>
+            <div>Tu es un analyste s&eacute;curit&eacute; sp&eacute;cialis&eacute; en pentest applicatif.</div>
+            <div></div>
+            <div><span class="comment"># Scope (ce que tu NE fais PAS)</span></div>
+            <div>Tu n&rsquo;ex&eacute;cutes jamais d&rsquo;exploit sans validation explicite.</div>
+            <div>Tu ne supprimes aucun fichier.</div>
+        </div>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0; Subagents : &eacute;tape finale</strong>
+            <p>Ne pas cr&eacute;er de subagents avant d&rsquo;avoir des skills stables. Un subagent qui orchestre des skills non ma&icirc;tris&eacute;s produit des r&eacute;sultats impr&eacute;visibles. Les subagents amplifient &mdash; le bon comme le mauvais.</p>
+        </div>
+    </div>
+
+    <!-- 8. ROADMAP -->
+    <div class="section" id="roadmap">
+        <h2>&#x1F5FA; 8. Roadmap 4 semaines</h2>
+
+        <p>Une progression structur&eacute;e qui &eacute;vite les erreurs classiques : partir trop vite, trop complexe, sans fondations solides.</p>
+
+        <div class="week-grid">
+            <div class="week-card week1" data-week="1">
+                <h4>&#x1F539; Semaine 1 &mdash; Fondations</h4>
+                <ul>
+                    <li>Lancer <code>/init</code> dans Claude Code</li>
+                    <li>Cr&eacute;er CLAUDE.md avec 5&ndash;10 r&egrave;gles seulement</li>
+                    <li>Identifier 3 t&acirc;ches r&eacute;p&eacute;titives dans votre semaine</li>
+                    <li>Construire et tester <strong>1 skill</strong> (5 ex&eacute;cutions minimum)</li>
+                </ul>
+            </div>
+            <div class="week-card week2" data-week="2">
+                <h4>&#x1F7E2; Semaine 2 &mdash; Contexte</h4>
+                <ul>
+                    <li>Organiser la hi&eacute;rarchie m&eacute;moire</li>
+                    <li>Cr&eacute;er des r&egrave;gles modulaires (<code>@imports</code>)</li>
+                    <li>Connecter votre premier serveur MCP</li>
+                    <li>Ajouter 1 ou 2 skills suppl&eacute;mentaires</li>
+                </ul>
+            </div>
+            <div class="week-card week3" data-week="3">
+                <h4>&#x1F7E0; Semaine 3 &mdash; Qualit&eacute;</h4>
+                <ul>
+                    <li>Activer un hook Stop (analyse de session)</li>
+                    <li>Installer un hook PreToolUse (protection)</li>
+                    <li>Cha&icirc;ner deux skills existants</li>
+                    <li>Adapter des skills communautaires &agrave; votre contexte</li>
+                </ul>
+            </div>
+            <div class="week-card week4" data-week="4">
+                <h4>&#x1F7E3; Semaine 4 &mdash; Composition</h4>
+                <ul>
+                    <li>Activer <code>/learn</code> (auto-apprentissage)</li>
+                    <li>Activer <code>/review</code> (contr&ocirc;le qualit&eacute;)</li>
+                    <li>Dupliquer et adapter des skills &eacute;prouv&eacute;s</li>
+                    <li>Cr&eacute;er votre premier subagent</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="callout callout-success">
+            <strong>&#x2714; Apr&egrave;s 4 semaines</strong>
+            <p>Vous devriez avoir : 5&ndash;10 skills op&eacute;rationnels, 1&ndash;2 hooks actifs, 1 MCP connect&eacute;, et 2&ndash;4 heures par semaine r&eacute;cup&eacute;r&eacute;es. C&rsquo;est la base sur laquelle le multiplicateur de productivit&eacute; s&rsquo;accumule.</p>
+        </div>
+    </div>
+
+    <!-- 9. ANTI-PATTERNS -->
+    <div class="section" id="antipatterns">
+        <h2>&#x274C; 9. Les 10 anti-patterns &agrave; &eacute;viter</h2>
+
+        <p>Ces erreurs sont commises par la majorit&eacute; des nouveaux utilisateurs. Les conna&icirc;tre &agrave; l&rsquo;avance &eacute;vite des semaines de frustration.</p>
+
+        <ul class="antipattern-list">
+            <li>
+                <div class="ap-num">1</div>
+                <div class="ap-body">
+                    <strong>CLAUDE.md trop charg&eacute;</strong>
+                    <span>Plus de 150 instructions = perte de pr&eacute;cision. Moins c&rsquo;est plus. Externaliser dans des fichiers modulaires via <code>@imports</code>.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">2</div>
+                <div class="ap-body">
+                    <strong>Automatiser sans ma&icirc;triser le processus manuel</strong>
+                    <span>Cr&eacute;er un skill sur un processus qu&rsquo;on ne fait jamais manuellement. R&eacute;sultat : des erreurs &agrave; grande vitesse, impossibles &agrave; d&eacute;tecter.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">3</div>
+                <div class="ap-body">
+                    <strong>Skills sans format de sortie d&eacute;fini</strong>
+                    <span>Sans sp&eacute;cification de l&rsquo;output, chaque ex&eacute;cution donne un r&eacute;sultat diff&eacute;rent. Un skill sans format n&rsquo;est pas un skill, c&rsquo;est un prompt.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">4</div>
+                <div class="ap-body">
+                    <strong>Tester un skill une seule fois</strong>
+                    <span>Un skill valid&eacute; sur un seul cas peut &eacute;chouer sur tous les autres. Tester minimum 5 fois avec des entr&eacute;es vari&eacute;es avant de le consid&eacute;rer stable.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">5</div>
+                <div class="ap-body">
+                    <strong>Installer des MCP sans lire le code</strong>
+                    <span>Un serveur MCP malveillant peut exfiltrer vos cl&eacute;s API et vos fichiers. Lire le code source en entier, sans exception.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">6</div>
+                <div class="ap-body">
+                    <strong>Construire les subagents avant les skills</strong>
+                    <span>Les subagents amplifient ce qui est en dessous. Sans skills ma&icirc;tris&eacute;s, ils amplifient le chaos.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">7</div>
+                <div class="ap-body">
+                    <strong>Skills trop g&eacute;n&eacute;riques</strong>
+                    <span>Un skill <code>/analyser</code> qui fait tout ne fait rien bien. Plus le p&eacute;rim&egrave;tre est pr&eacute;cis, plus le r&eacute;sultat est fiable.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">8</div>
+                <div class="ap-body">
+                    <strong>Copier-coller des skills sans les adapter</strong>
+                    <span>Un skill cr&eacute;&eacute; pour un autre contexte m&eacute;tier ne fonctionnera pas dans le v&ocirc;tre. Toujours adapter au moins le contexte, les exemples et le format de sortie.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">9</div>
+                <div class="ap-body">
+                    <strong>Ignorer la hi&eacute;rarchie m&eacute;moire</strong>
+                    <span>Mettre toutes les informations dans CLAUDE.md alors qu&rsquo;elles appartiennent &agrave; la m&eacute;moire de projet (<code>.claude/</code>) ou de session. Le bon niveau au bon endroit.</span>
+                </div>
+            </li>
+            <li>
+                <div class="ap-num">10</div>
+                <div class="ap-body">
+                    <strong>Construire sans mesurer</strong>
+                    <span>Ajouter des skills, des hooks, des agents sans v&eacute;rifier si &ccedil;a change vraiment les r&eacute;sultats. Mesurer le temps r&eacute;cup&eacute;r&eacute; chaque semaine pour savoir ce qui vaut vraiment le coup.</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 10. RESSOURCES -->
+    <div class="section" id="ressources">
+        <h2>&#x1F517; 10. Ressources et r&eacute;f&eacute;rences</h2>
+
+        <h3>Documentation officielle Anthropic</h3>
+        <table class="table-std">
+            <thead><tr><th>Page</th><th>Contenu</th></tr></thead>
+            <tbody>
+                <tr><td>docs.anthropic.com/claude-code/skills</td><td>Cr&eacute;ation et structure des skills</td></tr>
+                <tr><td>docs.anthropic.com/claude-code/hooks</td><td>Configuration des hooks PreToolUse et Stop</td></tr>
+                <tr><td>docs.anthropic.com/claude-code/memory</td><td>Hi&eacute;rarchie m&eacute;moire : session, projet, utilisateur</td></tr>
+                <tr><td>docs.anthropic.com/claude-code/sub-agents</td><td>Cr&eacute;ation et orchestration de subagents</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Guides GiGaRuN compl&eacute;mentaires</h3>
+        <ul>
+            <li><a href="guide_exocortex_bootstrap_gigarun.html" style="color: #2c5364;">Exocortex Bootstrap</a> &mdash; R&eacute;installation compl&egrave;te sur nouvelle machine</li>
+            <li><a href="guide_github_claude_code_gigarun.html" style="color: #2c5364;">GitHub &amp; Claude Code</a> &mdash; &Eacute;valuer et installer des repos sans risque</li>
+            <li><a href="guide_multiagent_ollama_gigarun.html" style="color: #2c5364;">Multi-Agents &amp; Ollama</a> &mdash; Architecture multi-agents 100&nbsp;% locale</li>
+            <li><a href="exocortex.html" style="color: #2c5364;">Exocortex IA</a> &mdash; Guide complet du copilote m&eacute;tier</li>
+        </ul>
+
+        <h3>Source de ce guide</h3>
+        <div class="source-credit" style="margin-top: 16px;">
+            Ce guide est une adaptation du travail p&eacute;dagogique de <strong>MAGIPA</strong>. La source originale, avec les templates t&eacute;l&eacute;chargeables (playbook PDF 4 semaines) et les options de coaching, est disponible sur <a href="https://claudecode.magipa.fr/" target="_blank" rel="noopener">claudecode.magipa.fr</a>. GiGaRuN a enrichi le contenu de son propre retour d&rsquo;exp&eacute;rience terrain (Exocortex, lab-test, d&eacute;ploiements clients).
+        </div>
+
+        <div class="tag-row" style="margin-top: 24px;">
+            <span class="tag tag-slate">Claude Code</span>
+            <span class="tag tag-blue">CLAUDE.md</span>
+            <span class="tag tag-blue">Skills</span>
+            <span class="tag tag-green">Hooks</span>
+            <span class="tag tag-purple">MCP Servers</span>
+            <span class="tag tag-orange">Subagents</span>
+            <span class="tag tag-gray">Roadmap</span>
+            <span class="tag tag-slate">Productivit&eacute;</span>
+        </div>
+    </div>
+
+</main>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="https://gigarun.re/templates/stratos/images/presets/preset1/logo.svg" alt="GiGaRuN Solutions" width="80" height="30" style="filter: brightness(0) invert(1);">
+                    <span style="font-size: 1.1em; font-weight: bold;">ing&eacute;nierie TIC</span>
+                </div>
+                <p>Expert en infog&eacute;rance et cybers&eacute;curit&eacute;<br>Bas&eacute; &agrave; La R&eacute;union, rayonnement Oc&eacute;an Indien</p>
+                <div style="margin-top: 15px;">
+                    <div>Saint-Pierre &amp; Saint-Denis, La R&eacute;union</div>
+                    <div><a href="tel:+262692311191">+262 692 31 11 91</a></div>
+                    <div><a href="https://gigarun.re" target="_blank" rel="noopener">www.gigarun.re</a></div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Nos Services</h4>
+                <ul>
+                    <li><a href="https://gigarun.re/informatique/services/offre-erp-cloud-sur-mesure" target="_blank" rel="noopener"><strong>ERP cloud PME</strong></a></li>
+                    <li><a href="https://gigarun.re/informatique/services/infog%C3%A9rance-et-maintenance-informatique.html" target="_blank" rel="noopener">Infog&eacute;rance compl&egrave;te</a></li>
+                    <li><a href="https://gigarun.re/s%C3%A9curit%C3%A9/gouvernance-cybers%C3%A9curit%C3%A9.html" target="_blank" rel="noopener">Cybers&eacute;curit&eacute; &amp; SOC 24/7</a></li>
+                    <li><a href="https://gigarun.re/informatique/services/sauvegarde-et-r%C3%A9plication-de-donn%C3%A9es.html" target="_blank" rel="noopener">Sauvegarde &amp; PRA</a></li>
+                    <li><a href="https://gigarun.re/communication/solutions-de-messagerie-d-entreprise.html" target="_blank" rel="noopener">Messagerie d&rsquo;entreprise</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Certifications</h4>
+                <ul>
+                    <li>Microsoft Partner</li>
+                    <li>N-able Gold Partner</li>
+                    <li>SentinelOne Certified</li>
+                    <li>VEEAM ProPartner</li>
+                    <li>cybermalveillance.gouv.fr</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GiGaRuN Solutions - Tous droits r&eacute;serv&eacute;s | SIREN&nbsp;: 504015181 | RC Pro 8M&euro;</p>
+        </div>
+    </div>
+</footer>
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+<script>(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();</script>
+
+
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>
