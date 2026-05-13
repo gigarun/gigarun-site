@@ -123,10 +123,10 @@ import Layout from '../../layouts/Layout.astro';
     <!-- TARIFS -->
     <div class="mb-20">
       <h2 class="font-syne font-bold text-[#F1F0F7] text-3xl mb-2">Le bon Nestor au bon prix</h2>
-      <p class="text-[#9B99AA] mb-10">Votre budget, votre choix — SaaS pour démarrer vite, on-premise pour la souveraineté totale.</p>
+      <p class="text-[#9B99AA] mb-10">Votre budget, votre choix — SaaS pour démarrer vite, satellite pour étendre la couverture, on-premise pour la souveraineté totale.</p>
 
-      <div class="grid md:grid-cols-3 gap-5 mb-10">
-        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+        <div class="bg-[#0D0028] border border-[rgba(14,165,233,0.4)] rounded-xl p-6">
           <div class="text-2xl mb-2">&#9729;&#65039;</div>
           <h4 class="font-syne font-bold text-[#F1F0F7] mb-2">SaaS GiGaRuN</h4>
           <p class="text-[#9B99AA] text-sm mb-3">Nestor tourne sur nos serveurs. Zéro investissement, accès immédiat sous 48h.</p>
@@ -136,23 +136,33 @@ import Layout from '../../layouts/Layout.astro';
             <li>&#10003; DPA RGPD fourni</li>
           </ul>
         </div>
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.4)] rounded-xl p-6">
+          <div class="text-2xl mb-2">&#128225;</div>
+          <h4 class="font-syne font-bold text-[#F1F0F7] mb-2">SaaS + Satellite</h4>
+          <p class="text-[#9B99AA] text-sm mb-3">SaaS + boîtier satellite dans vos locaux pour les données sensibles. Le meilleur des deux mondes.</p>
+          <ul class="text-[#9B99AA] text-xs space-y-1">
+            <li>&#10003; Données sensibles en local</li>
+            <li>&#10003; Puissance cloud à disposition</li>
+            <li>&#10003; Matériel ~200-300&euro; unique</li>
+          </ul>
+        </div>
         <div class="bg-[#0D0028] border border-[#7C3AED] rounded-xl p-6 relative">
           <span class="absolute top-3 right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full">Recommandé</span>
           <div class="text-2xl mb-2">&#128260;</div>
           <h4 class="font-syne font-bold text-[#F1F0F7] mb-2">Hybride</h4>
-          <p class="text-[#9B99AA] text-sm mb-3">Démarrez en SaaS, basculez sur votre machine quand vous êtes prêt. Aucune interruption.</p>
+          <p class="text-[#9B99AA] text-sm mb-3">Vous fournissez la machine, GiGaRuN installe et maintient. Tarif réduit, souveraineté maximale.</p>
           <ul class="text-[#9B99AA] text-xs space-y-1">
-            <li>&#10003; Flexibilité maximale</li>
-            <li>&#10003; Budget étalé dans le temps</li>
-            <li>&#10003; Migration sans perte de config</li>
+            <li>&#10003; Machine existante valorisée</li>
+            <li>&#10003; 100% données chez vous</li>
+            <li>&#10003; Maintenance incluse</li>
           </ul>
         </div>
         <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-6">
           <div class="text-2xl mb-2">&#127968;</div>
           <h4 class="font-syne font-bold text-[#F1F0F7] mb-2">On-premise</h4>
-          <p class="text-[#9B99AA] text-sm mb-3">Machine dédiée dans vos locaux. Souveraineté totale — vos données ne quittent jamais votre réseau.</p>
+          <p class="text-[#9B99AA] text-sm mb-3">Workstation dédiée GiGaRuN dans vos locaux. Clé en main, zéro compromis.</p>
           <ul class="text-[#9B99AA] text-xs space-y-1">
-            <li>&#10003; 100% données chez vous</li>
+            <li>&#10003; Matériel certifié inclus</li>
             <li>&#10003; Architecture sur mesure</li>
             <li>&#9888; Investissement initial requis</li>
           </ul>
@@ -160,40 +170,53 @@ import Layout from '../../layouts/Layout.astro';
       </div>
 
       <div class="overflow-x-auto rounded-xl border border-[rgba(124,58,237,0.2)]">
-        <table class="w-full text-sm">
+        <table class="w-full text-sm" style="min-width:600px">
           <thead class="bg-[#7C3AED] text-white">
             <tr>
               <th class="text-left p-4 font-syne">Formule</th>
               <th class="p-4 text-center font-syne">&#9729;&#65039; SaaS</th>
+              <th class="p-4 text-center font-syne">&#128225; SaaS + Satellite</th>
               <th class="p-4 text-center font-syne">&#128260; Hybride</th>
               <th class="p-4 text-center font-syne">&#127968; On-premise</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-[rgba(124,58,237,0.1)]">
+            <tr class="bg-[#06101a]">
+              <td class="p-4">
+                <div class="font-bold text-[#38bdf8]">Nestor Starter</div>
+                <div class="text-[#9B99AA] text-xs">1 service IA &bull; Idéal pour démarrer</div>
+              </td>
+              <td class="p-4 text-center font-bold text-[#38bdf8]">149&euro;/mois</td>
+              <td class="p-4 text-center font-bold text-[#38bdf8]">149&euro;/mois<br><span class="text-xs text-[#9B99AA] font-normal">+ ~500&euro; install + matériel</span></td>
+              <td class="p-4 text-center text-[#9B99AA] text-xs">Non disponible</td>
+              <td class="p-4 text-center text-[#9B99AA] text-xs">Non disponible</td>
+            </tr>
             <tr class="bg-[#0D0028]">
               <td class="p-4">
                 <div class="font-bold text-[#F1F0F7]">Nestor Essentiel</div>
                 <div class="text-[#9B99AA] text-xs">Infogérance &bull; Voix &bull; Comptable</div>
               </td>
-              <td class="p-4 text-center font-bold text-[#F1F0F7]">300&euro;/mois</td>
-              <td class="p-4 text-center font-bold text-[#F1F0F7]">150&euro;/mois</td>
-              <td class="p-4 text-center text-[#F1F0F7]"><span class="font-bold">à partir de 9 500&euro;</span><br><span class="text-xs text-[#9B99AA]">+ 150&euro;/mois</span></td>
+              <td class="p-4 text-center font-bold text-[#F1F0F7]">279&euro;/mois</td>
+              <td class="p-4 text-center font-bold text-[#F1F0F7]">279&euro;/mois<br><span class="text-xs text-[#9B99AA] font-normal">+ ~500&euro; install + matériel</span></td>
+              <td class="p-4 text-center font-bold text-[#F1F0F7]">99&euro;/mois</td>
+              <td class="p-4 text-center text-[#F1F0F7]"><span class="font-bold">8 500&euro;</span><br><span class="text-xs text-[#9B99AA]">+ 99&euro;/mois</span></td>
             </tr>
             <tr class="bg-[#0A0022]">
               <td class="p-4">
                 <div class="font-bold text-[#F1F0F7]">Nestor Pro</div>
-                <div class="text-[#9B99AA] text-xs">+ Domotique &bull; Énergie &bull; Commercial</div>
+                <div class="text-[#9B99AA] text-xs">+ Relation client &bull; Commercial &bull; Domotique</div>
               </td>
-              <td class="p-4 text-center font-bold text-[#F1F0F7]">500&euro;/mois</td>
-              <td class="p-4 text-center font-bold text-[#F1F0F7]">280&euro;/mois</td>
-              <td class="p-4 text-center text-[#F1F0F7]"><span class="font-bold">à partir de 13 500&euro;</span><br><span class="text-xs text-[#9B99AA]">+ 280&euro;/mois</span></td>
+              <td class="p-4 text-center font-bold text-[#F1F0F7]">479&euro;/mois</td>
+              <td class="p-4 text-center font-bold text-[#F1F0F7]">479&euro;/mois<br><span class="text-xs text-[#9B99AA] font-normal">+ ~500&euro; install + matériel</span></td>
+              <td class="p-4 text-center font-bold text-[#F1F0F7]">179&euro;/mois</td>
+              <td class="p-4 text-center text-[#F1F0F7]"><span class="font-bold">12 500&euro;</span><br><span class="text-xs text-[#9B99AA]">+ 179&euro;/mois</span></td>
             </tr>
             <tr class="bg-[#0D0028]">
               <td class="p-4">
                 <div class="font-bold text-[#F1F0F7]">Nestor Intégral</div>
-                <div class="text-[#9B99AA] text-xs">Architecture sur mesure &bull; Multi-GPU</div>
+                <div class="text-[#9B99AA] text-xs">Architecture sur mesure &bull; Multi-site</div>
               </td>
-              <td class="p-4 text-center text-[#9B99AA]" colspan="3">Sur devis — audit préalable gratuit</td>
+              <td class="p-4 text-center text-[#9B99AA]" colspan="4">Sur devis — audit préalable gratuit</td>
             </tr>
           </tbody>
         </table>
