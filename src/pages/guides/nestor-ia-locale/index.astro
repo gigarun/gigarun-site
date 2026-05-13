@@ -12,6 +12,7 @@ import Layout from '../../../layouts/Layout.astro';
 </div>
 <div id="guide-wrapper">
 <style is:global>
+
         #guide-wrapper{margin:0;padding:0;box-sizing:border-box}
         #guide-wrapper{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f4fd 0%,#d1e8f5 100%);padding:20px}
 
@@ -144,7 +145,8 @@ import Layout from '../../../layouts/Layout.astro';
             .hero-kpi{gap:20px}
         }
         @media print{#guide-wrapper{background:white;padding:0}#guide-wrapper .container{box-shadow:none}#guide-wrapper .back-bar, #guide-wrapper #scrollTop, #guide-wrapper .profile-selector, #guide-wrapper .profile-btns{display:none}#guide-wrapper .main-header, #guide-wrapper .main-footer{break-inside:avoid}#guide-wrapper .tab-content{display:block !important}}
-    </style>
+    
+</style>
 <div class="container">
 
     <!-- HERO -->
@@ -237,6 +239,12 @@ import Layout from '../../../layouts/Layout.astro';
                     <span class="tag tag-dispo">Disponible</span>
                 </div>
                 <div class="card">
+                    <div class="card-icon">&#128101;</div>
+                    <h4>Suit et relance vos clients</h4>
+                    <p>Nestor lit votre Dolibarr et vous alerte quand un client devient silencieux. Il r&eacute;dige les mails de relance, envoie les newsletters, pr&eacute;pare un brief client avant chaque RDV &mdash; sans que vous ayez &agrave; le demander.</p>
+                    <span class="tag tag-dispo">Disponible</span>
+                </div>
+                <div class="card">
                     <div class="card-icon">&#128269;</div>
                     <h4>G&egrave;re votre pr&eacute;sence en ligne</h4>
                     <p>Nestor surveille votre e-r&eacute;putation 24h/24 : avis clients, mentions sur les r&eacute;seaux, presse locale. Il r&eacute;dige vos contenus pour Facebook, Instagram ou LinkedIn, d&eacute;tecte les bad buzz avant qu&rsquo;ils s&rsquo;enflamment, et vous alerte si un concurrent prend de l&rsquo;avance. Votre community manager ne dort jamais.</p>
@@ -277,6 +285,7 @@ import Layout from '../../../layouts/Layout.astro';
                     <tr><td><strong>Nestor Infog&eacute;rance</strong></td><td>Supervision infra, alertes proactives, rapports mensuels automatiques</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
                     <tr><td><strong>Nestor Voix</strong></td><td>Commandes vocales, r&eacute;ponses naturelles, acc&egrave;s &agrave; distance</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
                     <tr><td><strong>Nestor Comptable</strong></td><td>Rapprochement bancaire, d&eacute;tection anomalies, pr&eacute;paration cl&ocirc;ture, simulation fiscale &mdash; TVA 8,5% et fiscalit&eacute; r&eacute;unionnaise</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
+                    <tr><td><strong>Nestor Relation Client</strong></td><td>Suivi Dolibarr, d&eacute;tection clients inactifs, relances automatiques, newsletter, brief RDV &mdash; RGPD conforme</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
                     <tr><td><strong>Nestor Domotique</strong></td><td>Pilotage b&acirc;timent, &eacute;clairage, acc&egrave;s, sc&eacute;narios automatiques</td><td><span class="tag tag-bientot">D&eacute;ploiement 2026</span></td></tr>
                     <tr><td><strong>Nestor &Eacute;nergie</strong></td><td>Monitoring panneaux solaires, alertes anomalies, rapports &eacute;conomies</td><td><span class="tag tag-bientot">D&eacute;ploiement 2026</span></td></tr>
                     <tr><td><strong>Nestor Vid&eacute;o</strong></td><td>D&eacute;tection mouvement locale, alertes, historique &mdash; z&eacute;ro cloud</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
@@ -548,6 +557,12 @@ import Layout from '../../../layouts/Layout.astro';
                     <span class="tag tag-dispo">Phase 2</span>
                 </div>
                 <div class="card">
+                    <div class="card-icon">&#128101;</div>
+                    <h4>Agent Relation Client</h4>
+                    <p>Lecture Dolibarr API (tiers, interventions, devis). D&eacute;tection clients inactifs → alerte. Workflow n8n : segment → Ollama → SMTP OVH. Brief client automatique avant RDV. RAG <code>relation-client</code>. Consentement RGPD g&eacute;r&eacute; dans Dolibarr.</p>
+                    <span class="tag tag-dispo">Phase 2</span>
+                </div>
+                <div class="card">
                     <div class="card-icon">&#128737;</div>
                     <h4>Agent S&eacute;curit&eacute;</h4>
                     <p>Wazuh API &rarr; analyse alerte &rarr; rapport incident structur&eacute;. RAG <code>securite</code> (runbooks, IOC).</p>
@@ -681,7 +696,6 @@ import Layout from '../../../layouts/Layout.astro';
 #guide-wrapper { background: white; color: #333; }
 #guide-wrapper .main-header { display: none !important; }
 #guide-wrapper .back-bar { display: none !important; }
-#guide-wrapper .main-footer { display: none !important; }
 #guide-wrapper footer { display: none !important; }
 #guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
