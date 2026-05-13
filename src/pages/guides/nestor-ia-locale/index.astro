@@ -1,37 +1,132 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 ---
-<Layout title="Nestor — L'assistant IA locale GiGaRuN" description="Nestor, l'assistant IA local GiGaRuN : infogérance, domotique, photovoltaïque, vidéosurveillance et orchestration robotique. Vos données restent chez vous.">
+<Layout title="Nestor — L’assistant IA locale GiGaRuN" description="Découvrez Nestor, la solution d’intelligence artificielle locale de GiGaRuN : agents autonomes, données hébergées chez vous, intégration Dolibarr, TacticalRMM et Hesk.">
 <div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
   <div class="max-w-4xl mx-auto px-6">
-    <a href="/blog" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0077b6;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;">← Retour aux guides</a>
+    <a href="/blog" style="color:#a78bfa;text-decoration:none;font-size:0.9em;">← Retour aux guides</a>
   </div>
 </div>
 <div id="guide-wrapper">
 <style is:global>
-#guide-wrapper * {margin:0;padding:0;box-sizing:border-box}#guide-wrapper {font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f4fd 0%,#d1e8f5 100%);padding:20px}#guide-wrapper /* HEADER */
-        .main-header {background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}#guide-wrapper .header-container {max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}#guide-wrapper .logo-section {display:flex;align-items:center;gap:15px}#guide-wrapper .company-info {display:flex;flex-direction:column;gap:2px}#guide-wrapper .company-tagline {font-size:0.9em;opacity:0.9}#guide-wrapper .contact-header {display:flex;align-items:center;gap:30px}#guide-wrapper .contact-item {font-size:0.9em;opacity:0.95}#guide-wrapper /* BACK */
-        .back-bar {max-width:1200px;margin:0 auto;padding:20px 20px 0}#guide-wrapper .back-home {display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0077b6;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}#guide-wrapper .back-home:hover {transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,119,182,0.4)}#guide-wrapper /* CONTAINER */
-        .container {max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}#guide-wrapper /* HERO */
-        .hero {background:linear-gradient(135deg,#0077b6,#023e8a);color:white;padding:60px 40px;text-align:center;position:relative;overflow:hidden}#guide-wrapper .hero::before {content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 60%);pointer-events:none}#guide-wrapper .hero-badge {display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:6px 18px;border-radius:20px;font-size:0.85em;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}#guide-wrapper .hero h1 {font-size:3em;margin-bottom:15px;font-weight:800;letter-spacing:-1px}#guide-wrapper .hero h1 span {color:#90e0ef}#guide-wrapper .hero p {font-size:1.2em;opacity:0.9;max-width:700px;margin:0 auto 30px}#guide-wrapper .hero-kpi {display:flex;justify-content:center;gap:40px;margin-top:30px;flex-wrap:wrap}#guide-wrapper .hero-kpi-item {text-align:center}#guide-wrapper .hero-kpi-item .val {font-size:2em;font-weight:800;color:#90e0ef;display:block}#guide-wrapper .hero-kpi-item .lbl {font-size:0.85em;opacity:0.85}#guide-wrapper /* PROFIL SELECTOR */
-        .profile-selector {padding:50px 40px;text-align:center;background:#f8fbff}#guide-wrapper .profile-selector h2 {font-size:1.8em;color:#023e8a;margin-bottom:10px}#guide-wrapper .profile-selector p {color:#666;margin-bottom:35px;font-size:1.05em}#guide-wrapper .profile-btns {display:flex;gap:20px;justify-content:center;flex-wrap:wrap}#guide-wrapper .profile-btn {padding:20px 40px;border-radius:12px;border:2px solid #0077b6;background:white;color:#0077b6;font-size:1.1em;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:220px}#guide-wrapper .profile-btn:hover {background:#0077b6;color:white;transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,119,182,0.3)}#guide-wrapper .profile-btn.active {background:#0077b6;color:white;box-shadow:0 8px 25px rgba(0,119,182,0.3)}#guide-wrapper .profile-btn .icon {font-size:2em}#guide-wrapper .profile-btn .sub {font-size:0.8em;font-weight:400;opacity:0.8}#guide-wrapper /* TABS CONTENT */
-        .tab-content {display:none;padding:40px}#guide-wrapper .tab-content.active {display:block}#guide-wrapper /* SECTIONS */
-        .section {margin-bottom:50px}#guide-wrapper .section h2 {color:#0077b6;font-size:1.9em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #0077b6}#guide-wrapper .section h3 {color:#023e8a;font-size:1.35em;margin-top:30px;margin-bottom:15px}#guide-wrapper /* CARDS */
-        .card-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:25px 0}#guide-wrapper .card {background:white;border:2px solid #e0f0ff;border-radius:12px;padding:25px;transition:box-shadow 0.3s,transform 0.3s}#guide-wrapper .card:hover {box-shadow:0 8px 25px rgba(0,119,182,0.12);transform:translateY(-3px)}#guide-wrapper .card-icon {font-size:2.2em;margin-bottom:12px}#guide-wrapper .card h4 {color:#0077b6;margin-bottom:8px;font-size:1.1em}#guide-wrapper .card p {color:#555;font-size:0.95em;line-height:1.7}#guide-wrapper .card .tag {display:inline-block;margin-top:12px;padding:3px 10px;border-radius:20px;font-size:0.78em;font-weight:600}#guide-wrapper .tag-dispo {background:#d1e7dd;color:#0f5132}#guide-wrapper .tag-bientot {background:#fff3cd;color:#664d03}#guide-wrapper .tag-vision {background:#f3e8ff;color:#5b21b6}#guide-wrapper /* ALERT */
-        .alert {padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}#guide-wrapper .alert-info {background:#e7f5ff;border-left:5px solid #0077b6}#guide-wrapper .alert-success {background:#d1e7dd;border-left:5px solid #198754}#guide-wrapper .alert-warning {background:#fff3cd;border-left:5px solid #ffc107}#guide-wrapper .alert-icon {font-size:2em;min-width:40px}#guide-wrapper /* TECH TABLE */
-        .tech-table {width:100%;border-collapse:collapse;margin:25px 0;border-radius:10px;overflow:hidden;box-shadow:0 2px 15px rgba(0,0,0,0.08)}#guide-wrapper .table-scroll {overflow-x:auto;width:100%;-webkit-overflow-scrolling:touch}#guide-wrapper .tech-table thead {background:linear-gradient(135deg,#0077b6,#023e8a);color:white}#guide-wrapper .tech-table th {padding:15px 20px;text-align:left}#guide-wrapper .tech-table td {padding:13px 20px;border-bottom:1px solid #eee;font-size:0.95em}#guide-wrapper .tech-table tbody tr:nth-child(even) {background:#f5faff}#guide-wrapper .tech-table tbody tr:hover {background:#e0f0ff}#guide-wrapper code {background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#0077b6;font-size:0.9em}#guide-wrapper /* TIMELINE */
-        .timeline {position:relative;padding-left:30px;margin:25px 0}#guide-wrapper .timeline::before {content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#0077b6,#90e0ef)}#guide-wrapper .tl-item {position:relative;margin-bottom:25px}#guide-wrapper .tl-item::before {content:'';position:absolute;left:-24px;top:5px;width:12px;height:12px;border-radius:50%;background:#0077b6;border:2px solid white;box-shadow:0 0 0 2px #0077b6}#guide-wrapper .tl-item h4 {color:#023e8a;margin-bottom:5px}#guide-wrapper .tl-item p {color:#555;font-size:0.95em}#guide-wrapper .tl-item .phase-label {display:inline-block;padding:2px 10px;border-radius:10px;font-size:0.78em;font-weight:600;margin-bottom:5px}#guide-wrapper .phase-0 {background:#cce5ff;color:#004085}#guide-wrapper .phase-1 {background:#d1e7dd;color:#0f5132}#guide-wrapper .phase-2 {background:#fff3cd;color:#664d03}#guide-wrapper .phase-3 {background:#f3e8ff;color:#5b21b6}#guide-wrapper /* KPI */
-        .kpi-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:25px 0}#guide-wrapper .kpi-box {background:linear-gradient(135deg,#0077b6,#023e8a);color:white;border-radius:10px;padding:24px;text-align:center}#guide-wrapper .kpi-box .value {font-size:2em;font-weight:800;display:block;margin-bottom:6px}#guide-wrapper .kpi-box .label {font-size:0.88em;opacity:0.88}#guide-wrapper /* CTA */
-        .cta-block {background:linear-gradient(135deg,#023e8a,#0077b6);color:white;border-radius:15px;padding:40px;text-align:center;margin:40px 0}#guide-wrapper .cta-block h3 {font-size:1.8em;margin-bottom:15px}#guide-wrapper .cta-block p {opacity:0.9;margin-bottom:25px;font-size:1.05em}#guide-wrapper .cta-btn {display:inline-block;padding:15px 40px;background:white;color:#0077b6;border-radius:30px;font-weight:800;font-size:1.1em;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}#guide-wrapper .cta-btn:hover {transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}#guide-wrapper /* FOOTER */
-        .main-footer {background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}#guide-wrapper .footer-container {max-width:1200px;margin:0 auto;padding:0 20px}#guide-wrapper .footer-content {display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}#guide-wrapper .footer-section {flex:1;min-width:200px}#guide-wrapper .footer-section h4 {color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}#guide-wrapper .footer-section ul {list-style:none;padding:0}#guide-wrapper .footer-section li {padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}#guide-wrapper .footer-section a {color:#bdc3c7;text-decoration:none;transition:color 0.3s}#guide-wrapper .footer-section a:hover {color:#3498db}#guide-wrapper .footer-bottom {border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}#guide-wrapper /* SCROLL TOP */
-        #scrollTop {position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0077b6,#023e8a);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}#guide-wrapper #scrollTop.visible {opacity:1;visibility:visible}#guide-wrapper #scrollTop:hover {transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}#guide-wrapper /* RESPONSIVE */
+#guide-wrapper {margin:0;padding:0;box-sizing:border-box}
+#guide-wrapper {font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f4fd 0%,#d1e8f5 100%);padding:20px}
+#guide-wrapper /* HEADER */
+        .main-header {background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+#guide-wrapper .header-container {max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+#guide-wrapper .logo-section {display:flex;align-items:center;gap:15px}
+#guide-wrapper .company-info {display:flex;flex-direction:column;gap:2px}
+#guide-wrapper .company-tagline {font-size:0.9em;opacity:0.9}
+#guide-wrapper .contact-header {display:flex;align-items:center;gap:30px}
+#guide-wrapper .contact-item {font-size:0.9em;opacity:0.95}
+#guide-wrapper /* BACK */
+        .back-bar {max-width:1200px;margin:0 auto;padding:20px 20px 0}
+#guide-wrapper .back-home {display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0077b6;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+#guide-wrapper .back-home:hover {transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,119,182,0.4)}
+#guide-wrapper /* CONTAINER */
+        .container {max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+#guide-wrapper /* HERO */
+        .hero {background:linear-gradient(135deg,#0077b6,#023e8a);color:white;padding:60px 40px;text-align:center;position:relative;overflow:hidden}
+#guide-wrapper .hero::before {content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 60%);pointer-events:none}
+#guide-wrapper .hero-badge {display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:6px 18px;border-radius:20px;font-size:0.85em;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}
+#guide-wrapper .hero h1 {font-size:3em;margin-bottom:15px;font-weight:800;letter-spacing:-1px}
+#guide-wrapper .hero h1 span {color:#90e0ef}
+#guide-wrapper .hero p {font-size:1.2em;opacity:0.9;max-width:700px;margin:0 auto 30px}
+#guide-wrapper .hero-kpi {display:flex;justify-content:center;gap:40px;margin-top:30px;flex-wrap:wrap}
+#guide-wrapper .hero-kpi-item {text-align:center}
+#guide-wrapper .hero-kpi-item .val {font-size:2em;font-weight:800;color:#90e0ef;display:block}
+#guide-wrapper .hero-kpi-item .lbl {font-size:0.85em;opacity:0.85}
+#guide-wrapper /* PROFIL SELECTOR */
+        .profile-selector {padding:50px 40px;text-align:center;background:#f8fbff}
+#guide-wrapper .profile-selector h2 {font-size:1.8em;color:#023e8a;margin-bottom:10px}
+#guide-wrapper .profile-selector p {color:#666;margin-bottom:35px;font-size:1.05em}
+#guide-wrapper .profile-btns {display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+#guide-wrapper .profile-btn {padding:20px 40px;border-radius:12px;border:2px solid #0077b6;background:white;color:#0077b6;font-size:1.1em;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:220px}
+#guide-wrapper .profile-btn:hover {background:#0077b6;color:white;transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,119,182,0.3)}
+#guide-wrapper .profile-btn.active {background:#0077b6;color:white;box-shadow:0 8px 25px rgba(0,119,182,0.3)}
+#guide-wrapper .profile-btn .icon {font-size:2em}
+#guide-wrapper .profile-btn .sub {font-size:0.8em;font-weight:400;opacity:0.8}
+#guide-wrapper /* TABS CONTENT */
+        .tab-content {display:none;padding:40px}
+#guide-wrapper .tab-content.active {display:block}
+#guide-wrapper /* SECTIONS */
+        .section {margin-bottom:50px}
+#guide-wrapper .section h2 {color:#0077b6;font-size:1.9em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #0077b6}
+#guide-wrapper .section h3 {color:#023e8a;font-size:1.35em;margin-top:30px;margin-bottom:15px}
+#guide-wrapper /* CARDS */
+        .card-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:25px 0}
+#guide-wrapper .card {background:white;border:2px solid #e0f0ff;border-radius:12px;padding:25px;transition:box-shadow 0.3s,transform 0.3s}
+#guide-wrapper .card:hover {box-shadow:0 8px 25px rgba(0,119,182,0.12);transform:translateY(-3px)}
+#guide-wrapper .card-icon {font-size:2.2em;margin-bottom:12px}
+#guide-wrapper .card h4 {color:#0077b6;margin-bottom:8px;font-size:1.1em}
+#guide-wrapper .card p {color:#555;font-size:0.95em;line-height:1.7}
+#guide-wrapper .card .tag {display:inline-block;margin-top:12px;padding:3px 10px;border-radius:20px;font-size:0.78em;font-weight:600}
+#guide-wrapper .tag-dispo {background:#d1e7dd;color:#0f5132}
+#guide-wrapper .tag-bientot {background:#fff3cd;color:#664d03}
+#guide-wrapper .tag-vision {background:#f3e8ff;color:#5b21b6}
+#guide-wrapper /* ALERT */
+        .alert {padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+#guide-wrapper .alert-info {background:#e7f5ff;border-left:5px solid #0077b6}
+#guide-wrapper .alert-success {background:#d1e7dd;border-left:5px solid #198754}
+#guide-wrapper .alert-warning {background:#fff3cd;border-left:5px solid #ffc107}
+#guide-wrapper .alert-icon {font-size:2em;min-width:40px}
+#guide-wrapper /* TECH TABLE */
+        .tech-table {width:100%;border-collapse:collapse;margin:25px 0;border-radius:10px;overflow:hidden;box-shadow:0 2px 15px rgba(0,0,0,0.08)}
+#guide-wrapper .table-scroll {overflow-x:auto;width:100%;-webkit-overflow-scrolling:touch}
+#guide-wrapper .tech-table thead {background:linear-gradient(135deg,#0077b6,#023e8a);color:white}
+#guide-wrapper .tech-table th {padding:15px 20px;text-align:left}
+#guide-wrapper .tech-table td {padding:13px 20px;border-bottom:1px solid #eee;font-size:0.95em}
+#guide-wrapper .tech-table tbody tr:nth-child(even) {background:#f5faff}
+#guide-wrapper .tech-table tbody tr:hover {background:#e0f0ff}
+#guide-wrapper code {background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#0077b6;font-size:0.9em}
+#guide-wrapper /* TIMELINE */
+        .timeline {position:relative;padding-left:30px;margin:25px 0}
+#guide-wrapper .timeline::before {content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#0077b6,#90e0ef)}
+#guide-wrapper .tl-item {position:relative;margin-bottom:25px}
+#guide-wrapper .tl-item::before {content:'';position:absolute;left:-24px;top:5px;width:12px;height:12px;border-radius:50%;background:#0077b6;border:2px solid white;box-shadow:0 0 0 2px #0077b6}
+#guide-wrapper .tl-item h4 {color:#023e8a;margin-bottom:5px}
+#guide-wrapper .tl-item p {color:#555;font-size:0.95em}
+#guide-wrapper .tl-item .phase-label {display:inline-block;padding:2px 10px;border-radius:10px;font-size:0.78em;font-weight:600;margin-bottom:5px}
+#guide-wrapper .phase-0 {background:#cce5ff;color:#004085}
+#guide-wrapper .phase-1 {background:#d1e7dd;color:#0f5132}
+#guide-wrapper .phase-2 {background:#fff3cd;color:#664d03}
+#guide-wrapper .phase-3 {background:#f3e8ff;color:#5b21b6}
+#guide-wrapper /* KPI */
+        .kpi-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:25px 0}
+#guide-wrapper .kpi-box {background:linear-gradient(135deg,#0077b6,#023e8a);color:white;border-radius:10px;padding:24px;text-align:center}
+#guide-wrapper .kpi-box .value {font-size:2em;font-weight:800;display:block;margin-bottom:6px}
+#guide-wrapper .kpi-box .label {font-size:0.88em;opacity:0.88}
+#guide-wrapper /* CTA */
+        .cta-block {background:linear-gradient(135deg,#023e8a,#0077b6);color:white;border-radius:15px;padding:40px;text-align:center;margin:40px 0}
+#guide-wrapper .cta-block h3 {font-size:1.8em;margin-bottom:15px}
+#guide-wrapper .cta-block p {opacity:0.9;margin-bottom:25px;font-size:1.05em}
+#guide-wrapper .cta-btn {display:inline-block;padding:15px 40px;background:white;color:#0077b6;border-radius:30px;font-weight:800;font-size:1.1em;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
+#guide-wrapper .cta-btn:hover {transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
+#guide-wrapper /* FOOTER */
+        .main-footer {background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+#guide-wrapper .footer-container {max-width:1200px;margin:0 auto;padding:0 20px}
+#guide-wrapper .footer-content {display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+#guide-wrapper .footer-section {flex:1;min-width:200px}
+#guide-wrapper .footer-section h4 {color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+#guide-wrapper .footer-section ul {list-style:none;padding:0}
+#guide-wrapper .footer-section li {padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+#guide-wrapper .footer-section a {color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+#guide-wrapper .footer-section a:hover {color:#3498db}
+#guide-wrapper .footer-bottom {border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+#guide-wrapper /* SCROLL TOP */
+        #scrollTop {position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0077b6,#023e8a);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+#guide-wrapper #scrollTop.visible {opacity:1;visibility:visible}
+#guide-wrapper #scrollTop:hover {transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+#guide-wrapper /* RESPONSIVE */
         @media(max-width:700px) {
             .hero h1{font-size:2em}
             .tab-content{padding:20px}
             .profile-btns{flex-direction:column;align-items:center}
             .header-container,.footer-content{flex-direction:column;gap:10px}
             .hero-kpi{gap:20px}
-        }#guide-wrapper @media print {body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop,.profile-selector,.profile-btns{display:none}.main-header,.main-footer{break-inside:avoid}.tab-content{display:block !important}}
+        }
+#guide-wrapper @media print {body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop,.profile-selector,.profile-btns{display:none}.main-header,.main-footer{break-inside:avoid}.tab-content{display:block !important}}
+
     
 </style>
 
@@ -87,6 +182,11 @@ import Layout from '../../../layouts/Layout.astro';
                 <span class="icon">&#128187;</span>
                 DSI / Responsable technique
                 <span class="sub">Architecture &bull; Stack &bull; Int&eacute;grations</span>
+            </button>
+            <button class="profile-btn" onclick="switchProfile('faq')" id="btn-faq">
+                <span class="icon">&#10067;</span>
+                Questions fr&eacute;quentes
+                <span class="sub">Objections &bull; R&eacute;ponses &bull; Limites honn&ecirc;tes</span>
             </button>
         </div>
     </div>
@@ -669,7 +769,79 @@ import Layout from '../../../layouts/Layout.astro';
             <a href="https://gigarun.re/contact" target="_blank" class="cta-btn">Je veux en savoir + &rarr;</a>
         </div>
 
+
     </div><!-- /tab-tech -->
+
+    <!-- ==================== FAQ ==================== -->
+    <div class="tab-content" id="tab-faq">
+
+        <div class="section">
+            <h2>Questions fr&eacute;quentes &mdash; r&eacute;ponses honn&ecirc;tes</h2>
+            <p style="color:#555;margin-bottom:30px;">Ce sont les vraies questions pos&eacute;es lors de nos d&eacute;mos. On y r&eacute;pond sans esquiver.</p>
+
+            <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+                <div style="background:#f8fafc;padding:20px 25px;font-weight:600;color:#1e293b;font-size:1.05em;border-bottom:1px solid #e2e8f0;">
+                    &#10067; &laquo;&nbsp;C&rsquo;est fait pour les grandes entreprises, pas pour nous.&nbsp;&raquo;
+                </div>
+                <div style="padding:20px 25px;color:#555;line-height:1.7;">
+                    <p>Non &mdash; Nestor est con&ccedil;u sp&eacute;cifiquement pour les <strong>TPE et PME sans DSI</strong>. Tout arrive pr&eacute;configur&eacute; sur votre stack (Dolibarr, TacticalRMM, Hesk). Vous ne touchez pas &agrave; la techno&nbsp;: vous activez des services et vous voyez les r&eacute;sultats. C&rsquo;est GiGaRuN qui installe, param&egrave;tre et maintient.</p>
+                </div>
+            </div>
+
+            <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+                <div style="background:#f8fafc;padding:20px 25px;font-weight:600;color:#1e293b;font-size:1.05em;border-bottom:1px solid #e2e8f0;">
+                    &#10067; &laquo;&nbsp;ChatGPT peut d&eacute;j&agrave; faire &ccedil;a, non&nbsp;?&nbsp;&raquo;
+                </div>
+                <div style="padding:20px 25px;color:#555;line-height:1.7;">
+                    <p>ChatGPT r&eacute;pond quand vous lui parlez. Nestor <strong>agit sans qu&rsquo;on lui demande</strong>&nbsp;: rapport lundi matin, relance client inactif, brouillon sur ticket entrant. Et surtout, ChatGPT ne conna&icirc;t pas votre Dolibarr, ne lit pas vos alertes TacticalRMM et ne peut pas envoyer un mail depuis votre SMTP. Nestor est <strong>branch&eacute; sur votre SI</strong>, pas sur Internet.</p>
+                </div>
+            </div>
+
+            <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+                <div style="background:#f8fafc;padding:20px 25px;font-weight:600;color:#1e293b;font-size:1.05em;border-bottom:1px solid #e2e8f0;">
+                    &#10067; &laquo;&nbsp;Des bots peuvent d&eacute;j&agrave; tourner en autonomie.&nbsp;&raquo;
+                </div>
+                <div style="padding:20px 25px;color:#555;line-height:1.7;">
+                    <p>Exact. La diff&eacute;rence&nbsp;: un bot ex&eacute;cute des r&egrave;gles pr&eacute;-&eacute;crites (if/then). Nestor <strong>raisonne sur le contexte</strong> &mdash; il lit un ticket, d&eacute;tecte qu&rsquo;un client est &eacute;nerv&eacute;, adapte le ton, d&eacute;cide si c&rsquo;est une escalade. Sans r&egrave;gle pr&eacute;-&eacute;crite pour ce cas. Et contrairement aux plateformes cloud (Make, Zapier), <strong>tout tourne sur votre infrastructure</strong> &mdash; vos donn&eacute;es ne transitent pas par des serveurs tiers.</p>
+                </div>
+            </div>
+
+            <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+                <div style="background:#f8fafc;padding:20px 25px;font-weight:600;color:#1e293b;font-size:1.05em;border-bottom:1px solid #e2e8f0;">
+                    &#10067; &laquo;&nbsp;Techniquement, qu&rsquo;est-ce qui est vraiment diff&eacute;rent&nbsp;?&nbsp;&raquo;
+                </div>
+                <div style="padding:20px 25px;color:#555;line-height:1.7;">
+                    <p>Rien d&rsquo;exclusif dans les briques (Ollama, n8n, LiteLLM &mdash; tout est open source). <strong>Le diff&eacute;renciateur c&rsquo;est l&rsquo;ex&eacute;cution</strong>&nbsp;: GiGaRuN livre une stack pr&eacute;-int&eacute;gr&eacute;e sur votre infra, maintenue dans le temps. Monter &ccedil;a soi-m&ecirc;me repr&eacute;sente 2 &agrave; 3 mois de travail et un profil DevOps. Nous le livrons en J+14 et le maintenons en abonnement.</p>
+                </div>
+            </div>
+
+            <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+                <div style="background:#f8fafc;padding:20px 25px;font-weight:600;color:#1e293b;font-size:1.05em;border-bottom:1px solid #e2e8f0;">
+                    &#10067; &laquo;&nbsp;En local, le mod&egrave;le sera moins performant que GPT-4o.&nbsp;&raquo;
+                </div>
+                <div style="padding:20px 25px;color:#555;line-height:1.7;">
+                    <p>C&rsquo;est vrai. Un mod&egrave;le 70B local est plus lent et moins puissant qu&rsquo;un GPT-4o sur des t&acirc;ches complexes. Mais r&eacute;diger une relance, analyser un ticket, g&eacute;n&eacute;rer un rapport &mdash; c&rsquo;est dans la zone de confort des mod&egrave;les 70B actuels, valid&eacute; en production. Et la r&egrave;gle de dispatch existe&nbsp;: donn&eacute;es sensibles &rarr; local&nbsp;; t&acirc;ches g&eacute;n&eacute;riques &rarr; LLM cloud activable si le client le souhaite. <strong>Un Nestor moins puissant qui agit seul bat un ChatGPT plus fort que vous devez aller consulter.</strong></p>
+                </div>
+            </div>
+
+            <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:16px;overflow:hidden;">
+                <div style="background:#f8fafc;padding:20px 25px;font-weight:600;color:#1e293b;font-size:1.05em;border-bottom:1px solid #e2e8f0;">
+                    &#10067; &laquo;&nbsp;Et si &ccedil;a plante&nbsp;? Qui intervient&nbsp;?&nbsp;&raquo;
+                </div>
+                <div style="padding:20px 25px;color:#555;line-height:1.7;">
+                    <p>GiGaRuN &mdash; inclus dans l&rsquo;abonnement. Les workflows n8n loggent chaque ex&eacute;cution (qui a d&eacute;clench&eacute;, r&eacute;sultat, erreur). En cas de probl&egrave;me, vous avez un interlocuteur local &agrave; La R&eacute;union &mdash; pas un ticket vers un support overseas.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="cta-block">
+            <h3>Une question pas dans la liste&nbsp;?</h3>
+            <p>Contactez-nous directement.</p>
+            <a href="mailto:contact@gigarun.net" class="cta-btn">&#128140; Poser une question</a>
+        </div>
+
+    </div><!-- /tab-faq -->
 
 </div><!-- /container -->
 
@@ -727,31 +899,31 @@ import Layout from '../../../layouts/Layout.astro';
 
 <button id="scrollTop" title="Retour en haut" aria-label="Retour en haut" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)">&uarr;</button>
 <script>
-(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)})})();</script>
+(function()&#123;var b=document.getElementById('scrollTop');window.addEventListener('scroll',function()&#123;b.classList.toggle('visible',window.scrollY>400)&#125;)&#125;)();</script>
 
-
+<button id="scrollTop" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)" aria-label="Retour en haut">&#8679;</button>
 
 <script>
-    function switchProfile(profile) {
+    function switchProfile(profile) &#123;
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.profile-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('tab-' + profile).classList.add('active');
         document.getElementById('btn-' + profile).classList.add('active');
         localStorage.setItem('nestor_profile', profile);
-        document.querySelector('.container').scrollIntoView({behavior:'smooth'});
-    }
+        document.querySelector('.container').scrollIntoView(&#123;behavior:'smooth'&#125;);
+    &#125;
 
     // Restaurer le choix précédent
     const saved = localStorage.getItem('nestor_profile');
-    if (saved && ['dirigeant', 'tarifs', 'tech'].includes(saved)) {
+    if (saved && ['dirigeant', 'tarifs', 'tech'].includes(saved)) &#123;
         switchProfile(saved);
-    }
+    &#125;
 
     // Scroll top button
     const scrollBtn = document.getElementById('scrollTop');
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', () => &#123;
         scrollBtn.classList.toggle('visible', window.scrollY > 300);
-    });
+    &#125;);
 </script>
 
 </div>
