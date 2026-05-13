@@ -1,0 +1,612 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="GitHub Desktop — Gérer ses repos sans ligne de commande | GiGaRuN" description="Guide pratique GitHub Desktop pour gérer les repos GiGaRuN graphiquement : cloner, commiter, pousser, synchroniser. Sans ligne de commande.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div class="max-w-4xl mx-auto px-6">
+    <a href="/blog" class="inline-flex items-center gap-2 text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors mb-4">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Retour aux guides
+    </a>
+  </div>
+</div>
+<div id="guide-wrapper">
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+
+        .main-header { background: linear-gradient(135deg, #0088cc, #004080); color: white; padding: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .company-info { display: flex; align-items: center; gap: 10px; }
+        .company-tagline { font-size: 0.9em; opacity: 0.9; }
+        .contact-header { display: flex; align-items: center; gap: 30px; }
+        .contact-item { font-size: 0.9em; opacity: 0.95; }
+
+        .hero { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; padding: 70px 20px; text-align: center; }
+        .hero h1 { font-size: 2.6em; font-weight: 300; margin-bottom: 12px; }
+        .hero .version { display: inline-block; background: rgba(255,255,255,0.15); padding: 4px 16px; border-radius: 20px; font-size: 0.85em; margin-bottom: 16px; letter-spacing: 1px; }
+        .hero p { font-size: 1.15em; opacity: 0.9; max-width: 750px; margin: 0 auto; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        .section { background: white; margin: 24px 0; padding: 36px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .section h2 { color: #1e3a5f; font-size: 1.6em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #2563eb; }
+        .section h3 { color: #1a5276; font-size: 1.2em; margin: 24px 0 12px; padding-left: 14px; border-left: 4px solid #2563eb; }
+        .section h4 { color: #2c3e50; margin: 16px 0 8px; font-size: 1.05em; }
+        .section p, .section li { font-size: 0.95em; }
+        .section ul, .section ol { margin-left: 20px; margin-bottom: 14px; }
+        .section li { margin-bottom: 6px; }
+
+        .intro-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 5px solid #2563eb; padding: 24px; border-radius: 8px; margin-bottom: 24px; }
+        .intro-box p { font-size: 1em; color: #1e3a5f; }
+
+        .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 20px 0; }
+        .concept-card { background: white; border: 2px solid #e8e8e8; border-radius: 12px; padding: 22px; }
+        .concept-card .card-icon { font-size: 2em; margin-bottom: 10px; display: block; }
+        .concept-card h4 { color: #1e3a5f; margin: 0 0 8px; font-size: 1.05em; }
+        .concept-card p { color: #555; font-size: 0.88em; }
+        .concept-card.blue { border-color: #93c5fd; }
+        .concept-card.green { border-color: #86efac; }
+        .concept-card.orange { border-color: #fcd34d; }
+        .concept-card.purple { border-color: #c4b5fd; }
+
+        .workflow-steps { counter-reset: step-counter; list-style: none; margin-left: 0; padding-left: 0; }
+        .workflow-steps li { counter-increment: step-counter; position: relative; padding: 16px 16px 16px 60px; margin-bottom: 12px; background: #fafbfc; border-radius: 8px; border-left: 3px solid #2563eb; }
+        .workflow-steps li::before { content: counter(step-counter, decimal-leading-zero); position: absolute; left: 14px; top: 16px; font-size: 1.3em; font-weight: 700; color: #2563eb; }
+
+        .callout { padding: 20px; border-radius: 8px; margin: 16px 0; }
+        .callout-info { background: #eff6ff; border-left: 4px solid #3b82f6; }
+        .callout-warn { background: #fffbeb; border-left: 4px solid #f59e0b; }
+        .callout-success { background: #f0fdf4; border-left: 4px solid #22c55e; }
+        .callout-danger { background: #fef2f2; border-left: 4px solid #ef4444; }
+        .callout strong { display: block; margin-bottom: 6px; }
+        .callout p, .callout li { font-size: 0.93em; }
+
+        .cmd-block { position: relative; background: #1e293b; color: #e2e8f0; padding: 20px 20px 20px 24px; border-radius: 8px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88em; line-height: 1.9; overflow-x: auto; margin: 12px 0; }
+        .cmd-block .os-label { display: inline-block; background: #334155; color: #94a3b8; font-size: 0.75em; padding: 2px 10px; border-radius: 4px; margin-bottom: 10px; letter-spacing: 0.5px; font-family: 'Segoe UI', sans-serif; }
+        .cmd-block .comment { color: #64748b; }
+        .cmd-block .cmd { color: #7dd3fc; }
+        .cmd-block .ok { color: #4ade80; }
+        .cmd-block .warn { color: #fbbf24; }
+
+        .table-std { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92em; }
+        .table-std th { background: #1e3a5f; color: white; padding: 12px 14px; text-align: left; font-weight: 600; }
+        .table-std td { padding: 10px 14px; border-bottom: 1px solid #eee; vertical-align: top; }
+        .table-std tr:nth-child(even) { background: #f8f9fa; }
+        .table-std tr:hover { background: #eff6ff; }
+        .table-std code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 0.9em; color: #1e40af; }
+
+        .toc { background: white; border: 2px solid #bfdbfe; border-radius: 10px; padding: 24px; margin: 24px 0; }
+        .toc h3 { color: #1e3a5f; margin-bottom: 12px; }
+        .toc ol { margin-left: 20px; }
+        .toc a { color: #2563eb; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .toc li { margin-bottom: 4px; font-size: 0.93em; }
+
+        .checklist { list-style: none; padding: 0; margin: 0; }
+        .checklist li { padding: 10px 12px 10px 44px; position: relative; border-bottom: 1px solid #e5e7eb; font-size: 0.93em; }
+        .checklist li::before { content: '\2610'; position: absolute; left: 12px; font-size: 1.3em; color: #2563eb; }
+        .checklist li:last-child { border-bottom: none; }
+
+        .screenshot-mockup { background: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 10px; padding: 20px; margin: 16px 0; font-family: 'Consolas', monospace; font-size: 0.85em; line-height: 1.8; }
+        .screenshot-mockup .ui-bar { background: #334155; color: #e2e8f0; padding: 8px 16px; border-radius: 6px 6px 0 0; margin: -20px -20px 16px; font-family: 'Segoe UI', sans-serif; font-size: 0.9em; }
+        .screenshot-mockup .ui-green { color: #4ade80; }
+        .screenshot-mockup .ui-blue { color: #7dd3fc; }
+        .screenshot-mockup .ui-yellow { color: #fbbf24; }
+        .screenshot-mockup .ui-gray { color: #94a3b8; }
+        .screenshot-mockup .ui-btn { display: inline-block; background: #2563eb; color: white; padding: 3px 12px; border-radius: 4px; font-family: 'Segoe UI', sans-serif; font-size: 0.85em; }
+
+        .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+        .tag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8em; font-weight: 600; }
+        .tag-blue { background: #e0f2fe; color: #0369a1; }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-orange { background: #fff7ed; color: #9a3412; }
+
+        @media print {
+            .main-header, .main-footer { break-inside: avoid; }
+            body { background: white; }
+            .section { box-shadow: none; border: 1px solid #ddd; }
+            .back-bar, #scrollTop { display: none; }
+        }
+
+        @media (max-width: 700px) {
+            .concept-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8em; }
+        }
+
+        .main-footer { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 40px 0 20px; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-section { flex: 1; min-width: 200px; }
+        .footer-section h4 { color: #3498db; margin-bottom: 15px; font-size: 1.1em; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section li { padding: 5px 0; border-bottom: 1px dotted rgba(255,255,255,0.2); }
+        .footer-section a { color: #bdc3c7; text-decoration: none; transition: color 0.3s; }
+        .footer-section a:hover { color: #3498db; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; text-align: center; color: #bdc3c7; }
+        .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+
+        #scrollTop { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #1e3a5f, #2563eb); color: white; border: none; font-size: 1.4em; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,0.25); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.2s; z-index: 999; display: flex; align-items: center; justify-content: center; }
+        #scrollTop.visible { opacity: 1; visibility: visible; }
+        #scrollTop:hover { transform: translateY(-3px); }
+
+        .back-bar { max-width: 1200px; margin: 0 auto; padding: 20px 20px 0; }
+        .back-home { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #1e3a5f; color: white; text-decoration: none; border-radius: 25px; font-weight: 600; font-size: 0.9em; transition: transform 0.2s, box-shadow 0.2s; }
+        .back-home:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30,58,95,0.4); }
+    </style>
+<section class="hero">
+    <h1>GitHub Desktop</h1>
+    <div class="version">Guide Pratique v1.0 &mdash; Mai 2026</div>
+    <p>G&eacute;rer ses repos graphiquement sans ligne de commande : cloner, versionner, synchroniser. Le vocabulaire Git expliqu&eacute; simplement, les op&eacute;rations du quotidien, les pi&egrave;ges &agrave; &eacute;viter.</p>
+</section>
+
+
+
+<main class="container">
+
+    <div class="toc">
+        <h3>&#x1F4CB; Sommaire</h3>
+        <ol>
+            <li><a href="#cest-quoi">C&rsquo;est quoi GitHub Desktop ?</a></li>
+            <li><a href="#vocabulaire">Le vocabulaire Git expliqu&eacute; simplement</a></li>
+            <li><a href="#installation">Installation et connexion</a></li>
+            <li><a href="#cloner">Cloner un repo existant</a></li>
+            <li><a href="#quotidien">Les 3 actions du quotidien</a></li>
+            <li><a href="#upstream">G&eacute;rer un fork et synchroniser avec l&rsquo;upstream</a></li>
+            <li><a href="#branches">Les branches &mdash; pourquoi et comment</a></li>
+            <li><a href="#pieges">Pi&egrave;ges fr&eacute;quents</a></li>
+            <li><a href="#checklist">Checklist de d&eacute;marrage</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. C'EST QUOI -->
+    <div class="section" id="cest-quoi">
+        <h2>&#x1F5A5; 1. C&rsquo;est quoi GitHub Desktop ?</h2>
+
+        <div class="intro-box">
+            <p>GitHub Desktop est une interface graphique Windows/Mac qui permet de g&eacute;rer des repos Git sans taper de commandes dans un terminal. Vous voyez visuellement ce qui a chang&eacute;, vous cliquez pour valider, vous poussez d&rsquo;un bouton.</p>
+        </div>
+
+        <h3>La diff&eacute;rence entre Git et GitHub</h3>
+        <div class="concept-grid">
+            <div class="concept-card blue">
+                <span class="card-icon">&#x1F4BE;</span>
+                <h4>Git</h4>
+                <p>Le syst&egrave;me de versionnage install&eacute; sur votre machine. Il enregistre chaque modification comme un instantan&eacute; dans l&rsquo;historique. C&rsquo;est un outil local.</p>
+            </div>
+            <div class="concept-card green">
+                <span class="card-icon">&#x2601;&#xFE0F;</span>
+                <h4>GitHub</h4>
+                <p>La plateforme en ligne o&ugrave; les repos sont h&eacute;berg&eacute;s et partag&eacute;s. GitHub.com est le serveur distant. Git est le moteur local qui synchronise avec ce serveur.</p>
+            </div>
+            <div class="concept-card purple">
+                <span class="card-icon">&#x1F5BC;&#xFE0F;</span>
+                <h4>GitHub Desktop</h4>
+                <p>L&rsquo;interface graphique qui fait le pont entre votre machine (Git local) et GitHub.com. Elle traduit les commandes Git en clics.</p>
+            </div>
+        </div>
+
+        <h3>Pourquoi utiliser GitHub Desktop ?</h3>
+        <ul>
+            <li>Voir d&rsquo;un coup d&rsquo;&oelig;il tous les fichiers modifi&eacute;s, les lignes ajout&eacute;es (vert) et supprim&eacute;es (rouge)</li>
+            <li>Commiter et pousser sans m&eacute;moriser de commandes</li>
+            <li>G&eacute;rer plusieurs repos (gigarun-site, paperasse974&hellip;) depuis une seule fen&ecirc;tre</li>
+            <li>Acc&eacute;der &agrave; l&rsquo;historique complet des modifications avec l&rsquo;auteur et le message</li>
+            <li>Cr&eacute;er et changer de branche en un clic</li>
+        </ul>
+    </div>
+
+    <!-- 2. VOCABULAIRE -->
+    <div class="section" id="vocabulaire">
+        <h2>&#x1F4D6; 2. Le vocabulaire Git expliqu&eacute; simplement</h2>
+
+        <table class="table-std">
+            <thead>
+                <tr>
+                    <th>Terme</th>
+                    <th>Analogie simple</th>
+                    <th>Ce que &ccedil;a fait concr&egrave;tement</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Repository (repo)</strong></td>
+                    <td>Un dossier projet avec un historique complet</td>
+                    <td>Contient tous les fichiers + tout l&rsquo;historique des modifications depuis le d&eacute;but</td>
+                </tr>
+                <tr>
+                    <td><strong>Commit</strong></td>
+                    <td>Une sauvegarde nomm&eacute;e</td>
+                    <td>Capture l&rsquo;&eacute;tat des fichiers &agrave; un instant T avec un message explicatif. Irr&eacute;versible dans l&rsquo;historique.</td>
+                </tr>
+                <tr>
+                    <td><strong>Push</strong></td>
+                    <td>Envoyer vers le serveur</td>
+                    <td>Envoie vos commits locaux vers GitHub.com pour que les autres puissent les voir</td>
+                </tr>
+                <tr>
+                    <td><strong>Pull / Fetch</strong></td>
+                    <td>R&eacute;cup&eacute;rer depuis le serveur</td>
+                    <td><strong>Fetch</strong> : t&eacute;l&eacute;charge les modifications sans les appliquer. <strong>Pull</strong> : t&eacute;l&eacute;charge ET applique.</td>
+                </tr>
+                <tr>
+                    <td><strong>Clone</strong></td>
+                    <td>T&eacute;l&eacute;charger un repo complet</td>
+                    <td>Copie un repo GitHub sur votre machine, avec tout l&rsquo;historique</td>
+                </tr>
+                <tr>
+                    <td><strong>Fork</strong></td>
+                    <td>Faire sa propre copie d&rsquo;un projet</td>
+                    <td>Cr&eacute;e votre propre version d&rsquo;un repo sur GitHub, ind&eacute;pendant de l&rsquo;original. Ex : gigarun/paperasse974 est un fork de romainsimon/paperasse.</td>
+                </tr>
+                <tr>
+                    <td><strong>Branch (branche)</strong></td>
+                    <td>Une version parall&egrave;le du projet</td>
+                    <td>Permet de travailler sur une fonctionnalit&eacute; sans toucher au code principal (master/main)</td>
+                </tr>
+                <tr>
+                    <td><strong>Merge</strong></td>
+                    <td>Fusionner deux versions</td>
+                    <td>Int&egrave;gre les modifications d&rsquo;une branche dans une autre</td>
+                </tr>
+                <tr>
+                    <td><strong>Upstream</strong></td>
+                    <td>Le repo original d&rsquo;o&ugrave; vient le fork</td>
+                    <td>Sur paperasse974 : l&rsquo;upstream est romainsimon/paperasse. Permet de r&eacute;cup&eacute;rer les mises &agrave; jour de l&rsquo;auteur original.</td>
+                </tr>
+                <tr>
+                    <td><strong>Origin</strong></td>
+                    <td>Votre repo sur GitHub</td>
+                    <td>Le serveur distant par d&eacute;faut. Quand vous poussez, vous poussez vers origin.</td>
+                </tr>
+                <tr>
+                    <td><strong>Pull Request (PR)</strong></td>
+                    <td>Proposer ses modifications</td>
+                    <td>Demande formelle d&rsquo;int&eacute;gration de vos modifications dans un autre repo (ex : soumettre la correction ZFANG &agrave; l&rsquo;auteur original)</td>
+                </tr>
+                <tr>
+                    <td><strong>Conflict</strong></td>
+                    <td>Deux personnes ont modifi&eacute; la m&ecirc;me ligne</td>
+                    <td>Git ne peut pas choisir automatiquement quelle version garder. Il faut r&eacute;soudre manuellement.</td>
+                </tr>
+                <tr>
+                    <td><strong>Stash</strong></td>
+                    <td>Mettre de c&ocirc;t&eacute; des modifications en cours</td>
+                    <td>Sauvegarde temporairement les modifications non commit&eacute;es pour changer de branche proprement</td>
+                </tr>
+                <tr>
+                    <td><strong>HEAD</strong></td>
+                    <td>O&ugrave; vous &ecirc;tes dans l&rsquo;historique</td>
+                    <td>Pointe vers le dernier commit de la branche active. &laquo; 5 commits ahead &raquo; = votre HEAD est 5 commits plus loin que l&rsquo;upstream.</td>
+                </tr>
+                <tr>
+                    <td><strong>X commits ahead</strong></td>
+                    <td>Votre repo a des commits en plus</td>
+                    <td>Votre fork a avanc&eacute; par rapport &agrave; l&rsquo;upstream &mdash; c&rsquo;est normal et voulu quand vous avez ajout&eacute; vos personnalisations.</td>
+                </tr>
+                <tr>
+                    <td><strong>X commits behind</strong></td>
+                    <td>L&rsquo;upstream a avanc&eacute; sans vous</td>
+                    <td>L&rsquo;auteur original a publi&eacute; des mises &agrave; jour que votre fork n&rsquo;a pas encore. Action requise : fetch + merge upstream.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 3. INSTALLATION -->
+    <div class="section" id="installation">
+        <h2>&#x2699;&#xFE0F; 3. Installation et connexion</h2>
+
+        <ol class="workflow-steps">
+            <li>
+                <strong>T&eacute;l&eacute;charger GitHub Desktop</strong><br>
+                Aller sur <strong>desktop.github.com</strong> &rarr; Download for Windows. Lancer l&rsquo;installateur. L&rsquo;application se met &agrave; jour automatiquement.
+            </li>
+            <li>
+                <strong>Se connecter au compte</strong><br>
+                Au premier lancement : <em>Sign in to GitHub.com</em> &rarr; le navigateur s&rsquo;ouvre &rarr; se connecter avec le compte <strong>gigarun</strong> &rarr; autoriser l&rsquo;application &rarr; retourner dans GitHub Desktop. La connexion est retenue.
+            </li>
+            <li>
+                <strong>Configurer l&rsquo;identit&eacute; Git</strong><br>
+                File &rarr; Options &rarr; Git : renseigner le nom et l&rsquo;email. Ces informations apparaissent dans chaque commit de l&rsquo;historique.
+            </li>
+            <li>
+                <strong>V&eacute;rifier la connexion</strong><br>
+                File &rarr; Options &rarr; Accounts : le compte gigarun doit appara&icirc;tre avec une ic&ocirc;ne verte.
+            </li>
+        </ol>
+
+        <div class="callout callout-info">
+            <strong>&#x2139;&#xFE0F; Pas besoin de token</strong>
+            <p>GitHub Desktop g&egrave;re l&rsquo;authentification automatiquement via le navigateur. Le token personnel (ghp_xxx) n&rsquo;est utile que pour les appels API directs ou les scripts PowerShell.</p>
+        </div>
+    </div>
+
+    <!-- 4. CLONER -->
+    <div class="section" id="cloner">
+        <h2>&#x1F4E5; 4. Cloner un repo existant</h2>
+
+        <p>Cloner = t&eacute;l&eacute;charger un repo GitHub sur votre machine pour pouvoir travailler dessus localement.</p>
+
+        <ol class="workflow-steps">
+            <li>
+                <strong>Ouvrir le dialogue de clonage</strong><br>
+                Menu <em>File</em> &rarr; <em>Clone repository&hellip;</em> (ou Ctrl+Shift+O)
+            </li>
+            <li>
+                <strong>Choisir le repo</strong><br>
+                Onglet <em>GitHub.com</em> &rarr; les repos du compte gigarun apparaissent dans la liste. Chercher <strong>gigarun/paperasse974</strong> ou <strong>gigarun/gigarun-site</strong>.
+            </li>
+            <li>
+                <strong>Choisir le dossier de destination</strong><br>
+                Champ <em>Local path</em> : indiquer le chemin. Exemple : <code>C:\Users\thoca\OneDrive - gigarun\PROJETS\paperasse974</code>
+            </li>
+            <li>
+                <strong>Cliquer Clone</strong><br>
+                GitHub Desktop t&eacute;l&eacute;charge tous les fichiers et l&rsquo;historique complet. Le repo appara&icirc;t ensuite dans la liste &agrave; gauche.
+            </li>
+        </ol>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0;&#xFE0F; Dossier de travail Gigarun</strong>
+            <p>Toujours cloner dans <code>C:\Users\thoca\OneDrive - gigarun\PROJETS\</code> pour que les fichiers soient synchronis&eacute;s OneDrive. Exception : labs Docker et fichiers volumineux temporaires &rarr; <code>C:\labs\</code> hors OneDrive.</p>
+        </div>
+    </div>
+
+    <!-- 5. QUOTIDIEN -->
+    <div class="section" id="quotidien">
+        <h2>&#x1F504; 5. Les 3 actions du quotidien</h2>
+
+        <h3>Action 1 &mdash; Voir et valider les modifications (Commit)</h3>
+        <p>D&egrave;s qu&rsquo;un fichier du repo est modifi&eacute; (par vous, par Claude Code, peu importe), GitHub Desktop le d&eacute;tecte automatiquement.</p>
+
+        <div class="screenshot-mockup">
+            <div class="ui-bar">GitHub Desktop &mdash; paperasse974</div>
+            <span class="ui-green">&#x25CF;</span> Changes (3 files)<br>
+            <span class="ui-green">M</span> comptable/SKILL.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="ui-gray">&larr; modifi&eacute;</span><br>
+            <span class="ui-green">+</span> comptable/evals/evals.json &nbsp; <span class="ui-gray">&larr; ajout&eacute;</span><br>
+            <span class="ui-green">D</span> ancien-fichier.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="ui-gray">&larr; supprim&eacute;</span><br><br>
+            Summary (required): <strong>[ Ajout ZFANG &mdash; r&eacute;gime dom 974 ]</strong><br>
+            Description: <em>optionnel</em><br><br>
+            <span class="ui-btn">Commit to master</span>
+        </div>
+
+        <ul>
+            <li>Panneau gauche : liste des fichiers modifi&eacute;s. Cocher/d&eacute;cocher pour s&eacute;lectionner ce qui fait partie du commit.</li>
+            <li>Panneau droit : diff ligne par ligne. Vert = ajout&eacute;, rouge = supprim&eacute;.</li>
+            <li>Champ <em>Summary</em> : message obligatoire, court, au pr&eacute;sent. Ex : &laquo;&nbsp;Ajout TVA 8,5% DOM par d&eacute;faut&nbsp;&raquo;</li>
+            <li>Cliquer <strong>Commit to master</strong> : la modification est enregistr&eacute;e localement dans l&rsquo;historique.</li>
+        </ul>
+
+        <div class="callout callout-info">
+            <strong>&#x1F4A1; Le commit est local</strong>
+            <p>Apr&egrave;s un commit, les modifications sont enregistr&eacute;es sur votre machine uniquement. GitHub.com ne voit rien encore. Il faut ensuite pousser (Push).</p>
+        </div>
+
+        <h3>Action 2 &mdash; Envoyer vers GitHub (Push)</h3>
+        <p>Apr&egrave;s un ou plusieurs commits, la barre sup&eacute;rieure affiche le bouton <strong>Push origin</strong> avec le nombre de commits en attente.</p>
+
+        <div class="screenshot-mockup">
+            <div class="ui-bar">GitHub Desktop</div>
+            [ Current repository: paperasse974 ] &nbsp; [ Current branch: master ] &nbsp; <span class="ui-btn">Push origin (2)</span>
+        </div>
+
+        <p>Cliquer <strong>Push origin</strong> : les commits sont envoy&eacute;s sur GitHub.com. Ils sont maintenant visibles sur <code>github.com/gigarun/paperasse974</code>.</p>
+
+        <h3>Action 3 &mdash; R&eacute;cup&eacute;rer les mises &agrave; jour (Fetch / Pull)</h3>
+        <p>Si quelqu&rsquo;un d&rsquo;autre (ou Claude Code depuis une autre machine) a push&eacute; des modifications, il faut les r&eacute;cup&eacute;rer.</p>
+
+        <div class="screenshot-mockup">
+            <div class="ui-bar">GitHub Desktop</div>
+            <span class="ui-btn">Fetch origin</span> &nbsp;&nbsp; puis &nbsp;&nbsp; <span class="ui-btn">Pull origin (3)</span>
+        </div>
+
+        <ul>
+            <li><strong>Fetch origin</strong> : v&eacute;rifie s&rsquo;il y a des nouveaut&eacute;s sur GitHub sans rien modifier localement.</li>
+            <li><strong>Pull origin</strong> : t&eacute;l&eacute;charge et applique les commits distants dans votre copie locale.</li>
+        </ul>
+    </div>
+
+    <!-- 6. UPSTREAM / FORK -->
+    <div class="section" id="upstream">
+        <h2>&#x1F500; 6. G&eacute;rer un fork et synchroniser avec l&rsquo;upstream</h2>
+
+        <div class="intro-box">
+            <p><strong>Contexte :</strong> gigarun/paperasse974 est un fork de romainsimon/paperasse. Si l&rsquo;auteur original publie des corrections ou de nouvelles fonctionnalit&eacute;s, il faut les r&eacute;cup&eacute;rer dans notre fork sans &eacute;craser nos personnalisations (TVA 8,5%, ZFANG, evals).</p>
+        </div>
+
+        <h3>Comprendre &laquo; X commits ahead / behind &raquo;</h3>
+        <table class="table-std">
+            <thead>
+                <tr><th>Message</th><th>Signification</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>5 commits ahead</strong></td>
+                    <td>Votre fork a 5 commits de plus que l&rsquo;upstream &mdash; vos personnalisations</td>
+                    <td>Rien &agrave; faire, c&rsquo;est voulu</td>
+                </tr>
+                <tr>
+                    <td><strong>2 commits behind</strong></td>
+                    <td>L&rsquo;upstream a publi&eacute; 2 commits que votre fork n&rsquo;a pas</td>
+                    <td>R&eacute;cup&eacute;rer depuis l&rsquo;upstream</td>
+                </tr>
+                <tr>
+                    <td><strong>5 ahead, 2 behind</strong></td>
+                    <td>Les deux &agrave; la fois &mdash; situation courante</td>
+                    <td>Merge upstream puis r&eacute;soudre les conflits &eacute;ventuels</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Proc&eacute;dure de synchronisation upstream</h3>
+        <p>GitHub Desktop ne g&egrave;re pas directement la synchronisation upstream via l&rsquo;interface. On utilise un terminal int&eacute;gr&eacute; :</p>
+
+        <ol class="workflow-steps">
+            <li>
+                <strong>Ouvrir le terminal Git dans GitHub Desktop</strong><br>
+                Repository &rarr; Open in Command Prompt (ou PowerShell)
+            </li>
+            <li>
+                <strong>Ajouter l&rsquo;upstream (une seule fois)</strong>
+                <div class="cmd-block">
+                    <span class="os-label">PowerShell</span><br>
+                    <span class="cmd">git remote add upstream https://github.com/romainsimon/paperasse.git</span><br>
+                    <span class="comment"># Si d&eacute;j&agrave; fait, cette commande retourne une erreur inoffensive</span>
+                </div>
+            </li>
+            <li>
+                <strong>R&eacute;cup&eacute;rer les nouveaut&eacute;s de l&rsquo;upstream</strong>
+                <div class="cmd-block">
+                    <span class="cmd">git fetch upstream</span><br>
+                    <span class="cmd">git merge upstream/master</span>
+                </div>
+            </li>
+            <li>
+                <strong>V&eacute;rifier dans GitHub Desktop</strong><br>
+                Les modifications upstream apparaissent dans l&rsquo;historique. Si conflits : GitHub Desktop les signale en rouge &rarr; ouvrir les fichiers concern&eacute;s, choisir quelle version garder, commiter la r&eacute;solution.
+            </li>
+            <li>
+                <strong>Pousser la synchro</strong><br>
+                Bouton <strong>Push origin</strong> dans GitHub Desktop pour que le fork sur GitHub.com soit &agrave; jour.
+            </li>
+        </ol>
+
+        <div class="callout callout-warn">
+            <strong>&#x26A0;&#xFE0F; Fichiers &agrave; surveiller lors d&rsquo;un merge upstream sur paperasse974</strong>
+            <p>Les conflits potentiels sont sur <code>comptable/SKILL.md</code> et <code>comptable/references/regional.md</code> car nous les avons modifi&eacute;s. En cas de conflit : toujours garder nos ajouts DOM/ZFANG et int&eacute;grer les corrections upstream.</p>
+        </div>
+    </div>
+
+    <!-- 7. BRANCHES -->
+    <div class="section" id="branches">
+        <h2>&#x1F333; 7. Les branches &mdash; pourquoi et comment</h2>
+
+        <p>Une branche est une ligne de d&eacute;veloppement isol&eacute;e. On travaille dessus sans toucher au code principal (master). Une fois termin&eacute;, on fusionne (merge).</p>
+
+        <h3>Quand cr&eacute;er une branche ?</h3>
+        <ul>
+            <li>Pour tester une modification importante avant de la valider</li>
+            <li>Pour préparer une Pull Request vers un repo externe</li>
+            <li>Pour travailler sur deux fonctionnalit&eacute;s en parall&egrave;le</li>
+            <li>Pas n&eacute;cessaire pour des modifications simples sur un repo solo</li>
+        </ul>
+
+        <h3>Cr&eacute;er une branche dans GitHub Desktop</h3>
+        <ol class="workflow-steps">
+            <li>
+                <strong>Cliquer sur le menu des branches</strong><br>
+                Barre du haut, deuxi&egrave;me menu : <em>Current branch: master</em> &rarr; cliquer dessus
+            </li>
+            <li>
+                <strong>Cr&eacute;er la branche</strong><br>
+                <em>New branch</em> &rarr; nommer la branche (ex : <code>fix-zfang</code> ou <code>feature-nouvelles-evals</code>) &rarr; <em>Create branch</em>
+            </li>
+            <li>
+                <strong>Travailler normalement</strong><br>
+                Tous les commits faits maintenant vont sur cette branche, pas sur master.
+            </li>
+            <li>
+                <strong>Revenir sur master une fois termin&eacute;</strong><br>
+                Menu branches &rarr; <em>master</em>. Les fichiers redeviennent comme avant.
+            </li>
+            <li>
+                <strong>Fusionner la branche dans master</strong><br>
+                Branch &rarr; <em>Merge into current branch&hellip;</em> &rarr; s&eacute;lectionner votre branche &rarr; Merge.
+            </li>
+        </ol>
+
+        <div class="callout callout-info">
+            <strong>&#x1F4A1; Sur un repo solo</strong>
+            <p>Si vous &ecirc;tes le seul &agrave; travailler sur un repo, les branches sont optionnelles pour les petites modifications. On commit directement sur master. Les branches deviennent utiles pour les gros chantiers ou les PR vers des repos ext&eacute;rieurs.</p>
+        </div>
+    </div>
+
+    <!-- 8. PIEGES -->
+    <div class="section" id="pieges">
+        <h2>&#x26A0;&#xFE0F; 8. Pi&egrave;ges fr&eacute;quents</h2>
+
+        <h3>Commit sans Push = modifications invisibles</h3>
+        <p>Un commit local n&rsquo;est pas automatiquement envoy&eacute; sur GitHub. Si vous fermez GitHub Desktop sans pousser, vos commits attendent. GitHub Desktop affiche le nombre de commits non puss&eacute;s sur le bouton Push.</p>
+
+        <h3>Modifier des fichiers sans commiter avant de changer de branche</h3>
+        <p>Si vous changez de branche avec des modifications non commit&eacute;es, Git vous propose de les emmener sur la nouvelle branche ou de les mettre en stash. En cas de doute, commiter d&rsquo;abord.</p>
+
+        <h3>Confondre Fetch et Pull</h3>
+        <ul>
+            <li><strong>Fetch</strong> = regarder sans toucher. S&ucirc;r.</li>
+            <li><strong>Pull</strong> = regarder ET appliquer. Peut cr&eacute;er des conflits si vous avez des modifications locales non puss&eacute;es.</li>
+        </ul>
+        <p>Bonne pratique : toujours faire un Push de vos modifications avant un Pull.</p>
+
+        <h3>&laquo; 5 commits ahead &raquo; &mdash; pas un probl&egrave;me</h3>
+        <p>Voir &laquo;&nbsp;X commits ahead of [upstream]&nbsp;&raquo; est normal quand votre fork a des personnalisations. Ce n&rsquo;est pas une erreur, ce n&rsquo;est pas quelque chose &agrave; corriger. C&rsquo;est exactement l&rsquo;&eacute;tat voulu.</p>
+
+        <h3>Force Push &mdash; &agrave; &eacute;viter absolument</h3>
+        <div class="callout callout-danger">
+            <strong>&#x1F6A8; Ne jamais faire de Force Push sur master</strong>
+            <p>Le force push r&eacute;&eacute;crit l&rsquo;historique et peut d&eacute;truire des commits irr&eacute;cup&eacute;rablement. GitHub Desktop ne propose pas cette option par d&eacute;faut &mdash; c&rsquo;est une protection. Si une commande demande <code>--force</code>, r&eacute;fl&eacute;chir deux fois.</p>
+        </div>
+
+        <h3>Commiter des fichiers sensibles</h3>
+        <p>Ne jamais commiter : mots de passe, tokens, fichiers <code>.env</code>, cl&eacute;s API. GitHub Desktop affiche tous les fichiers modifi&eacute;s : avant de commiter, v&eacute;rifier la liste. Un fichier <code>.gitignore</code> &agrave; la racine du repo liste les fichiers que Git ignore automatiquement.</p>
+    </div>
+
+    <!-- 9. CHECKLIST -->
+    <div class="section" id="checklist">
+        <h2>&#x2705; 9. Checklist de d&eacute;marrage</h2>
+
+        <ul class="checklist">
+            <li>GitHub Desktop install&eacute; et connect&eacute; au compte gigarun</li>
+            <li>Identit&eacute; Git configur&eacute;e (nom + email) dans File &rarr; Options &rarr; Git</li>
+            <li>Repo <strong>gigarun/paperasse974</strong> clon&eacute; dans <code>PROJETS\paperasse974</code></li>
+            <li>Repo <strong>gigarun/gigarun-site</strong> clon&eacute; dans <code>PROJETS\gigarun-site</code></li>
+            <li>Premier commit test r&eacute;alis&eacute; (modifier une ligne, commiter, pousser)</li>
+            <li>Upstream papercasse ajout&eacute; en ligne de commande (<code>git remote add upstream ...</code>)</li>
+            <li>Proc&eacute;dure Fetch/Merge upstream connue pour les futures mises &agrave; jour</li>
+        </ul>
+
+        <div class="callout callout-success">
+            <strong>&#x1F3AF; Objectif de la premi&egrave;re semaine</strong>
+            <p>Faire 3 commits r&eacute;els sur un repo existant. La m&eacute;canique commit &rarr; push devient naturelle en 2-3 passages. Inutile de tout comprendre d&rsquo;un coup &mdash; la pratique suffit.</p>
+        </div>
+
+        <h3>R&eacute;f&eacute;rence rapide &mdash; les raccourcis clavier</h3>
+        <table class="table-std">
+            <thead>
+                <tr><th>Action</th><th>Raccourci</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Commiter</td><td><code>Ctrl + Enter</code></td></tr>
+                <tr><td>Cloner un repo</td><td><code>Ctrl + Shift + O</code></td></tr>
+                <tr><td>Ouvrir dans l&rsquo;explorateur</td><td><code>Ctrl + Shift + F</code></td></tr>
+                <tr><td>Ouvrir dans le terminal</td><td><code>Ctrl + `</code></td></tr>
+                <tr><td>Historique des commits</td><td><code>Ctrl + 2</code></td></tr>
+                <tr><td>Voir les changements en cours</td><td><code>Ctrl + 1</code></td></tr>
+                <tr><td>Changer de repo</td><td><code>Ctrl + T</code></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+
+
+<button id="scrollTop" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)" title="Retour en haut">&#x2191;</button>
+<script>
+    const btn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 300);
+    });
+</script>
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>

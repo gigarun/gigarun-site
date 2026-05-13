@@ -1,0 +1,688 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Nestor — Votre IA d'entreprise locale | GiGaRuN La Réunion" description="Nestor, l'assistant IA local GiGaRuN : infogérance, domotique, photovoltaïque, vidéosurveillance. Vos données restent chez vous.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div class="max-w-4xl mx-auto px-6">
+    <a href="/blog" class="inline-flex items-center gap-2 text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors mb-4">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Retour aux guides
+    </a>
+  </div>
+</div>
+<div id="guide-wrapper">
+<style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e8f4fd 0%,#d1e8f5 100%);padding:20px}
+
+        /* HEADER */
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;flex-direction:column;gap:2px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+
+        /* BACK */
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0077b6;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,119,182,0.4)}
+
+        /* CONTAINER */
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+
+        /* HERO */
+        .hero{background:linear-gradient(135deg,#0077b6,#023e8a);color:white;padding:60px 40px;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 60%);pointer-events:none}
+        .hero-badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);padding:6px 18px;border-radius:20px;font-size:0.85em;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}
+        .hero h1{font-size:3em;margin-bottom:15px;font-weight:800;letter-spacing:-1px}
+        .hero h1 span{color:#90e0ef}
+        .hero p{font-size:1.2em;opacity:0.9;max-width:700px;margin:0 auto 30px}
+        .hero-kpi{display:flex;justify-content:center;gap:40px;margin-top:30px;flex-wrap:wrap}
+        .hero-kpi-item{text-align:center}
+        .hero-kpi-item .val{font-size:2em;font-weight:800;color:#90e0ef;display:block}
+        .hero-kpi-item .lbl{font-size:0.85em;opacity:0.85}
+
+        /* PROFIL SELECTOR */
+        .profile-selector{padding:50px 40px;text-align:center;background:#f8fbff}
+        .profile-selector h2{font-size:1.8em;color:#023e8a;margin-bottom:10px}
+        .profile-selector p{color:#666;margin-bottom:35px;font-size:1.05em}
+        .profile-btns{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+        .profile-btn{padding:20px 40px;border-radius:12px;border:2px solid #0077b6;background:white;color:#0077b6;font-size:1.1em;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:220px}
+        .profile-btn:hover{background:#0077b6;color:white;transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,119,182,0.3)}
+        .profile-btn.active{background:#0077b6;color:white;box-shadow:0 8px 25px rgba(0,119,182,0.3)}
+        .profile-btn .icon{font-size:2em}
+        .profile-btn .sub{font-size:0.8em;font-weight:400;opacity:0.8}
+
+        /* TABS CONTENT */
+        .tab-content{display:none;padding:40px}
+        .tab-content.active{display:block}
+
+        /* SECTIONS */
+        .section{margin-bottom:50px}
+        .section h2{color:#0077b6;font-size:1.9em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #0077b6}
+        .section h3{color:#023e8a;font-size:1.35em;margin-top:30px;margin-bottom:15px}
+
+        /* CARDS */
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:25px 0}
+        .card{background:white;border:2px solid #e0f0ff;border-radius:12px;padding:25px;transition:box-shadow 0.3s,transform 0.3s}
+        .card:hover{box-shadow:0 8px 25px rgba(0,119,182,0.12);transform:translateY(-3px)}
+        .card-icon{font-size:2.2em;margin-bottom:12px}
+        .card h4{color:#0077b6;margin-bottom:8px;font-size:1.1em}
+        .card p{color:#555;font-size:0.95em;line-height:1.7}
+        .card .tag{display:inline-block;margin-top:12px;padding:3px 10px;border-radius:20px;font-size:0.78em;font-weight:600}
+        .tag-dispo{background:#d1e7dd;color:#0f5132}
+        .tag-bientot{background:#fff3cd;color:#664d03}
+        .tag-vision{background:#f3e8ff;color:#5b21b6}
+
+        /* ALERT */
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0077b6}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-icon{font-size:2em;min-width:40px}
+
+        /* TECH TABLE */
+        .tech-table{width:100%;border-collapse:collapse;margin:25px 0;border-radius:10px;overflow:hidden;box-shadow:0 2px 15px rgba(0,0,0,0.08)}
+        .tech-table thead{background:linear-gradient(135deg,#0077b6,#023e8a);color:white}
+        .tech-table th{padding:15px 20px;text-align:left}
+        .tech-table td{padding:13px 20px;border-bottom:1px solid #eee;font-size:0.95em}
+        .tech-table tbody tr:nth-child(even){background:#f5faff}
+        .tech-table tbody tr:hover{background:#e0f0ff}
+        code{background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#0077b6;font-size:0.9em}
+
+        /* TIMELINE */
+        .timeline{position:relative;padding-left:30px;margin:25px 0}
+        .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#0077b6,#90e0ef)}
+        .tl-item{position:relative;margin-bottom:25px}
+        .tl-item::before{content:'';position:absolute;left:-24px;top:5px;width:12px;height:12px;border-radius:50%;background:#0077b6;border:2px solid white;box-shadow:0 0 0 2px #0077b6}
+        .tl-item h4{color:#023e8a;margin-bottom:5px}
+        .tl-item p{color:#555;font-size:0.95em}
+        .tl-item .phase-label{display:inline-block;padding:2px 10px;border-radius:10px;font-size:0.78em;font-weight:600;margin-bottom:5px}
+        .phase-0{background:#cce5ff;color:#004085}
+        .phase-1{background:#d1e7dd;color:#0f5132}
+        .phase-2{background:#fff3cd;color:#664d03}
+        .phase-3{background:#f3e8ff;color:#5b21b6}
+
+        /* KPI */
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin:25px 0}
+        .kpi-box{background:linear-gradient(135deg,#0077b6,#023e8a);color:white;border-radius:10px;padding:24px;text-align:center}
+        .kpi-box .value{font-size:2em;font-weight:800;display:block;margin-bottom:6px}
+        .kpi-box .label{font-size:0.88em;opacity:0.88}
+
+        /* CTA */
+        .cta-block{background:linear-gradient(135deg,#023e8a,#0077b6);color:white;border-radius:15px;padding:40px;text-align:center;margin:40px 0}
+        .cta-block h3{font-size:1.8em;margin-bottom:15px}
+        .cta-block p{opacity:0.9;margin-bottom:25px;font-size:1.05em}
+        .cta-btn{display:inline-block;padding:15px 40px;background:white;color:#0077b6;border-radius:30px;font-weight:800;font-size:1.1em;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
+        .cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
+
+        /* FOOTER */
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+
+        /* SCROLL TOP */
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0077b6,#023e8a);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+
+        /* RESPONSIVE */
+        @media(max-width:700px){
+            .hero h1{font-size:2em}
+            .tab-content{padding:20px}
+            .profile-btns{flex-direction:column;align-items:center}
+            .header-container,.footer-content{flex-direction:column;gap:10px}
+            .hero-kpi{gap:20px}
+        }
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop,.profile-selector,.profile-btns{display:none}.main-header,.main-footer{break-inside:avoid}.tab-content{display:block !important}}
+    </style>
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-badge">GiGaRuN &mdash; Innovation IT</div>
+        <h1>Rencontrez <span>Nestor</span></h1>
+        <p>Votre assistant IA d&rsquo;entreprise, h&eacute;berg&eacute; sur site, qui ne transmet aucune donn&eacute;e &agrave; l&rsquo;ext&eacute;rieur. Il &eacute;coute, comprend et agit &mdash; &agrave; votre voix.</p>
+        <div class="hero-kpi">
+            <div class="hero-kpi-item"><span class="val">100%</span><span class="lbl">donn&eacute;es locales</span></div>
+            <div class="hero-kpi-item"><span class="val">24/7</span><span class="lbl">disponibilit&eacute;</span></div>
+            <div class="hero-kpi-item"><span class="val">1 voix</span><span class="lbl">suffit pour piloter</span></div>
+            <div class="hero-kpi-item"><span class="val">&infin;</span><span class="lbl">extensions m&eacute;tier</span></div>
+        </div>
+    </div>
+
+    <!-- PROFIL SELECTOR -->
+    <div class="profile-selector">
+        <h2>Ce guide est fait pour vous</h2>
+        <p>Choisissez votre profil pour acc&eacute;der &agrave; la version la plus adapt&eacute;e.</p>
+        <div class="profile-btns">
+            <button class="profile-btn active" onclick="switchProfile('dirigeant')" id="btn-dirigeant">
+                <span class="icon">&#128200;</span>
+                Je suis dirigeant
+                <span class="sub">B&eacute;n&eacute;fices &bull; Cas d&rsquo;usage</span>
+            </button>
+            <button class="profile-btn" onclick="switchProfile('tarifs')" id="btn-tarifs">
+                <span class="icon">&#128176;</span>
+                Tarifs &amp; Formules
+                <span class="sub">Packages &bull; Prix &bull; Ce qui est inclus</span>
+            </button>
+            <button class="profile-btn" onclick="switchProfile('tech')" id="btn-tech">
+                <span class="icon">&#128187;</span>
+                DSI / Responsable technique
+                <span class="sub">Architecture &bull; Stack &bull; Int&eacute;grations</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== VERSION DIRIGEANT ==================== -->
+    <div class="tab-content active" id="tab-dirigeant">
+
+        <div class="section">
+            <h2>Nestor, c&rsquo;est quoi concr&egrave;tement ?</h2>
+            <p>Nestor est un assistant IA install&eacute; <strong>directement dans vos locaux</strong>, sur une machine d&eacute;di&eacute;e. Pas de cloud, pas d&rsquo;abonnement mensuel par utilisateur, pas de donn&eacute;es qui partent en dehors de votre entreprise.</p>
+            <p style="margin-top:15px">Vous lui parlez. Il comprend. Il agit.</p>
+
+            <div class="alert alert-success" style="margin-top:25px">
+                <div class="alert-icon">&#128274;</div>
+                <div><strong>Vos donn&eacute;es restent chez vous.</strong> Nestor fonctionne en local : contrats, informations clients, donn&eacute;es de production — rien ne sort de votre r&eacute;seau.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Ce que Nestor fait pour vous</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">&#128202;</div>
+                    <h4>Surveille votre informatique</h4>
+                    <p>Il d&eacute;tecte les probl&egrave;mes avant vous : serveur lent, disque presque plein, certificat de s&eacute;curit&eacute; qui expire. Il vous alerte, pas le contraire.</p>
+                    <span class="tag tag-dispo">Disponible</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128483;</div>
+                    <h4>R&eacute;pond &agrave; la voix</h4>
+                    <p>&laquo;&nbsp;Nestor, quel est l&rsquo;&eacute;tat du serveur mail ?&nbsp;&raquo; &mdash; Il r&eacute;pond en quelques secondes. Pas besoin de tableau de bord, pas besoin d&rsquo;&ecirc;tre informaticien.</p>
+                    <span class="tag tag-dispo">Disponible</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#127968;</div>
+                    <h4>Pilote votre b&acirc;timent</h4>
+                    <p>Lumi&egrave;res, climatisation, acc&egrave;s — Nestor int&egrave;gre votre domotique et vous laisse piloter tout &ccedil;a d&rsquo;une phrase.</p>
+                    <span class="tag tag-bientot">En d&eacute;ploiement</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#9728;&#65039;</div>
+                    <h4>Surveille vos panneaux solaires</h4>
+                    <p>Il compare production et consommation en temps r&eacute;el. Si quelque chose d&eacute;raille, il vous alerte avant que la facture s&rsquo;envole.</p>
+                    <span class="tag tag-bientot">En d&eacute;ploiement</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128247;</div>
+                    <h4>G&egrave;re votre vid&eacute;osurveillance</h4>
+                    <p>D&eacute;tection de mouvement locale, alertes par mail ou SMS, narration vocale. Tout reste sur site &mdash; aucune image ne part en cloud.</p>
+                    <span class="tag tag-bientot">Option disponible</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128196;</div>
+                    <h4>Assiste votre comptabilit&eacute;</h4>
+                    <p>Rapprochement bancaire, d&eacute;tection d&rsquo;anomalies, pr&eacute;paration de cl&ocirc;ture, simulation fiscale &mdash; calibr&eacute; TVA 8,5% et fiscalit&eacute; r&eacute;unionnaise. Vos donn&eacute;es financières ne quittent jamais vos locaux.</p>
+                    <span class="tag tag-dispo">Disponible</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128269;</div>
+                    <h4>G&egrave;re votre pr&eacute;sence en ligne</h4>
+                    <p>Nestor surveille votre e-r&eacute;putation 24h/24 : avis clients, mentions sur les r&eacute;seaux, presse locale. Il r&eacute;dige vos contenus pour Facebook, Instagram ou LinkedIn, d&eacute;tecte les bad buzz avant qu&rsquo;ils s&rsquo;enflamment, et vous alerte si un concurrent prend de l&rsquo;avance. Votre community manager ne dort jamais.</p>
+                    <span class="tag tag-bientot">Sur devis</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#129302;</div>
+                    <h4>Contr&ocirc;le vos futurs robots</h4>
+                    <p>Nestor sera le &laquo;&nbsp;contrema&icirc;tre&nbsp;&raquo; de vos robots industriels ou domestiques : planification, supervision, qualit&eacute;, rentabilit&eacute;.</p>
+                    <span class="tag tag-vision">Vision 2027+</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Ce que &ccedil;a change dans votre quotidien</h2>
+            <div class="card-grid">
+                <div class="card" style="border-color:#d1e7dd">
+                    <div class="card-icon">&#9203;</div>
+                    <h4>Avant Nestor</h4>
+                    <p>Vous appelez votre prestataire quand quelque chose ne va pas. Vous attendez. Vous ne savez pas ce qui se passe dans votre syst&egrave;me en dehors des incidents.</p>
+                </div>
+                <div class="card" style="border-color:#0077b6">
+                    <div class="card-icon">&#9989;</div>
+                    <h4>Avec Nestor</h4>
+                    <p>Nestor vous alerte avant l&rsquo;incident. Il g&egrave;re ce qu&rsquo;il peut seul, escalade ce qu&rsquo;il ne peut pas. Vous avez une vision compl&egrave;te en temps r&eacute;el.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Nos modules &mdash; commencez par ce dont vous avez besoin</h2>
+            <table class="tech-table">
+                <thead>
+                    <tr><th>Module</th><th>Ce que &ccedil;a fait</th><th>Disponibilit&eacute;</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Nestor Infog&eacute;rance</strong></td><td>Supervision infra, alertes proactives, rapports mensuels automatiques</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
+                    <tr><td><strong>Nestor Voix</strong></td><td>Commandes vocales, r&eacute;ponses naturelles, acc&egrave;s &agrave; distance</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
+                    <tr><td><strong>Nestor Comptable</strong></td><td>Rapprochement bancaire, d&eacute;tection anomalies, pr&eacute;paration cl&ocirc;ture, simulation fiscale &mdash; TVA 8,5% et fiscalit&eacute; r&eacute;unionnaise</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
+                    <tr><td><strong>Nestor Domotique</strong></td><td>Pilotage b&acirc;timent, &eacute;clairage, acc&egrave;s, sc&eacute;narios automatiques</td><td><span class="tag tag-bientot">D&eacute;ploiement 2026</span></td></tr>
+                    <tr><td><strong>Nestor &Eacute;nergie</strong></td><td>Monitoring panneaux solaires, alertes anomalies, rapports &eacute;conomies</td><td><span class="tag tag-bientot">D&eacute;ploiement 2026</span></td></tr>
+                    <tr><td><strong>Nestor Vid&eacute;o</strong></td><td>D&eacute;tection mouvement locale, alertes, historique &mdash; z&eacute;ro cloud</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
+                    <tr><td><strong>Nestor Veille &amp; Pr&eacute;sence</strong></td><td>E-r&eacute;putation, veille concurrentielle, r&eacute;daction contenus r&eacute;seaux sociaux, d&eacute;tection bad buzz, alertes mentions &mdash; votre community manager IA</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
+                    <tr><td><strong>Nestor Robotique</strong></td><td>Orchestration robots industriels/domestiques, qualit&eacute;, rentabilit&eacute;</td><td><span class="tag tag-vision">Horizon 2027</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cta-block">
+            <h3>Voir Nestor en action</h3>
+            <p>Nous organisons des d&eacute;monstrations dans nos locaux. Venez lui parler vous-m&ecirc;me.</p>
+            <a href="https://gigarun.re/contact" target="_blank" class="cta-btn">Je veux en savoir + &rarr;</a>
+        </div>
+
+    </div><!-- /tab-dirigeant -->
+
+    <!-- ==================== TARIFS & FORMULES ==================== -->
+    <div class="tab-content" id="tab-tarifs">
+
+        <div class="section">
+            <h2>Tarifs &amp; Formules</h2>
+            <p style="margin-bottom:30px;color:#555;">Nestor s&rsquo;adapte &agrave; votre situation : d&eacute;marrez en SaaS sans investissement, ou optez pour une machine d&eacute;di&eacute;e dans vos locaux si la souverainet&eacute; totale des donn&eacute;es est prioritaire. Un audit pr&eacute;alable gratuit d&eacute;termine la meilleure option.</p>
+
+            <!-- MODE DE D&Eacute;PLOIEMENT -->
+            <h3 style="color:#023e8a;margin-bottom:20px;">Choisissez votre mode de d&eacute;ploiement</h3>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:40px;">
+
+                <div style="border:2px solid #0077b6;border-radius:12px;padding:25px;background:#f5faff;">
+                    <div style="font-size:1.8em;margin-bottom:10px;">&#9729;&#65039;</div>
+                    <h4 style="color:#023e8a;margin-bottom:8px;">SaaS GiGaRuN</h4>
+                    <p style="color:#555;font-size:0.9em;margin-bottom:15px;">Nestor tourne sur nos serveurs. Z&eacute;ro investissement, acc&egrave;s imm&eacute;diat via tunnel s&eacute;curis&eacute;. Id&eacute;al pour d&eacute;marrer ou tester.</p>
+                    <ul style="list-style:none;padding:0;font-size:0.88em;color:#444;">
+                        <li style="padding:4px 0;">&#10003; 0&euro; d&rsquo;investissement initial</li>
+                        <li style="padding:4px 0;">&#10003; D&eacute;marrage sous 48h</li>
+                        <li style="padding:4px 0;">&#10003; DPA RGPD fourni</li>
+                        <li style="padding:4px 0;">&#9888; Donn&eacute;es h&eacute;berg&eacute;es chez GiGaRuN</li>
+                    </ul>
+                </div>
+
+                <div style="border:2px solid #023e8a;border-radius:12px;padding:25px;background:#eef4fb;position:relative;">
+                    <div style="position:absolute;top:12px;right:12px;background:#ffc107;color:#333;padding:3px 10px;border-radius:20px;font-size:0.75em;font-weight:700;">Recommand&eacute;</div>
+                    <div style="font-size:1.8em;margin-bottom:10px;">&#128260;</div>
+                    <h4 style="color:#023e8a;margin-bottom:8px;">Hybride</h4>
+                    <p style="color:#555;font-size:0.9em;margin-bottom:15px;">Commencez en SaaS, basculez sur votre propre machine quand vous &ecirc;tes pr&ecirc;t. Migration sans perte de configuration.</p>
+                    <ul style="list-style:none;padding:0;font-size:0.88em;color:#444;">
+                        <li style="padding:4px 0;">&#10003; Flexibilit&eacute; maximale</li>
+                        <li style="padding:4px 0;">&#10003; Montez en puissance progressivement</li>
+                        <li style="padding:4px 0;">&#10003; Aucune interruption de service</li>
+                        <li style="padding:4px 0;">&#10003; Budget &eacute;tal&eacute; dans le temps</li>
+                    </ul>
+                </div>
+
+                <div style="border:2px solid #1a7a4a;border-radius:12px;padding:25px;background:#f0fff8;">
+                    <div style="font-size:1.8em;margin-bottom:10px;">&#127968;</div>
+                    <h4 style="color:#1a7a4a;margin-bottom:8px;">On-premise</h4>
+                    <p style="color:#555;font-size:0.9em;margin-bottom:15px;">Machine d&eacute;di&eacute;e install&eacute;e dans vos locaux. Souverainet&eacute; totale : vos donn&eacute;es ne quittent jamais votre r&eacute;seau.</p>
+                    <ul style="list-style:none;padding:0;font-size:0.88em;color:#444;">
+                        <li style="padding:4px 0;">&#10003; 100% de vos donn&eacute;es chez vous</li>
+                        <li style="padding:4px 0;">&#10003; Aucune d&eacute;pendance externe</li>
+                        <li style="padding:4px 0;">&#10003; Architecture sur mesure</li>
+                        <li style="padding:4px 0;">&#9888; Investissement initial requis</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- FORMULES -->
+            <h3 style="color:#023e8a;margin-bottom:20px;">Choisissez votre formule</h3>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;margin:30px 0;">
+
+                <!-- ESSENTIEL -->
+                <div style="border:2px solid #0077b6;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;">
+                    <div style="background:linear-gradient(135deg,#0077b6,#023e8a);color:white;padding:30px;text-align:center;">
+                        <div style="font-size:2em;margin-bottom:8px;">&#128202;</div>
+                        <h3 style="color:white;font-size:1.5em;margin-bottom:5px;">Nestor Essentiel</h3>
+                        <p style="opacity:0.85;font-size:0.9em;">Supervision &amp; Voix</p>
+                    </div>
+                    <div style="padding:25px;flex:1;">
+                        <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Infog&eacute;rance &amp; supervision proactive</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Commande vocale</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Alertes automatiques</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Rapports mensuels</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Acc&egrave;s distant s&eacute;curis&eacute;</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Assistant comptable (TVA 8,5%, fiscalit&eacute; r&eacute;unionnaise)</li>
+                            <li style="padding:8px 0;">&#10003;&nbsp; Formation &amp; prise en main</li>
+                        </ul>
+                        <div style="background:#f5faff;border-radius:10px;padding:15px;text-align:center;margin-bottom:10px;">
+                            <div style="font-size:0.85em;color:#666;margin-bottom:4px;">Installation</div>
+                            <div style="font-size:1.8em;font-weight:800;color:#023e8a;">&#224; partir de 9 500&euro;</div>
+                            <div style="font-size:0.8em;color:#888;">machine de base incluse</div>
+                        </div>
+                        <div style="background:#e8f4fd;border-radius:10px;padding:12px;text-align:center;">
+                            <div style="font-size:0.85em;color:#666;margin-bottom:2px;">Maintenance &amp; support</div>
+                            <div style="font-size:1.3em;font-weight:700;color:#0077b6;">150&euro; / mois</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRO -->
+                <div style="border:2px solid #023e8a;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;position:relative;">
+                    <div style="position:absolute;top:15px;right:15px;background:#ffc107;color:#333;padding:4px 12px;border-radius:20px;font-size:0.78em;font-weight:700;">Recommand&eacute;</div>
+                    <div style="background:linear-gradient(135deg,#023e8a,#001a4d);color:white;padding:30px;text-align:center;">
+                        <div style="font-size:2em;margin-bottom:8px;">&#9728;&#65039;</div>
+                        <h3 style="color:white;font-size:1.5em;margin-bottom:5px;">Nestor Pro</h3>
+                        <p style="opacity:0.85;font-size:0.9em;">Supervision + Domotique + &Eacute;nergie</p>
+                    </div>
+                    <div style="padding:25px;flex:1;">
+                        <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Tout Nestor Essentiel</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Pilotage domotique b&acirc;timent</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Monitoring panneaux solaires</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Veille march&eacute;s publics (BOAMP)</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Analyse DQE &amp; g&eacute;n&eacute;ration devis</li>
+                            <li style="padding:8px 0;">&#10003;&nbsp; Agent commercial (Dolibarr)</li>
+                        </ul>
+                        <div style="background:#f5faff;border-radius:10px;padding:15px;text-align:center;margin-bottom:10px;">
+                            <div style="font-size:0.85em;color:#666;margin-bottom:4px;">Installation</div>
+                            <div style="font-size:1.8em;font-weight:800;color:#023e8a;">&#224; partir de 13 500&euro;</div>
+                            <div style="font-size:0.8em;color:#888;">machine de base incluse</div>
+                        </div>
+                        <div style="background:#e8f4fd;border-radius:10px;padding:12px;text-align:center;">
+                            <div style="font-size:0.85em;color:#666;margin-bottom:2px;">Maintenance &amp; support</div>
+                            <div style="font-size:1.3em;font-weight:700;color:#0077b6;">280&euro; / mois</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTEGRAL -->
+                <div style="border:2px solid #5b21b6;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;">
+                    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);color:white;padding:30px;text-align:center;">
+                        <div style="font-size:2em;margin-bottom:8px;">&#129302;</div>
+                        <h3 style="color:white;font-size:1.5em;margin-bottom:5px;">Nestor Int&eacute;gral</h3>
+                        <p style="opacity:0.85;font-size:0.9em;">Architecture sur mesure</p>
+                    </div>
+                    <div style="padding:25px;flex:1;">
+                        <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Tout Nestor Pro</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Vid&eacute;osurveillance locale</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Orchestration robotique</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Multi-GPU si n&eacute;cessaire</li>
+                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Agents m&eacute;tier sp&eacute;cifiques</li>
+                            <li style="padding:8px 0;">&#10003;&nbsp; SLA garanti &amp; support prioritaire</li>
+                        </ul>
+                        <div style="background:#f5f0ff;border-radius:10px;padding:15px;text-align:center;margin-bottom:10px;">
+                            <div style="font-size:0.85em;color:#666;margin-bottom:4px;">Installation</div>
+                            <div style="font-size:1.8em;font-weight:800;color:#5b21b6;">Sur devis</div>
+                            <div style="font-size:0.8em;color:#888;">audit pr&eacute;alable gratuit</div>
+                        </div>
+                        <div style="background:#f3e8ff;border-radius:10px;padding:12px;text-align:center;">
+                            <div style="font-size:0.85em;color:#666;margin-bottom:2px;">Maintenance &amp; support</div>
+                            <div style="font-size:1.3em;font-weight:700;color:#5b21b6;">&#224; partir de 450&euro; / mois</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+
+            <!-- TABLEAU COMPARATIF MODE x FORMULE -->
+            <h3 style="color:#023e8a;margin:35px 0 5px;">Le bon Nestor au bon prix</h3>
+            <p style="color:#666;margin-bottom:20px;">Votre budget, votre choix.</p>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Formule</th>
+                        <th>&#9729;&#65039; SaaS GiGaRuN</th>
+                        <th>&#128260; Hybride</th>
+                        <th>&#127968; On-premise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nestor Essentiel</strong><br><small style="color:#888">Infog&eacute;rance + Voix + Comptable</small></td>
+                        <td><strong>300&euro;/mois</strong><br><small>sans engagement</small></td>
+                        <td><strong>150&euro;/mois</strong><br><small>apr&egrave;s migration machine</small></td>
+                        <td><strong>&#224; partir de 9 500&euro;</strong> + 150&euro;/mois</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nestor Pro</strong><br><small style="color:#888">+ Domotique + &Eacute;nergie + Commercial</small></td>
+                        <td><strong>500&euro;/mois</strong><br><small>sans engagement</small></td>
+                        <td><strong>280&euro;/mois</strong><br><small>apr&egrave;s migration machine</small></td>
+                        <td><strong>&#224; partir de 13 500&euro;</strong> + 280&euro;/mois</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nestor Int&eacute;gral</strong><br><small style="color:#888">Architecture sur mesure</small></td>
+                        <td colspan="3" style="text-align:center;"><strong>Sur devis</strong> &mdash; audit pr&eacute;alable gratuit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-info" style="margin-top:20px;">
+                <div class="alert-icon">&#128270;</div>
+                <div><strong>Audit pr&eacute;alable gratuit</strong> &mdash; 30 minutes pour d&eacute;finir votre formule, votre mode de d&eacute;ploiement et l&rsquo;architecture adapt&eacute;e &agrave; votre usage r&eacute;el &mdash; d&rsquo;une machine mono-GPU &agrave; une configuration multi-GPU pour les environnements industriels intensifs.</div>
+            </div>
+        </div>
+
+        <div class="cta-block">
+            <h3>Demander un audit gratuit</h3>
+            <p>30 minutes suffisent pour dimensionner la bonne solution pour votre usage.</p>
+            <a href="https://gigarun.re/contact" target="_blank" class="cta-btn">Je veux en savoir + &rarr;</a>
+        </div>
+
+    </div><!-- /tab-tarifs -->
+
+    <!-- ==================== VERSION TECHNIQUE ==================== -->
+    <div class="tab-content" id="tab-tech">
+
+        <div class="section">
+            <h2>Architecture g&eacute;n&eacute;rale</h2>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#128736;</div>
+                <div><strong>Principe fondamental :</strong> toutes les inf&eacute;rences sur donn&eacute;es sensibles (PII, secrets, infra client) restent en local. Le cloud (Claude API) est utilis&eacute; uniquement pour les t&acirc;ches g&eacute;n&eacute;riques non sensibles, sur d&eacute;cision explicite.</div>
+            </div>
+            <table class="tech-table">
+                <thead><tr><th>Composant</th><th>R&ocirc;le</th><th>Technologie</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Calcul / GPU</strong></td><td>Inf&eacute;rence LLM locale</td><td>Ryzen 9 7900 &bull; Arc Pro B70 32 Go VRAM &bull; 192 Go DDR5</td></tr>
+                    <tr><td><strong>Stockage mod&egrave;les</strong></td><td>RAID0 NVMe 8 To</td><td>990 Pro + FURY Renegade</td></tr>
+                    <tr><td><strong>Backup</strong></td><td>Restic cron 2h</td><td>WD N300 14 To</td></tr>
+                    <tr><td><strong>OS</strong></td><td>Bare metal</td><td>Ubuntu 26.04 LTS</td></tr>
+                    <tr><td><strong>Serveur LLM</strong></td><td>Inf&eacute;rence + API REST</td><td>Ollama &rarr; vLLM (Phase 3)</td></tr>
+                    <tr><td><strong>Interface</strong></td><td>Chat + RAG</td><td>Open WebUI</td></tr>
+                    <tr><td><strong>RAG / Knowledge base</strong></td><td>Proc&eacute;dures, clients, produits</td><td>AnythingLLM + nomic-embed-text</td></tr>
+                    <tr><td><strong>Orchestration</strong></td><td>Workflows agents</td><td>n8n (self-hosted)</td></tr>
+                    <tr><td><strong>Proxy LLM</strong></td><td>Routing local/cloud + billing</td><td>LiteLLM</td></tr>
+                    <tr><td><strong>Secrets agents</strong></td><td>Coffre-fort credentials</td><td>Vaultwarden</td></tr>
+                    <tr><td><strong>Domotique</strong></td><td>Hub universel</td><td>Home Assistant (Docker)</td></tr>
+                    <tr><td><strong>NVR vid&eacute;o</strong></td><td>D&eacute;tection objet locale</td><td>Frigate + OpenVINO (Arc Pro B70)</td></tr>
+                    <tr><td><strong>Acc&egrave;s distant</strong></td><td>D&eacute;mo + administration</td><td>RDP / Rustdesk</td></tr>
+                    <tr><td><strong>Voix STT/TTS</strong></td><td>Commande vocale</td><td>Whisper (local) + Piper TTS</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Mod&egrave;les LLM d&eacute;ploy&eacute;s</h2>
+            <table class="tech-table">
+                <thead><tr><th>Mod&egrave;le</th><th>Usage</th><th>VRAM</th></tr></thead>
+                <tbody>
+                    <tr><td><code>qwen2.5:14b</code></td><td>Agents m&eacute;tier (g&eacute;n&eacute;raliste, fran&ccedil;ais)</td><td>~9 Go</td></tr>
+                    <tr><td><code>qwen3:32b</code></td><td>Raisonnement complexe, analyse (Phase 3)</td><td>~20 Go</td></tr>
+                    <tr><td><code>nomic-embed-text</code></td><td>Embeddings RAG</td><td>minimal</td></tr>
+                    <tr><td><code>whisper-large-v3</code></td><td>Speech-to-Text commande vocale</td><td>CPU/GPU</td></tr>
+                </tbody>
+            </table>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#127959;&#65039;</div>
+                <div><strong>Architecture GPU adapt&eacute;e au besoin :</strong> le choix du GPU d&eacute;pend du volume d&rsquo;agents simultan&eacute;s, de la taille des mod&egrave;les et du nombre d&rsquo;utilisateurs. Nestor peut &ecirc;tre livr&eacute; sur Arc Pro B70 (32 Go VRAM, usage PME), RTX 5090 ou future RTX 6090 pour des charges plus importantes. La d&eacute;finition de l&rsquo;architecture mat&eacute;rielle fait partie du cadrage initial &mdash; nous dimensionnons selon votre usage r&eacute;el.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Agents op&eacute;rationnels</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">&#128296;</div>
+                    <h4>Agent Infog&eacute;rance</h4>
+                    <p>Webhook n8n &rarr; contexte client &rarr; Ollama &rarr; r&eacute;ponse structur&eacute;e. Int&eacute;gration TacticalRMM API (alertes, tickets). RAG <code>clients</code> + <code>procedures-gigarun</code>.</p>
+                    <span class="tag tag-dispo">Phase 2</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128188;</div>
+                    <h4>Agent Commercial</h4>
+                    <p>Dolibarr API (tiers, devis). RAG <code>commercial</code>. G&eacute;n&eacute;ration propale typ&eacute;e &lt; 30s depuis un prompt de chiffrage. Surveillance automatique des appels d&rsquo;offres et march&eacute;s publics (BOAMP, PLACE, collectivit&eacute;s locales, r&eacute;gion.re) &mdash; alerte d&egrave;s qu&rsquo;un march&eacute; correspond au profil m&eacute;tier. Analyse de PDF DQE par IA : extraction automatique des lignes produits, matching catalogue fournisseur, g&eacute;n&eacute;ration de proposition commerciale en un clic.</p>
+                    <span class="tag tag-dispo">Phase 2</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128737;</div>
+                    <h4>Agent S&eacute;curit&eacute;</h4>
+                    <p>Wazuh API &rarr; analyse alerte &rarr; rapport incident structur&eacute;. RAG <code>securite</code> (runbooks, IOC).</p>
+                    <span class="tag tag-dispo">Phase 2</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#9728;&#65039;</div>
+                    <h4>Agent Domotique / PV</h4>
+                    <p>Home Assistant + API onduleurs (Solaredge, Huawei, Enphase). Alertes anomalie production. Commandes vocales via Nestor.</p>
+                    <span class="tag tag-bientot">Phase 2</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128247;</div>
+                    <h4>Agent Vid&eacute;osurveillance</h4>
+                    <p>Frigate NVR + d&eacute;tection objet OpenVINO sur Arc Pro B70. Workflow : d&eacute;tection &rarr; narration Nestor &rarr; mail/SMS. Z&eacute;ro cloud.</p>
+                    <span class="tag tag-bientot">Phase 3 &mdash; optionnel</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#128269;</div>
+                    <h4>Agent Veille &amp; Pr&eacute;sence</h4>
+                    <p>Surveillance e-r&eacute;putation (avis, mentions presse, r&eacute;seaux), d&eacute;tection bad buzz, veille concurrentielle et sectorielle, d&eacute;tection breach OSINT. R&eacute;daction automatique de contenus pour Facebook, Instagram, LinkedIn. Tout en local &mdash; z&eacute;ro trace externe.</p>
+                    <span class="tag tag-bientot">Phase 3 &mdash; sur devis</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">&#129302;</div>
+                    <h4>Agent Robotique</h4>
+                    <p>ROS2 + API Universal Robots / Doosan. Planification tâches, supervision temps r&eacute;el, d&eacute;tection d&eacute;rive qualit&eacute;, rapport rentabilit&eacute;.</p>
+                    <span class="tag tag-vision">Phase 5 &mdash; conditionnel</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Roadmap technique synth&eacute;tique</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <span class="phase-label phase-0">Phase 0 &mdash; Acc&egrave;s &amp; Vitrine</span>
+                    <h4>RDP &bull; Commande vocale (Whisper + Piper) &bull; Dashboard Nestor</h4>
+                    <p>Pr&eacute;requis avant tout agent. R&eacute;ception machine ~mai 2026.</p>
+                </div>
+                <div class="tl-item">
+                    <span class="phase-label phase-1">Phase 1 &mdash; Fondations</span>
+                    <h4>OS &bull; RAID0 &bull; Drivers XPU &bull; Ollama &bull; Docker &bull; Open WebUI &bull; n8n &bull; AnythingLLM</h4>
+                    <p>J+14 apr&egrave;s r&eacute;ception. Backup Restic obligatoire avant usage prod.</p>
+                </div>
+                <div class="tl-item">
+                    <span class="phase-label phase-2">Phase 2 &mdash; Agents m&eacute;tier</span>
+                    <h4>Infog&eacute;rance &bull; Commercial &bull; S&eacute;curit&eacute; &bull; Admin &bull; DPO &bull; Domotique &bull; PV</h4>
+                    <p>J+14 &rarr; J+45. Agents connect&eacute;s aux outils m&eacute;tier (TacticalRMM, Dolibarr, Wazuh, Home Assistant).</p>
+                </div>
+                <div class="tl-item">
+                    <span class="phase-label phase-3">Phase 3 &mdash; Maturit&eacute;</span>
+                    <h4>vLLM XPU &bull; M&eacute;moire long terme (mem0/Letta) &bull; Frigate vid&eacute;o &bull; Pitch deck Nestor</h4>
+                    <p>J+45 &rarr; J+90. Optimisation batching, m&eacute;moire partag&eacute;e entre agents, d&eacute;mo scénarisée reproductible.</p>
+                </div>
+                <div class="tl-item">
+                    <span class="phase-label" style="background:#e0f0ff;color:#004080">Phase 4 &mdash; SaaS (conditionnel)</span>
+                    <h4>LiteLLM billing &bull; Isolation workspaces &bull; Cloudflare Tunnel</h4>
+                    <p>D&eacute;clench&eacute; sur 2 clients confirm&eacute;s minimum.</p>
+                </div>
+                <div class="tl-item">
+                    <span class="phase-label" style="background:#f3e8ff;color:#5b21b6">Phase 5 &mdash; Robotique (conditionnel)</span>
+                    <h4>ROS2 &bull; API robots industriels &bull; Robots domestiques &lt; 5 000&euro;</h4>
+                    <p>D&eacute;clench&eacute; sur 1 client industriel avér&eacute; ou robots domestiques accessibles sur march&eacute;.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>R&egrave;gle de dispatch donn&eacute;es</h2>
+            <table class="tech-table">
+                <thead><tr><th>Type de donn&eacute;e</th><th>Destination</th></tr></thead>
+                <tbody>
+                    <tr><td>PII clients, contrats, secrets, infra</td><td><strong style="color:#198754">Local uniquement</strong></td></tr>
+                    <tr><td>R&eacute;daction g&eacute;n&eacute;rique, code non sensible</td><td>Local par d&eacute;faut &mdash; cloud si insuffisant</td></tr>
+                    <tr><td>Recherche publique, benchmark</td><td>Cloud accept&eacute;</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Crit&egrave;res de succ&egrave;s Phase 1</h2>
+            <div class="kpi-grid">
+                <div class="kpi-box"><span class="value">&ge; 30</span><span class="label">tokens/s Qwen3 14B</span></div>
+                <div class="kpi-box"><span class="value">&lt; 5s</span><span class="label">r&eacute;ponse RAG sur 500 docs</span></div>
+                <div class="kpi-box"><span class="value">&lt; 30s</span><span class="label">checklist diagnostic TacticalRMM</span></div>
+                <div class="kpi-box"><span class="value">0</span><span class="label">donn&eacute;e client envoy&eacute;e en cloud</span></div>
+            </div>
+        </div>
+
+        <div class="cta-block">
+            <h3>Questions techniques ou int&eacute;gration sp&eacute;cifique ?</h3>
+            <p>Architecture, mod&egrave;les, APIs disponibles &mdash; parlons-en directement.</p>
+            <a href="https://gigarun.re/contact" target="_blank" class="cta-btn">Je veux en savoir + &rarr;</a>
+        </div>
+
+    </div><!-- /tab-tech -->
+
+</div><!-- /container -->
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)">&uarr;</button>
+<script>
+(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)})})();</script>
+
+<script>
+    function switchProfile(profile) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.profile-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-' + profile).classList.add('active');
+        document.getElementById('btn-' + profile).classList.add('active');
+        localStorage.setItem('nestor_profile', profile);
+        document.querySelector('.container').scrollIntoView({behavior:'smooth'});
+    }
+
+    // Restaurer le choix précédent
+    const saved = localStorage.getItem('nestor_profile');
+    if (saved && ['dirigeant', 'tarifs', 'tech'].includes(saved)) {
+        switchProfile(saved);
+    }
+
+    // Scroll top button
+    const scrollBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+</script>
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+</Layout>
