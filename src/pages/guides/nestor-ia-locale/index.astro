@@ -308,7 +308,7 @@ import Layout from '../../../layouts/Layout.astro';
 
         <div class="section">
             <h2>Tarifs &amp; Formules</h2>
-            <p style="margin-bottom:30px;color:#555;">Nestor s&rsquo;adapte &agrave; votre situation : d&eacute;marrez en SaaS sans investissement, ou optez pour une machine d&eacute;di&eacute;e dans vos locaux si la souverainet&eacute; totale des donn&eacute;es est prioritaire. Un audit pr&eacute;alable gratuit d&eacute;termine la meilleure option.</p>
+            <p style="margin-bottom:30px;color:#555;">Nestor s&rsquo;adapte &agrave; votre situation : SaaS pur sans investissement, satellite local l&eacute;ger pour la domotique et la vid&eacute;o, ou machine d&eacute;di&eacute;e compl&egrave;te on-premise. Un audit pr&eacute;alable gratuit d&eacute;termine la meilleure option.</p>
 
             <!-- MODE DE D&Eacute;PLOIEMENT -->
             <h3 style="color:#023e8a;margin-bottom:20px;">Choisissez votre mode de d&eacute;ploiement</h3>
@@ -336,6 +336,18 @@ import Layout from '../../../layouts/Layout.astro';
                         <li style="padding:4px 0;">&#10003; Montez en puissance progressivement</li>
                         <li style="padding:4px 0;">&#10003; Aucune interruption de service</li>
                         <li style="padding:4px 0;">&#10003; Budget &eacute;tal&eacute; dans le temps</li>
+                    </ul>
+                </div>
+
+                <div style="border:2px solid #7c3aed;border-radius:12px;padding:25px;background:#f5f0ff;">
+                    <div style="font-size:1.8em;margin-bottom:10px;">&#128225;</div>
+                    <h4 style="color:#5b21b6;margin-bottom:8px;">SaaS + Satellite local</h4>
+                    <p style="color:#555;font-size:0.9em;margin-bottom:15px;">Le cerveau tourne chez GiGaRuN. Un mini-PC l&eacute;ger (200&ndash;300&euro;) est install&eacute; dans vos locaux pour capter domotique, vid&eacute;o ou robots et les transmettre au cerveau via tunnel s&eacute;curis&eacute;.</p>
+                    <ul style="list-style:none;padding:0;font-size:0.88em;color:#444;">
+                        <li style="padding:4px 0;">&#10003; Investissement mat&eacute;riel minimal</li>
+                        <li style="padding:4px 0;">&#10003; Id&eacute;al domotique, PV, vid&eacute;osurveillance</li>
+                        <li style="padding:4px 0;">&#10003; Autonomie locale si connexion coupe</li>
+                        <li style="padding:4px 0;">&#10003; Extensible &agrave; plusieurs sites</li>
                     </ul>
                 </div>
 
@@ -522,6 +534,25 @@ import Layout from '../../../layouts/Layout.astro';
                     <tr><td><strong>Voix STT/TTS</strong></td><td>Commande vocale</td><td>Whisper (local) + Piper TTS</td></tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="section">
+            <h2>Architecture Hub &amp; Satellite</h2>
+            <div class="alert alert-info">
+                <div class="alert-icon">&#128225;</div>
+                <div><strong>Principe :</strong> un cerveau central (machine GiGaRuN) orchestre les agents et les LLM. Des satellites l&eacute;gers chez les clients captent les donn&eacute;es locales (domotique, vid&eacute;o, robots) et les remontent via tunnel s&eacute;curis&eacute;. Les clients SaaS purs n&rsquo;ont aucun mat&eacute;riel &agrave; g&eacute;rer.</div>
+            </div>
+            <table class="tech-table">
+                <thead><tr><th>Besoin client</th><th>Mode</th><th>Mat&eacute;riel local</th></tr></thead>
+                <tbody>
+                    <tr><td>Infog&eacute;rance, comptabilit&eacute;, veille, relation client</td><td><strong>SaaS pur</strong></td><td>Z&eacute;ro</td></tr>
+                    <tr><td>Domotique, &eacute;nergie photovolta&iuml;que</td><td><strong>SaaS + Satellite</strong></td><td>Mini-PC 200&ndash;300&euro;</td></tr>
+                    <tr><td>Vid&eacute;osurveillance locale</td><td><strong>SaaS + Satellite</strong></td><td>Mini-PC + GPU l&eacute;ger</td></tr>
+                    <tr><td>Robotique industrielle</td><td><strong>SaaS + Satellite d&eacute;di&eacute;</strong></td><td>Machine selon charge</td></tr>
+                    <tr><td>Souverainet&eacute; totale, donn&eacute;es ultra-sensibles</td><td><strong>On-premise complet</strong></td><td>Machine d&eacute;di&eacute;e install&eacute;e sur site</td></tr>
+                </tbody>
+            </table>
+            <p style="color:#555;font-size:0.95em;margin-top:15px;">Le satellite (Raspberry Pi 5 ou mini-PC x86) fonctionne en <strong>mode d&eacute;grad&eacute; autonome</strong> si le tunnel est coup&eacute; : il continue de collecter et d&rsquo;ex&eacute;cuter les ordres locaux, et synchronise au retour de la connexion.</p>
         </div>
 
         <div class="section">
