@@ -502,54 +502,55 @@ import Layout from '../../../layouts/Layout.astro';
         </div>
 
         <div class="section">
-            <h2>Agents op&eacute;rationnels</h2>
+            <h2>Services IA sp&eacute;cialis&eacute;s</h2>
+            <p style="color:#555;margin-bottom:20px;">Nestor n&rsquo;est pas un agent unique qui fait tout. C&rsquo;est une suite de <strong>services IA ind&eacute;pendants</strong>, chacun sp&eacute;cialis&eacute; sur un m&eacute;tier, conformes RGPD, qui s&rsquo;activent selon votre formule.</p>
             <div class="card-grid">
                 <div class="card">
                     <div class="card-icon">&#128296;</div>
-                    <h4>Agent Infog&eacute;rance</h4>
+                    <h4>Service Infog&eacute;rance IA</h4>
                     <p>Webhook n8n &rarr; contexte client &rarr; Ollama &rarr; r&eacute;ponse structur&eacute;e. Int&eacute;gration TacticalRMM API (alertes, tickets). RAG <code>clients</code> + <code>procedures-gigarun</code>.</p>
                     <p style="margin-top:10px;font-size:0.9em;color:#444;"><strong>Support Hesk :</strong> le chatbot tier-1 (d&eacute;j&agrave; en prod) est redirig&eacute; vers Nestor via LiteLLM &mdash; z&eacute;ro appel cloud pour les donn&eacute;es clients. Les tickets escalad&eacute;s d&eacute;clenchent un workflow n8n : contexte infra (TacticalRMM) + historique client &rarr; brouillon r&eacute;ponse &rarr; validation humaine.</p>
                     <span class="tag tag-dispo">Phase 2</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#128188;</div>
-                    <h4>Agent Commercial</h4>
+                    <h4>Service Commercial IA</h4>
                     <p>Dolibarr API (tiers, devis). RAG <code>commercial</code>. G&eacute;n&eacute;ration propale typ&eacute;e &lt; 30s depuis un prompt de chiffrage. Surveillance automatique des appels d&rsquo;offres et march&eacute;s publics (BOAMP, PLACE, collectivit&eacute;s locales, r&eacute;gion.re) &mdash; alerte d&egrave;s qu&rsquo;un march&eacute; correspond au profil m&eacute;tier. Analyse de PDF DQE par IA : extraction automatique des lignes produits, matching catalogue fournisseur, g&eacute;n&eacute;ration de proposition commerciale en un clic.</p>
                     <span class="tag tag-dispo">Phase 2</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#128101;</div>
-                    <h4>Agent Relation Client</h4>
+                    <h4>Service Relation Client IA</h4>
                     <p>Lecture Dolibarr API (tiers, interventions, devis). D&eacute;tection clients inactifs → alerte. Workflow n8n : segment → Ollama → SMTP OVH. Brief client automatique avant RDV. RAG <code>relation-client</code>. Consentement RGPD g&eacute;r&eacute; dans Dolibarr.</p>
                     <span class="tag tag-dispo">Phase 2</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#128737;</div>
-                    <h4>Agent S&eacute;curit&eacute;</h4>
+                    <h4>Service S&eacute;curit&eacute; IA</h4>
                     <p>Wazuh API &rarr; analyse alerte &rarr; rapport incident structur&eacute;. RAG <code>securite</code> (runbooks, IOC).</p>
                     <span class="tag tag-dispo">Phase 2</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#9728;&#65039;</div>
-                    <h4>Agent Domotique / PV</h4>
+                    <h4>Service Domotique &amp; &Eacute;nergie IA</h4>
                     <p>Home Assistant + API onduleurs (Solaredge, Huawei, Enphase). Alertes anomalie production. Commandes vocales via Nestor.</p>
                     <span class="tag tag-bientot">Phase 2</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#128247;</div>
-                    <h4>Agent Vid&eacute;osurveillance</h4>
+                    <h4>Service Vid&eacute;osurveillance IA</h4>
                     <p>Frigate NVR + d&eacute;tection objet OpenVINO sur Arc Pro B70. Workflow : d&eacute;tection &rarr; narration Nestor &rarr; mail/SMS. Z&eacute;ro cloud.</p>
                     <span class="tag tag-bientot">Phase 3 &mdash; optionnel</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#128269;</div>
-                    <h4>Agent Veille &amp; Pr&eacute;sence</h4>
+                    <h4>Service Veille &amp; Com IA</h4>
                     <p>Surveillance e-r&eacute;putation (avis, mentions presse, r&eacute;seaux), d&eacute;tection bad buzz, veille concurrentielle et sectorielle, d&eacute;tection breach OSINT. R&eacute;daction automatique de contenus pour Facebook, Instagram, LinkedIn. Tout en local &mdash; z&eacute;ro trace externe.</p>
                     <span class="tag tag-bientot">Phase 3 &mdash; sur devis</span>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#129302;</div>
-                    <h4>Agent Robotique</h4>
+                    <h4>Service Robotique IA</h4>
                     <p>ROS2 + API Universal Robots / Doosan. Planification tâches, supervision temps r&eacute;el, d&eacute;tection d&eacute;rive qualit&eacute;, rapport rentabilit&eacute;.</p>
                     <span class="tag tag-vision">Phase 5 &mdash; conditionnel</span>
                 </div>
@@ -588,9 +589,9 @@ import Layout from '../../../layouts/Layout.astro';
                     <p>J+14 apr&egrave;s r&eacute;ception. Backup Restic obligatoire avant usage prod.</p>
                 </div>
                 <div class="tl-item">
-                    <span class="phase-label phase-2">Phase 2 &mdash; Agents m&eacute;tier</span>
+                    <span class="phase-label phase-2">Phase 2 &mdash; Services IA m&eacute;tier</span>
                     <h4>Infog&eacute;rance &bull; Commercial &bull; S&eacute;curit&eacute; &bull; Admin &bull; DPO &bull; Domotique &bull; PV</h4>
-                    <p>J+14 &rarr; J+45. Agents connect&eacute;s aux outils m&eacute;tier (TacticalRMM, Dolibarr, Wazuh, Home Assistant).</p>
+                    <p>J+14 &rarr; J+45. Services connect&eacute;s aux outils m&eacute;tier (TacticalRMM, Dolibarr, Wazuh, Home Assistant).</p>
                 </div>
                 <div class="tl-item">
                     <span class="phase-label phase-3">Phase 3 &mdash; Maturit&eacute;</span>
