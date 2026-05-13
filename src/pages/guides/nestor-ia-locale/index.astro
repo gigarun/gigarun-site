@@ -251,6 +251,12 @@ import Layout from '../../../layouts/Layout.astro';
                     <span class="tag tag-bientot">Sur devis</span>
                 </div>
                 <div class="card">
+                    <div class="card-icon">&#128241;</div>
+                    <h4>Accessible depuis votre mobile</h4>
+                    <p>Nestor s&rsquo;installe sur votre t&eacute;l&eacute;phone en 5 minutes &mdash; sans app store. Ouvrez l&rsquo;URL, ajoutez &agrave; votre &eacute;cran d&rsquo;accueil, c&rsquo;est pr&ecirc;t. 2FA inclus, alertes push en temps r&eacute;el, d&eacute;tection de connexion suspecte.</p>
+                    <span class="tag tag-dispo">Disponible</span>
+                </div>
+                <div class="card">
                     <div class="card-icon">&#129302;</div>
                     <h4>Contr&ocirc;le vos futurs robots</h4>
                     <p>Nestor sera le &laquo;&nbsp;contrema&icirc;tre&nbsp;&raquo; de vos robots industriels ou domestiques : planification, supervision, qualit&eacute;, rentabilit&eacute;.</p>
@@ -290,6 +296,7 @@ import Layout from '../../../layouts/Layout.astro';
                     <tr><td><strong>Nestor &Eacute;nergie</strong></td><td>Monitoring panneaux solaires, alertes anomalies, rapports &eacute;conomies</td><td><span class="tag tag-bientot">D&eacute;ploiement 2026</span></td></tr>
                     <tr><td><strong>Nestor Vid&eacute;o</strong></td><td>D&eacute;tection mouvement locale, alertes, historique &mdash; z&eacute;ro cloud</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
                     <tr><td><strong>Nestor Veille &amp; Pr&eacute;sence</strong></td><td>E-r&eacute;putation, veille concurrentielle, r&eacute;daction contenus r&eacute;seaux sociaux, d&eacute;tection bad buzz, alertes mentions &mdash; votre community manager IA</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
+                    <tr><td><strong>Nestor Mobile</strong></td><td>PWA sans app store, 2FA TOTP, alertes push Ntfy, d&eacute;tection connexion suspecte &mdash; onboarding client en &lt; 5 min</td><td><span class="tag tag-dispo">Phase 4</span></td></tr>
                     <tr><td><strong>Nestor Robotique</strong></td><td>Orchestration robots industriels/domestiques, qualit&eacute;, rentabilit&eacute;</td><td><span class="tag tag-vision">Horizon 2027</span></td></tr>
                 </tbody>
             </table>
@@ -624,6 +631,24 @@ import Layout from '../../../layouts/Layout.astro';
                     <span class="tag tag-vision">Phase 5 &mdash; conditionnel</span>
                 </div>
             </div>
+        </div>
+
+        <div class="section">
+            <h2>Acc&egrave;s mobile &mdash; PWA &amp; alertes push</h2>
+            <div class="alert alert-success">
+                <div class="alert-icon">&#128241;</div>
+                <div><strong>Pas d&rsquo;app native.</strong> Open WebUI est configur&eacute; en Progressive Web App : le client ouvre <code>nestor.gigarun.net</code> sur son t&eacute;l&eacute;phone, ajoute &agrave; l&rsquo;&eacute;cran d&rsquo;accueil &mdash; z&eacute;ro App Store, z&eacute;ro Google Play, z&eacute;ro maintenance &eacute;diteur.</div>
+            </div>
+            <table class="tech-table">
+                <thead><tr><th>Fonction</th><th>Technologie</th><th>D&eacute;tail</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Interface mobile</strong></td><td>Open WebUI PWA</td><td>Ajout &eacute;cran d&rsquo;accueil depuis <code>nestor.gigarun.net</code>, icône Nestor, hors-ligne partiel</td></tr>
+                    <tr><td><strong>2FA</strong></td><td>TOTP natif</td><td>Google Authenticator / Authy &mdash; activ&eacute; par d&eacute;faut sur tous les comptes</td></tr>
+                    <tr><td><strong>Alertes push</strong></td><td>Ntfy (self-hosted)</td><td>Notifications iOS/Android sans app store &mdash; h&eacute;berg&eacute; sur machine GiGaRuN</td></tr>
+                    <tr><td><strong>D&eacute;tection suspecte</strong></td><td>n8n + SMTP + Ntfy</td><td>Nouvelle IP ou device inconnu → alerte push + mail imm&eacute;diat</td></tr>
+                    <tr><td><strong>Onboarding</strong></td><td>QR code + guide PDF</td><td>Client op&eacute;rationnel en &lt; 5 minutes</td></tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="section">
