@@ -281,33 +281,52 @@ import Layout from '../../../layouts/Layout.astro';
             <!-- FORMULES -->
             <h3 style="color:#023e8a;margin-bottom:20px;">Choisissez votre formule</h3>
 
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;margin:30px 0;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;margin:30px 0;">
+
+                <!-- STARTER -->
+                <div style="border:2px solid #0ea5e9;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;">
+                    <div style="background:linear-gradient(135deg,#0ea5e9,#0077b6);color:white;padding:25px 30px;text-align:center;">
+                        <div style="font-size:2em;margin-bottom:8px;">&#127775;</div>
+                        <h3 style="color:white;font-size:1.4em;margin-bottom:5px;">Nestor Starter</h3>
+                        <p style="opacity:0.85;font-size:0.9em;">1 domaine m&eacute;tier au choix</p>
+                    </div>
+                    <div style="padding:25px;flex:1;">
+                        <p style="color:#555;font-size:0.9em;margin-bottom:12px;">Choisissez <strong>un</strong> agent : Infog&eacute;rance, Relation client <em>ou</em> Veille &amp; Communication.</p>
+                        <ul style="list-style:none;padding:0;margin-bottom:20px;">
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; 1 agent actif au choix</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Acc&egrave;s mobile PWA</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Alertes push Ntfy</li>
+                            <li style="padding:7px 0;">&#10003;&nbsp; Formation &amp; prise en main</li>
+                        </ul>
+                        <div style="background:#e0f2fe;border-radius:10px;padding:15px;text-align:center;">
+                            <div style="font-size:0.85em;color:#0077b6;margin-bottom:4px;font-weight:600;">SaaS GiGaRuN</div>
+                            <div style="font-size:2em;font-weight:800;color:#0077b6;">149&euro;<span style="font-size:0.5em;font-weight:400;">/mois</span></div>
+                            <div style="font-size:0.8em;color:#888;">sans engagement</div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- ESSENTIEL -->
                 <div style="border:2px solid #0077b6;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;">
-                    <div style="background:linear-gradient(135deg,#0077b6,#023e8a);color:white;padding:30px;text-align:center;">
+                    <div style="background:linear-gradient(135deg,#0077b6,#023e8a);color:white;padding:25px 30px;text-align:center;">
                         <div style="font-size:2em;margin-bottom:8px;">&#128202;</div>
-                        <h3 style="color:white;font-size:1.5em;margin-bottom:5px;">Nestor Essentiel</h3>
-                        <p style="opacity:0.85;font-size:0.9em;">Supervision &amp; Voix</p>
+                        <h3 style="color:white;font-size:1.4em;margin-bottom:5px;">Nestor Essentiel</h3>
+                        <p style="opacity:0.85;font-size:0.9em;">Infog&eacute;rance + Relation client + Comptable</p>
                     </div>
                     <div style="padding:25px;flex:1;">
                         <ul style="list-style:none;padding:0;margin-bottom:20px;">
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Infog&eacute;rance &amp; supervision proactive</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Commande vocale</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Alertes automatiques</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Rapports mensuels</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Acc&egrave;s distant s&eacute;curis&eacute;</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Assistant comptable (TVA 8,5%, fiscalit&eacute; r&eacute;unionnaise)</li>
-                            <li style="padding:8px 0;">&#10003;&nbsp; Formation &amp; prise en main</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Infog&eacute;rance &amp; supervision proactive</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Relation client &amp; relances automatiques</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Assistant comptable (TVA 8,5%)</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Commande vocale &amp; alertes</li>
+                            <li style="padding:7px 0;">&#10003;&nbsp; Formation &amp; prise en main</li>
                         </ul>
-                        <div style="background:#f5faff;border-radius:10px;padding:15px;text-align:center;margin-bottom:10px;">
-                            <div style="font-size:0.85em;color:#666;margin-bottom:4px;">Installation</div>
-                            <div style="font-size:1.8em;font-weight:800;color:#023e8a;">&#224; partir de 9 500&euro;</div>
-                            <div style="font-size:0.8em;color:#888;">machine de base incluse</div>
+                        <div style="background:#f5faff;border-radius:10px;padding:12px;text-align:center;margin-bottom:8px;">
+                            <div style="font-size:0.8em;color:#0077b6;font-weight:600;">SaaS GiGaRuN</div>
+                            <div style="font-size:1.9em;font-weight:800;color:#023e8a;">279&euro;<span style="font-size:0.5em;font-weight:400;">/mois</span></div>
                         </div>
-                        <div style="background:#e8f4fd;border-radius:10px;padding:12px;text-align:center;">
-                            <div style="font-size:0.85em;color:#666;margin-bottom:2px;">Maintenance &amp; support</div>
-                            <div style="font-size:1.3em;font-weight:700;color:#0077b6;">150&euro; / mois</div>
+                        <div style="background:#e8f4fd;border-radius:10px;padding:10px;text-align:center;">
+                            <div style="font-size:0.8em;color:#555;">On-premise : <strong>8 500&euro;</strong> + 99&euro;/mois</div>
                         </div>
                     </div>
                 </div>
@@ -315,56 +334,47 @@ import Layout from '../../../layouts/Layout.astro';
                 <!-- PRO -->
                 <div style="border:2px solid #023e8a;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;position:relative;">
                     <div style="position:absolute;top:15px;right:15px;background:#ffc107;color:#333;padding:4px 12px;border-radius:20px;font-size:0.78em;font-weight:700;">Recommand&eacute;</div>
-                    <div style="background:linear-gradient(135deg,#023e8a,#001a4d);color:white;padding:30px;text-align:center;">
+                    <div style="background:linear-gradient(135deg,#023e8a,#001a4d);color:white;padding:25px 30px;text-align:center;">
                         <div style="font-size:2em;margin-bottom:8px;">&#9728;&#65039;</div>
-                        <h3 style="color:white;font-size:1.5em;margin-bottom:5px;">Nestor Pro</h3>
-                        <p style="opacity:0.85;font-size:0.9em;">Supervision + Domotique + &Eacute;nergie</p>
+                        <h3 style="color:white;font-size:1.4em;margin-bottom:5px;">Nestor Pro</h3>
+                        <p style="opacity:0.85;font-size:0.9em;">Tous agents + Domotique + Veille &amp; Com</p>
                     </div>
                     <div style="padding:25px;flex:1;">
                         <ul style="list-style:none;padding:0;margin-bottom:20px;">
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Tout Nestor Essentiel</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Pilotage domotique b&acirc;timent</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Monitoring panneaux solaires</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Veille march&eacute;s publics (BOAMP)</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Analyse DQE &amp; g&eacute;n&eacute;ration devis</li>
-                            <li style="padding:8px 0;">&#10003;&nbsp; Agent commercial (Dolibarr)</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Tout Nestor Essentiel</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Agent commercial (BOAMP, DQE, Dolibarr)</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Veille &amp; com r&eacute;seaux sociaux</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Pilotage domotique &amp; &eacute;nergie PV</li>
+                            <li style="padding:7px 0;">&#10003;&nbsp; Agent s&eacute;curit&eacute; (Wazuh)</li>
                         </ul>
-                        <div style="background:#f5faff;border-radius:10px;padding:15px;text-align:center;margin-bottom:10px;">
-                            <div style="font-size:0.85em;color:#666;margin-bottom:4px;">Installation</div>
-                            <div style="font-size:1.8em;font-weight:800;color:#023e8a;">&#224; partir de 13 500&euro;</div>
-                            <div style="font-size:0.8em;color:#888;">machine de base incluse</div>
+                        <div style="background:#f5faff;border-radius:10px;padding:12px;text-align:center;margin-bottom:8px;">
+                            <div style="font-size:0.8em;color:#0077b6;font-weight:600;">SaaS GiGaRuN</div>
+                            <div style="font-size:1.9em;font-weight:800;color:#023e8a;">479&euro;<span style="font-size:0.5em;font-weight:400;">/mois</span></div>
                         </div>
-                        <div style="background:#e8f4fd;border-radius:10px;padding:12px;text-align:center;">
-                            <div style="font-size:0.85em;color:#666;margin-bottom:2px;">Maintenance &amp; support</div>
-                            <div style="font-size:1.3em;font-weight:700;color:#0077b6;">280&euro; / mois</div>
+                        <div style="background:#e8f4fd;border-radius:10px;padding:10px;text-align:center;">
+                            <div style="font-size:0.8em;color:#555;">On-premise : <strong>12 500&euro;</strong> + 179&euro;/mois</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- INTEGRAL -->
                 <div style="border:2px solid #5b21b6;border-radius:15px;overflow:hidden;display:flex;flex-direction:column;">
-                    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);color:white;padding:30px;text-align:center;">
+                    <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed);color:white;padding:25px 30px;text-align:center;">
                         <div style="font-size:2em;margin-bottom:8px;">&#129302;</div>
-                        <h3 style="color:white;font-size:1.5em;margin-bottom:5px;">Nestor Int&eacute;gral</h3>
+                        <h3 style="color:white;font-size:1.4em;margin-bottom:5px;">Nestor Int&eacute;gral</h3>
                         <p style="opacity:0.85;font-size:0.9em;">Architecture sur mesure</p>
                     </div>
                     <div style="padding:25px;flex:1;">
                         <ul style="list-style:none;padding:0;margin-bottom:20px;">
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Tout Nestor Pro</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Vid&eacute;osurveillance locale</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Orchestration robotique</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Multi-GPU si n&eacute;cessaire</li>
-                            <li style="padding:8px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Agents m&eacute;tier sp&eacute;cifiques</li>
-                            <li style="padding:8px 0;">&#10003;&nbsp; SLA garanti &amp; support prioritaire</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Tout Nestor Pro</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Vid&eacute;osurveillance locale</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Orchestration robotique</li>
+                            <li style="padding:7px 0;border-bottom:1px solid #eee;">&#10003;&nbsp; Multi-GPU si n&eacute;cessaire</li>
+                            <li style="padding:7px 0;">&#10003;&nbsp; SLA garanti &amp; support prioritaire</li>
                         </ul>
-                        <div style="background:#f5f0ff;border-radius:10px;padding:15px;text-align:center;margin-bottom:10px;">
-                            <div style="font-size:0.85em;color:#666;margin-bottom:4px;">Installation</div>
-                            <div style="font-size:1.8em;font-weight:800;color:#5b21b6;">Sur devis</div>
+                        <div style="background:#f3e8ff;border-radius:10px;padding:15px;text-align:center;">
+                            <div style="font-size:1.3em;font-weight:700;color:#5b21b6;">Sur devis</div>
                             <div style="font-size:0.8em;color:#888;">audit pr&eacute;alable gratuit</div>
-                        </div>
-                        <div style="background:#f3e8ff;border-radius:10px;padding:12px;text-align:center;">
-                            <div style="font-size:0.85em;color:#666;margin-bottom:2px;">Maintenance &amp; support</div>
-                            <div style="font-size:1.3em;font-weight:700;color:#5b21b6;">&#224; partir de 450&euro; / mois</div>
                         </div>
                     </div>
                 </div>
@@ -386,18 +396,23 @@ import Layout from '../../../layouts/Layout.astro';
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Nestor Essentiel</strong><br><small style="color:#888">Infog&eacute;rance + Voix + Comptable</small></td>
-                        <td><strong>300&euro;/mois</strong><br><small>sans engagement</small></td>
-                        <td><strong>300&euro;/mois</strong><br><small>+ satellite install&eacute; sur site</small></td>
-                        <td><strong>150&euro;/mois</strong><br><small>apr&egrave;s migration machine</small></td>
-                        <td><strong>&#224; partir de 9 500&euro;</strong> + 150&euro;/mois</td>
+                        <td><strong>Nestor Starter</strong><br><small style="color:#888">1 agent au choix</small></td>
+                        <td><strong>149&euro;/mois</strong><br><small>sans engagement</small></td>
+                        <td colspan="3" style="text-align:center;color:#888;"><em>SaaS uniquement</em></td>
                     </tr>
                     <tr>
-                        <td><strong>Nestor Pro</strong><br><small style="color:#888">+ Domotique + &Eacute;nergie + Commercial</small></td>
-                        <td><strong>500&euro;/mois</strong><br><small>sans engagement</small></td>
-                        <td><strong>500&euro;/mois</strong><br><small>+ satellite install&eacute; sur site</small></td>
-                        <td><strong>280&euro;/mois</strong><br><small>apr&egrave;s migration machine</small></td>
-                        <td><strong>&#224; partir de 13 500&euro;</strong> + 280&euro;/mois</td>
+                        <td><strong>Nestor Essentiel</strong><br><small style="color:#888">Infog&eacute;rance + Relation client + Comptable</small></td>
+                        <td><strong>279&euro;/mois</strong><br><small>sans engagement</small></td>
+                        <td><strong>279&euro;/mois</strong><br><small>+ satellite install&eacute; sur site</small></td>
+                        <td><strong>99&euro;/mois</strong><br><small>client fournit la machine</small></td>
+                        <td><strong>8 500&euro;</strong> + 99&euro;/mois</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nestor Pro</strong><br><small style="color:#888">Tous agents + Domotique + Veille &amp; Com</small></td>
+                        <td><strong>479&euro;/mois</strong><br><small>sans engagement</small></td>
+                        <td><strong>479&euro;/mois</strong><br><small>+ satellite install&eacute; sur site</small></td>
+                        <td><strong>179&euro;/mois</strong><br><small>client fournit la machine</small></td>
+                        <td><strong>12 500&euro;</strong> + 179&euro;/mois</td>
                     </tr>
                     <tr>
                         <td><strong>Nestor Int&eacute;gral</strong><br><small style="color:#888">Architecture sur mesure</small></td>
