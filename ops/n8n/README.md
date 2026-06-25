@@ -74,7 +74,19 @@ Toujours `POST application/json`. Champ discriminant : `type`.
 - Ajouter côté n8n : vérif `type` connu, rate-limit (n8n ou Caddy/Traefik devant), et idéalement un
   champ honeypot + un secret partagé en header si besoin.
 
-## 5. Reste à décider (Thomas)
-- Instance n8n + URL publique du webhook → renseigner `PUBLIC_FORMS_WEBHOOK`.
-- PDF : déployer Gotenberg (recommandé) ou puppeteer.
-- Dolibarr : activer la création de prospect+devis (phase 2).
+## 5. Statut DEV (2026-06-25) — opérationnel
+
+Déployé et testé de bout en bout sur le dev `10.0.0.82` :
+- **n8n** : conteneur `n8n-gigarun` (`:5678`), workflow `frmGigarun0001a` **actif**.
+- **Gotenberg** : conteneur `gotenberg` (`:3000`) — `docker run -d --name gotenberg --restart unless-stopped -p 3000:3000 gotenberg/gotenberg:8`.
+- **SMTP** : credential `smtpOvhGiga01` (OVH `ssl0.ovh.net:465`, `contact@gigarun.net`).
+- **Flux** : Webhook → Preparer → [Repondre OK · Email interne (lead → contact@gigarun.net) · Est-un-devis → HTML→binaire → Gotenberg (PDF) → Email client (devis PDF joint)].
+- Test devis : webhook 200, Gotenberg 200, email interne + email prospect avec PDF — sans erreur.
+
+## 6. Reste pour la PROD
+- **VPS Coolify OVH dédié** : y déployer n8n + Gotenberg, exposer le webhook en HTTPS public, renseigner `PUBLIC_FORMS_WEBHOOK` dans Coolify (site).
+- **SMTP Mailjet** : créer un 2e credential `smtp` (in-v3.mailjet.com:587, clé API) et pointer les 2 nœuds Email dessus. Garder OVH pour le dev.
+- **Dolibarr** (prospect + devis, non urgent) — à ajouter après les 2 emails, branche devis :
+  1. HTTP `POST https://gestion.gigarun.net/api/index.php/thirdparties` (header `DOLAPIKEY`) → crée le tiers (name=societe, email, phone). Récupère l'`id`.
+  2. HTTP `POST .../proposals` avec `socid` = id tiers + lignes du devis.
+  - ⚠️ Token Dolibarr partagé avec Pennylane (mémoire `reference_dolibarr_ovh`) — ne pas régénérer. NE PAS activer en dev (polluerait le Dolibarr de prod).
