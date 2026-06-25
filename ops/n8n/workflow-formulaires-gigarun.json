@@ -35,7 +35,7 @@
         "toEmail": "contact@gigarun.net",
         "subject": "={{ $json.sujetInterne }}",
         "html": "={{ $json.htmlInterne }}",
-        "options": {}
+        "options": { "appendAttribution": false }
       },
       "id": "email-interne",
       "name": "Email interne",
@@ -90,7 +90,7 @@
         "toEmail": "={{ $('Preparer').item.json.emailClient }}",
         "subject": "={{ $('Preparer').item.json.sujetClient }}",
         "html": "={{ $('Preparer').item.json.corpsClient }}",
-        "options": { "attachments": "data" }
+        "options": { "attachments": "data", "appendAttribution": false }
       },
       "id": "email-client",
       "name": "Email client",
