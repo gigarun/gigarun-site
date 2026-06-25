@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const offres = [
+  { nom: "Cloud Europe", prix: "15 €", desc: "Sauvegarde externalisée dans un datacenter européen. Idéal pour la conformité RGPD et la mise hors site.", note: "RGPD · hors site" },
+  { nom: "Haute disponibilité Réunion", prix: "20 €", desc: "Réplication locale à La Réunion : restauration ultra-rapide, faible latence, données qui restent sur le territoire.", note: "Local · rapide", reco: true },
+  { nom: "Archivage externe Monde", prix: "10 €", desc: "Stockage froid longue durée pour l'archivage légal. Le meilleur rapport coût/volume pour vos données dormantes.", note: "Archivage · économique" },
+];
+---
+<Layout title="Sauvegarde cloud & archivage externalisé à La Réunion — Gigarun" description="Sauvegarde cloud et archivage externalisé pour PME réunionnaises : cloud Europe, haute disponibilité locale Réunion, archivage longue durée. Règle 3-2-1, chiffré. Dès 10 €/To/mois HT.">
+<section class="bg-[#07001C] pt-32 pb-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <a href="/sauvegarde-pra" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm">← Sauvegarde &amp; PRA</a>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] mt-4 mb-5" style="font-size:clamp(34px,5vw,58px);line-height:1.1;">Sauvegarde cloud &amp; archivage externalisé</h1>
+    <p class="text-[#9B99AA] text-lg max-w-2xl mb-8">La règle <strong class="text-[#F1F0F7]">3-2-1</strong> : 3 copies, 2 supports, 1 hors site. On externalise vos sauvegardes selon votre besoin de réactivité, de souveraineté et de budget. Facturation au <strong class="text-[#F1F0F7]">téraoctet</strong>.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Demander un devis</a>
+      <a href="tel:+262692311191" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">0692 31 11 91</a>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-3 gap-6">
+      {offres.map(o => (
+        <div class={`bg-[#0D0028] rounded-2xl p-6 border flex flex-col ${o.reco ? 'border-[#7C3AED]' : 'border-[rgba(124,58,237,0.2)]'}`}>
+          <span class="text-[11px] uppercase tracking-wide text-[#06B6D4] mb-2">{o.note}</span>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-2">{o.nom}</h2>
+          <p class="text-[#9B99AA] text-sm flex-1 mb-4">{o.desc}</p>
+          <div class="font-syne font-bold text-[#F1F0F7] text-2xl">{o.prix}<span class="text-sm font-normal text-[#9B99AA]"> /To/mois HT</span></div>
+        </div>
+      ))}
+    </div>
+    <p class="text-[#9B99AA] text-sm text-center mt-8">Toutes les offres : chiffrement AES-256, supervision incluse, restauration assistée. TVA Réunion 8,5 %.</p>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-2xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,3vw,34px);">Quelle stratégie de sauvegarde pour vous ?</h2>
+    <p class="text-[#9B99AA] mb-8">On dimensionne votre volume et on combine les niveaux selon vos contraintes. Diagnostic gratuit.</p>
+    <a href="/contact" class="inline-block bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-7 py-3 rounded-full transition-colors">Demander un devis</a>
+  </div>
+</section>
+</Layout>
