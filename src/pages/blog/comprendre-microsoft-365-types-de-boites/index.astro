@@ -1,0 +1,43 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Comprendre Microsoft 365 : les différents types de boîtes — Gigarun La Réunion" description="Microsoft 365 propose plusieurs types de boîtes aux lettres et de groupes. Comprendre les options disponibles permet d'optimiser la gestion des emails et des accès dans votre organisation.">
+<article class="bg-[#07001C] pt-32 pb-20"><div class="max-w-3xl mx-auto px-6">
+  <div class="mb-8"><div class="flex items-center gap-3 mb-4"><span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1" style="border-radius:9999px;">Microsoft 365</span><span class="text-[#9B99AA] text-xs">20 oct. 2025 · 6 min</span></div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight mb-4" style="font-size:clamp(28px,4vw,48px);">Comprendre Microsoft 365 : les différents types de boîtes</h1>
+    <p class="text-[#9B99AA] text-base leading-relaxed">Microsoft 365 propose plusieurs types de boîtes aux lettres et de groupes. Comprendre les options disponibles permet d'optimiser la gestion des emails et des accès dans votre organisation.</p></div>
+  <div class="prose-gigarun">
+    <h2>Les 8 types de boîtes et groupes</h2>
+    <h3>1. Boîte aux lettres utilisateur</h3><p>Boîte personnelle liée au compte d'un utilisateur (emails, agenda, contacts, tâches). Incluse dans tous les plans.</p>
+    <h3>2. Boîte aux lettres partagée</h3><p>Accessible à plusieurs utilisateurs (ex. support@…). Pas de licence requise jusqu'à 50 Go. Idéale pour les adresses communes.</p>
+    <h3>3. Groupe Microsoft 365</h3><p>Espace collaboratif (messagerie, fichiers, agenda, réunions) avec boîte dédiée. Parfait pour les équipes projet et départements.</p>
+    <h3>4. Groupe de distribution</h3><p>Envoie un email à plusieurs destinataires via une seule adresse. Chaque membre reçoit dans sa boîte. Pour les annonces internes.</p>
+    <h3>5. Groupe de distribution dynamique</h3><p>Comme le précédent, mais les membres sont ajoutés/retirés automatiquement selon des critères (service, lieu…).</p>
+    <h3>6. Groupe de sécurité</h3><p>Gère les autorisations d'accès aux ressources (SharePoint, applications). Pas pour la messagerie.</p>
+    <h3>7. Boîte de salle ou de ressource</h3><p>Gère la réservation de salles ou de matériel, avec acceptation/refus automatique selon la disponibilité.</p>
+    <h3>8. Contact de messagerie</h3><p>Représente une personne ou organisation externe ; apparaît dans l'annuaire global.</p>
+    <h2>Tableau récapitulatif</h2>
+    <table><tr><th>Type</th><th>Licence</th><th>Collaboration</th><th>Usage typique</th></tr>
+    <tr><td>Boîte utilisateur</td><td>Oui</td><td>Non</td><td>Email personnel</td></tr>
+    <tr><td>Boîte partagée</td><td>Non (≤50 Go)</td><td>Oui</td><td>Support, info@…</td></tr>
+    <tr><td>Groupe Microsoft 365</td><td>Oui</td><td>Oui</td><td>Équipes projet</td></tr>
+    <tr><td>Groupe de distribution</td><td>Non</td><td>Non</td><td>Annonces internes</td></tr>
+    <tr><td>Groupe de sécurité</td><td>Non</td><td>Non</td><td>Gestion des accès</td></tr>
+    <tr><td>Boîte de ressource</td><td>Non</td><td>Non</td><td>Réservation de salles</td></tr></table>
+    <h2>Conseils pratiques</h2>
+    <ul><li>Boîtes partagées limitées à 25 utilisateurs simultanés : préférez un groupe Microsoft 365 pour les grandes équipes</li>
+    <li>Utilisez les groupes de sécurité pour simplifier la gestion des accès</li>
+    <li>Pour les réservations, utilisez les boîtes de salle/ressource dédiées</li></ul>
+  </div>
+  <div class="mt-12 bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-6">
+    <h3 class="text-white font-semibold mb-2">Besoin d'aide sur Microsoft 365 ?</h3>
+    <p class="text-[#9B99AA] text-sm mb-4">On configure et on optimise votre tenant M365 (boîtes, groupes, sécurité). Parlons-en.</p>
+    <a href="/microsoft-365" class="inline-block bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Microsoft 365</a>
+  </div>
+</div></article>
+<style is:global>
+.prose-gigarun table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.85rem}
+.prose-gigarun th{background:#110833;color:#F1F0F7;text-align:left;padding:7px 9px}
+.prose-gigarun td{color:#9B99AA;padding:7px 9px;border-bottom:1px solid rgba(124,58,237,.12)}
+</style>
+</Layout>
