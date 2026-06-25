@@ -7,14 +7,15 @@ const contrats = [
     couleur: "#CD7F32",
     bg: "rgba(205,127,50,0.08)",
     border: "rgba(205,127,50,0.25)",
-    prix: "Sur devis",
-    desc: "L'essentiel pour démarrer votre infogérance avec un support réactif.",
+    prix: "dès 25€",
+    unite: "/poste/mois",
+    desc: "L'essentiel à distance pour démarrer : on surveille et on dépanne, sans déplacement.",
+    socle: null,
     features: [
-      "Supervision de base des équipements",
-      "Support téléphonique aux heures ouvrées",
-      "Intervention sur site sous 48h",
-      "Rapport mensuel d'activité",
+      "Monitoring & supervision des équipements",
+      "Support & assistance à distance",
       "Mises à jour de sécurité",
+      "Rapport d'activité",
     ],
     recommande: false,
   },
@@ -23,15 +24,15 @@ const contrats = [
     couleur: "#9B9B9B",
     bg: "rgba(155,155,155,0.08)",
     border: "rgba(155,155,155,0.25)",
-    prix: "Sur devis",
-    desc: "Une couverture étendue pour les PME avec infrastructure critique.",
+    prix: "dès 30€",
+    unite: "/poste/mois",
+    desc: "On ajoute le terrain : interventions et maintenance sur site, déplacements inclus.",
+    socle: "Tout BRONZE, plus :",
     features: [
-      "Supervision avancée 24/7",
-      "Support téléphonique étendu",
-      "Intervention sur site sous 24h",
-      "Gestion des sauvegardes",
-      "Rapports hebdomadaires",
-      "Audit sécurité trimestriel",
+      "Interventions sur site",
+      "Maintenance préventive sur site",
+      "Supervision des sauvegardes",
+      "Main d'œuvre & déplacements inclus",
     ],
     recommande: false,
   },
@@ -40,17 +41,15 @@ const contrats = [
     couleur: "#FFD700",
     bg: "rgba(255,215,0,0.08)",
     border: "rgba(255,215,0,0.35)",
-    prix: "Sur devis",
-    desc: "Notre offre la plus populaire — protection complète avec RSSI externalisé.",
+    prix: "dès 35€",
+    unite: "/poste/mois",
+    desc: "La couverture complète avec pilotage : pièces, réseau et DSI externalisé.",
+    socle: "Tout ARGENT, plus :",
     features: [
-      "Supervision complète 24/7/365",
-      "Support prioritaire multi-canal",
-      "Intervention sur site sous 4h",
-      "EDR/XDR managé inclus",
-      "Sauvegardes cloud supervisées",
-      "RSSI externalisé",
-      "Comité IT mensuel",
-      "Rapports en temps réel",
+      "Pièces défectueuses remplacées",
+      "Gestion réseau, périphériques & GSM",
+      "DSI externalisé",
+      "Support prioritaire",
     ],
     recommande: true,
   },
@@ -59,41 +58,39 @@ const contrats = [
     couleur: "#E5E4E2",
     bg: "rgba(229,228,226,0.06)",
     border: "rgba(229,228,226,0.3)",
-    prix: "Sur devis",
-    desc: "Le niveau maximal pour les structures exigeantes en continuité d'activité.",
+    prix: "dès 40€",
+    unite: "/poste/mois",
+    desc: "Le niveau maximal, orienté sécurité et conformité, RSSI et XDR/SIEM inclus.",
+    socle: "Tout OR, plus :",
     features: [
-      "Tout ce qui est inclus dans OR",
-      "Astreinte 24/7 dédiée",
-      "SLA garanti contractuellement",
-      "PRA testé deux fois par an",
-      "SOC managé avec alerte temps réel",
+      "RSSI externalisé",
+      "XDR + SIEM inclus (postes, serveurs, NAS)",
+      "SOC / cyberdéfense 24/7 (option)",
       "Conformité NIS2 accompagnée",
-      "Technicien dédié à temps partiel",
-      "Tableau de bord dirigeant",
     ],
     recommande: false,
   },
 ];
 ---
-<Layout title="Contrats d'Infogérance — Bronze, Argent, Or, Platine — Gigarun" description="Découvrez nos 4 niveaux de contrats d'infogérance pour TPE et PME réunionnaises. Support, supervision, cybersécurité — SLA garanti.">
+<Layout title="Niveaux de service — Contrats d'Infogérance Bronze, Argent, Or, Platine — Gigarun" description="Comprenez nos 4 niveaux de contrat d'infogérance à La Réunion : ce qui est inclus dans Bronze, Argent, Or et Platine, et à partir de quel tarif. Estimez votre contrat en ligne.">
 
 <!-- HERO -->
-<section class="relative bg-[#07001C] flex items-center justify-center overflow-hidden" style="min-height:60vh;">
+<section class="relative bg-[#07001C] flex items-center justify-center overflow-hidden" style="min-height:55vh;">
   <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.15);border-radius:50%;filter:blur(120px);"></div>
   <div class="relative max-w-4xl mx-auto px-6 pt-36 pb-16 text-center">
     <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-8 rounded-full">
       <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
-      <span class="text-[#9B99AA] text-sm font-medium">Contrats d'Infogérance · La Réunion</span>
+      <span class="text-[#9B99AA] text-sm font-medium">Niveaux de service · La Réunion</span>
     </div>
     <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight mb-5" style="font-size:clamp(36px,5vw,60px);">
-      Votre IT entre de bonnes mains,<br/>
-      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">au niveau qui vous convient</span>
+      Quatre niveaux de service,<br/>
+      <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(135deg,#7C3AED,#06B6D4);">un seul interlocuteur</span>
     </h1>
-    <p class="text-[#9B99AA] text-lg max-w-xl mx-auto mb-10">
-      4 niveaux de contrat pour couvrir tous les besoins — de la TPE qui démarre à la PME avec des exigences de continuité élevées.
+    <p class="text-[#9B99AA] text-lg max-w-2xl mx-auto mb-10">
+      De la supervision à distance (Bronze) à la cyberdéfense managée (Platine). Chaque niveau <strong class="text-[#F1F0F7]">inclut le précédent</strong>. Tarifs <strong class="text-[#F1F0F7]">HT à l'unité</strong> — vous ne payez que votre parc réel.
     </p>
     <div class="flex flex-wrap gap-3 justify-center">
-      <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Demander un devis</a>
+      <a href="/devis/infogerance" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Estimer mon contrat en ligne →</a>
       <a href="tel:+262692311191" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">0692 31 11 91</a>
     </div>
   </div>
@@ -111,13 +108,13 @@ const contrats = [
               ⭐ Le plus populaire
             </div>
           )}
-          <div class="mb-5">
-            <div class="text-xs font-bold uppercase tracking-widest mb-1" style={`color:${c.couleur};`}>
-              Contrat
-            </div>
+          <div class="mb-4">
+            <div class="text-xs font-bold uppercase tracking-widest mb-1" style={`color:${c.couleur};`}>Contrat</div>
             <div class="font-syne font-extrabold text-[#F1F0F7] text-2xl">{c.nom}</div>
+            <div class="mt-2"><span class="font-syne font-bold text-[#F1F0F7] text-2xl">{c.prix}</span><span class="text-[#9B99AA] text-sm"> {c.unite}</span></div>
             <p class="text-[#9B99AA] text-sm mt-2 leading-relaxed">{c.desc}</p>
           </div>
+          {c.socle && <div class="text-[11px] font-semibold uppercase tracking-wide mb-2" style={`color:${c.couleur};`}>{c.socle}</div>}
           <ul class="flex-1 space-y-2 mb-6">
             {c.features.map(f => (
               <li class="flex items-start gap-2 text-sm text-[#9B99AA]">
@@ -128,28 +125,75 @@ const contrats = [
               </li>
             ))}
           </ul>
-          <a href="/contact" class="block text-center text-sm font-medium py-2.5 rounded-full transition-colors border"
+          <a href="/devis/infogerance" class="block text-center text-sm font-medium py-2.5 rounded-full transition-colors border"
              style={`color:${c.couleur};border-color:${c.couleur};`}
+             data-color={c.couleur}
              onmouseover="this.style.background=this.style.borderColor;this.style.color='#07001C'"
-             onmouseout="this.style.background='transparent';this.style.color=this.dataset.color"
-             data-color={c.couleur}>
-            Demander un devis
+             onmouseout="this.style.background='transparent';this.style.color=this.dataset.color">
+            Estimer ce niveau →
           </a>
         </div>
       ))}
     </div>
-    <p class="text-center text-[#9B99AA] text-sm mt-8">Tous les contrats sont sur mesure — les tarifs sont établis après diagnostic gratuit de votre infrastructure.</p>
+    <p class="text-center text-[#9B99AA] text-sm mt-8">
+      Tarification <strong class="text-[#F1F0F7]">à l'unité</strong> (poste, serveur, NAS, périphérique, site) selon le niveau choisi.
+      Remise dégressive jusqu'à <strong class="text-[#F1F0F7]">-10%</strong> avec engagement 36 mois.
+      <a href="/devis/infogerance" class="text-[#7C3AED] hover:underline">Faites votre estimation en ligne →</a>
+    </p>
+  </div>
+</section>
+
+<!-- TABLEAU COMPARATIF -->
+<section class="bg-[#07001C] py-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-center mb-10" style="font-size:clamp(24px,3vw,36px);">Ce que couvre chaque niveau</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="text-[#F1F0F7]">
+            <th class="text-left p-3 border-b border-[rgba(124,58,237,0.2)]">Prestation</th>
+            <th class="p-3 border-b border-[rgba(124,58,237,0.2)]" style="color:#CD7F32;">Bronze</th>
+            <th class="p-3 border-b border-[rgba(124,58,237,0.2)]" style="color:#9B9B9B;">Argent</th>
+            <th class="p-3 border-b border-[rgba(124,58,237,0.2)]" style="color:#FFD700;">Or</th>
+            <th class="p-3 border-b border-[rgba(124,58,237,0.2)]" style="color:#E5E4E2;">Platine</th>
+          </tr>
+        </thead>
+        <tbody class="text-[#9B99AA]">
+          {[
+            ["Monitoring & supervision", 1,1,1,1],
+            ["Support & assistance à distance", 1,1,1,1],
+            ["Interventions sur site", 0,1,1,1],
+            ["Maintenance préventive sur site", 0,1,1,1],
+            ["Supervision des sauvegardes", 0,1,1,1],
+            ["Pièces défectueuses remplacées", 0,0,1,1],
+            ["Gestion réseau, périphériques & GSM", 0,0,1,1],
+            ["DSI externalisé", 0,0,1,1],
+            ["RSSI externalisé", 0,0,0,1],
+            ["XDR + SIEM inclus", 0,0,0,1],
+            ["Conformité NIS2 accompagnée", 0,0,0,1],
+          ].map(row => (
+            <tr class="border-b border-[rgba(124,58,237,0.08)]">
+              <td class="p-3 text-left">{row[0]}</td>
+              {[1,2,3,4].map(i => (
+                <td class="p-3 text-center">{row[i] ? <span class="text-[#06B6D4] font-bold">✓</span> : <span class="text-[#3a3550]">—</span>}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="bg-[#07001C] py-16">
+<section class="bg-[#0A0022] py-16">
   <div class="max-w-2xl mx-auto px-6 text-center">
-    <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,3vw,36px);">Quel contrat pour votre entreprise ?</h2>
-    <p class="text-[#9B99AA] mb-8">On fait un diagnostic gratuit de votre infrastructure et on vous recommande le niveau adapté — sans engagement.</p>
-    <a href="/contact" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-7 py-3 rounded-full transition-colors">
-      Diagnostic gratuit →
-    </a>
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(22px,3vw,36px);">Quel niveau pour votre entreprise ?</h2>
+    <p class="text-[#9B99AA] mb-8">Estimez votre contrat en quelques clics selon votre parc, ou appelez-nous pour un diagnostic gratuit sans engagement.</p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="/devis/infogerance" class="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-7 py-3 rounded-full transition-colors">Estimer mon contrat →</a>
+      <a href="/contact" class="inline-flex items-center gap-2 border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-7 py-3 rounded-full transition-colors">Diagnostic gratuit</a>
+    </div>
   </div>
 </section>
 

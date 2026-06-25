@@ -24,7 +24,10 @@ const options = catalogue.optionsInfogerance;
 
         <!-- Niveau de service -->
         <div>
-          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-3">1. Niveau de service</h2>
+          <div class="flex items-center justify-between mb-3 gap-3 flex-wrap">
+            <h2 class="font-syne font-bold text-[#F1F0F7] text-lg">1. Niveau de service</h2>
+            <a href="/infogerance-contrats" class="text-[#7C3AED] hover:underline text-sm font-medium">Comprendre les niveaux de service →</a>
+          </div>
           <div class="grid sm:grid-cols-2 gap-3" id="tiers">
             {tiers.map((t, i) => (
               <label class="tier-card cursor-pointer block rounded-xl border-2 p-4 transition-all border-[rgba(124,58,237,0.2)] bg-[#0D0028] hover:border-[#7C3AED]">
