@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const cards = [
+  {
+    href: '/devis/infogerance',
+    titre: "Contrat d'infogérance",
+    desc: "Postes, serveurs, options de sécurité et sauvegarde. Choisissez votre niveau (Argent, Or, Platine) et obtenez une estimation mensuelle HT immédiate.",
+    cta: "Estimer mon infogérance",
+  },
+  {
+    href: '/devis/erp',
+    titre: "ERP Dolibarr hébergé",
+    desc: "Abonnement mensuel selon le nombre d'utilisateurs et la durée. De l'offre standard 10 postes au cluster 50 postes.",
+    cta: "Estimer mon ERP",
+  },
+];
+---
+<Layout title="Devis en ligne — Infogérance & ERP — Gigarun La Réunion" description="Estimez en quelques clics le coût de votre infogérance ou de votre ERP Dolibarr à La Réunion. Tarifs HT, devis détaillé envoyé par email.">
+<section class="bg-[#07001C] pt-32 pb-20">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-3xl mb-12">
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,56px);line-height:1.1;">Estimez votre projet en ligne</h1>
+      <p class="text-[#9B99AA] text-lg">Un chiffrage indicatif immédiat, puis un devis détaillé envoyé par email. Tarifs <strong class="text-[#F1F0F7]">HT</strong>.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-6">
+      {cards.map((c) => (
+        <a href={c.href} class="block bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-2xl p-7 transition-all">
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-xl mb-2">{c.titre}</h2>
+          <p class="text-[#9B99AA] text-sm mb-5">{c.desc}</p>
+          <span class="text-[#7C3AED] font-semibold">{c.cta} →</span>
+        </a>
+      ))}
+    </div>
+    <p class="text-[#9B99AA] text-sm mt-8">Besoin d'un cas particulier (multi-sites, migration, audit) ? <a href="/contact" class="text-[#7C3AED] hover:underline">Contactez-nous directement</a>.</p>
+  </div>
+</section>
+</Layout>

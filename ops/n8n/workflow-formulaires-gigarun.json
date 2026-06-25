@@ -1,0 +1,64 @@
+{
+  "name": "Formulaires gigarun.re (devis + contact)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "formulaires-gigarun",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-in",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "formulaires-gigarun"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalise le payload et construit sujet + HTML recap.\nconst p = $json.body ?? $json;\nconst eur = (n) => new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number(n)||0);\nconst c = p.contact || {};\nlet sujet = 'Nouvelle demande site';\nlet html = '';\nif (p.type === 'contact') {\n  sujet = `Contact site — ${c.nom||''}`;\n  html = `<h2>Demande de contact</h2><ul><li><b>Nom :</b> ${c.nom||''}</li><li><b>Coordonnées :</b> ${c.coordonnees||''}</li><li><b>Message :</b> ${c.message||''}</li></ul>`;\n} else if (p.type === 'devis-infogerance') {\n  sujet = `Devis infogérance ${String(p.tier||'').toUpperCase()} — ${c.societe||c.nom||''}`;\n  const opts = (p.options||[]).map(o=>`<li>${o.label} × ${o.qty} = ${eur(o.total)}</li>`).join('');\n  html = `<h2>Demande de devis — Infogérance ${String(p.tier||'').toUpperCase()}</h2>`+\n    `<p><b>Société :</b> ${c.societe||''} — <b>${c.nom||''}</b> · ${c.email||''} · ${c.telephone||''}</p>`+\n    `<h3>Parc</h3><ul>${Object.entries(p.parc||{}).map(([k,v])=>`<li>${k}: ${v}</li>`).join('')}</ul>`+\n    (opts?`<h3>Options</h3><ul>${opts}</ul>`:'')+\n    `<h3>Total</h3><p>Base HT : ${eur(p.base_ht)}<br>Remise : ${eur(p.remise_ht)}<br>`+\n    `<b>Total HT/mois : ${eur(p.total_ht_mois)}</b><br>TVA 8,5% : ${eur(p.tva_ht)}<br>TTC/mois : ${eur(p.total_ttc_mois)}<br>`+\n    `Engagement 36 mois : ${p.engagement_36_mois?'oui':'non'}</p>`+\n    (c.message?`<p><b>Message :</b> ${c.message}</p>`:'');\n} else if (p.type === 'devis-erp') {\n  sujet = `Devis ERP — ${c.societe||c.nom||''}`;\n  html = `<h2>Demande de devis — ERP Dolibarr</h2>`+\n    `<p><b>Société :</b> ${c.societe||''} (SIRET ${c.siret||'-'}) — <b>${c.nom||''}</b> · ${c.email||''} · ${c.telephone||''}</p>`+\n    `<p>Offre : ${p.offre||''}<br>Mensuel HT : ${eur(p.mensuel_ht)} × ${p.duree_mois||0} mois<br>`+\n    `<b>Total HT : ${eur(p.total_ht)}</b><br>TVA 8,5% : ${eur(p.tva_ht)}<br>TTC : ${eur(p.total_ttc)}</p>`+\n    (c.message?`<p><b>Besoins :</b> ${c.message}</p>`:'');\n} else {\n  sujet = 'Soumission inconnue'; html = '<pre>'+JSON.stringify(p,null,2)+'</pre>';\n}\nreturn [{ json: { sujet, html, emailClient: c.email || '', type: p.type } }];"
+      },
+      "id": "build-html",
+      "name": "Construire HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "contact@gigarun.net",
+        "toEmail": "contact@gigarun.net",
+        "subject": "={{ $json.sujet }}",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "email-interne",
+      "name": "Email interne (notif)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [720, 300],
+      "credentials": { "smtp": { "id": "REMPLACER", "name": "SMTP OVH contact@gigarun.net" } }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true } }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Répondre OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [960, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Construire HTML", "type": "main", "index": 0 }]] },
+    "Construire HTML": { "main": [[{ "node": "Email interne (notif)", "type": "main", "index": 0 }]] },
+    "Email interne (notif)": { "main": [[{ "node": "Répondre OK", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false,
+  "_doc": "Squelette importable. À compléter dans n8n : (1) credential SMTP OVH ssl0.ovh.net:465 ; (2) un 2e Email vers {{ $json.emailClient }} pour l'accusé client ; (3) génération PDF via Gotenberg (HTTP Request /forms/chromium/convert/html) en pièce jointe ; (4) plus tard, création prospect+devis Dolibarr. Voir README.md."
+}

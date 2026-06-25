@@ -1,0 +1,70 @@
+{
+  "_source": "Derive de PROJETS/gigarun-refonte/catalogue-prix-HT.json (2026-06-25). Prix HT. Valide contre propales reelles (Kolbe ARGENT=590, OR=705, PLATINE=874,20).",
+  "tva": 0.085,
+  "tiers": [
+    {
+      "code": "argent",
+      "label": "ARGENT",
+      "desc": "Bronze + interventions sur site",
+      "poste": 30, "serveur": 135, "nas": 80, "peripherique": 5, "site": 25,
+      "remise36": 0.05, "xdrInclus": false, "recommande": false
+    },
+    {
+      "code": "or",
+      "label": "OR",
+      "desc": "Argent + pieces + reseau + DSI externalise",
+      "poste": 35, "serveur": 145, "nas": 85, "peripherique": 7.5, "site": 50,
+      "remise36": 0.075, "xdrInclus": false, "recommande": true
+    },
+    {
+      "code": "platine",
+      "label": "PLATINE",
+      "desc": "Or + RSSI externalise + XDR/SIEM inclus",
+      "poste": 40, "serveur": 155, "nas": 90, "peripherique": 10, "site": 50,
+      "remise36": 0.10, "xdrInclus": true, "xdrParNode": 6.6, "recommande": false
+    },
+    {
+      "code": "bronze",
+      "label": "BRONZE",
+      "desc": "Monitoring + support a distance (tier d'entree)",
+      "poste": 25, "serveur": 125, "nas": 75, "peripherique": 2.5, "site": 1,
+      "remise36": 0.025, "xdrInclus": false, "recommande": false
+    }
+  ],
+  "unites": [
+    { "code": "postes", "label": "Postes de travail", "champ": "poste" },
+    { "code": "serveurs", "label": "Serveurs physiques", "champ": "serveur" },
+    { "code": "nas", "label": "NAS / VM structurantes", "champ": "nas" },
+    { "code": "peripheriques", "label": "Peripheriques reseau (imprimantes, GSM, VDI...)", "champ": "peripherique" },
+    { "code": "sites", "label": "Sites geographiques", "champ": "site" }
+  ],
+  "optionsInfogerance": [
+    { "code": "edr_xdr_siem", "label": "EDR + XDR + SIEM", "prix": 6.6, "unite": "node/mois", "note": "Inclus d'office en PLATINE" },
+    { "code": "softpatch_rgpd", "label": "SoftPatch + Chiffrement + RGPD Data Control", "prix": 8.3, "unite": "node/mois" },
+    { "code": "soc_24_7", "label": "SOC cyberdefense 24/7/365", "prix": 5.8, "unite": "node/mois" },
+    { "code": "sauvegarde_cloud", "label": "Sauvegarde cloud Europe", "prix": 15, "unite": "To/mois" },
+    { "code": "sauvegarde_ha_reunion", "label": "Sauvegarde haute dispo Reunion", "prix": 20, "unite": "To/mois" },
+    { "code": "archivage_monde", "label": "Archivage externe monde", "prix": 10, "unite": "To/mois" },
+    { "code": "m365_basic", "label": "Microsoft 365 Business Basic", "prix": 7.02, "unite": "user/mois" },
+    { "code": "m365_standard", "label": "Microsoft 365 Business Standard", "prix": 14.65, "unite": "user/mois" },
+    { "code": "m365_premium", "label": "Microsoft 365 Business Premium", "prix": 22.7, "unite": "user/mois" },
+    { "code": "mail_assure", "label": "N-able Mail Assure (protection + archivage)", "prix": 5.5, "unite": "user/mois" },
+    { "code": "backup_o365", "label": "Sauvegarde cloud O365 (Gigarun)", "prix": 2.5, "unite": "user/mois" },
+    { "code": "hebergement_web", "label": "Hebergement web 250 Go + SSL", "prix": 15, "unite": "forfait/mois" }
+  ],
+  "erp": {
+    "label": "Etude ERP - Location mensuelle",
+    "offres": [
+      { "label": "Offre standard - 10 utilisateurs max", "prix": 60 },
+      { "label": "Offre avancee - 10 utilisateurs max", "prix": 90 },
+      { "label": "Offre multi-societes 10 / standard 25 utilisateurs max", "prix": 120 },
+      { "label": "Offre cluster systeme 10 / multi-societes 25 utilisateurs max", "prix": 240 },
+      { "label": "Offre avancee - 25 utilisateurs max", "prix": 180 },
+      { "label": "Offre cluster systeme - 25 utilisateurs max", "prix": 480 },
+      { "label": "Offre standard - 50 utilisateurs max", "prix": 200 },
+      { "label": "Offre avancee - 50 utilisateurs max", "prix": 300 },
+      { "label": "Offre multi-societes - 50 utilisateurs max", "prix": 400 },
+      { "label": "Offre cluster systeme - 50 utilisateurs max", "prix": 800 }
+    ]
+  }
+}

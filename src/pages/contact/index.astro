@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { FORMS_WEBHOOK } from '../../config';
 const a = Math.floor(Math.random() * 9) + 1;
 const b = Math.floor(Math.random() * 9) + 1;
 const sum = a + b;
@@ -66,7 +67,7 @@ const sum = a + b;
       <!-- Colonne droite : formulaire -->
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-2xl p-8">
         <h2 class="font-syne font-bold text-[#F1F0F7] text-xl mb-6">Envoyer un message</h2>
-        <form id="contact-form" class="space-y-4" name="contact" method="POST" novalidate>
+        <form id="contact-form" class="space-y-4" name="contact" novalidate>
           <div>
             <label class="text-[#9B99AA] text-sm block mb-1">Votre nom <span class="text-[#7C3AED]">*</span></label>
             <input type="text" name="nom" required class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" placeholder="Prénom Nom" />
@@ -114,7 +115,7 @@ const sum = a + b;
   </div>
 </section>
 
-<script define:vars={{ sum }}>
+<script define:vars={{ sum, webhook: FORMS_WEBHOOK }}>
   const form = document.getElementById('contact-form');
   const captchaInput = document.getElementById('captcha-input');
   const captchaError = document.getElementById('captcha-error');
@@ -133,26 +134,33 @@ const sum = a + b;
       captchaInput.focus();
       return;
     }
-
     if (!form.checkValidity()) {
       formError.classList.remove('hidden');
       return;
     }
 
-    // Soumission via fetch (Netlify/Coolify form handler ou simple fetch)
     submitBtn.disabled = true;
     submitBtn.textContent = 'Envoi en cours...';
 
-    const data = new FormData(form);
-    fetch('/', { method: 'POST', body: data })
-      .then(() => {
-        form.style.display = 'none';
-        formSuccess.classList.remove('hidden');
-      })
+    const payload = {
+      type: 'contact',
+      contact: {
+        nom: form.querySelector('[name="nom"]').value,
+        coordonnees: form.querySelector('[name="contact"]').value,
+        message: form.querySelector('[name="message"]').value,
+      },
+      page: location.href,
+    };
+    const done = () => { form.style.display = 'none'; formSuccess.classList.remove('hidden'); };
+    // Tant que le webhook n8n n'est pas configuré, on affiche le succès (gracieux) et on logge.
+    if (!webhook) { console.warn('FORMS_WEBHOOK non configuré — payload:', payload); done(); return; }
+    fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(done)
       .catch(() => {
-        // Fallback: affiche succès même sans handler côté serveur configuré
-        form.style.display = 'none';
-        formSuccess.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Envoyer le message →';
+        formError.textContent = "Erreur d'envoi, réessayez ou appelez-nous.";
+        formError.classList.remove('hidden');
       });
   });
 </script>

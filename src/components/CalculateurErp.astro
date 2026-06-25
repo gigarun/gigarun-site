@@ -1,0 +1,125 @@
+---
+import catalogue from '../data/catalogue-devis.json';
+import { FORMS_WEBHOOK, TVA_REUNION } from '../config';
+
+const a = Math.floor(Math.random() * 9) + 1;
+const b = Math.floor(Math.random() * 9) + 1;
+const captchaSum = a + b;
+const offres = catalogue.erp.offres;
+---
+
+<section class="bg-[#07001C] pt-32 pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="mb-10">
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,52px);line-height:1.1;">Étude ERP — location mensuelle</h1>
+      <p class="text-[#9B99AA] text-lg">Estimez votre abonnement ERP Dolibarr hébergé. Tarifs <strong class="text-[#F1F0F7]">HT</strong>.</p>
+    </div>
+
+    <form id="erp-form" class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl p-6 sm:p-8 space-y-5" novalidate>
+      <div>
+        <label class="text-[#9B99AA] text-sm block mb-1">Offre ERP *</label>
+        <select id="erp-offre" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]">
+          {offres.map((o, i) => (
+            <option value={o.prix} data-label={o.label} selected={i === 0}>{o.label} — {o.prix} €/mois</option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label class="text-[#9B99AA] text-sm block mb-1">Durée (nombre de mois) *</label>
+        <input type="number" id="erp-mois" min="1" step="1" value="12" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]" />
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3 pt-2">
+        <input type="text" name="societe" placeholder="Société" class="bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+        <input type="text" name="siret" placeholder="N° SIRET" class="bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+        <input type="text" name="nom" required placeholder="Prénom Nom *" class="bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+        <input type="email" name="email" required placeholder="Email *" class="bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+        <input type="tel" name="telephone" required placeholder="Téléphone *" class="bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+      </div>
+      <textarea name="message" rows="2" placeholder="Besoins spécifiques (multi-sociétés, modules, migration...)" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]"></textarea>
+
+      <div class="bg-[#07001C] border border-[rgba(124,58,237,0.25)] rounded-xl p-4">
+        <dl class="space-y-1.5 text-sm">
+          <div class="flex justify-between"><dt class="text-[#9B99AA]">Abonnement mensuel HT</dt><dd id="e-mens" class="text-[#F1F0F7]">0 €</dd></div>
+          <div class="flex justify-between text-base"><dt class="text-[#F1F0F7] font-semibold">Total HT sur la durée</dt><dd id="e-ht" class="text-[#7C3AED] font-bold">0 €</dd></div>
+          <div class="flex justify-between"><dt class="text-[#9B99AA]">TVA 8,5 %</dt><dd id="e-tva" class="text-[#9B99AA]">0 €</dd></div>
+          <div class="flex justify-between"><dt class="text-[#9B99AA]">Total TTC</dt><dd id="e-ttc" class="text-[#9B99AA]">0 €</dd></div>
+        </dl>
+      </div>
+
+      <div>
+        <label class="text-[#9B99AA] text-sm block mb-1">Anti-spam : combien font <strong class="text-[#F1F0F7]">{a} + {b}</strong> ? *</label>
+        <input type="number" id="captcha-input" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]" placeholder="Votre réponse" />
+        <p id="captcha-error" class="text-red-400 text-xs mt-1 hidden">Réponse incorrecte.</p>
+      </div>
+      <div class="flex items-start gap-3 bg-[#07001C] border border-[rgba(124,58,237,0.2)] rounded-lg p-3">
+        <input type="checkbox" id="rgpd" required class="mt-0.5 w-4 h-4 accent-[#7C3AED] cursor-pointer" />
+        <label for="rgpd" class="text-[#9B99AA] text-xs leading-relaxed cursor-pointer">J'accepte que mes données soient traitées par Gigarun SARL pour ma demande, conformément à la <a href="/confidentialite" class="text-[#7C3AED] hover:underline">politique de confidentialité</a>.</label>
+      </div>
+
+      <button type="submit" id="submit-btn" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Recevoir mon devis ERP →</button>
+      <p id="form-success" class="hidden text-center text-green-400 text-sm font-medium py-2">Demande envoyée — votre devis arrive par email !</p>
+      <p id="form-error" class="hidden text-center text-red-400 text-sm py-2">Vérifiez les champs obligatoires (*).</p>
+    </form>
+  </div>
+</section>
+
+<script define:vars={{ captchaSum, webhook: FORMS_WEBHOOK, tva: TVA_REUNION }}>
+  const form = document.getElementById('erp-form');
+  const eur = (n) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n || 0);
+  const $ = (id) => document.getElementById(id);
+  const offre = () => $('erp-offre');
+  const mois = () => parseInt($('erp-mois').value, 10) || 0;
+
+  function compute() {
+    const mensuel = parseFloat(offre().value) || 0;
+    const m = mois();
+    const ht = mensuel * m;
+    return { mensuel, m, ht, tva: ht * tva, ttc: ht * (1 + tva) };
+  }
+  function render() {
+    const c = compute();
+    $('e-mens').textContent = eur(c.mensuel);
+    $('e-ht').textContent = eur(c.ht);
+    $('e-tva').textContent = eur(c.tva);
+    $('e-ttc').textContent = eur(c.ttc);
+  }
+  form.addEventListener('input', render);
+  render();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    $('form-error').classList.add('hidden');
+    $('captcha-error').classList.add('hidden');
+    if (parseInt($('captcha-input').value, 10) !== captchaSum) { $('captcha-error').classList.remove('hidden'); return; }
+    const req = ['nom', 'email', 'telephone'].map((n) => form.querySelector(`[name="${n}"]`));
+    if (req.some((f) => !f.value.trim()) || !$('rgpd').checked) { $('form-error').classList.remove('hidden'); return; }
+
+    const c = compute();
+    const payload = {
+      type: 'devis-erp',
+      offre: offre().selectedOptions[0].dataset.label,
+      mensuel_ht: c.mensuel,
+      duree_mois: c.m,
+      total_ht: Math.round(c.ht * 100) / 100,
+      tva_ht: Math.round(c.tva * 100) / 100,
+      total_ttc: Math.round(c.ttc * 100) / 100,
+      contact: {
+        societe: form.querySelector('[name="societe"]').value,
+        siret: form.querySelector('[name="siret"]').value,
+        nom: form.querySelector('[name="nom"]').value,
+        email: form.querySelector('[name="email"]').value,
+        telephone: form.querySelector('[name="telephone"]').value,
+        message: form.querySelector('[name="message"]').value,
+      },
+      page: location.href,
+    };
+    const btn = $('submit-btn');
+    btn.disabled = true; btn.textContent = 'Envoi...';
+    const done = () => { form.querySelectorAll('input,textarea,select,button').forEach((el) => el.disabled = true); $('form-success').classList.remove('hidden'); };
+    if (!webhook) { console.warn('FORMS_WEBHOOK non configuré — payload:', payload); done(); return; }
+    fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(done)
+      .catch(() => { btn.disabled = false; btn.textContent = 'Recevoir mon devis ERP →'; $('form-error').textContent = "Erreur d'envoi, réessayez."; $('form-error').classList.remove('hidden'); });
+  });
+</script>

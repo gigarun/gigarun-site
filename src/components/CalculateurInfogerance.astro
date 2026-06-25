@@ -1,0 +1,241 @@
+---
+import catalogue from '../data/catalogue-devis.json';
+import { FORMS_WEBHOOK, TVA_REUNION } from '../config';
+
+const a = Math.floor(Math.random() * 9) + 1;
+const b = Math.floor(Math.random() * 9) + 1;
+const captchaSum = a + b;
+
+const tiers = catalogue.tiers;
+const unites = catalogue.unites;
+const options = catalogue.optionsInfogerance;
+---
+
+<section class="bg-[#07001C] pt-32 pb-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl mb-10">
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,52px);line-height:1.1;">Estimez votre contrat d'infogérance</h1>
+      <p class="text-[#9B99AA] text-lg">Choisissez un niveau de service, indiquez votre parc, ajoutez les options. Le montant s'actualise en temps réel. Tarifs <strong class="text-[#F1F0F7]">HT</strong>.</p>
+    </div>
+
+    <form id="calc-form" class="grid lg:grid-cols-3 gap-8" novalidate>
+      <!-- Colonne config (2/3) -->
+      <div class="lg:col-span-2 space-y-8">
+
+        <!-- Niveau de service -->
+        <div>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-3">1. Niveau de service</h2>
+          <div class="grid sm:grid-cols-2 gap-3" id="tiers">
+            {tiers.map((t, i) => (
+              <label class={`tier-card cursor-pointer block rounded-xl border p-4 transition-all ${t.recommande ? 'border-[#7C3AED]' : 'border-[rgba(124,58,237,0.2)]'} bg-[#0D0028] hover:border-[#7C3AED]`}>
+                <input class="tier-radio sr-only" type="radio" name="tier" value={t.code}
+                  data-poste={t.poste} data-serveur={t.serveur} data-nas={t.nas}
+                  data-peripherique={t.peripherique} data-site={t.site}
+                  data-remise36={t.remise36} data-xdr={t.xdrInclus ? '1' : '0'} data-xdrnode={t.xdrParNode || 0}
+                  checked={t.recommande} />
+                <div class="flex items-center justify-between">
+                  <span class="font-syne font-bold text-[#F1F0F7]">{t.label}</span>
+                  {t.recommande && <span class="text-[10px] uppercase tracking-wide bg-[#7C3AED] text-white px-2 py-0.5 rounded-full">Populaire</span>}
+                </div>
+                <p class="text-[#9B99AA] text-xs mt-1">{t.desc}</p>
+                <p class="text-[#06B6D4] text-xs mt-2">{t.poste} €/poste · {t.serveur} €/serveur · {t.nas} €/NAS</p>
+              </label>
+            ))}
+          </div>
+          <p class="text-[#9B99AA] text-xs mt-2">BRONZE est un niveau d'entrée (monitoring + support à distance).</p>
+        </div>
+
+        <!-- Parc -->
+        <div>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-3">2. Votre parc informatique</h2>
+          <div class="grid sm:grid-cols-2 gap-3">
+            {unites.map((u) => (
+              <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-3">
+                <label class="text-[#9B99AA] text-sm block mb-1">{u.label}</label>
+                <input type="number" min="0" step="1" value={u.code === 'sites' ? 1 : 0}
+                  class="unit-input w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-3 py-2 focus:outline-none focus:border-[#7C3AED]"
+                  data-unit={u.code} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-3">3. Options</h2>
+          <div class="space-y-2">
+            {options.map((o) => (
+              <div class="flex items-center gap-3 bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-3">
+                <input type="checkbox" class="opt-check w-4 h-4 accent-[#7C3AED] cursor-pointer flex-shrink-0"
+                  data-code={o.code} data-prix={o.prix} data-label={o.label} />
+                <div class="flex-1 min-w-0">
+                  <div class="text-[#F1F0F7] text-sm">{o.label}</div>
+                  <div class="text-[#9B99AA] text-xs">{o.prix} € / {o.unite}{o.note ? ` · ${o.note}` : ''}</div>
+                </div>
+                <input type="number" min="0" step="1" value="0"
+                  class="opt-qty w-20 bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:border-[#7C3AED]"
+                  data-for={o.code} aria-label={`Quantité ${o.label}`} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Engagement -->
+        <div class="flex items-center gap-3 bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-lg p-3">
+          <input type="checkbox" id="engagement36" class="w-4 h-4 accent-[#7C3AED] cursor-pointer" />
+          <label for="engagement36" class="text-[#F1F0F7] text-sm cursor-pointer">Engagement 36 mois <span class="text-[#9B99AA]">(remise dégressive selon le niveau)</span></label>
+        </div>
+
+        <!-- Coordonnées -->
+        <div>
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-3">4. Vos coordonnées</h2>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <input type="text" name="societe" placeholder="Société" class="fld bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+            <input type="text" name="nom" required placeholder="Prénom Nom *" class="fld bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+            <input type="email" name="email" required placeholder="Email *" class="fld bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+            <input type="tel" name="telephone" required placeholder="Téléphone *" class="fld bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]" />
+          </div>
+          <textarea name="message" rows="2" placeholder="Précisions sur votre besoin (optionnel)" class="fld w-full mt-3 bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED] placeholder:text-[#4B4966]"></textarea>
+
+          <div class="mt-3">
+            <label class="text-[#9B99AA] text-sm block mb-1">Anti-spam : combien font <strong class="text-[#F1F0F7]">{a} + {b}</strong> ? *</label>
+            <input type="number" id="captcha-input" class="w-full bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#7C3AED]" placeholder="Votre réponse" />
+            <p id="captcha-error" class="text-red-400 text-xs mt-1 hidden">Réponse incorrecte.</p>
+          </div>
+
+          <div class="flex items-start gap-3 bg-[#07001C] border border-[rgba(124,58,237,0.2)] rounded-lg p-3 mt-3">
+            <input type="checkbox" id="rgpd" required class="mt-0.5 w-4 h-4 accent-[#7C3AED] cursor-pointer" />
+            <label for="rgpd" class="text-[#9B99AA] text-xs leading-relaxed cursor-pointer">J'accepte que mes données soient traitées par Gigarun SARL pour ma demande de devis, conformément à la <a href="/confidentialite" class="text-[#7C3AED] hover:underline">politique de confidentialité</a>.</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne récap (1/3, sticky) -->
+      <div class="lg:col-span-1">
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-2xl p-6 lg:sticky lg:top-28">
+          <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-4">Votre estimation</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between"><dt class="text-[#9B99AA]">Base contrat</dt><dd id="r-base" class="text-[#F1F0F7]">0 €</dd></div>
+            <div class="flex justify-between"><dt class="text-[#9B99AA]">Options</dt><dd id="r-options" class="text-[#F1F0F7]">0 €</dd></div>
+            <div class="flex justify-between hidden" id="r-remise-row"><dt class="text-[#06B6D4]">Remise 36 mois</dt><dd id="r-remise" class="text-[#06B6D4]">0 €</dd></div>
+            <div class="border-t border-[rgba(124,58,237,0.2)] my-2"></div>
+            <div class="flex justify-between text-base"><dt class="text-[#F1F0F7] font-semibold">Total HT / mois</dt><dd id="r-ht" class="text-[#7C3AED] font-bold">0 €</dd></div>
+            <div class="flex justify-between"><dt class="text-[#9B99AA]">TVA 8,5 %</dt><dd id="r-tva" class="text-[#9B99AA]">0 €</dd></div>
+            <div class="flex justify-between"><dt class="text-[#9B99AA]">Total TTC / mois</dt><dd id="r-ttc" class="text-[#9B99AA]">0 €</dd></div>
+          </dl>
+          <p class="text-[#9B99AA] text-[11px] mt-4 leading-relaxed">Estimation indicative HT, hors prestations ponctuelles (audit, migration). Un devis ferme vous est envoyé après étude.</p>
+          <button type="submit" id="submit-btn" class="w-full mt-5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Recevoir mon devis détaillé →</button>
+          <p id="form-success" class="hidden text-center text-green-400 text-sm font-medium py-2 mt-2">Demande envoyée — votre devis arrive par email !</p>
+          <p id="form-error" class="hidden text-center text-red-400 text-sm py-2 mt-2">Vérifiez les champs obligatoires (*).</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script define:vars={{ captchaSum, webhook: FORMS_WEBHOOK, tva: TVA_REUNION }}>
+  const form = document.getElementById('calc-form');
+  const eur = (n) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n || 0);
+  const $ = (id) => document.getElementById(id);
+
+  function selectedTier() {
+    const r = form.querySelector('.tier-radio:checked');
+    return r ? r.dataset : null;
+  }
+  function units() {
+    const u = {};
+    form.querySelectorAll('.unit-input').forEach((i) => u[i.dataset.unit] = parseInt(i.value, 10) || 0);
+    return u;
+  }
+  function pickedOptions() {
+    const out = [];
+    form.querySelectorAll('.opt-check').forEach((c) => {
+      const qtyEl = form.querySelector(`.opt-qty[data-for="${c.dataset.code}"]`);
+      const qty = parseInt(qtyEl.value, 10) || 0;
+      if (c.checked && qty > 0) {
+        const prix = parseFloat(c.dataset.prix);
+        out.push({ code: c.dataset.code, label: c.dataset.label, prix, qty, total: prix * qty });
+      }
+    });
+    return out;
+  }
+
+  function compute() {
+    const t = selectedTier();
+    if (!t) return null;
+    const u = units();
+    const base =
+      u.postes * parseFloat(t.poste) +
+      u.serveurs * parseFloat(t.serveur) +
+      u.nas * parseFloat(t.nas) +
+      u.peripheriques * parseFloat(t.peripherique) +
+      u.sites * parseFloat(t.site) +
+      (t.xdr === '1' ? (u.postes + u.serveurs + u.nas) * parseFloat(t.xdrnode) : 0);
+    const opts = pickedOptions();
+    const optionsTotal = opts.reduce((s, o) => s + o.total, 0);
+    const engage = $('engagement36').checked;
+    const remise = engage ? base * parseFloat(t.remise36) : 0;
+    const totalHT = base - remise + optionsTotal;
+    return { base, opts, optionsTotal, engage, remise, totalHT, tva: totalHT * tva, ttc: totalHT * (1 + tva) };
+  }
+
+  function render() {
+    const c = compute();
+    if (!c) return;
+    $('r-base').textContent = eur(c.base);
+    $('r-options').textContent = eur(c.optionsTotal);
+    $('r-remise-row').classList.toggle('hidden', !c.engage || c.remise === 0);
+    $('r-remise').textContent = '-' + eur(c.remise);
+    $('r-ht').textContent = eur(c.totalHT);
+    $('r-tva').textContent = eur(c.tva);
+    $('r-ttc').textContent = eur(c.ttc);
+  }
+
+  form.addEventListener('input', render);
+  form.querySelectorAll('.tier-radio').forEach((r) => r.addEventListener('change', () => {
+    form.querySelectorAll('.tier-card').forEach((card) => card.classList.remove('border-[#7C3AED]'));
+    if (r.checked) r.closest('.tier-card').classList.add('border-[#7C3AED]');
+    render();
+  }));
+  render();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    $('form-error').classList.add('hidden');
+    $('captcha-error').classList.add('hidden');
+    if ((parseInt($('captcha-input').value, 10)) !== captchaSum) { $('captcha-error').classList.remove('hidden'); return; }
+    const required = ['nom', 'email', 'telephone'].map((n) => form.querySelector(`[name="${n}"]`));
+    if (required.some((f) => !f.value.trim()) || !$('rgpd').checked) { $('form-error').classList.remove('hidden'); return; }
+
+    const c = compute();
+    const t = selectedTier();
+    const payload = {
+      type: 'devis-infogerance',
+      tier: form.querySelector('.tier-radio:checked').value,
+      parc: units(),
+      options: c.opts,
+      base_ht: Math.round(c.base * 100) / 100,
+      remise_ht: Math.round(c.remise * 100) / 100,
+      engagement_36_mois: c.engage,
+      total_ht_mois: Math.round(c.totalHT * 100) / 100,
+      tva_ht: Math.round(c.tva * 100) / 100,
+      total_ttc_mois: Math.round(c.ttc * 100) / 100,
+      contact: {
+        societe: form.querySelector('[name="societe"]').value,
+        nom: form.querySelector('[name="nom"]').value,
+        email: form.querySelector('[name="email"]').value,
+        telephone: form.querySelector('[name="telephone"]').value,
+        message: form.querySelector('[name="message"]').value,
+      },
+      page: location.href,
+    };
+
+    const btn = $('submit-btn');
+    btn.disabled = true; btn.textContent = 'Envoi...';
+    const done = () => { form.querySelectorAll('input,textarea,button').forEach((el) => el.disabled = true); $('form-success').classList.remove('hidden'); };
+    if (!webhook) { console.warn('FORMS_WEBHOOK non configuré — payload:', payload); done(); return; }
+    fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(done)
+      .catch(() => { btn.disabled = false; btn.textContent = 'Recevoir mon devis détaillé →'; $('form-error').textContent = "Erreur d'envoi, réessayez ou appelez-nous."; $('form-error').classList.remove('hidden'); });
+  });
+</script>
