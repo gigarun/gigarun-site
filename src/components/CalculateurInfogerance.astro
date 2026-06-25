@@ -201,6 +201,8 @@ const options = catalogue.optionsInfogerance;
   }
   form.addEventListener('input', render);
   form.querySelectorAll('.tier-radio').forEach((r) => r.addEventListener('change', () => { highlightTiers(); render(); }));
+  const urlTier = new URLSearchParams(location.search).get('tier');
+  if (urlTier) { const tr = form.querySelector('.tier-radio[value="' + urlTier + '"]'); if (tr) tr.checked = true; }
   highlightTiers();
   render();
 
