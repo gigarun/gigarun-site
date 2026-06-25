@@ -1,19 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const STRAPI = 'http://172.20.3.3:1337';
-const STRAPI_TOKEN = '12d2cbd09c825a72ef91017966c6a4420e7634afbb64d6da13dd5ef91c2ccbaf8ac3be45a412a1b5a0963485d7259d020333aaf9a40adfd9e143212097714e626d58abe23f495ffb00176bf22b9872b500ca770544da3ea4d5222803d9c747074088a99690ec25b7fe82fb44d8240c5dcc1b67ddbca2a50284dcba2af3afc162';
-const headers = { 'Authorization': `Bearer ${STRAPI_TOKEN}` };
+// CMS Strapi (optionnel au build). URL + token via variables d'env (.env / Coolify).
+// Si Strapi est injoignable, le build NE casse plus : fallback liste vide.
+const STRAPI = import.meta.env.STRAPI_URL || 'http://172.20.3.3:1337';
+const STRAPI_TOKEN = import.meta.env.STRAPI_TOKEN || '';
 
-const [servicesRes, tarifsRes, temoignagesRes] = await Promise.all([
-  fetch(`${STRAPI}/api/services?sort=ordre&pagination[limit]=100`, { headers }),
-  fetch(`${STRAPI}/api/tarifs?sort=ordre&pagination[limit]=100`, { headers }),
-  fetch(`${STRAPI}/api/temoignages?pagination[limit]=100`, { headers }),
+async function strapiFetch(path) {
+  if (!STRAPI_TOKEN) return [];
+  try {
+    const res = await fetch(`${STRAPI}${path}`, {
+      headers: { Authorization: `Bearer ${STRAPI_TOKEN}` },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return [];
+    return (await res.json()).data ?? [];
+  } catch (e) {
+    console.warn('[Strapi] injoignable, fallback liste vide:', path, e && e.message);
+    return [];
+  }
+}
+
+const [services, tarifs, temoignages] = await Promise.all([
+  strapiFetch('/api/services?sort=ordre&pagination[limit]=100'),
+  strapiFetch('/api/tarifs?sort=ordre&pagination[limit]=100'),
+  strapiFetch('/api/temoignages?pagination[limit]=100'),
 ]);
-
-const services = (await servicesRes.json()).data ?? [];
-const tarifs = (await tarifsRes.json()).data ?? [];
-const temoignages = (await temoignagesRes.json()).data ?? [];
 
 const hero = {
   badge: 'La Réunion · DSI Externalisé',
