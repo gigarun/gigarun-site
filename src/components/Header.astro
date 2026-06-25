@@ -26,7 +26,19 @@
       <!-- Nav desktop -->
       <nav class="hidden lg:flex items-center gap-7">
 
-        <a href="/" class="text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors">Accueil</a>
+        <!-- Menu Accueil -->
+        <div class="relative group">
+          <button class="flex items-center gap-1 text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors py-4">
+            Accueil
+            <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="absolute top-full left-0 mt-0 w-60 bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl shadow-2xl shadow-[rgba(124,58,237,0.15)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 p-2">
+            <a href="/" class="block px-3 py-2 rounded-lg text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition-colors">Accueil</a>
+            <a href="/a-propos" class="block px-3 py-2 rounded-lg text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition-colors">À propos</a>
+            <a href="/vos-metiers" class="block px-3 py-2 rounded-lg text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition-colors">Vos métiers</a>
+            <a href="/devis" class="block px-3 py-2 rounded-lg text-sm text-[#7C3AED] font-medium hover:bg-[rgba(124,58,237,0.1)] transition-colors">Devis en ligne</a>
+          </div>
+        </div>
 
         <!-- Mega-menu Services -->
         <div class="relative group">
@@ -230,7 +242,6 @@
           </div>
         </div>
 
-        <a href="/a-propos" class="text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors">À propos</a>
         <!-- Mega-menu Articles -->
         <div class="relative group">
           <button class="flex items-center gap-1 text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors py-4">
@@ -320,7 +331,6 @@
             </div>
           </div>
         </div>
-        <a href="/devis" class="text-sm font-medium text-[#7C3AED] hover:text-[#9B7AFF] transition-colors">Devis</a>
         <a href="/contact" class="text-sm font-medium text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] transition-colors">Contact</a>
       </nav>
 
@@ -346,6 +356,9 @@
   <div class="hidden peer-checked:block lg:!hidden bg-[#0D0028] border-t border-[rgba(124,58,237,0.2)] px-6 py-4 max-h-[80vh] overflow-y-auto">
     <nav class="flex flex-col gap-1">
       <a href="/" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-2 px-1">Accueil</a>
+      <a href="/a-propos" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-2 px-1">À propos</a>
+      <a href="/vos-metiers" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-2 px-1">Vos métiers</a>
+      <a href="/devis" class="text-[#7C3AED] hover:text-[#9B7AFF] text-sm py-2 px-1 font-medium">Devis en ligne</a>
       <div class="text-[#7C3AED] text-xs font-semibold uppercase tracking-wider px-1 py-2 mt-2">Services</div>
       <a href="/infogerance" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Infogérance</a>
       <a href="/securite" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Cybersécurité</a>
@@ -361,7 +374,6 @@
       <a href="/intelligence-artificielle" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Intelligence artificielle</a>
       <div class="text-[#06B6D4] text-xs font-semibold uppercase tracking-wider px-1 py-2 mt-3">Solutions</div>
       <a href="/dolibarr" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Dolibarr ERP/CRM</a>
-      <a href="/devis" class="text-[#7C3AED] hover:text-[#9B7AFF] text-sm py-1.5 px-1 font-medium">Devis en ligne</a>
       <a href="/microsoft-365" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Microsoft 365</a>
       <a href="/infogerance-la-reunion" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Infogérance La Réunion</a>
       <a href="/informaticien-la-reunion" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Informaticien La Réunion</a>
@@ -369,7 +381,6 @@
       <a href="/audit-entreprise" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Audit entreprise</a>
       <a href="/nestor" class="text-[#C4B5FD] hover:text-[#F1F0F7] text-sm py-1.5 px-1 font-medium">🧠 Nestor IA locale</a>
       <div class="border-t border-[rgba(124,58,237,0.2)] my-3"></div>
-      <a href="/a-propos" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">À propos</a>
       <div class="text-[#7C3AED] text-xs font-semibold uppercase tracking-wider px-1 py-2 mt-3">Articles & Guides</div>
       <a href="/blog" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-1">Tous les articles</a>
       <a href="/blog?tab=cyber" class="text-[rgba(241,240,247,0.7)] hover:text-[#F1F0F7] text-sm py-1.5 px-3">Cybersécurité</a>
