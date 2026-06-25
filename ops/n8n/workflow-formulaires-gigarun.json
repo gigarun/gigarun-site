@@ -39,7 +39,7 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [720, 300],
-      "credentials": { "smtp": { "id": "REMPLACER", "name": "SMTP OVH contact@gigarun.net" } }
+      "credentials": { "smtp": { "id": "smtpOvhGiga01", "name": "SMTP OVH contact@gigarun.net" } }
     },
     {
       "parameters": {
