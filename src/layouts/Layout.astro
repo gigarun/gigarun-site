@@ -13,6 +13,14 @@ const {
   title = 'Gigarun — DSI Externalisé à La Réunion',
   description = 'Infogérance IT, ERP Dolibarr, cybersécurité pour PME réunionnaises. 15 ans d\'expérience, interlocuteur unique, intervention en 4h.'
 } = Astro.props;
+
+const _segs = Astro.url.pathname.split('/').filter(Boolean);
+const _tc = (x) => decodeURIComponent(x).replace(/-/g,' ').replace(/(^|\s)\S/g, c => c.toUpperCase());
+let _acc = '';
+const _items = [{ '@type':'ListItem', position:1, name:'Accueil', item:'https://gigarun.re/' }];
+_segs.forEach((sg,i)=>{ _acc += '/'+sg; _items.push({ '@type':'ListItem', position:i+2, name:_tc(sg), item:'https://gigarun.re'+_acc }); });
+const breadcrumbLd = { '@context':'https://schema.org', '@type':'BreadcrumbList', itemListElement:_items };
+const localBusinessLd = { '@context':'https://schema.org', '@type':'ProfessionalService', name:'Gigarun', image:'https://gigarun.re/favicon.ico', '@id':'https://gigarun.re', url:'https://gigarun.re', telephone:'+262692311191', priceRange:'EUR', address:{ '@type':'PostalAddress', streetAddress:'7 rue du Temple, ZAC Ocean Indien', addressLocality:'Saint-Pierre', postalCode:'97410', addressRegion:'La Reunion', addressCountry:'RE' }, geo:{ '@type':'GeoCoordinates', latitude:-21.3379483, longitude:55.4829232 }, areaServed:{ '@type':'AdministrativeArea', name:'La Reunion' }, openingHoursSpecification:{ '@type':'OpeningHoursSpecification', dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday'], opens:'08:00', closes:'18:00' } };
 ---
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,6 +46,8 @@ const {
     .font-syne { font-family: 'Syne', sans-serif; }
     h1, h2, h3 { font-family: 'Syne', sans-serif; }
   </style>
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessLd)} />
+  {_segs.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
 </head>
 <body>
   <Header />
