@@ -27,7 +27,7 @@ const options = catalogue.optionsInfogerance;
           <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-3">1. Niveau de service</h2>
           <div class="grid sm:grid-cols-2 gap-3" id="tiers">
             {tiers.map((t, i) => (
-              <label class={`tier-card cursor-pointer block rounded-xl border p-4 transition-all ${t.recommande ? 'border-[#7C3AED]' : 'border-[rgba(124,58,237,0.2)]'} bg-[#0D0028] hover:border-[#7C3AED]`}>
+              <label class="tier-card cursor-pointer block rounded-xl border-2 p-4 transition-all border-[rgba(124,58,237,0.2)] bg-[#0D0028] hover:border-[#7C3AED]">
                 <input class="tier-radio sr-only" type="radio" name="tier" value={t.code}
                   data-poste={t.poste} data-serveur={t.serveur} data-nas={t.nas}
                   data-peripherique={t.peripherique} data-site={t.site}
@@ -191,12 +191,14 @@ const options = catalogue.optionsInfogerance;
     $('r-ttc').textContent = eur(c.ttc);
   }
 
+  function highlightTiers() {
+    form.querySelectorAll('.tier-radio').forEach((r) => {
+      r.closest('.tier-card').style.borderColor = r.checked ? '#7C3AED' : '';
+    });
+  }
   form.addEventListener('input', render);
-  form.querySelectorAll('.tier-radio').forEach((r) => r.addEventListener('change', () => {
-    form.querySelectorAll('.tier-card').forEach((card) => card.classList.remove('border-[#7C3AED]'));
-    if (r.checked) r.closest('.tier-card').classList.add('border-[#7C3AED]');
-    render();
-  }));
+  form.querySelectorAll('.tier-radio').forEach((r) => r.addEventListener('change', () => { highlightTiers(); render(); }));
+  highlightTiers();
   render();
 
   form.addEventListener('submit', (e) => {
