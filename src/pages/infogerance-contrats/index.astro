@@ -113,7 +113,7 @@ const contrats = [
               </li>
             ))}
           </ul>
-          <a href={`/devis/infogerance?tier=${c.code}`} class="block text-center text-sm font-medium py-2.5 rounded-full transition-colors border"
+          <a href={`/devis/infogerance/?tier=${c.code}`} class="block text-center text-sm font-medium py-2.5 rounded-full transition-colors border"
              style={`color:${c.couleur};border-color:${c.couleur};`}
              data-color={c.couleur}
              onmouseover="this.style.background=this.style.borderColor;this.style.color='#07001C'"
@@ -246,7 +246,7 @@ const contrats = [
       '<div class="text-center mb-4"><div class="text-[#9B99AA] text-xs uppercase tracking-widest mb-1">Il vous faut le contrat</div>' +
       '<div class="font-syne font-extrabold text-[#7C3AED] text-3xl">' + t.nom + '</div></div>' +
       '<p class="text-[#9B99AA] text-sm leading-relaxed mb-6">' + t.raison + '</p>' +
-      '<a href="/devis/infogerance?tier=' + code + '" class="block text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Estimer le contrat ' + t.nom + ' →</a>' +
+      '<a href="/devis/infogerance/?tier=' + code + '" class="block text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Estimer le contrat ' + t.nom + ' →</a>' +
       '<button type="button" id="wizard-restart" class="w-full text-[#9B99AA] hover:text-white text-xs mt-3">↻ Recommencer</button>';
     document.getElementById('wizard-restart').addEventListener('click', () => renderStep(0));
   }
