@@ -32,10 +32,60 @@
             Accueil
             <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </a>
-          <div class="absolute top-full left-0 mt-0 w-60 bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl shadow-2xl shadow-[rgba(124,58,237,0.15)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 p-2">
-            <a href="/a-propos" class="block px-3 py-2 rounded-lg text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition-colors">À propos</a>
-            <a href="/vos-metiers" class="block px-3 py-2 rounded-lg text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.1)] hover:text-[#7C3AED] transition-colors">Vos métiers</a>
-            <a href="/devis" class="block px-3 py-2 rounded-lg text-sm text-[#7C3AED] font-medium hover:bg-[rgba(124,58,237,0.1)] transition-colors">Devis en ligne</a>
+          <div class="absolute top-full left-0 mt-0 w-[480px] bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-2xl shadow-2xl shadow-[rgba(124,58,237,0.15)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 p-5">
+            <div class="grid grid-cols-2 gap-2 mb-4">
+
+              <a href="/a-propos" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87m-1-7a4 4 0 11-8 0 4 4 0 018 0zM3 20v-2a4 4 0 013-3.87"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">À propos</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Qui sommes-nous, notre approche DSI</div>
+                </div>
+              </a>
+
+              <a href="/vos-metiers" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Vos métiers</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Solutions par secteur d'activité</div>
+                </div>
+              </a>
+
+              <a href="/devis" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(6,182,212,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#06B6D4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#06B6D4] transition-colors">Devis en ligne</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Estimez votre contrat en quelques clics</div>
+                </div>
+              </a>
+
+              <a href="/contact" class="flex items-start gap-3 p-3 rounded-xl hover:bg-[rgba(124,58,237,0.1)] transition-colors group/item">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.15)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <div>
+                  <div class="text-[#F1F0F7] text-sm font-medium group-hover/item:text-[#7C3AED] transition-colors">Contact</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Parlons de votre projet IT</div>
+                </div>
+              </a>
+
+            </div>
+              <a href="/contact" class="flex items-center gap-3 p-3 rounded-xl transition-colors col-span-2 border border-[rgba(124,58,237,0.2)] bg-[rgba(124,58,237,0.08)] hover:bg-[rgba(124,58,237,0.15)] group/cta">
+                <div class="w-9 h-9 rounded-lg bg-[rgba(124,58,237,0.25)] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div class="flex-1">
+                  <div class="text-[#F1F0F7] text-sm font-medium">Diagnostic gratuit de votre SI</div>
+                  <div class="text-[#9B99AA] text-xs mt-0.5 leading-relaxed">Audit offert · Réponse sous 4h · Sans engagement</div>
+                </div>
+                <svg class="w-4 h-4 text-[#7C3AED] group-hover/cta:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
           </div>
         </div>
 
