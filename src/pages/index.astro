@@ -37,13 +37,21 @@ const hero = {
   stat1_chiffre: '15+', stat1_label: "Années d'expérience",
   stat2_chiffre: '100+', stat2_label: 'Clients actifs',
   stat3_chiffre: '4h', stat3_label: 'Délai intervention',
-  stat4_chiffre: '5★', stat4_label: 'Satisfaction client',
+  stat4_chiffre: '24/7', stat4_label: 'Supervision',
 };
 const contact = {
   telephone: '0692 31 11 91',
   email: 'contact@gigarun.net',
   adresse: 'Saint-Pierre, La Réunion',
 };
+
+const GOOGLE_AVIS = 'https://www.google.com/maps/place/gigarun+ing%C3%A9nierie/@-21.3379483,55.4829232,17z/data=!4m6!3m5!1s0x2182a0a579bca141:0xc9e01ecff4cd116b!8m2!3d-21.3379483!4d55.4829232';
+const TEMOIGNAGES = [
+  { texte: "Excellent partenaire ; l'équipe nous accompagne sur la gestion comptable de nos structures artisanales ; Thomas Cassen, notre interlocuteur, est très réactif, de bon conseil et à l'écoute.", nom: "Maylis Hammami", role: "Camping et Gîtes la Téouleyre" },
+  { texte: "Véritable couteau suisse de l'informatique et de ses métiers connexes. De bons produits et de bons conseils, sans compter un très bon accueil. Je recommande absolument.", nom: "Julien Desole", role: "CEO, AMS Products" },
+  { texte: "De bonnes compétences et une grande disponibilité, qui assurent un service top et réactif pour trouver des solutions à tous mes besoins. Merci à l'équipe pour votre dévouement.", nom: "Fabrice Baixes", role: "Créateur et formateur indépendant" },
+  { texte: "Merci pour cet accompagnement. Notre cœur de métier dépend intégralement de l'outil informatique. Vous avez su suivre le développement de l'entreprise et adapter nos outils en conséquence.", nom: "Claude Tournellec", role: "Gérant, Quali Ti Expertise" },
+];
 ---
 <Layout title="Gigarun — Infogérance & cybersécurité PME à La Réunion" description="DSI externalisé à La Réunion : infogérance, cybersécurité, ERP Dolibarr et cloud souverain pour les PME. Interlocuteur unique, intervention sous 4h.">
 
@@ -98,8 +106,8 @@ const contact = {
       </div>
       <div class="w-px h-10 bg-[rgba(124,58,237,0.3)] hidden sm:block"></div>
       <div class="flex flex-col items-center">
-        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">{hero?.stat4_chiffre ?? '5★'}</span>
-        <span class="text-[#9B99AA] text-sm mt-1">{hero?.stat4_label ?? 'Satisfaction client'}</span>
+        <span class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,4vw,42px);">{hero?.stat4_chiffre ?? '24/7'}</span>
+        <span class="text-[#9B99AA] text-sm mt-1">{hero?.stat4_label ?? 'Supervision'}</span>
       </div>
     </div>
   </div>
@@ -182,6 +190,34 @@ const contact = {
           </a>
         </div>
       ))}
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="bg-[#0A0022] py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Ils nous font confiance</h2>
+      <p class="text-[#9B99AA] mt-3">Des entreprises réunionnaises que nous accompagnons au quotidien.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-5">
+      {TEMOIGNAGES.map((t) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.18)] rounded-2xl p-6 flex flex-col">
+          <svg class="w-7 h-7 text-[#7C3AED] mb-3 opacity-60" fill="currentColor" viewBox="0 0 24 24"><path d="M7.17 6A5.17 5.17 0 002 11.17V18h6.83v-6.83H5.5a1.67 1.67 0 011.67-1.67V6zm9 0A5.17 5.17 0 0011 11.17V18h6.83v-6.83H14.5a1.67 1.67 0 011.67-1.67V6z"/></svg>
+          <p class="text-[rgba(241,240,247,0.9)] leading-relaxed mb-4 flex-1">{t.texte}</p>
+          <div>
+            <p class="text-[#F1F0F7] font-medium text-sm">{t.nom}</p>
+            <p class="text-[#9B99AA] text-xs">{t.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-8">
+      <a href={GOOGLE_AVIS} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">
+        Voir nos avis sur Google
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7m10 0v10"/></svg>
+      </a>
     </div>
   </div>
 </section>
