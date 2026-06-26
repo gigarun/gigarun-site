@@ -1,0 +1,120 @@
+---
+// Overlays globaux : mini-menu accessibilité (bas gauche) + bouton haut de page (bas droite).
+// Les effets (taille texte, contraste, surbrillance liens) s'appliquent à #acc-content
+// uniquement, pour ne pas dégrader le widget lui-même.
+---
+
+<!-- Bouton ouverture accessibilité -->
+<button id="acc-open" aria-expanded="false" aria-controls="acc-panel" aria-label="Ouvrir le menu d'accessibilité"
+  class="fixed bottom-5 left-5 z-[60] w-12 h-12 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white flex items-center justify-center shadow-lg shadow-[rgba(124,58,237,0.4)] transition-colors">
+  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="3.5" r="2"/><path d="M21 7.5a1 1 0 0 1-.7 1.27l-4.3 1.2V14l1.9 5.6a1 1 0 0 1-1.9.64L14.2 15h-4.4l-1.8 5.24a1 1 0 1 1-1.9-.64L8 14V9.97l-4.3-1.2A1 1 0 0 1 4.3 6.84L9 8.16a8 8 0 0 0 6 0l4.7-1.32A1 1 0 0 1 21 7.5z"/></svg>
+</button>
+
+<!-- Panneau accessibilité -->
+<div id="acc-panel" role="dialog" aria-label="Menu d'accessibilité"
+  class="hidden fixed bottom-20 left-5 z-[60] w-72 max-w-[calc(100vw-2.5rem)] bg-[#0D0028] border border-[rgba(124,58,237,0.3)] rounded-2xl shadow-2xl shadow-[rgba(124,58,237,0.25)] p-4 text-[#F1F0F7]">
+  <div class="flex items-center justify-between mb-3">
+    <span class="font-syne font-bold text-sm">Accessibilité</span>
+    <button id="acc-close" aria-label="Fermer le menu d'accessibilité" class="text-[#9B99AA] hover:text-[#F1F0F7] transition-colors">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+
+  <!-- Taille du texte -->
+  <div class="flex items-center justify-between py-2 border-t border-[rgba(124,58,237,0.12)]">
+    <span class="text-sm">Taille du texte</span>
+    <div class="flex items-center gap-2">
+      <button id="acc-dec" aria-label="Diminuer la taille du texte" class="w-7 h-7 rounded-lg bg-[rgba(124,58,237,0.2)] hover:bg-[rgba(124,58,237,0.4)] text-[#F1F0F7] font-bold leading-none transition-colors">−</button>
+      <span id="acc-font-pct" class="text-xs w-10 text-center text-[#9B99AA]" aria-live="polite">100%</span>
+      <button id="acc-inc" aria-label="Augmenter la taille du texte" class="w-7 h-7 rounded-lg bg-[rgba(124,58,237,0.2)] hover:bg-[rgba(124,58,237,0.4)] text-[#F1F0F7] font-bold leading-none transition-colors">+</button>
+    </div>
+  </div>
+
+  <!-- Contraste élevé -->
+  <button id="acc-contrast" aria-pressed="false" class="acc-toggle w-full flex items-center justify-between py-2.5 border-t border-[rgba(124,58,237,0.12)] text-left">
+    <span class="text-sm">Contraste élevé</span>
+    <span class="acc-track relative w-9 h-5 rounded-full transition-colors flex-shrink-0"><span class="acc-knob absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform"></span></span>
+  </button>
+
+  <!-- Surbrillance des liens -->
+  <button id="acc-links" aria-pressed="false" class="acc-toggle w-full flex items-center justify-between py-2.5 border-t border-[rgba(124,58,237,0.12)] text-left">
+    <span class="text-sm">Surbrillance des liens</span>
+    <span class="acc-track relative w-9 h-5 rounded-full transition-colors flex-shrink-0"><span class="acc-knob absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform"></span></span>
+  </button>
+
+  <button id="acc-reset" class="w-full mt-3 py-2 rounded-lg border border-[rgba(124,58,237,0.3)] text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.12)] transition-colors">Réinitialiser</button>
+  <a href="/accessibilite" class="block text-center text-xs text-[#9B99AA] mt-3 hover:text-[#7C3AED] transition-colors">Déclaration d'accessibilité</a>
+</div>
+
+<!-- Bouton haut de page -->
+<button id="back-to-top" aria-label="Revenir en haut de la page"
+  class="fixed bottom-5 right-5 z-[60] w-12 h-12 rounded-full bg-[#0D0028] border border-[rgba(124,58,237,0.4)] text-[#F1F0F7] hover:bg-[#7C3AED] hover:border-[#7C3AED] flex items-center justify-center shadow-lg transition-all duration-200 opacity-0 pointer-events-none translate-y-2">
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<style is:global>
+  /* Effets appliqués au contenu uniquement (pas au widget) */
+  #acc-content.acc-contrast { filter: contrast(1.4); }
+  #acc-content.acc-links a { text-decoration: underline !important; outline: 2px solid #FBBF24; outline-offset: 2px; }
+  /* Toggles du widget */
+  .acc-toggle .acc-track { background: #3a2d5c; }
+  .acc-toggle[aria-pressed="true"] .acc-track { background: #7C3AED; }
+  .acc-toggle[aria-pressed="true"] .acc-knob { transform: translateX(16px); }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const content = document.getElementById('acc-content');
+  const KEY = 'gg-acc';
+  const st = Object.assign({ font: 100, contrast: false, links: false }, JSON.parse(localStorage.getItem(KEY) || '{}'));
+
+  const panel = document.getElementById('acc-panel');
+  const openBtn = document.getElementById('acc-open');
+  const pct = document.getElementById('acc-font-pct');
+  const cBtn = document.getElementById('acc-contrast');
+  const lBtn = document.getElementById('acc-links');
+
+  function apply() {
+    root.style.fontSize = st.font === 100 ? '' : st.font + '%';
+    content && content.classList.toggle('acc-contrast', st.contrast);
+    content && content.classList.toggle('acc-links', st.links);
+    if (pct) pct.textContent = st.font + '%';
+    cBtn && cBtn.setAttribute('aria-pressed', String(st.contrast));
+    lBtn && lBtn.setAttribute('aria-pressed', String(st.links));
+    localStorage.setItem(KEY, JSON.stringify(st));
+  }
+
+  function togglePanel(force) {
+    const open = force !== undefined ? force : panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', !open);
+    openBtn.setAttribute('aria-expanded', String(open));
+  }
+
+  openBtn && openBtn.addEventListener('click', () => togglePanel());
+  document.getElementById('acc-close')?.addEventListener('click', () => togglePanel(false));
+  document.getElementById('acc-dec')?.addEventListener('click', () => { st.font = Math.max(90, st.font - 10); apply(); });
+  document.getElementById('acc-inc')?.addEventListener('click', () => { st.font = Math.min(150, st.font + 10); apply(); });
+  cBtn && cBtn.addEventListener('click', () => { st.contrast = !st.contrast; apply(); });
+  lBtn && lBtn.addEventListener('click', () => { st.links = !st.links; apply(); });
+  document.getElementById('acc-reset')?.addEventListener('click', () => { st.font = 100; st.contrast = false; st.links = false; apply(); });
+
+  // Fermer au clic hors panneau
+  document.addEventListener('click', (e) => {
+    if (!panel.classList.contains('hidden') && !panel.contains(e.target) && !openBtn.contains(e.target)) togglePanel(false);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') togglePanel(false); });
+
+  apply();
+
+  // Bouton haut de page
+  const top = document.getElementById('back-to-top');
+  function onScroll() {
+    const show = window.scrollY > 400;
+    top.classList.toggle('opacity-0', !show);
+    top.classList.toggle('pointer-events-none', !show);
+    top.classList.toggle('translate-y-2', !show);
+  }
+  top && top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
