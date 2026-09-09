@@ -44,6 +44,7 @@ import { CONTRATS as contrats } from '../../data/contrats-infogerance.js';
             <div class="mt-2"><span class="font-syne font-bold text-[#F1F0F7] text-2xl">{c.prix}</span><span class="text-[#9B99AA] text-sm"> {c.unite}</span></div>
             <p class="text-[#9B99AA] text-sm mt-2 leading-relaxed">{c.desc}</p>
           </div>
+          {c.descLongue && <p class="text-[#9B99AA] text-xs mb-4 leading-relaxed border-t pt-3" style={`border-color:${c.border};`}>{c.descLongue}</p>}
           {c.socle && <div class="text-[11px] font-semibold uppercase tracking-wide mb-2" style={`color:${c.couleur};`}>{c.socle}</div>}
           <ul class="flex-1 space-y-2 mb-6">
             {c.features.map(f => (

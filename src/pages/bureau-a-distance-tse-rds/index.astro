@@ -1,12 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Bureau à distance & serveur TSE/RDS à La Réunion — Gigarun" description="Bureau à distance et serveur TSE/RDS pour entreprises réunionnaises : accédez à vos applications et fichiers partout, en sécurité. Travail à distance et">
+<Layout title="Bureau à distance & serveur TSE/RDS à La Réunion — Gigarun" description="Serveur RDS/TSE hébergé à La Réunion : applications métiers accessibles partout, licences Windows Server + CAL RDS, VPN sécurisé. Compatible Genapi, Hellodoc, Sage, EBP.">
 <section class="bg-[#07001C] pt-32 pb-16">
   <div class="max-w-5xl mx-auto px-6">
     <a href="/solutions" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm">← Nos solutions</a>
     <h1 class="font-syne font-extrabold text-[#F1F0F7] mt-4 mb-5" style="font-size:clamp(32px,5vw,56px);line-height:1.1;">Bureau à distance &amp; serveur TSE/RDS</h1>
-    <p class="text-[#9B99AA] text-lg max-w-2xl mb-8">Vos applications et vos fichiers accessibles partout, depuis n'importe quel poste, sur un serveur hébergé et sécurisé.</p>
+    <p class="text-[#9B99AA] text-lg max-w-2xl mb-8">TSE, RDS, bureau à distance, Remote Desktop, VDI : autant de termes pour une même idée simple — accéder à vos outils et vos données depuis n'importe où, de manière fluide, sécurisée et sans dépendre de la puissance de votre ordinateur.</p>
     <div class="flex flex-wrap gap-3">
       <a href="/contact" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Déployer le bureau à distance</a>
       <a href="tel:+262692311191" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">0692 31 11 91</a>
@@ -14,27 +14,120 @@ import Layout from '../../layouts/Layout.astro';
   </div>
 </section>
 <section class="bg-[#0A0022] py-16">
-  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-6">
-    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3">Ce qu'on déploie</h2>
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+    <div>
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3 text-2xl">GIGARUN simplifie l'accès à vos applications métiers</h2>
+      <p class="text-[#9B99AA] text-sm mb-4">Nous installons, louons et maintenons des serveurs de bureau à distance multi-utilisateurs pour les entreprises à la recherche de performance, de flexibilité et de sécurité. Nos solutions sont clés en main : tout est configuré, sécurisé et prêt à l'emploi.</p>
       <ul class="text-[#9B99AA] text-sm space-y-2">
-        <li>Serveur Bureau à distance (RDS / TSE)</li>
-        <li>Hébergement local ou dans vos locaux</li>
-        <li>Accès sécurisé (VPN, double authentification)</li>
-        <li>Applications métier centralisées</li>
+        <li>Une connexion rapide et stable à vos logiciels</li>
+        <li>Des clients légers sans maintenance locale</li>
+        <li>Un accès permanent aux ressources de l'entreprise, où que vous soyez</li>
       </ul>
     </div>
-    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3">Bénéfices</h2>
-      <ul class="text-[#9B99AA] text-sm space-y-2">
-        <li>Travail à distance et multi-sites</li>
-        <li>Postes légers, moins de matériel à gérer</li>
-        <li>Sauvegarde centralisée des données</li>
-        <li>Maintenance et mises à jour simplifiées</li>
-      </ul>
+    <img src="/images/legacy/bureau-a-distance-tse-rds/2025_05_23_rds-cloud.webp" alt="Serveur RDS hébergé dans le cloud" class="rounded-xl border border-[rgba(124,58,237,0.15)] w-full" loading="lazy" />
+  </div>
+</section>
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-6 text-2xl">Pourquoi opter pour un serveur RDS ?</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <p class="text-[#7C3AED] font-semibold mb-2">Réduction des coûts</p>
+        <p class="text-[#9B99AA] text-sm">Inutile d'investir dans des PC haut de gamme : le serveur centralise la puissance de calcul, on travaille efficacement même depuis une tablette ou un PC ancien.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <p class="text-[#7C3AED] font-semibold mb-2">Sécurité renforcée</p>
+        <p class="text-[#9B99AA] text-sm">Les données sont stockées dans un datacenter sécurisé, pas sur les postes utilisateurs. En cas de vol ou de panne locale, rien n'est perdu.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <p class="text-[#7C3AED] font-semibold mb-2">Sauvegardes facilitées</p>
+        <p class="text-[#9B99AA] text-sm">En centralisant les données, les sauvegardes deviennent simples et fiables. Une restauration ne prend que quelques clics.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <p class="text-[#7C3AED] font-semibold mb-2">Mobilité native</p>
+        <p class="text-[#9B99AA] text-sm">Travailler depuis un autre site, chez soi ou en déplacement devient naturel : une simple connexion internet suffit.</p>
+      </div>
     </div>
   </div>
 </section>
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-3 text-2xl">Nos offres RDS hébergées</h2>
+    <p class="text-[#9B99AA] text-sm mb-8">Performances de base à élevées, sauvegarde quotidienne et haute disponibilité incluses sur chaque formule.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-1">5 utilisateurs</h3>
+        <div class="text-[#06B6D4] text-2xl font-bold mb-2">250 €<span class="text-sm text-[#9B99AA]">/mois</span></div>
+        <p class="text-[#9B99AA] text-sm">Solution RDS hébergée pour 5 utilisateurs, performances de base.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.3)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-1">25 utilisateurs</h3>
+        <div class="text-[#06B6D4] text-2xl font-bold mb-2">1 125 €<span class="text-sm text-[#9B99AA]">/mois</span></div>
+        <p class="text-[#9B99AA] text-sm">Solution RDS hébergée pour 25 utilisateurs, performances avancées.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-1">50 utilisateurs</h3>
+        <div class="text-[#06B6D4] text-2xl font-bold mb-2">2 000 €<span class="text-sm text-[#9B99AA]">/mois</span></div>
+        <p class="text-[#9B99AA] text-sm">Solution RDS hébergée pour 50 utilisateurs, performances élevées.</p>
+      </div>
+    </div>
+    <p class="text-[#9B99AA] text-xs mt-4">Chez GIGARUN, spécialiste Microsoft, nos services incluent la configuration complète de votre environnement Remote Desktop avec licences officielles Windows Server + CAL RDS, VPN sécurisé et infogérance.</p>
+  </div>
+</section>
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-3 text-2xl">Serveurs RDS 100% compatibles avec vos applications métiers</h2>
+    <p class="text-[#9B99AA] text-sm max-w-2xl mb-8">Nos serveurs de bureau à distance sont conçus pour exécuter en toute fluidité les principales applications métiers du marché, dans un environnement sécurisé, centralisé et accessible à distance.</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-3 text-sm">Professions libérales</h3>
+        <ul class="text-[#9B99AA] text-xs space-y-1">
+          <li>Genapi (notaires)</li>
+          <li>Secib (avocats)</li>
+          <li>RPVA / eBarreau</li>
+          <li>Fiducial Office Solutions</li>
+          <li>WinActes</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-3 text-sm">Santé &amp; médical</h3>
+        <ul class="text-[#9B99AA] text-xs space-y-1">
+          <li>Hellodoc</li>
+          <li>Axisanté</li>
+          <li>WEDA</li>
+          <li>MediStory</li>
+          <li>Agathe Connect, Crossway</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-3 text-sm">Comptabilité &amp; gestion</h3>
+        <ul class="text-[#9B99AA] text-xs space-y-1">
+          <li>Sage 50 / 100 / 1000</li>
+          <li>EBP Compta / Gestion / Paie</li>
+          <li>Cegid (Loop, Quadra, RH)</li>
+          <li>Ciel Compta, Quadratus</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-3 text-sm">Bâtiment &amp; architecture</h3>
+        <ul class="text-[#9B99AA] text-xs space-y-1">
+          <li>Sage Batigest, Onaya</li>
+          <li>MultiDevis</li>
+          <li>Autodesk Revit*</li>
+          <li>SketchUp Pro*</li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-[#9B99AA] text-xs mt-4">*Certaines applications graphiques avancées nécessitent une configuration RDS avec GPU ou VDI. Contactez-nous pour valider la faisabilité.</p>
+  </div>
+</section>
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-6">
+    <img src="/images/legacy/bureau-a-distance-tse-rds/2025_05_23_solutions-rds-professions-liberales.webp" alt="Solutions RDS pour professions libérales" class="rounded-xl border border-[rgba(124,58,237,0.15)] w-full" loading="lazy" />
+    <img src="/images/legacy/bureau-a-distance-tse-rds/2025_05_23_logiciels-sante-et-medical.webp" alt="Logiciels santé et médical sur serveur RDS" class="rounded-xl border border-[rgba(124,58,237,0.15)] w-full" loading="lazy" />
+  </div>
+</section>
+
 <section class="bg-[#07001C] py-12">
   <div class="max-w-5xl mx-auto px-6">
     <p class="text-[#9B99AA] text-sm mb-3">À voir aussi :</p>
