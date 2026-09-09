@@ -27,6 +27,19 @@ const [services, tarifs, temoignages] = await Promise.all([
   strapiFetch('/api/temoignages?pagination[limit]=100'),
 ]);
 
+// Lien de chaque service vers sa page dédiée (pas de champ "lien" dans Strapi -> mappé par titre).
+const SERVICE_LIENS = {
+  'Infogérance IT': '/infogerance',
+  'ERP Dolibarr': '/dolibarr',
+  'Cybersécurité': '/securite',
+  'Réseaux & Infrastructure': '/reseau',
+  'Vidéosurveillance': '/videosurveillance-controle-acces',
+  'Cloud & Hébergement': '/cloud',
+  'Audits': '/audit',
+  'Sauvegarde et réplication de données': '/sauvegarde-pra',
+  'Intelligence Artificielle': '/intelligence-artificielle',
+};
+
 const hero = {
   badge: 'La Réunion · DSI Externalisé',
   titre_ligne1: 'Votre informatique,',
@@ -121,12 +134,23 @@ const TEMOIGNAGES = [
       <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Ce qu'on fait pour vous</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {services.map(s => (
-        <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
-          <h3 class="text-base font-semibold text-white mb-2">{s.titre}</h3>
-          <p class="text-[#9B99AA] text-sm leading-relaxed">{s.description}</p>
+      {services.map(s => {
+        const lien = SERVICE_LIENS[s.titre];
+        return (
+        <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 flex flex-col">
+          <h3 class="text-base font-semibold text-white mb-2">
+            {lien ? <a href={lien} class="hover:text-[#7C3AED] transition-colors">{s.titre}</a> : s.titre}
+          </h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed flex-1">{s.description}</p>
+          {lien && (
+            <a href={lien} class="inline-flex items-center gap-1 text-[#7C3AED] hover:text-[#9B6BF0] text-sm font-medium mt-4">
+              En savoir plus
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7m10 0v10"/></svg>
+            </a>
+          )}
         </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
