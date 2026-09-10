@@ -58,11 +58,14 @@ const guideCats = [
         class="w-full bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-full px-5 py-2.5 text-sm text-[#F1F0F7] placeholder-[#6B6880] focus:outline-none focus:border-[#7C3AED] transition-colors" />
     </div>
 
-    <div class="hidden flex-wrap gap-2 mb-8" id="guide-subcats">
-      <button data-gcat="" class="gcat-btn px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-[#7C3AED] border-[#7C3AED] text-white" aria-pressed="true">Toutes catégories</button>
-      {guideCats.map(g => (
-        <button data-gcat={g.id} class="gcat-btn px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-transparent border-[rgba(124,58,237,0.25)] text-[#9B99AA] hover:border-[#7C3AED] hover:text-[#F1F0F7]" aria-pressed="false">{g.label}</button>
-      ))}
+    <div class="hidden mb-8 p-4 rounded-xl" id="guide-subcats" style="background:rgba(6,182,212,0.05);border:1px solid rgba(6,182,212,0.2);">
+      <p class="text-[#06B6D4] text-xs font-semibold uppercase tracking-wide mb-3">Filtrer les guides par thème</p>
+      <div class="flex flex-wrap gap-2">
+        <button data-gcat="" class="gcat-btn px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-[#06B6D4] border-[#06B6D4] text-[#07001C]" aria-pressed="true">Tous les thèmes</button>
+        {guideCats.map(g => (
+          <button data-gcat={g.id} class="gcat-btn px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-transparent border-[rgba(6,182,212,0.3)] text-[#9B99AA] hover:border-[#06B6D4] hover:text-[#F1F0F7]" aria-pressed="false">{g.label}</button>
+        ))}
+      </div>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6" id="blog-grid">
@@ -221,14 +224,13 @@ tabs.forEach(tab => {
     state.gcat = '';
     const isGuides = tab.dataset.tab === 'guides';
     subcatsWrap.classList.toggle('hidden', !isGuides);
-    subcatsWrap.classList.toggle('flex', isGuides);
     if (isGuides) {
       gcatBtns.forEach((b, i) => {
-        b.classList.toggle('bg-[#7C3AED]', i === 0);
-        b.classList.toggle('border-[#7C3AED]', i === 0);
-        b.classList.toggle('text-white', i === 0);
+        b.classList.toggle('bg-[#06B6D4]', i === 0);
+        b.classList.toggle('border-[#06B6D4]', i === 0);
+        b.classList.toggle('text-[#07001C]', i === 0);
         b.classList.toggle('bg-transparent', i !== 0);
-        b.classList.toggle('border-[rgba(124,58,237,0.25)]', i !== 0);
+        b.classList.toggle('border-[rgba(6,182,212,0.3)]', i !== 0);
         b.classList.toggle('text-[#9B99AA]', i !== 0);
         b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
       });
@@ -241,12 +243,12 @@ tabs.forEach(tab => {
 gcatBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     gcatBtns.forEach(b => {
-      b.classList.remove('bg-[#7C3AED]','border-[#7C3AED]','text-white');
-      b.classList.add('bg-transparent','border-[rgba(124,58,237,0.25)]','text-[#9B99AA]');
+      b.classList.remove('bg-[#06B6D4]','border-[#06B6D4]','text-[#07001C]');
+      b.classList.add('bg-transparent','border-[rgba(6,182,212,0.3)]','text-[#9B99AA]');
       b.setAttribute('aria-pressed','false');
     });
-    btn.classList.add('bg-[#7C3AED]','border-[#7C3AED]','text-white');
-    btn.classList.remove('bg-transparent','border-[rgba(124,58,237,0.25)]','text-[#9B99AA]');
+    btn.classList.add('bg-[#06B6D4]','border-[#06B6D4]','text-[#07001C]');
+    btn.classList.remove('bg-transparent','border-[rgba(6,182,212,0.3)]','text-[#9B99AA]');
     btn.setAttribute('aria-pressed','true');
     state.gcat = btn.dataset.gcat || '';
     filterAndRender();
