@@ -1,0 +1,328 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Sauvegarde chiffrée d&#x27;un serveur Dolibarr avec restic" description="Guide : sauvegarder un serveur Dolibarr mutualisé (fichiers + bases) vers un NAS avec restic — chiffré, dédupliqué, incrémental. Supervision et restauration pas à pas.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Sauvegarde</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight text-center" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Sauvegarde chiffrée d&#x27;un serveur Dolibarr avec restic</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide : sauvegarder un serveur Dolibarr mutualisé (fichiers + bases) vers un NAS avec restic — chiffré, dédupliqué, incrémental. Supervision et restauration pas à pas.</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:linear-gradient(135deg,#e0f2f1 0%,#b2dfdb 100%);padding:20px}
+        .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:white;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+        .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px}
+        .logo-section{display:flex;align-items:center;gap:15px}
+        .company-info{display:flex;align-items:center;gap:10px}
+        .company-tagline{font-size:0.9em;opacity:0.9}
+        .contact-header{display:flex;align-items:center;gap:30px}
+        .contact-item{font-size:0.9em;opacity:0.95}
+        .container{max-width:1200px;margin:20px auto 0;background:white;border-radius:15px;box-shadow:0 10px 40px rgba(0,0,0,0.1);overflow:hidden}
+        .header{background:linear-gradient(135deg,#0f766e,#14b8a6);color:white;padding:40px;text-align:center}
+        .header h1{font-size:2.5em;margin-bottom:10px}
+        .header p{font-size:1.2em;opacity:0.9}
+        .content{padding:40px}
+        .section{margin-bottom:50px}
+        .section h2{color:#0f766e;font-size:2em;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #0f766e}
+        .section h3{color:#0f766e;font-size:1.5em;margin-top:30px;margin-bottom:15px}
+        .alert{padding:20px;border-radius:10px;margin:20px 0;display:flex;align-items:flex-start;gap:15px}
+        .alert-info{background:#e7f5ff;border-left:5px solid #0d6efd}
+        .alert-warning{background:#fff3cd;border-left:5px solid #ffc107}
+        .alert-success{background:#d1e7dd;border-left:5px solid #198754}
+        .alert-danger{background:#f8d7da;border-left:5px solid #dc3545}
+        .alert-icon{font-size:2em;min-width:40px}
+        .procedure{background:#f8f9fa;border-radius:10px;padding:30px;margin:30px 0}
+        .comparison-table{width:100%;border-collapse:collapse;margin:30px 0;box-shadow:0 2px 15px rgba(0,0,0,0.1);border-radius:10px;overflow:hidden}
+        .comparison-table thead{background:linear-gradient(135deg,#0f766e,#14b8a6);color:white}
+        .comparison-table th{padding:20px;text-align:left;font-size:1.1em}
+        .comparison-table td{padding:15px 20px;border-bottom:1px solid #eee;vertical-align:top}
+        .comparison-table tbody tr:nth-child(even){background:#f9f9f9}
+        .comparison-table tbody tr:hover{background:#e0f2f1}
+        .good{color:#198754;font-weight:bold}
+        .bad{color:#dc3545;font-weight:bold}
+        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin:30px 0}
+        .kpi-box{background:linear-gradient(135deg,#0f766e,#14b8a6);color:white;border-radius:10px;padding:24px;text-align:center}
+        .kpi-box .value{font-size:2em;font-weight:700;display:block;margin-bottom:6px}
+        .kpi-box .label{font-size:0.9em;opacity:0.85}
+        .troubleshooting{background:#fff9e6;border-left:5px solid #ffc107;padding:20px;margin:20px 0;border-radius:0 10px 10px 0}
+        .troubleshooting h4{color:#856404;margin-bottom:10px}
+        code{background:#e9ecef;padding:2px 6px;border-radius:3px;font-family:'Courier New',monospace;color:#0f766e}
+        pre{background:#1e293b;color:#e2e8f0;padding:20px;border-radius:10px;overflow-x:auto;margin:15px 0;font-size:0.95em;line-height:1.8}
+        pre code{background:none;color:#e2e8f0;padding:0}
+        .checklist{list-style:none;margin:20px 0;padding:0}
+        .checklist li{padding:12px 15px;margin:8px 0;background:#f8f9fa;border-radius:8px;border-left:4px solid #0f766e;font-size:1.05em}
+        .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:white;padding:40px 0 20px;margin-top:20px}
+        .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+        .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+        .footer-section{flex:1;min-width:200px}
+        .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+        .footer-section ul{list-style:none;padding:0}
+        .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,0.2)}
+        .footer-section a{color:#bdc3c7;text-decoration:none;transition:color 0.3s}
+        .footer-section a:hover{color:#3498db}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;text-align:center;color:#bdc3c7}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+        .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#0f766e;color:white;text-decoration:none;border-radius:25px;font-weight:600;font-size:0.9em;transition:transform 0.2s,box-shadow 0.2s}
+        .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(15,118,110,0.4)}
+        .back-bar{max-width:1200px;margin:0 auto;padding:20px 20px 0}
+        #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0f766e,#14b8a6);color:white;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.25);opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s,transform 0.2s;z-index:999;display:flex;align-items:center;justify-content:center}
+        #scrollTop.visible{opacity:1;visibility:visible}
+        #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+        @media(max-width:600px){.header h1{font-size:1.6em}.content{padding:20px}.header-container,.contact-header,.footer-content{flex-direction:column;gap:10px}pre{font-size:0.8em;padding:12px}}
+        @media print{body{background:white;padding:0}.container{box-shadow:none}.back-bar,#scrollTop{display:none}.main-header,.main-footer{break-inside:avoid}}
+    </style>
+
+
+
+
+
+
+<div class="container">
+    <div class="header">
+        <h1>Sauvegarde chiffrée d'un serveur Dolibarr avec restic</h1>
+        <p>Sauvegarder fichiers et bases vers un NAS — chiffré, dédupliqué, restaurable</p>
+    </div>
+    <div class="content">
+
+        <div class="section">
+            <h2>Le principe</h2>
+            <p>Un serveur qui héberge plusieurs instances Dolibarr (ERP) doit être sauvegardé de façon <strong>fiable, chiffrée et économe</strong>. La méthode présentée ici s'appuie sur <strong>restic</strong> : chaque nuit, le serveur sauvegarde <strong>toutes ses instances</strong> (fichiers + bases de données) vers un NAS distant. Les sauvegardes sont chiffrées, dédupliquées et incrémentales.</p>
+            <div class="kpi-grid">
+                <div class="kpi-box"><span class="value">&#x1F512;</span><span class="label">Chiffré de bout en bout</span></div>
+                <div class="kpi-box" style="background:linear-gradient(135deg,#1e3a5f,#3b82f6);"><span class="value">&#x267B;</span><span class="label">Dédupliqué (jusqu'à ~10× moins d'espace)</span></div>
+                <div class="kpi-box" style="background:linear-gradient(135deg,#7c3aed,#a855f7);"><span class="value">&#x1F551;</span><span class="label">Automatique, chaque nuit</span></div>
+                <div class="kpi-box" style="background:linear-gradient(135deg,#dc3545,#6f1520);"><span class="value">&#x1F4C5;</span><span class="label">Rétention quotidienne / hebdo / mensuelle</span></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Pourquoi restic plutôt qu'une archive complète quotidienne ?</h2>
+            <p>La sauvegarde « classique » (un <code>.tar.gz</code> complet par site, chaque jour, telle que produite par certains panneaux d'hébergement) fonctionne mais montre vite ses limites dès que les données grossissent. Comparatif :</p>
+            <table class="comparison-table">
+                <thead><tr><th>Critère</th><th>Archive complète quotidienne</th><th>restic</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>Espace de stockage</strong></td><td class="bad">Copie complète chaque jour (ex. 5 Go × 15 jours = 75 Go, et ça se multiplie par instance)</td><td class="good">Dédupliqué : les données stockées une seule fois + petits deltas quotidiens</td></tr>
+                    <tr><td><strong>Chiffrement</strong></td><td class="bad">Généralement aucun (archive et transfert en clair)</td><td class="good">Dépôt chiffré de bout en bout</td></tr>
+                    <tr><td><strong>Lisibilité</strong></td><td class="good">1 fichier par site, extraction directe</td><td>Dépôt géré — restauration via la commande <code>restic</code> (ce guide)</td></tr>
+                    <tr><td><strong>Restauration fine</strong></td><td>Tout ou rien par archive</td><td class="good">Un fichier, un dossier, une base, une date précise</td></tr>
+                    <tr><td><strong>Rétention</strong></td><td>Simple purge par nombre de jours</td><td class="good">Politiques quotidien / hebdo / mensuel automatiques</td></tr>
+                </tbody>
+            </table>
+            <div class="alert alert-info"><div class="alert-icon">&#x2139;</div><div>Le seul « coût » de restic : la restauration passe par une commande plutôt qu'un simple copier-coller. Ce guide rend ce process totalement maîtrisable.</div></div>
+        </div>
+
+        <div class="section">
+            <h2>L'architecture</h2>
+            <p>La chaîne de sauvegarde :</p>
+            <div class="procedure">
+                <p style="font-size:1.1em;text-align:center;line-height:2.2;">
+                <strong>Serveur Dolibarr</strong> &nbsp;&rarr;&nbsp; dump des bases + fichiers<br>
+                &darr;<br>
+                <strong>restic</strong> (chiffre &amp; déduplique) &nbsp;&rarr;&nbsp; <strong>rclone</strong> (transport)<br>
+                &darr;<br>
+                <strong>NAS distant</strong> (dépôt chiffré)
+                </p>
+            </div>
+            <div class="alert alert-success"><div class="alert-icon">&#x1F510;</div><div><strong>Point clé sur le transport.</strong> Si le NAS n'est joignable qu'en FTP (protocole en clair), ce n'est pas un problème : <strong>restic chiffre les données <em>avant</em> de les transmettre</strong>. rclone se charge alors du transport FTP. Ce qui circule et ce qui est stocké est déjà chiffré.</div></div>
+            <p>Éléments typiques d'une telle installation (chemins d'exemple, à adapter) :</p>
+            <table class="comparison-table">
+                <thead><tr><th>Élément</th><th>Emplacement d'exemple</th></tr></thead>
+                <tbody>
+                    <tr><td>Script de sauvegarde</td><td><code>/usr/local/sbin/backup-dolibarr.sh</code></td></tr>
+                    <tr><td>Planification (cron)</td><td><code>/etc/cron.d/backup-dolibarr</code> — chaque nuit en heure creuse</td></tr>
+                    <tr><td>Journal</td><td><code>/var/log/backup-dolibarr.log</code></td></tr>
+                    <tr><td>Dépôt restic</td><td><code>rclone:nas:&lt;dossier-du-serveur&gt;/restic</code></td></tr>
+                    <tr><td>Mot de passe du dépôt</td><td><code>/root/.restic-pass</code> (+ une copie hors serveur, cf. encadré)</td></tr>
+                    <tr><td>Config rclone (remote FTP)</td><td><code>/root/.config/rclone/rclone.conf</code></td></tr>
+                    <tr><td>Ce qui est sauvegardé</td><td>Fichiers : <code>/var/www/clients</code> (webroots + documents) &nbsp;•&nbsp; Bases : dumps SQL dans <code>/var/backups/db</code></td></tr>
+                </tbody>
+            </table>
+            <div class="alert alert-danger">
+                <div class="alert-icon">&#x1F511;</div>
+                <div><strong>Le mot de passe du dépôt est vital.</strong> Le dépôt étant chiffré, <strong>sans ce mot de passe les sauvegardes sont définitivement irrécupérables</strong>. Il faut impérativement en garder une copie <strong>hors du serveur sauvegardé</strong> (par exemple sur le NAS lui-même, dans le dossier du dépôt) : ainsi, même si le serveur est détruit, on peut restaurer.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Le script de sauvegarde (schéma)</h2>
+            <p>Le principe du script exécuté chaque nuit :</p>
+            <pre><code>#!/bin/bash
+set -uo pipefail
+export RESTIC_REPOSITORY="rclone:nas:&lt;dossier-du-serveur&gt;/restic"
+export RESTIC_PASSWORD_FILE=/root/.restic-pass
+DUMPDIR=/var/backups/db
+
+# 1) Dump de toutes les bases (hors bases systeme)
+mkdir -p "$DUMPDIR"; rm -f "$DUMPDIR"/*.sql
+for db in $(mysql -N -e "SHOW DATABASES" \
+    | grep -vE '^(information_schema|performance_schema|mysql|sys)$'); do
+  mysqldump --single-transaction --routines --triggers "$db" > "$DUMPDIR/$db.sql"
+done
+
+# 2) Sauvegarde chiffree : fichiers + dumps
+restic backup /var/www/clients "$DUMPDIR" --tag dolibarr --exclude-caches
+
+# 3) Retention (purge automatique des anciennes)
+restic forget --keep-daily 14 --keep-weekly 8 --keep-monthly 6 --prune</code></pre>
+            <div class="alert alert-info"><div class="alert-icon">&#x2139;</div><div>Toute nouvelle instance Dolibarr ajoutée sur le serveur est <strong>incluse automatiquement</strong> : ses fichiers sont sous <code>/var/www/clients</code> et sa base est découverte par le <code>SHOW DATABASES</code>.</div></div>
+        </div>
+
+        <div class="section">
+            <h2>Superviser (est-ce que ça tourne ?)</h2>
+            <p>En SSH sur le serveur, en root. Charger une fois les variables du dépôt :</p>
+            <pre><code>export RESTIC_REPOSITORY="rclone:nas:&lt;dossier-du-serveur&gt;/restic"
+export RESTIC_PASSWORD_FILE=/root/.restic-pass
+
+restic snapshots     # liste les sauvegardes datées (la plus récente en bas)
+tail -20 /var/log/backup-dolibarr.log   # journal de la derniere nuit
+restic stats         # taille reelle occupee
+restic check         # verifie l'integrite du depot (periodiquement)</code></pre>
+            <div class="alert alert-success"><div class="alert-icon">&#x2705;</div><div>Une sauvegarde saine = une ligne récente (date du jour) dans <code>restic snapshots</code> et une fin de journal sans erreur.</div></div>
+        </div>
+
+        <div class="section">
+            <h2>Restaurer</h2>
+            <p>Les commandes supposent les deux <code>export</code> ci-dessus déjà faits. On restaure toujours vers un dossier neuf (ex. <code>/restore</code>) pour ne rien écraser, puis on recopie ce qu'il faut.</p>
+
+            <h3>1. Voir ce qu'on peut restaurer</h3>
+            <pre><code>restic snapshots                  # choisir une date (noter son ID court)
+restic ls latest                  # lister les fichiers du dernier snapshot
+restic ls latest /var/backups/db  # voir les bases disponibles</code></pre>
+
+            <h3>2. Restaurer une instance complète (fichiers + base)</h3>
+            <p>Exemple pour une instance dont les fichiers sont dans <code>clientX/webY</code> et la base s'appelle <code>masite_db</code> :</p>
+            <pre><code># a) Fichiers de l'instance
+restic restore latest --target /restore \
+  --include /var/www/clients/clientX/webY
+
+# b) Dump de sa base
+restic restore latest --target /restore \
+  --include /var/backups/db/masite_db.sql
+
+# c) Reimporter la base
+mysql masite_db &lt; /restore/var/backups/db/masite_db.sql
+
+# d) Remettre les fichiers en place (ajuster proprietaire/chemin)
+rsync -a /restore/var/www/clients/clientX/webY/ /var/www/clients/clientX/webY/</code></pre>
+
+            <h3>3. Restaurer un seul fichier (ex. un document perdu)</h3>
+            <pre><code>restic restore latest --target /restore \
+  --include "/var/www/clients/clientX/webY/private/documents/xxx/fichier.pdf"</code></pre>
+
+            <h3>4. Restaurer une version d'il y a quelques jours</h3>
+            <pre><code>restic snapshots    # reperer l'ID de la date voulue (ex. a1b2c3d4)
+restic restore a1b2c3d4 --target /restore --include /var/backups/db/masite_db.sql</code></pre>
+
+            <h3>5. Réimporter une base directement</h3>
+            <pre><code>restic dump latest /var/backups/db/masite_db.sql | mysql masite_db</code></pre>
+
+            <h3>6. Parcourir la sauvegarde comme un disque</h3>
+            <pre><code>mkdir -p /mnt/restic
+restic mount /mnt/restic       # laisser tourner ; naviguer dans un 2e terminal
+#   ls /mnt/restic/snapshots/latest/var/www/clients/...
+#   (Ctrl+C pour demonter)</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>Reprise totale (le serveur est détruit)</h2>
+            <p>Scénario catastrophe : le serveur n'existe plus. On restaure depuis le NAS sur un serveur neuf.</p>
+            <div class="procedure">
+                <ol style="padding-left:20px;line-height:2;">
+                    <li>Provisionner un serveur neuf et réinstaller la même pile applicative.</li>
+                    <li>Installer les outils : <code>apt install restic rclone</code>.</li>
+                    <li>Récupérer sur le NAS le <strong>mot de passe du dépôt</strong> (copie déposée dans le dossier du dépôt).</li>
+                    <li>Recréer le remote rclone vers le NAS (mêmes paramètres de transport).</li>
+                    <li>Pointer restic sur le dépôt et le mot de passe récupéré, puis <code>restic restore latest --target /restore</code>.</li>
+                    <li>Réimporter chaque base (<code>/restore/var/backups/db/*.sql</code>) et remettre les fichiers (<code>/restore/var/www/clients/…</code>).</li>
+                    <li>Vérifier le fichier de configuration de chaque instance Dolibarr (<code>conf.php</code> : chemins, base). La clé de chiffrement interne de Dolibarr y est stockée, elle est donc préservée avec les fichiers.</li>
+                </ol>
+            </div>
+            <div class="alert alert-warning"><div class="alert-icon">&#x26A0;</div><div>Bonne pratique : déposer aussi un court fichier <code>LISEZMOI-restore.txt</code> à côté du dépôt sur le NAS, avec les commandes essentielles — la restauration reste possible même sans ce guide sous la main.</div></div>
+        </div>
+
+        <div class="section">
+            <h2>Dépannage</h2>
+            <div class="troubleshooting">
+                <h4>Pas de nouvelle sauvegarde depuis plusieurs jours</h4>
+                <p>Consulter le journal, puis lancer une sauvegarde manuelle (le script). Vérifier l'accès au NAS avec <code>rclone lsd nas:</code>.</p>
+            </div>
+            <div class="troubleshooting">
+                <h4>Erreur d'accès au NAS</h4>
+                <p>Vérifier que le NAS est joignable (port de transport ouvert, NAS allumé) et que les identifiants du remote rclone sont valides.</p>
+            </div>
+            <div class="troubleshooting">
+                <h4>« repository is already locked »</h4>
+                <p>Verrou résiduel après une interruption : <code>restic unlock</code> puis relancer.</p>
+            </div>
+            <div class="troubleshooting">
+                <h4>Vérifier que tout est réellement récupérable</h4>
+                <p><code>restic check</code> pour l'intégrité, et périodiquement un vrai test : restaurer vers un dossier temporaire, contrôler les fichiers, puis le supprimer. <strong>Une sauvegarde jamais testée ne vaut rien.</strong></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>À retenir</h2>
+            <ul class="checklist">
+                <li>Sauvegarde <strong>quotidienne automatique</strong>, chiffrée, vers un NAS — fichiers + bases.</li>
+                <li>Le <strong>mot de passe du dépôt</strong> est la clé de tout : en garder une copie <strong>hors du serveur</strong>.</li>
+                <li>Superviser = <code>restic snapshots</code> + le journal. Restaurer = <code>restic restore … --target /restore</code>.</li>
+                <li>Toute nouvelle instance est <strong>incluse automatiquement</strong>.</li>
+                <li>Rétention automatique : quotidiens, hebdomadaires, mensuels — purge gérée par restic.</li>
+                <li><strong>Tester la restauration</strong> régulièrement — c'est la seule preuve qu'une sauvegarde est bonne.</li>
+            </ul>
+        </div>
+
+        <div class="alert alert-info">
+            <div class="alert-icon">&#x1F4AC;</div>
+            <div>Besoin d'une stratégie de sauvegarde et de reprise d'activité fiable pour vos serveurs et vos ERP ? <strong>GiGaRuN</strong> conçoit, déploie et supervise vos sauvegardes chiffrées et vos plans de reprise. <a href="https://gigarun.re" target="_blank" rel="noopener">Contactez-nous</a>.</div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
+<script>
+(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
+</script>
+
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+
+<!-- Bouton retour en haut -->
+<button id="guide-back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:2rem;right:2rem;z-index:9999;width:44px;height:44px;border-radius:50%;background:#7C3AED;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateY(8px);box-shadow:0 4px 16px rgba(124,58,237,0.4);">
+  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function() {
+  var btn = document.getElementById('guide-back-to-top');
+  window.addEventListener('scroll', function() {
+    var show = window.scrollY > 400;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.pointerEvents = show ? 'auto' : 'none';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+  }, { passive: true });
+  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+</script>
+</Layout>

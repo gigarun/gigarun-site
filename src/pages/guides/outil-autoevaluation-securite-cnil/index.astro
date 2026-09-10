@@ -1,0 +1,362 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Auto-évaluation Sécurité des Données — Référentiel CNIL" description="Outil d&#x27;auto-évaluation de la sécurité des données personnelles basé sur les 25 mesures du guide CNIL. Statut de conformité, commentaires, score et export par GiGaRuN.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Sécurité</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight text-center" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Auto-évaluation Sécurité des Données — Référentiel CNIL</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Outil d&#x27;auto-évaluation de la sécurité des données personnelles basé sur les 25 mesures du guide CNIL. Statut de conformité, commentaires, score et export par GiGaRuN.</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bleu:#0088cc;--bleu-fonce:#004080;--hero1:#1a5276;--hero2:#2e86c1;--vert:#198754;--ambre:#f59e0b;--rouge:#dc3545;--gris:#6c757d}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:#f8f9fa}
+
+  .main-header{background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce));color:#fff;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+  .header-container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px;gap:15px;flex-wrap:wrap}
+  .logo-section{display:flex;align-items:center;gap:15px}
+  .company-tagline{font-size:.9em;opacity:.9}
+  .contact-item{font-size:.9em;opacity:.95}
+
+  .back-bar{max-width:1100px;margin:0 auto;padding:18px 20px 0}
+  .back-home{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:var(--bleu);color:#fff;text-decoration:none;border-radius:25px;font-weight:600;font-size:.88em}
+
+  .hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;padding:42px 20px;text-align:center;margin-top:18px}
+  .hero h1{font-size:2.1em;font-weight:300;margin-bottom:10px}
+  .hero p{font-size:1.08em;opacity:.92;max-width:760px;margin:0 auto}
+
+  .container{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
+
+  .meta-card,.scorecard,.actions{background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.07);padding:22px 24px;margin-bottom:22px}
+  .meta-card h2,.scorecard h2{font-size:1.15em;color:var(--hero1);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--hero2)}
+  .meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .field label{display:block;font-size:.85em;font-weight:600;color:#555;margin-bottom:5px}
+  .field input{width:100%;padding:10px 12px;border:1px solid #ced4da;border-radius:8px;font-size:.95em;font-family:inherit}
+  .field input:focus{outline:none;border-color:var(--hero2);box-shadow:0 0 0 3px rgba(46,134,193,.15)}
+
+  .score-top{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:18px}
+  .score-ring{flex-shrink:0;width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--vert) 0deg,#e9ecef 0deg);transition:background .4s}
+  .score-ring .inner{width:92px;height:92px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .score-ring .pct{font-size:1.8em;font-weight:800;color:var(--hero1);line-height:1}
+  .score-ring .lbl{font-size:.62em;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+  .score-note{font-size:.95em;color:#555;flex:1;min-width:200px}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+  .kpi{border-radius:10px;padding:14px;text-align:center;color:#fff}
+  .kpi .v{font-size:1.6em;font-weight:800;display:block}
+  .kpi .l{font-size:.78em;opacity:.92}
+  .kpi.c{background:var(--vert)} .kpi.p{background:var(--ambre)} .kpi.n{background:var(--rouge)} .kpi.na{background:var(--gris)} .kpi.todo{background:#495057}
+
+  .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .btn{border:none;border-radius:24px;padding:11px 20px;font-weight:700;font-size:.92em;cursor:pointer;color:#fff;display:inline-flex;align-items:center;gap:7px;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+  .btn-blue{background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce))}
+  .btn-green{background:linear-gradient(135deg,#198754,#20c997)}
+  .btn-grey{background:#6c757d}
+  .btn-red{background:#dc3545}
+  .save-state{font-size:.85em;color:var(--vert);font-weight:600;margin-left:auto}
+
+  .cat-block{margin-bottom:30px}
+  .cat-title{font-size:1.18em;color:var(--bleu-fonce);font-weight:700;margin:0 0 14px;padding:10px 16px;background:linear-gradient(135deg,#eaf4fb,#fff);border-left:5px solid var(--bleu);border-radius:0 8px 8px 0}
+
+  .fiche{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.06);padding:18px 20px;margin-bottom:14px;border-left:5px solid #e9ecef;transition:border-color .3s}
+  .fiche.s-conforme{border-left-color:var(--vert)} .fiche.s-partiel{border-left-color:var(--ambre)} .fiche.s-non{border-left-color:var(--rouge)} .fiche.s-na{border-left-color:var(--gris)}
+  .fiche-head{display:flex;align-items:flex-start;gap:14px}
+  .fiche-num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .fiche-txt h3{font-size:1.08em;color:#222;margin:0 0 3px}
+  .fiche-txt p{font-size:.9em;color:#666;margin:0}
+
+  .seg{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding-left:52px}
+  .seg button{border:2px solid #dee2e6;background:#fff;color:#555;border-radius:20px;padding:6px 16px;font-size:.85em;font-weight:600;cursor:pointer;transition:all .2s}
+  .seg button:hover{border-color:#adb5bd}
+  .seg button.on[data-v="conforme"]{background:var(--vert);border-color:var(--vert);color:#fff}
+  .seg button.on[data-v="partiel"]{background:var(--ambre);border-color:var(--ambre);color:#fff}
+  .seg button.on[data-v="non"]{background:var(--rouge);border-color:var(--rouge);color:#fff}
+  .seg button.on[data-v="na"]{background:var(--gris);border-color:var(--gris);color:#fff}
+  .fiche textarea{width:calc(100% - 52px);margin-left:52px;margin-top:12px;padding:9px 12px;border:1px solid #ced4da;border-radius:8px;font-family:inherit;font-size:.9em;resize:vertical;min-height:40px}
+  .fiche textarea:focus{outline:none;border-color:var(--hero2)}
+
+  .disclaimer{background:#fff3cd;border-left:5px solid var(--ambre);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.9em;color:#5b4a08;margin-top:10px}
+
+  .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:40px 0 20px;margin-top:20px}
+  .footer-container{max-width:1100px;margin:0 auto;padding:0 20px}
+  .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+  .footer-section{flex:1;min-width:200px}
+  .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+  .footer-section ul{list-style:none;padding:0}
+  .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,.2)}
+  .footer-section a{color:#bdc3c7;text-decoration:none;transition:color .3s}
+  .footer-section a:hover{color:#3498db}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:20px;text-align:center;color:#bdc3c7}
+  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+
+  .print-only{display:none}
+
+  @media(max-width:600px){
+    .hero h1{font-size:1.5em}.seg{padding-left:0}.fiche textarea{width:100%;margin-left:0}
+    .header-container{flex-direction:column;gap:8px}
+  }
+
+  @media print{
+    body{background:#fff}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .back-bar,.actions,.hero p,.main-header .contact-item{display:none}
+    .hero{margin-top:0;padding:18px}.hero h1{font-size:1.4em}
+    .container{padding:10px 0}
+    .meta-card,.scorecard,.fiche{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+    .seg button:not(.on){display:none}
+    .seg button.on{-webkit-print-color-adjust:exact}
+    .fiche textarea{border:none;padding-left:0}
+    .print-only{display:block;text-align:right;font-size:.85em;color:#666;padding:6px 20px}
+    .btn,.save-state{display:none}
+  }
+</style>
+
+
+
+
+
+
+<section class="hero">
+  <h1>Auto-évaluation Sécurité des Données</h1>
+  <p>Évaluez le niveau de protection des données personnelles de votre organisme face aux 25 mesures du <strong>Guide de la sécurité des données personnelles de la CNIL</strong>. Outil d'audit GiGaRuN — RSSI / DPO externalisé.</p>
+</section>
+
+<main class="container">
+
+  <div class="meta-card">
+    <h2>Contexte de l'évaluation</h2>
+    <div class="meta-grid">
+      <div class="field"><label for="m-org">Organisme évalué</label><input id="m-org" type="text" placeholder="Nom de l'entreprise / organisation"></div>
+      <div class="field"><label for="m-aud">Évaluateur</label><input id="m-aud" type="text" placeholder="Nom de l'auditeur (GiGaRuN)"></div>
+      <div class="field"><label for="m-date">Date</label><input id="m-date" type="date"></div>
+    </div>
+  </div>
+
+  <div class="scorecard">
+    <h2>Synthèse de conformité</h2>
+    <div class="score-top">
+      <div class="score-ring" id="ring"><div class="inner"><span class="pct" id="pct">0%</span><span class="lbl">conformité</span></div></div>
+      <div class="score-note" id="scoreNote">Sélectionnez un statut pour chaque mesure. Le taux est calculé sur les mesures évaluées (hors « Non applicable ») : Conforme = 100&nbsp;%, Partiel = 50&nbsp;%.</div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi c"><span class="v" id="k-c">0</span><span class="l">Conforme</span></div>
+      <div class="kpi p"><span class="v" id="k-p">0</span><span class="l">Partiel</span></div>
+      <div class="kpi n"><span class="v" id="k-n">0</span><span class="l">Non conforme</span></div>
+      <div class="kpi na"><span class="v" id="k-na">0</span><span class="l">Non applicable</span></div>
+      <div class="kpi todo"><span class="v" id="k-todo">25</span><span class="l">À évaluer</span></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-green" onclick="exportJSON()">&#x2B07; Exporter (JSON)</button>
+    <button class="btn btn-blue" onclick="document.getElementById('importFile').click()">&#x2B06; Importer</button>
+    <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(event)">
+    <button class="btn btn-blue" onclick="window.print()">&#x1F5A8; Imprimer / PDF</button>
+    <button class="btn btn-red" onclick="resetAll()">&#x21BB; Réinitialiser</button>
+    <span class="save-state" id="saveState"></span>
+  </div>
+
+  <div class="print-only" id="printStamp"></div>
+
+  <div id="fiches"></div>
+
+  <div class="disclaimer">
+    <strong>Avertissement :</strong> cet outil est une aide à l'auto-évaluation inspirée du référentiel CNIL. Il ne constitue ni un audit certifié, ni une attestation de conformité au RGPD. Les résultats doivent être interprétés et complétés par une analyse de risques (fiche&nbsp;20) menée avec votre DPO / RSSI.
+  </div>
+
+</main>
+
+
+
+<script>
+const FICHES = [
+  {n:1,  c:"Gouvernance & organisation", t:"Piloter la sécurité des données", o:"Mettre en place et maintenir dans la durée la protection exigée par le RGPD et les cadres sectoriels."},
+  {n:2,  c:"Gouvernance & organisation", t:"Définir un cadre pour les utilisateurs", o:"Donner une force contraignante aux règles d'usage des outils (charte informatique)."},
+  {n:3,  c:"Gouvernance & organisation", t:"Impliquer et former les utilisateurs", o:"Sensibiliser chaque utilisateur aux enjeux de sécurité et de vie privée."},
+  {n:14, c:"Gouvernance & organisation", t:"Gérer la sous-traitance", o:"Encadrer contractuellement la sécurité des données chez les sous-traitants (art. 28)."},
+  {n:20, c:"Gouvernance & organisation", t:"Analyse de risques", o:"Identifier les risques, évaluer vraisemblance et gravité, choisir des mesures adaptées."},
+
+  {n:4,  c:"Authentification & accès", t:"Authentifier les utilisateurs", o:"Reconnaître les utilisateurs avant d'accorder les accès (mots de passe robustes, MFA)."},
+  {n:5,  c:"Authentification & accès", t:"Gérer les habilitations", o:"Limiter les accès aux seules données nécessaires (moindre privilège, revues régulières)."},
+
+  {n:6,  c:"Postes de travail & mobilité", t:"Sécuriser les postes de travail", o:"Prévenir accès frauduleux, programmes malveillants et prise de contrôle à distance."},
+  {n:7,  c:"Postes de travail & mobilité", t:"Sécuriser l'informatique mobile", o:"Anticiper la perte ou le vol et la fuite hors des locaux (chiffrement, MDM)."},
+
+  {n:8,  c:"Infrastructure & réseau", t:"Protéger le réseau informatique", o:"N'autoriser que les flux nécessaires (cloisonnement, pare-feu, filtrage)."},
+  {n:9,  c:"Infrastructure & réseau", t:"Sécuriser les serveurs", o:"Durcir la configuration et restreindre les accès aux serveurs."},
+  {n:10, c:"Infrastructure & réseau", t:"Sécuriser les sites web", o:"Appliquer les bonnes pratiques minimales (HTTPS, en-têtes, mises à jour)."},
+  {n:12, c:"Infrastructure & réseau", t:"Protéger les locaux", o:"Renforcer la sécurité physique des locaux hébergeant serveurs et matériels réseau."},
+  {n:15, c:"Infrastructure & réseau", t:"Encadrer la maintenance et la fin de vie", o:"Garantir la sécurité des données sur tout le cycle de vie matériel et logiciel (effacement sécurisé)."},
+
+  {n:13, c:"Données, échanges & traçabilité", t:"Sécuriser les échanges avec l'extérieur", o:"Sécuriser toute transmission de données (chiffrement, canaux protégés)."},
+  {n:16, c:"Données, échanges & traçabilité", t:"Tracer les opérations", o:"Journaliser pour détecter anomalies et incidents et disposer des éléments d'investigation."},
+  {n:21, c:"Données, échanges & traçabilité", t:"Chiffrement, hachage, signature", o:"Assurer intégrité, confidentialité et authenticité des informations."},
+
+  {n:17, c:"Résilience", t:"Sauvegarder", o:"Réaliser des sauvegardes régulières et testées pour limiter l'impact d'une perte ou altération."},
+  {n:18, c:"Résilience", t:"Prévoir la continuité et la reprise d'activité", o:"Fonctionner en mode dégradé et redémarrer sans compromettre la sécurité des données (PCA/PRA)."},
+  {n:19, c:"Résilience", t:"Gérer les incidents et les violations", o:"Procédures de gestion d'incident + notification CNIL sous 72 h en cas de violation."},
+
+  {n:11, c:"Domaines spécifiques", t:"Encadrer les développements informatiques", o:"Intégrer sécurité et protection des données au plus tôt (privacy by design)."},
+  {n:22, c:"Domaines spécifiques", t:"Cloud : informatique en nuage", o:"Sécuriser données et traitements dans le cloud (responsabilités partagées, localisation)."},
+  {n:23, c:"Domaines spécifiques", t:"Applications mobiles : conception", o:"Appliquer les principes de sécurité de base au développement d'applications mobiles."},
+  {n:24, c:"Domaines spécifiques", t:"Intelligence artificielle : conception", o:"Se doter des ressources pour des systèmes d'IA robustes, fiables et conformes."},
+  {n:25, c:"Domaines spécifiques", t:"API : interfaces de programmation", o:"Sécuriser les données partagées via API (authentification, contrôle d'accès, quotas)."}
+];
+const LABELS = {conforme:"Conforme", partiel:"Partiel", non:"Non conforme", na:"N/A"};
+const KEY = "gigarun-cnil-audit-v1";
+let state = {meta:{org:"",aud:"",date:""}, items:{}};
+
+function load(){
+  try{const raw=localStorage.getItem(KEY); if(raw){const s=JSON.parse(raw); if(s&&s.items){state=s;}}}catch(e){}
+}
+function save(){
+  try{localStorage.setItem(KEY, JSON.stringify(state)); flashSaved();}catch(e){}
+}
+function flashSaved(){
+  const el=document.getElementById('saveState');
+  el.textContent="\u2713 Enregistré localement";
+  clearTimeout(el._t); el._t=setTimeout(()=>{el.textContent="";},1800);
+}
+
+function render(){
+  const root=document.getElementById('fiches'); root.innerHTML="";
+  const cats=[]; FICHES.forEach(f=>{if(!cats.includes(f.c))cats.push(f.c);});
+  cats.forEach(cat=>{
+    const block=document.createElement('div'); block.className="cat-block";
+    block.innerHTML='<div class="cat-title">'+cat+'</div>';
+    FICHES.filter(f=>f.c===cat).forEach(f=>{
+      const it=state.items[f.n]||{};
+      const card=document.createElement('div');
+      card.className="fiche"+(it.status?" s-"+it.status:"");
+      card.id="fiche-"+f.n;
+      let segs="";
+      ["conforme","partiel","non","na"].forEach(v=>{
+        segs+='<button data-v="'+v+'" class="'+(it.status===v?"on":"")+'" onclick="setStatus('+f.n+',\''+v+'\')">'+LABELS[v]+'</button>';
+      });
+      card.innerHTML=
+        '<div class="fiche-head"><div class="fiche-num">'+f.n+'</div>'+
+        '<div class="fiche-txt"><h3>'+f.t+'</h3><p>'+f.o+'</p></div></div>'+
+        '<div class="seg">'+segs+'</div>'+
+        '<textarea placeholder="Commentaire, écart constaté, action corrective\u2026" oninput="setComment('+f.n+',this.value)">'+(it.comment||"")+'</textarea>';
+      block.appendChild(card);
+    });
+    root.appendChild(block);
+  });
+}
+
+function setStatus(n,v){
+  if(!state.items[n])state.items[n]={};
+  state.items[n].status = (state.items[n].status===v)? null : v;
+  const card=document.getElementById('fiche-'+n);
+  card.className="fiche"+(state.items[n].status?" s-"+state.items[n].status:"");
+  card.querySelectorAll('.seg button').forEach(b=>{
+    b.classList.toggle('on', b.dataset.v===state.items[n].status);
+  });
+  recompute(); save();
+}
+function setComment(n,val){
+  if(!state.items[n])state.items[n]={};
+  state.items[n].comment=val; save();
+}
+
+function recompute(){
+  let c=0,p=0,nn=0,na=0;
+  FICHES.forEach(f=>{const s=(state.items[f.n]||{}).status;
+    if(s==="conforme")c++; else if(s==="partiel")p++; else if(s==="non")nn++; else if(s==="na")na++;});
+  const evaluated=c+p+nn;
+  const todo=FICHES.length-c-p-nn-na;
+  const pct=evaluated>0?Math.round((c+0.5*p)/evaluated*100):0;
+  document.getElementById('k-c').textContent=c;
+  document.getElementById('k-p').textContent=p;
+  document.getElementById('k-n').textContent=nn;
+  document.getElementById('k-na').textContent=na;
+  document.getElementById('k-todo').textContent=todo;
+  document.getElementById('pct').textContent=pct+"%";
+  const col = pct>=80?"#198754":(pct>=50?"#f59e0b":"#dc3545");
+  document.getElementById('ring').style.background="conic-gradient("+col+" "+(pct*3.6)+"deg,#e9ecef "+(pct*3.6)+"deg)";
+  document.getElementById('pct').style.color=col;
+}
+
+function bindMeta(){
+  const map={org:"m-org",aud:"m-aud",date:"m-date"};
+  Object.keys(map).forEach(k=>{
+    const el=document.getElementById(map[k]);
+    el.value=state.meta[k]||"";
+    el.addEventListener('input',()=>{state.meta[k]=el.value; save(); stamp();});
+  });
+}
+function stamp(){
+  const s=state.meta;
+  document.getElementById('printStamp').textContent=
+    (s.org?("Organisme : "+s.org+"  \u2022  "):"")+(s.aud?("Évaluateur : "+s.aud+"  \u2022  "):"")+(s.date?("Date : "+s.date):"");
+}
+
+function exportJSON(){
+  const data=JSON.stringify(state,null,2);
+  const blob=new Blob([data],{type:"application/json"});
+  const a=document.createElement('a');
+  const tag=(state.meta.org||"organisme").replace(/[^a-z0-9]+/gi,"_").toLowerCase();
+  a.href=URL.createObjectURL(blob);
+  a.download="audit_cnil_"+tag+"_"+(state.meta.date||new Date().toISOString().slice(0,10))+".json";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+function importJSON(ev){
+  const file=ev.target.files[0]; if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{try{const s=JSON.parse(r.result); if(s&&s.items){state=s; init(false);}else{alert("Fichier invalide.");}}catch(e){alert("Lecture impossible : "+e.message);}};
+  r.readAsText(file); ev.target.value="";
+}
+function resetAll(){
+  if(!confirm("Réinitialiser toute l'évaluation ? Cette action efface les statuts, commentaires et le contexte."))return;
+  state={meta:{org:"",aud:"",date:""}, items:{}};
+  try{localStorage.removeItem(KEY);}catch(e){}
+  init(false);
+}
+
+function init(doLoad){
+  if(doLoad)load();
+  render(); bindMeta(); recompute(); stamp();
+}
+init(true);
+</script>
+
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+
+<!-- Bouton retour en haut -->
+<button id="guide-back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:2rem;right:2rem;z-index:9999;width:44px;height:44px;border-radius:50%;background:#7C3AED;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateY(8px);box-shadow:0 4px 16px rgba(124,58,237,0.4);">
+  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function() {
+  var btn = document.getElementById('guide-back-to-top');
+  window.addEventListener('scroll', function() {
+    var show = window.scrollY > 400;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.pointerEvents = show ? 'auto' : 'none';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+  }, { passive: true });
+  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+</script>
+</Layout>

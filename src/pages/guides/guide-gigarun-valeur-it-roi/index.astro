@@ -1,0 +1,585 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="La valeur de votre informatique se mesure" description="Comment mesurer concrètement la valeur d&#x27;un prestataire informatique : indicateurs, tableau de bord et traduction financière du ROI pour les dirigeants de PME.">
+<div style="background:#07001C;padding-top:8rem;padding-bottom:2rem;">
+  <div style="max-width:56rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+    <div class="flex items-center gap-3 mb-3" style="justify-content:center;">
+      <a href="/blog" class="text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">← Blog &amp; Guides</a>
+    </div>
+    <div class="flex items-center gap-2 mb-2" style="justify-content:center;">
+      <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Gestion IT</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight text-center" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">La valeur de votre informatique se mesure</h1>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Comment mesurer concrètement la valeur d&#x27;un prestataire informatique : indicateurs, tableau de bord et traduction financière du ROI pour les dirigeants de PME.</p>
+  </div>
+</div>
+
+<!-- Contenu guide avec son propre style -->
+<div id="guide-wrapper">
+<style>
+  :root{
+    --navy:#0B1E33;
+    --navy-2:#12263f;
+    --cyan:#00A8E8;
+    --cyan-soft:#e6f6fd;
+    --green:#1FB57A;
+    --green-soft:#e7f7f0;
+    --amber:#E8A33D;
+    --amber-soft:#fbf1de;
+    --red:#D9534F;
+    --ink:#1a2a3a;
+    --muted:#5b6b7b;
+    --line:#e4e9ef;
+    --bg:#f5f8fb;
+    --card:#ffffff;
+    --radius:16px;
+    --shadow:0 6px 24px rgba(11,30,51,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* HERO */
+  header.hero{
+    background:radial-gradient(1200px 500px at 80% -10%,rgba(0,168,232,.28),transparent 60%),
+               linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
+    color:#fff;padding:64px 0 76px;position:relative;overflow:hidden;
+  }
+  .kicker{
+    display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--cyan);font-weight:700;margin-bottom:18px;
+    border:1px solid rgba(0,168,232,.4);padding:6px 14px;border-radius:999px;
+  }
+  header.hero h1{
+    font-size:clamp(28px,5vw,44px);line-height:1.15;margin:.2em 0 .35em;font-weight:800;letter-spacing:-.01em;
+  }
+  header.hero p.lead{font-size:clamp(17px,2.4vw,20px);color:#c7d5e3;max-width:680px;margin:0}
+  .hero-meta{margin-top:30px;font-size:14px;color:#8ea3b8}
+
+  /* SECTIONS */
+  main{padding:52px 0}
+  section{margin-bottom:46px}
+  h2{font-size:clamp(22px,3.4vw,30px);line-height:1.2;margin:0 0 .5em;font-weight:800;letter-spacing:-.01em}
+  h2 .n{color:var(--cyan);font-variant-numeric:tabular-nums;margin-right:.35em}
+  h3{font-size:19px;margin:1.4em 0 .5em;font-weight:700}
+  p{margin:0 0 1.05em}
+  .muted{color:var(--muted)}
+
+  .lead-block{font-size:18px;color:var(--navy)}
+
+  /* PULL / CALLOUT */
+  .callout{
+    background:var(--card);border-left:5px solid var(--cyan);border-radius:12px;
+    padding:20px 24px;margin:26px 0;box-shadow:var(--shadow);
+  }
+  .callout.warn{border-left-color:var(--amber)}
+  .callout strong{color:var(--navy)}
+
+  .quote{
+    font-size:20px;font-style:italic;color:var(--navy);border:0;
+    padding:8px 0 8px 24px;border-left:3px solid var(--green);margin:26px 0;
+  }
+
+  /* KPI CARDS */
+  .grid{display:grid;gap:18px}
+  .grid.two{grid-template-columns:repeat(2,1fr)}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:680px){.grid.two,.grid.three{grid-template-columns:1fr}}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+  }
+  .card .icon{font-size:22px;margin-bottom:6px}
+  .card h4{margin:0 0 8px;font-size:17px;color:var(--navy)}
+  .card ul{margin:0;padding-left:18px}
+  .card li{margin-bottom:6px;font-size:15px}
+  .card li b{color:var(--navy)}
+
+  .stat{
+    background:var(--card);border-radius:var(--radius);padding:24px 22px;text-align:center;
+    border:1px solid var(--line);box-shadow:var(--shadow);
+  }
+  .stat .big{font-size:34px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.02em}
+  .stat .big.red{color:var(--red)}
+  .stat .lbl{font-size:14px;color:var(--muted);margin-top:8px}
+
+  /* TABLE */
+  .tablewrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line)}
+  table{border-collapse:collapse;width:100%;background:var(--card);font-size:15px;min-width:560px}
+  th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:var(--navy);color:#fff;font-weight:600;font-size:14px;letter-spacing:.02em}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:nth-child(even){background:#fafcfe}
+  td .kpi{font-weight:700;color:var(--navy);white-space:nowrap}
+  .pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+  .pill.good{background:var(--green-soft);color:var(--green)}
+  .pill.risk{background:var(--amber-soft);color:#b57a1e}
+
+  /* FORMULA */
+  .formula{
+    background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#fff;border-radius:var(--radius);
+    padding:30px 26px;text-align:center;box-shadow:var(--shadow);
+  }
+  .formula .eq{font-size:clamp(17px,2.6vw,22px);font-weight:700;line-height:1.7}
+  .formula .eq span{color:var(--cyan)}
+  .formula small{display:block;color:#9fb3c8;margin-top:14px;font-size:14px}
+
+  /* CTA */
+  .cta{
+    background:var(--card);border:1px solid var(--line);border-top:4px solid var(--cyan);
+    border-radius:var(--radius);padding:32px 28px;text-align:center;box-shadow:var(--shadow);
+  }
+  .cta h2{margin-bottom:.3em}
+  .btn{
+    display:inline-block;background:var(--cyan);color:#fff;font-weight:700;padding:13px 28px;
+    border-radius:999px;margin-top:12px;box-shadow:0 6px 16px rgba(0,168,232,.3);
+  }
+  .btn:hover{text-decoration:none;background:#0093cc}
+  .cta-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:18px}
+  .btn-alt{display:inline-flex;align-items:center;gap:7px;background:var(--cyan-soft);color:var(--navy);font-weight:600;font-size:14px;padding:10px 18px;border-radius:999px;border:1px solid rgba(0,168,232,.25);transition:transform .15s,box-shadow .15s}
+  .btn-alt:hover{text-decoration:none;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,168,232,.2)}
+
+  /* FOOTER */
+  .sources{font-size:12.5px;color:var(--muted);margin-top:34px;border-top:1px solid var(--line);padding-top:18px}
+  .sources a{color:var(--muted);text-decoration:underline}
+
+  /* TWO AXES */
+  .axes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 4px}
+  @media(max-width:680px){.axes{grid-template-columns:1fr}}
+  .axis{border-radius:14px;padding:18px 20px;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+  .axis .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .axis b{display:block;font-size:18px;color:var(--navy)}
+  .axis small{color:var(--muted);font-size:14px;display:block;margin-top:4px}
+  .axis.def{border-top:4px solid var(--amber)}
+  .axis.def .tag{background:var(--amber-soft);color:#b57a1e}
+  .axis.off{border-top:4px solid var(--green)}
+  .axis.off .tag{background:var(--green-soft);color:var(--green)}
+
+  .card.value{border-top:4px solid var(--green)}
+  .card .kpiline{margin-top:10px;font-size:13px;color:var(--green);font-weight:700;border-top:1px dashed var(--line);padding-top:8px}
+  .card .kpiline::before{content:"📏 ";}
+
+  /* --- Chrome GiGaRuN (en-tête de marque, retour, footer collection) --- */
+  .main-header{background:linear-gradient(135deg,#0088cc,#004080);color:#fff;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+  .header-container{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px;gap:14px;flex-wrap:wrap}
+  .logo-section{display:flex;align-items:center;gap:15px}
+  .company-info{display:flex;flex-direction:column}
+  .company-tagline{font-size:.9em;opacity:.9;color:#fff}
+  .contact-header{display:flex;align-items:center;gap:30px}
+  .contact-item{font-size:.9em;opacity:.95;color:#fff}
+  .back-bar{max-width:1200px;margin:0 auto;padding:18px 22px 0}
+  .back-home{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--cyan);color:#fff;text-decoration:none;border-radius:25px;font-weight:600;font-size:.9em;transition:transform .2s,box-shadow .2s}
+  .back-home:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,168,232,.4);text-decoration:none}
+  .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:40px 0 20px}
+  .footer-container{max-width:1200px;margin:0 auto;padding:0 20px}
+  .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+  .footer-section{flex:1;min-width:200px}
+  .footer-section h4{color:#3498db;margin:0 0 15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
+  .footer-section ul{list-style:none;padding:0;margin:0}
+  .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,.2)}
+  .footer-section a{color:#bdc3c7;text-decoration:none;transition:color .3s}
+  .footer-section a:hover{color:#3498db;text-decoration:none}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:20px;text-align:center;color:#bdc3c7;font-size:13px}
+  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+  #scrollTop{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;border:none;font-size:1.4em;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .2s;z-index:999;display:flex;align-items:center;justify-content:center}
+  #scrollTop.visible{opacity:1;visibility:visible}
+  #scrollTop:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+  @media print{.main-header,.back-bar,#scrollTop{display:none}.main-footer{break-inside:avoid}}
+</style>
+
+
+
+
+
+
+
+
+<main class="wrap">
+
+  <section>
+    <p class="lead-block">Un bon prestataire informatique a un défaut structurel&nbsp;: <strong>quand il fait bien son travail, il ne se passe rien.</strong> Pas de panne, pas de rançongiciel, pas de données perdues, pas de client mécontent. Or l'absence d'incident ne se voit pas sur une facture. C'est tout le paradoxe des métiers de l'IT aux yeux des dirigeants&nbsp;: comment valoriser un risque qui ne s'est pas produit&nbsp;?</p>
+    <p>La réponse tient en une phrase&nbsp;: <strong>on transforme l'invisible en mesurable.</strong> Une prestation IT sérieuse ne se juge pas au ressenti («&nbsp;ça marche à peu près&nbsp;»), mais à un tableau de bord d'indicateurs, exactement comme vous suivez votre trésorerie ou votre marge. Cet article vous donne ces indicateurs, puis les convertit en ce qui vous parle vraiment&nbsp;: de l'argent gagné ou évité.</p>
+    <p>Et parce que la valeur d'un prestataire ne se limite pas à vous protéger, cet article suit <strong>deux axes complémentaires</strong>&nbsp;: ce qu'il vous évite de <em>perdre</em> (le risque), et ce qu'il vous aide à <em>gagner et à décider</em> (la valeur créée).</p>
+    <div class="axes">
+      <div class="axis def"><span class="tag">Axe défensif</span><b>Éviter de perdre</b><small>Sécurité, sauvegarde, continuité, conformité — le coût du sinistre écarté.</small></div>
+      <div class="axis off"><span class="tag">Axe offensif</span><b>Aider à gagner</b><small>Pilotage, conseil, adoption, automatisation — la performance et la décision.</small></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">1.</span>Valeur perçue et ROI&nbsp;: le vrai malentendu</h2>
+    <p>Deux logiques s'affrontent souvent dans la tête d'un dirigeant. La première dit&nbsp;: «&nbsp;<em>Je paie tous les mois pour un service dont je ne vois pas le résultat.</em>&nbsp;» La seconde, celle du prestataire, dit&nbsp;: «&nbsp;<em>Chaque mois où il ne vous arrive rien, j'ai fait mon travail.</em>&nbsp;»</p>
+    <p>Le malentendu vient d'une confusion entre <strong>coût</strong> et <strong>investissement</strong>. Un coût, c'est de l'argent qui sort. Un investissement, c'est de l'argent qui vous <strong>protège d'une sortie beaucoup plus grande</strong> ou qui vous <strong>fait gagner du temps facturable</strong>. L'informatique bien gérée est un investissement — encore faut-il le prouver avec des chiffres.</p>
+    <blockquote class="quote">La sécurité, la sauvegarde et le support, c'est comme les freins d'une voiture&nbsp;: on ne les remarque que le jour où ils manquent. Le rôle d'un bon prestataire, c'est justement que ce jour n'arrive jamais.</blockquote>
+    <div class="callout">
+      <p style="margin:0"><strong>La bonne question n'est pas «&nbsp;combien ça coûte&nbsp;?»</strong> mais «&nbsp;combien me coûterait son absence&nbsp;?». Les deux tiers de ce document répondent précisément à cette question, chiffres à l'appui.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">2.</span>Les indicateurs mesurables&nbsp;: votre tableau de bord IT</h2>
+    <p>Voici les KPI qu'un prestataire sérieux doit pouvoir vous présenter, domaine par domaine. Aucun n'est technique au point d'être incompréhensible&nbsp;: chacun répond à une question simple de dirigeant.</p>
+
+    <div class="grid two" style="margin-top:22px">
+
+      <div class="card">
+        <div class="icon">🖥️</div>
+        <h4>Infogérance &amp; support</h4>
+        <ul>
+          <li><b>Taux de disponibilité</b> de vos systèmes (objectif&nbsp;: 99,5&nbsp;% et +)</li>
+          <li><b>Délai de prise en charge</b> d'une demande (ex. &lt; 30 min)</li>
+          <li><b>Temps moyen de résolution (MTTR)</b> d'un incident</li>
+          <li><b>Nombre de tickets</b> traités / récurrents évités</li>
+          <li><b>Taux de résolution au 1<sup>er</sup> contact</b></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="icon">🛡️</div>
+        <h4>Cybersécurité</h4>
+        <ul>
+          <li><b>Score de posture cyber</b> (diagnostic, évolution dans le temps)</li>
+          <li><b>Vulnérabilités critiques</b> détectées / corrigées</li>
+          <li><b>Tentatives d'intrusion bloquées</b> (supervision Wazuh)</li>
+          <li><b>Taux de clic au phishing</b> lors des campagnes de test</li>
+          <li><b>Délai de détection</b> d'un incident (objectif&nbsp;: heures, pas semaines)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="icon">💾</div>
+        <h4>Sauvegarde &amp; continuité</h4>
+        <ul>
+          <li><b>Taux de sauvegardes réussies</b> et <b>vérifiées</b> (le chiffre clé&nbsp;!)</li>
+          <li><b>RPO</b> — combien de données au pire vous perdriez (ex. 1h)</li>
+          <li><b>RTO</b> — en combien de temps vous repartez (ex. 4h)</li>
+          <li><b>Tests de restauration</b> réellement effectués / an</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="icon">📊</div>
+        <h4>ERP / CRM &amp; métier</h4>
+        <ul>
+          <li><b>Heures gagnées</b> par l'automatisation (ex. passerelle compta)</li>
+          <li><b>Erreurs de saisie évitées</b> (double saisie supprimée)</li>
+          <li><b>Délai de clôture / facturation</b> raccourci</li>
+          <li><b>Taux d'adoption</b> des outils par vos équipes</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="icon">⚖️</div>
+        <h4>Conformité (RGPD / RSSI / DPO)</h4>
+        <ul>
+          <li><b>Niveau de conformité RGPD</b> (registre, mesures techniques)</li>
+          <li><b>Écarts corrigés</b> sur l'année</li>
+          <li><b>Sensibilisation des équipes</b> (collaborateurs formés)</li>
+          <li><b>Exposition au risque de sanction</b> réduite (voir §3)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="icon">☁️</div>
+        <h4>Cloud &amp; messagerie</h4>
+        <ul>
+          <li><b>Disponibilité de la messagerie</b> (Microsoft 365 / Workspace)</li>
+          <li><b>Performance web</b> (score PageSpeed, temps de chargement)</li>
+          <li><b>Coûts cloud optimisés</b> (licences réellement utilisées)</li>
+          <li><b>Réplication serveurs</b> opérationnelle et testée</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="callout warn" style="margin-top:26px">
+      <p style="margin:0"><strong>Le piège le plus courant&nbsp;:</strong> une entreprise sur deux croit être sauvegardée… jusqu'au jour où la restauration échoue. Un taux de «&nbsp;sauvegarde réussie&nbsp;» ne vaut rien sans un taux de <strong>restauration testée</strong>. C'est le premier indicateur à exiger de n'importe quel prestataire.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3.</span>La traduction financière&nbsp;: le coût du risque évité</h2>
+    <p>Les KPI, c'est le langage de l'ingénieur. Voici maintenant le vôtre&nbsp;: des euros. Chaque indicateur ci-dessus protège contre une dépense parfaitement chiffrable. Les ordres de grandeur qui suivent proviennent de baromètres et de sanctions publiques récentes (sources en bas de page).</p>
+
+    <div class="grid three" style="margin-top:22px">
+      <div class="stat">
+        <div class="big red">130&nbsp;k–250&nbsp;k€</div>
+        <div class="lbl">Coût moyen d'un rançongiciel pour une PME, interruption comprise</div>
+      </div>
+      <div class="stat">
+        <div class="big red">~466&nbsp;k€</div>
+        <div class="lbl">Coût moyen tous scénarios d'une cyberattaque pour une PME française</div>
+      </div>
+      <div class="stat">
+        <div class="big red">60&nbsp;%</div>
+        <div class="lbl">des PME victimes ferment dans les 18 mois suivant l'attaque</div>
+      </div>
+    </div>
+
+    <div class="grid three" style="margin-top:18px">
+      <div class="stat">
+        <div class="big">7,5&nbsp;k–500&nbsp;k€</div>
+        <div class="lbl">Fourchette d'amende CNIL pour un manquement RGPD en PME/TPE</div>
+      </div>
+      <div class="stat">
+        <div class="big">240&nbsp;k€</div>
+        <div class="lbl">CA reporté par un éditeur de 45 salariés après 19 jours d'arrêt partiel</div>
+      </div>
+      <div class="stat">
+        <div class="big">87</div>
+        <div class="lbl">sanctions CNIL en 2024, dont un nombre croissant visant des PME</div>
+      </div>
+    </div>
+
+    <h3>Comment lire ces chiffres pour VOTRE entreprise</h3>
+    <p>Chaque prestation se «&nbsp;paie&nbsp;» en comparant son coût annuel au montant qu'elle vous évite de perdre, pondéré par la probabilité que le sinistre survienne. Le tableau ci-dessous fait le pont entre l'indicateur technique et l'euro.</p>
+
+    <div class="tablewrap" style="margin-top:18px">
+      <table>
+        <thead>
+          <tr>
+            <th>Ce que fait le prestataire</th>
+            <th>L'indicateur suivi</th>
+            <th>Ce que ça vous évite (ordre de grandeur)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Supervision cyber &amp; correctifs</td>
+            <td><span class="kpi">Intrusions bloquées, vulns corrigées</span></td>
+            <td>Un ransomware à <b>130 k–250 k€</b> <span class="pill risk">risque vital</span></td>
+          </tr>
+          <tr>
+            <td>Sauvegarde + restauration testée</td>
+            <td><span class="kpi">RPO / RTO, tests réussis</span></td>
+            <td>La <b>perte définitive</b> de vos données et de votre historique client</td>
+          </tr>
+          <tr>
+            <td>Support réactif &amp; disponibilité</td>
+            <td><span class="kpi">99,5 %+ · MTTR faible</span></td>
+            <td>Des <b>heures d'arrêt</b> à ~ CA horaire × nb de postes bloqués</td>
+          </tr>
+          <tr>
+            <td>Conformité RGPD (DPO externalisé)</td>
+            <td><span class="kpi">Niveau de conformité, écarts corrigés</span></td>
+            <td>Une amende de <b>7,5 k à 500 k€</b> + atteinte à la réputation</td>
+          </tr>
+          <tr>
+            <td>Automatisation ERP / passerelles</td>
+            <td><span class="kpi">Heures gagnées, erreurs évitées</span></td>
+            <td>Du <b>temps salarié</b> rendu au métier <span class="pill good">gain direct</span></td>
+          </tr>
+          <tr>
+            <td>Sensibilisation anti-phishing</td>
+            <td><span class="kpi">Taux de clic en baisse</span></td>
+            <td>La porte d'entrée n°1 des attaques… <b>refermée</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:14px;margin-top:10px">Les montants sont des ordres de grandeur issus d'études sectorielles&nbsp;; ils varient fortement selon la taille et le secteur. L'objectif n'est pas la précision comptable, mais de rendre visible un risque jusque-là abstrait.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">4.</span>Le ROI, chiffré&nbsp;: un exemple complet</h2>
+    <p>Assez de principes&nbsp;: déroulons le calcul sur une PME type de <strong>15 salariés</strong> avec une prestation IT à <strong>12&nbsp;000&nbsp;€/an</strong>. Deux règles de méthode évitent de tomber dans le chiffre gonflé&nbsp;: le <strong>temps gagné se valorise au coût horaire chargé</strong> d'un salarié (≈&nbsp;40&nbsp;€/h en France, charges comprises), et le <strong>risque se compte en perte pondérée par sa probabilité réelle</strong>, jamais à son montant maximal.</p>
+
+    <div class="axes" style="margin-top:22px">
+      <div class="axis off">
+        <span class="tag">Axe offensif · temps gagné</span>
+        <b>≈ 11 600 €/an</b>
+        <small style="margin-top:10px;line-height:1.7">
+          <strong>Automatisation</strong> — fin de la double saisie compta&nbsp;↔&nbsp;CRM&nbsp;: 4&nbsp;h/sem × ~50&nbsp;sem = 200&nbsp;h × 40&nbsp;€ = <strong>8&nbsp;000&nbsp;€</strong><br>
+          <strong>Support réactif</strong> — pannes résolues vite&nbsp;: 15&nbsp;pers. × 0,5&nbsp;h/mois × 12 = 90&nbsp;h × 40&nbsp;€ = <strong>3&nbsp;600&nbsp;€</strong><br>
+          <span style="color:var(--green);font-weight:700;display:block;margin-top:6px">Du temps salarié rendu au métier chaque mois — qu'il y ait sinistre ou non.</span>
+        </small>
+      </div>
+      <div class="axis def">
+        <span class="tag">Axe défensif · perte évitée</span>
+        <b>≈ 16 500 €/an</b>
+        <small style="margin-top:10px;line-height:1.7">
+          Coût moyen d'un sinistre cyber PME&nbsp;: <strong>150&nbsp;000&nbsp;€</strong><br>
+          Probabilité annuelle d'une attaque à impact (≈ 1&nbsp;PME sur 6)&nbsp;: <strong>15&nbsp;%</strong><br>
+          → Risque <em>non traité</em>&nbsp;: 150&nbsp;k × 15&nbsp;% = <strong>22&nbsp;500&nbsp;€/an</strong><br>
+          Risque résiduel <em>sous prestation</em> (≈ 4&nbsp;%)&nbsp;: 150&nbsp;k × 4&nbsp;% = <strong>6&nbsp;000&nbsp;€</strong><br>
+          <span style="color:#b57a1e;font-weight:700;display:block;margin-top:6px">Perte évitée = 22&nbsp;500 − 6&nbsp;000 = 16&nbsp;500&nbsp;€/an.</span>
+        </small>
+      </div>
+    </div>
+
+    <div class="formula" style="margin-top:22px">
+      <div class="eq"><span>11 600&nbsp;€</span> (temps gagné) + <span>16 500&nbsp;€</span> (risque évité) − <span>12 000&nbsp;€</span> (prestation) = <span>+16 100&nbsp;€/an</span></div>
+      <small>Soit <b style="color:#fff">2,3&nbsp;€ rendus pour 1&nbsp;€ investi</b> — et ce, <b style="color:#fff">avant même</b> de compter la valeur créée (meilleures décisions, adoption des outils, valeur de revente). Le risque est ici <b style="color:#fff">pondéré par sa probabilité réelle</b>&nbsp;: on ne compte pas les 150&nbsp;000&nbsp;€ du pire scénario, mais leur espérance annuelle. C'est ce qui rend le ROI honnête… et malgré tout largement positif.</small>
+    </div>
+
+    <p class="muted" style="font-size:14px;margin-top:14px">Chiffres illustratifs pour une PME de 15 salariés. Ajustez trois curseurs à votre réalité&nbsp;: le coût horaire (35–44&nbsp;€ selon le secteur), la probabilité (votre exposition réelle&nbsp;: sauvegarde, ancienneté du parc, exposition Internet) et le montant du sinistre. La <strong>méthode</strong>, elle, ne change pas&nbsp;: temps × coût salarié, et perte × probabilité.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">5.</span>Au-delà du risque&nbsp;: créer de la valeur</h2>
+    <p>Éviter une catastrophe, c'est le minimum vital. Mais un prestataire RMM et un architecte digital font surtout une autre chose, moins spectaculaire et plus rentable au quotidien&nbsp;: <strong>ils vous font gagner du temps, de la performance et de la lucidité dans vos décisions.</strong> Ici, la valeur n'est pas «&nbsp;un sinistre évité&nbsp;», c'est «&nbsp;une entreprise qui tourne mieux et voit plus loin&nbsp;».</p>
+
+    <div class="grid two" style="margin-top:22px">
+
+      <div class="card value">
+        <div class="icon">📡</div>
+        <h4>Pilotage proactif (le cœur du RMM)</h4>
+        <p style="margin:0;font-size:15px" class="muted">La supervision anticipe la panne au lieu de la constater. Obsolescence détectée à l'avance, correctifs automatisés, capacité anticipée. Vous <b>planifiez</b> vos investissements au lieu de les subir dans l'urgence.</p>
+        <div class="kpiline">Incidents évités vs subis · âge moyen du parc · % de correctifs à jour</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">🧭</div>
+        <h4>Aide à la décision stratégique</h4>
+        <p style="margin:0;font-size:15px" class="muted">Schéma directeur SI, veille techno, arbitrage <em>build vs buy</em>, choix d'outils objectivé et budgété en coût total (TCO). Vous savez <b>où vous allez et pourquoi</b> — le rôle d'un DSI, sans en porter le salaire.</p>
+        <div class="kpiline">Roadmap SI à jour · décisions chiffrées · TCO par outil</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">🎓</div>
+        <h4>Adoption &amp; montée en compétence</h4>
+        <p style="margin:0;font-size:15px" class="muted">Un outil exploité à 30&nbsp;% est un investissement gaspillé. Formation, documentation, support de proximité, fin du <em>shadow IT</em>&nbsp;: vos équipes deviennent réellement productives sur ce que vous payez déjà.</p>
+        <div class="kpiline">Taux d'adoption · baisse des tickets « comment faire » · collaborateurs formés</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">🔄</div>
+        <h4>Amélioration continue</h4>
+        <p style="margin:0;font-size:15px" class="muted">Des bilans réguliers qui traitent la <b>cause racine</b> des problèmes récurrents et optimisent les coûts (licences dormantes, cloud sur-dimensionné). Chaque trimestre, le SI coûte un peu moins et sert un peu mieux.</p>
+        <div class="kpiline">Tickets récurrents en baisse · € de coûts optimisés · score de performance web</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">⚙️</div>
+        <h4>Intégration &amp; automatisation métier</h4>
+        <p style="margin:0;font-size:15px" class="muted">Passerelles entre logiciels (ex. Dolibarr ↔ Pennylane), fin de la double saisie, workflows automatisés. La valeur la plus facile à chiffrer&nbsp;: des <b>heures rendues</b> au métier et des erreurs supprimées.</p>
+        <div class="kpiline">Heures gagnées / mois · erreurs de saisie évitées · délai de facturation</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">📊</div>
+        <h4>La donnée pour décider</h4>
+        <p style="margin:0;font-size:15px" class="muted">Structurer une donnée éparpillée pour produire des tableaux de bord fiables. Vous pilotez sur des chiffres, pas au ressenti — et vos réunions de direction gagnent en clarté.</p>
+        <div class="kpiline">Indicateurs consolidés · fiabilité de la donnée · délai d'obtention d'un chiffre</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">🚀</div>
+        <h4>Standardisation &amp; scalabilité</h4>
+        <p style="margin:0;font-size:15px" class="muted">Des processus reproductibles et un socle documenté qui vous permettent de recruter, d'ouvrir un site ou d'absorber la croissance <b>sans tout refaire</b>. Le SI devient un accélérateur, plus un plafond de verre.</p>
+        <div class="kpiline">Temps d'intégration d'un nouvel arrivant · délai d'ouverture d'un site</div>
+      </div>
+
+      <div class="card value">
+        <div class="icon">🧩</div>
+        <h4>Sérénité &amp; interlocuteur unique</h4>
+        <p style="margin:0;font-size:15px" class="muted">DSI, RSSI et DPO externalisés en un seul point de contact. Vous déléguez une charge mentale et une responsabilité pour vous concentrer sur votre métier. Ça ne rentre pas dans un tableur&nbsp;: ça fait rester.</p>
+        <div class="kpiline">Un seul contact · responsabilités déléguées · temps dirigeant récupéré</div>
+      </div>
+
+    </div>
+
+    <div class="callout" style="margin-top:26px;border-left-color:var(--green)">
+      <p style="margin:0"><strong>Un actif, pas seulement un service.</strong> Un système d'information carré, documenté et conforme ne se contente pas de bien fonctionner&nbsp;: il <strong>rassure vos clients et assureurs, débloque des appels d'offres et augmente la valeur de revente de votre entreprise.</strong> Un repreneur paie toujours plus cher un SI maîtrisé et transmissible qu'un système opaque logé dans la tête d'une seule personne.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">6.</span>La formule à retenir</h2>
+    <div class="formula">
+      <div class="eq">ROI de l'IT = <span>( Pertes évitées</span> + <span>Temps gagné</span> + <span>Valeur créée )</span> − <span>Coût de la prestation</span></div>
+      <small>L'année où le sinistre survient, une prestation à 12 000 €/an qui écarte un incident à 150 000 € affiche un retour de 12 pour 1. Mais on ne pilote pas sur le pire scénario&nbsp;: pondéré par sa probabilité réelle (voir §4), le seul risque évité rapporte déjà plus qu'il ne coûte — et les années «&nbsp;où il ne se passe rien&nbsp;», la prestation continue de produire du temps gagné, des décisions mieux prises et une entreprise qui prend de la valeur.</small>
+    </div>
+    <p style="margin-top:22px">C'est exactement le raisonnement d'une assurance&nbsp;: vous ne calculez pas son ROI le jour où vous ne l'utilisez pas. La différence, c'est qu'un bon prestataire IT <strong>réduit activement la probabilité du sinistre</strong> — là où l'assurance se contente de rembourser après coup.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">7.</span>Ce que Gigarun s'engage à vous montrer</h2>
+    <p>Nous partons du principe qu'une valeur qu'on ne peut pas mesurer n'existe pas pour le dirigeant. C'est pourquoi chaque accompagnement s'accompagne d'un <strong>reporting lisible</strong>, sans jargon&nbsp;: un point de départ (diagnostic chiffré), des objectifs, et un suivi régulier des indicateurs qui comptent pour vous.</p>
+    <div class="grid three" style="margin-top:20px">
+      <div class="card"><div class="icon">📈</div><h4>Un diagnostic chiffré</h4><p class="muted" style="margin:0;font-size:15px">Un état des lieux cyber, sauvegarde et conformité avec un score de départ.</p></div>
+      <div class="card"><div class="icon">🗂️</div><h4>Un tableau de bord</h4><p class="muted" style="margin:0;font-size:15px">Les KPI qui vous parlent, mis à jour et commentés en langage clair.</p></div>
+      <div class="card"><div class="icon">🤝</div><h4>Une traduction en euros</h4><p class="muted" style="margin:0;font-size:15px">Le risque évité et le temps gagné, exprimés dans votre langage de gestion.</p></div>
+    </div>
+    <div class="callout" style="margin-top:26px">
+      <p style="margin:0"><strong>Une exigence adossée à des outils reconnus.</strong> Nos indicateurs ne sortent pas d'un tableur maison&nbsp;: ils s'appuient sur un socle éprouvé — supervision et RMM <b>N-able</b>, protection des postes <b>SentinelOne</b>, sauvegarde et réplication <b>VEEAM</b>, le tout couvert par une <b>RC Pro de 8&nbsp;M€</b> et un partenariat <a href="https://www.cybermalveillance.gouv.fr" target="_blank" rel="noopener">cybermalveillance.gouv.fr</a>. La mesure de la valeur repose sur des faits, pas sur des promesses.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <h2>Passons du ressenti au mesurable</h2>
+      <p class="muted" style="max-width:560px;margin:0 auto 4px">Demandez un diagnostic Gigarun&nbsp;: vous repartez avec un score de départ, vos indicateurs prioritaires et une estimation du risque que vous portez aujourd'hui sans le voir.</p>
+      <a class="btn" href="https://outlook.office.com/bookwithme/user/3363e38ec82d444b952edee2bfaf91e8@gigarun.eu?anonymous&amp;ep=plink" target="_blank" rel="noopener">📅 Réserver un créneau</a>
+      <div class="cta-actions">
+        <a class="btn-alt" href="https://gigarun.re/contact" target="_blank" rel="noopener">✉️ Formulaire de contact</a>
+        <a class="btn-alt" href="https://t.me/gigarun" target="_blank" rel="noopener">✈️ Telegram</a>
+        <a class="btn-alt" href="tel:+262692311191">📞 +262 692 31 11 91</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="sources">
+    <strong>Sources des ordres de grandeur cités&nbsp;:</strong><br>
+    Baromètres coût cyberattaque PME (Hiscox / CESIN, synthèses 2024–2026)&nbsp;:
+    <a href="https://www.laucked.com/blog/cout-cyberattaque-pme-france">laucked.com</a>,
+    <a href="https://www.sfrbusiness.fr/room/securite/cout-reel-cyberattaque-pme.html">sfrbusiness.fr</a>,
+    <a href="https://crisehelp.fr/cout-reel-cyberattaque-entreprise-france/">crisehelp.fr</a>.
+    Sanctions RGPD PME/TPE et bilan CNIL 2024&nbsp;:
+    <a href="https://www.cnil.fr/fr/les-sanctions-prononcees-par-la-cnil">cnil.fr</a>,
+    <a href="https://monexpertrgpd.com/sanctions-cnil-2024-tpe-pme-controles/">monexpertrgpd.com</a>.
+    Probabilité annuelle d'attaque et maturité cyber TPE-PME&nbsp;:
+    <a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/actualites/etude-maturite-cyber-tpe-pme-2025">cybermalveillance.gouv.fr</a>.
+    Coût horaire chargé du travail (≈ 40–44&nbsp;€)&nbsp;:
+    <a href="https://www.insee.fr/fr/statistiques/7678548">Insee</a>,
+    <a href="https://www.rexecode.fr/competitivite-croissance/indicateurs-du-cout-de-l-heure-de-travail-en-europe/les-couts-de-la-main-d-aeuvre-dans-l-union-europeenne-au-4eme-trimestre-2024">Rexecode</a>.
+    Chiffres à valeur illustrative, à adapter à votre secteur et votre taille.
+  </div>
+
+</main>
+
+
+
+<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">↑</button>
+<script>
+(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
+</script>
+
+
+</div>
+<style>
+#guide-wrapper { background: white; color: #333; }
+#guide-wrapper body { background: none !important; padding: 0 !important; }
+#guide-wrapper .main-header { display: none !important; }
+#guide-wrapper .header { display: none !important; }
+#guide-wrapper .back-bar { display: none !important; }
+#guide-wrapper .main-footer { display: none !important; }
+#guide-wrapper footer { display: none !important; }
+#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
+</style>
+
+<!-- Bouton retour en haut -->
+<button id="guide-back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:2rem;right:2rem;z-index:9999;width:44px;height:44px;border-radius:50%;background:#7C3AED;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateY(8px);box-shadow:0 4px 16px rgba(124,58,237,0.4);">
+  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+</button>
+<script>
+(function() {
+  var btn = document.getElementById('guide-back-to-top');
+  window.addEventListener('scroll', function() {
+    var show = window.scrollY > 400;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.pointerEvents = show ? 'auto' : 'none';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
+  }, { passive: true });
+  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+})();
+</script>
+</Layout>
