@@ -1,7 +1,7 @@
 ---
 ---
 <div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:1rem;pointer-events:none;opacity:0;transition:opacity 0.3s;">
-  <div style="pointer-events:auto;max-width:56rem;margin:0 auto;background:#0D0028;border:1px solid rgba(124,58,237,0.35);border-radius:12px;padding:1.25rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem;box-shadow:0 -4px 32px rgba(0,0,0,0.5);">
+  <div class="cookie-banner-box" style="pointer-events:auto;max-width:56rem;margin:0 auto;background:#0D0028;border:1px solid rgba(124,58,237,0.35);border-radius:12px;padding:1.25rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem;box-shadow:0 -4px 32px rgba(0,0,0,0.5);">
     <div style="flex:1;min-width:200px;">
       <p style="color:#F1F0F7;font-size:.875rem;font-weight:600;margin:0 0 .25rem;">Ce site utilise des cookies</p>
       <p style="color:#9B99AA;font-size:.75rem;line-height:1.5;margin:0;">
@@ -19,6 +19,18 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Sur mobile, laisse les coins bas libres pour les boutons accessibilité/remontée
+     (SiteOverlays.astro, bottom-5, largeur 48px) : ce bandeau ne doit pas les recouvrir
+     visuellement, même si le z-index des boutons passe désormais au-dessus. */
+  @media (max-width: 640px) {
+    .cookie-banner-box {
+      margin-left: 4.75rem;
+      margin-right: 4.75rem;
+    }
+  }
+</style>
 
 <script>
   (function() {
