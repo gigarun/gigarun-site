@@ -26,8 +26,10 @@
      visuellement, même si le z-index des boutons passe désormais au-dessus. */
   @media (max-width: 640px) {
     .cookie-banner-box {
-      margin-left: 4.75rem;
-      margin-right: 4.75rem;
+      /* !important nécessaire : l'élément porte margin:0 auto en style inline,
+         qui prime sur toute règle de classe sans !important */
+      margin-left: 4.75rem !important;
+      margin-right: 4.75rem !important;
     }
   }
 </style>
