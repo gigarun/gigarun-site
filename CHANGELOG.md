@@ -3,6 +3,13 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.6.3] — 2026-09-12
+- Mode clair : la classe Tailwind standard `text-white` (312 occurrences, hors syntaxe crochets
+  déjà couverte) n'était pas mappée — texte invisible sur fond clair (repéré sur le bloc
+  « Travaillons ensemble » de `/a-propos`, probablement ailleurs aussi). Couverte.
+- Vérification systématique : accueil, 42 guides, 43 articles, `/reseau`, `/nestor`,
+  `/a-propos` passés en revue (grep exhaustif de toutes les classes couleur + captures d'écran).
+
 ## [1.6.2] — 2026-09-12
 - Mode clair : bandeau titre des 42 guides illisible (fond sombre en `style=` inline, pas une
   classe Tailwind, donc pas couvert par les règles précédentes). Classe `guide-hero-dark`
