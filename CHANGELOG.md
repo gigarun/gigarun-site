@@ -3,6 +3,12 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.7.1] — 2026-09-12
+- Vrais 301/308 HTTP pour les **153/153** redirections legacy (les 68 restantes corrigées) —
+  root cause du bug trouvée : Traefik lit le chemin décodé côté `Path()` du routeur mais
+  percent-encodé côté middleware `redirectRegex`. Fix appliqué et vérifié (curl Location +
+  navigateur réel + onglet réseau, un seul hop).
+
 ## [1.7.0] — 2026-09-12
 - Vrais 301 HTTP (Traefik, côté prod) pour 85 des 153 redirections legacy Joomla — remplace le
   meta-refresh Astro pour les URLs sans accent. 68 URLs accentuées exclues (cassaient la réponse
