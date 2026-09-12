@@ -1,4 +1,5 @@
 ---
+import pkg from '../../package.json';
 ---
 <footer class="bg-[#03000F] pt-16 pb-8" style="border-top:1px solid rgba(124,58,237,0.15);">
   <div class="max-w-7xl mx-auto px-6">
@@ -86,7 +87,8 @@
 
     <!-- Barre bas -->
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top:1px solid rgba(124,58,237,0.1);">
-      <p class="text-[#9B99AA] text-[12px]">&copy; 2026 Gigarun &middot; SIRET 504 015 181 00044 &mdash; Infogérance &amp; expertise IT pour les entreprises de La Réunion</p>
+      <p class="text-[#9B99AA] text-[12px]">&copy; 2026 Gigarun &middot; SIRET 504 015 181 00044 &mdash; Infogérance &amp; expertise IT pour les entreprises de La Réunion
+        <a href="https://github.com/gigarun/gigarun-site/blob/main/CHANGELOG.md" target="_blank" rel="noopener" class="text-[rgba(155,153,170,0.5)] hover:text-[#9B99AA] transition-colors" title="Journal des évolutions du site">&middot; v{pkg.version}</a></p>
       <div class="flex items-center gap-4">
         <a href="/mentions-legales" class="text-[#9B99AA] hover:text-[#F1F0F7] text-[12px] transition-colors">Mentions légales</a>
         <span class="text-[rgba(155,153,170,0.3)] text-[12px]">&middot;</span>
