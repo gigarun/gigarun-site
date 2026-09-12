@@ -3,6 +3,15 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.6.1] — 2026-09-12
+- Mode clair : les témoignages (et autres textes en `rgba()` plutôt qu'en hex) restaient
+  illisibles — couverture étendue aux variantes `rgba(241,240,247,*)`, `rgba(255,255,255,*)`,
+  `rgba(155,153,170,*)` et à quelques couleurs d'accent restées non couvertes (pages
+  réseau/cloud/solutions/nestor/infogérance-contrats).
+- Lien « Voir nos avis sur Google » corrigé : l'ancien slug `gigarun+ingénierie` ne résolvait
+  plus (fiche renommée « gigarun » côté Google, même place_id) — mis à jour vers l'URL qui
+  résout réellement.
+
 ## [1.6.0] — 2026-09-12
 - Toggle « Mode clair » ajouté au panneau accessibilité (même mécanisme que le contraste élevé
   existant). Redéfinit les ~15 classes Tailwind en dur les plus utilisées (texte/fond) via

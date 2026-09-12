@@ -84,6 +84,19 @@
   #acc-content.acc-light [class*="text-[#C4B5FD]"],
   #acc-content.acc-light [class*="text-[#9B7AFF]"],
   #acc-content.acc-light [class*="text-[#9B6BF0]"] { color: #7C3AED !important; }
+  /* Variantes rgba() des memes couleurs (texte blanc/gris en rgba plutot qu'en hex --
+     utilisees sur les temoignages, badges, etc. sur des dizaines de pages). */
+  #acc-content.acc-light [class*="text-[rgba(241,240,247,"],
+  #acc-content.acc-light [class*="text-[rgba(255,255,255,"] { color: #1E1533 !important; }
+  #acc-content.acc-light [class*="text-[rgba(155,153,170,"] { color: #5B5770 !important; }
+  /* Accents clairs supplementaires (cyan/violet clairs sur fond sombre, pages reseau/cloud/
+     solutions/nestor/infogerance-contrats) -> assombris pour rester lisibles sur fond clair. */
+  #acc-content.acc-light [class*="text-[#90e0ef]"],
+  #acc-content.acc-light [class*="text-[#38bdf8]"],
+  #acc-content.acc-light [class*="text-[#0891B2]"] { color: #0E7490 !important; }
+  #acc-content.acc-light [class*="bg-[#0A0A2E]"],
+  #acc-content.acc-light [class*="bg-[#06101a]"] { background-color: #F3EFFB !important; }
+  #acc-content.acc-light [class*="bg-[#F1F0F7]"] { background-color: #EDE9FE !important; }
   /* Hero (video + overlay degrade sombre, non couvert par les classes ci-dessus) : reste en
      dark pour garder un contraste correct, plutot que du texte fonce sur fond sombre. */
   #acc-content.acc-light #hero { background-color: #07001C !important; }
