@@ -102,6 +102,11 @@
   #acc-content.acc-light #hero { background-color: #07001C !important; }
   #acc-content.acc-light #hero [class*="text-[#F1F0F7]"] { color: #F1F0F7 !important; }
   #acc-content.acc-light #hero [class*="text-[#9B99AA]"] { color: #9B99AA !important; }
+  /* Bandeau titre des 42 guides : meme fond sombre en inline style (pas une classe Tailwind),
+     donc non couvert par les regles ci-dessus -> meme traitement que le hero. */
+  #acc-content.acc-light .guide-hero-dark { background: #07001C !important; }
+  #acc-content.acc-light .guide-hero-dark [class*="text-[#F1F0F7]"] { color: #F1F0F7 !important; }
+  #acc-content.acc-light .guide-hero-dark [class*="text-[#9B99AA]"] { color: #9B99AA !important; }
 </style>
 
 <script>

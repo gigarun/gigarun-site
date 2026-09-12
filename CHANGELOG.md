@@ -3,6 +3,11 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.6.2] — 2026-09-12
+- Mode clair : bandeau titre des 42 guides illisible (fond sombre en `style=` inline, pas une
+  classe Tailwind, donc pas couvert par les règles précédentes). Classe `guide-hero-dark`
+  ajoutée pour le cibler, même traitement que le hero (reste sombre, texte clair).
+
 ## [1.6.1] — 2026-09-12
 - Mode clair : les témoignages (et autres textes en `rgba()` plutôt qu'en hex) restaient
   illisibles — couverture étendue aux variantes `rgba(241,240,247,*)`, `rgba(255,255,255,*)`,
