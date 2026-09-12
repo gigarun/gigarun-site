@@ -3,6 +3,12 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.4.0] — 2026-09-12
+- Google Rich Results Test passé sur un guide (TechArticle) : schema valide, 5 problèmes non
+  critiques remontés (dates sans heure/fuseau, champ `image` absent). Corrigés sur les 43
+  articles + 42 guides : `datePublished`/`dateModified` en ISO 8601 complet (+04:00, heure La
+  Réunion), `image` ajouté (og-default.png).
+
 ## [1.3.1] — 2026-09-12
 - Badge hero : "La Réunion · DSI Externalisé" → "La Réunion · DSI Externalisé · Infogérant".
 
