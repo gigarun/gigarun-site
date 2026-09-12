@@ -3,6 +3,12 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.7.0] — 2026-09-12
+- Vrais 301 HTTP (Traefik, côté prod) pour 85 des 153 redirections legacy Joomla — remplace le
+  meta-refresh Astro pour les URLs sans accent. 68 URLs accentuées exclues (cassaient la réponse
+  HTTP côté Traefik, cause non identifiée, rollback fait) — restent sur le fallback existant,
+  sans régression. Script : `ops/redirects/gen-traefik-redirects.py`.
+
 ## [1.6.3] — 2026-09-12
 - Mode clair : la classe Tailwind standard `text-white` (312 occurrences, hors syntaxe crochets
   déjà couverte) n'était pas mappée — texte invisible sur fond clair (repéré sur le bloc

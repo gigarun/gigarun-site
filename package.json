@@ -1,7 +1,7 @@
 {
   "name": "gigarun-site",
   "type": "module",
-  "version": "1.6.3",
+  "version": "1.7.0",
   "engines": {
     "node": ">=22.12.0"
   },
