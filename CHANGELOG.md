@@ -3,6 +3,11 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.5.0] — 2026-09-12
+- Bloc « Services associés » ajouté sur les 42 guides techniques (lien vers 1-2 pages de
+  service pertinentes chacun) — même mécanisme que les 43 articles de blog, absent des guides
+  jusqu'ici.
+
 ## [1.4.0] — 2026-09-12
 - Google Rich Results Test passé sur un guide (TechArticle) : schema valide, 5 problèmes non
   critiques remontés (dates sans heure/fuseau, champ `image` absent). Corrigés sur les 43
