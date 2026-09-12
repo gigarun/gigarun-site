@@ -3,6 +3,9 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.3.1] — 2026-09-12
+- Badge hero : "La Réunion · DSI Externalisé" → "La Réunion · DSI Externalisé · Infogérant".
+
 ## [1.3.0] — 2026-09-12
 - Numéro de version affiché en pied de page (lien discret, cohérent avec ce fichier).
 - Ce fichier créé (rétroactif pour 1.0.0 à 1.2.0).
