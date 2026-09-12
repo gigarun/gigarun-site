@@ -3,6 +3,12 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [1.6.0] — 2026-09-12
+- Toggle « Mode clair » ajouté au panneau accessibilité (même mécanisme que le contraste élevé
+  existant). Redéfinit les ~15 classes Tailwind en dur les plus utilisées (texte/fond) via
+  sélecteur d'attribut CSS, sans toucher aux ~150 fichiers de pages ni au widget lui-même.
+  Bordures/overlays translucides (rgba) non retouchés.
+
 ## [1.5.0] — 2026-09-12
 - Bloc « Services associés » ajouté sur les 42 guides techniques (lien vers 1-2 pages de
   service pertinentes chacun) — même mécanisme que les 43 articles de blog, absent des guides

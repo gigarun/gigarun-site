@@ -42,6 +42,12 @@
     <span class="acc-track relative w-9 h-5 rounded-full transition-colors flex-shrink-0"><span class="acc-knob absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform"></span></span>
   </button>
 
+  <!-- Mode clair -->
+  <button id="acc-light" aria-pressed="false" class="acc-toggle w-full flex items-center justify-between py-2.5 border-t border-[rgba(124,58,237,0.12)] text-left">
+    <span class="text-sm">Mode clair</span>
+    <span class="acc-track relative w-9 h-5 rounded-full transition-colors flex-shrink-0"><span class="acc-knob absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform"></span></span>
+  </button>
+
   <button id="acc-reset" class="w-full mt-3 py-2 rounded-lg border border-[rgba(124,58,237,0.3)] text-sm text-[#F1F0F7] hover:bg-[rgba(124,58,237,0.12)] transition-colors">Réinitialiser</button>
   <a href="/accessibilite" class="block text-center text-xs text-[#9B99AA] mt-3 hover:text-[#7C3AED] transition-colors">Déclaration d'accessibilité</a>
 </div>
@@ -60,27 +66,48 @@
   .acc-toggle .acc-track { background: #3a2d5c; }
   .acc-toggle[aria-pressed="true"] .acc-track { background: #7C3AED; }
   .acc-toggle[aria-pressed="true"] .acc-knob { transform: translateX(16px); }
+
+  /* Mode clair : redefinit les classes Tailwind en dur les plus utilisees, sans toucher au
+     widget accessibilite lui-meme (hors #acc-content). Bordures/overlays translucides (rgba)
+     non retouches : un liseret violet clair reste lisible sur fond blanc. */
+  #acc-content.acc-light [class*="bg-[#07001C]"],
+  #acc-content.acc-light [class*="bg-[#0A0022]"] { background-color: #FFFFFF !important; }
+  #acc-content.acc-light [class*="bg-[#03000F]"] { background-color: #EFEAF9 !important; }
+  #acc-content.acc-light [class*="bg-[#0D0028]"],
+  #acc-content.acc-light [class*="bg-[#110833]"],
+  #acc-content.acc-light [class*="bg-[#1A0A3E]"] { background-color: #F3EFFB !important; }
+  #acc-content.acc-light [class*="text-[#F1F0F7]"] { color: #1E1533 !important; }
+  #acc-content.acc-light [class*="text-[#9B99AA]"] { color: #5B5770 !important; }
+  #acc-content.acc-light [class*="text-[#4B4966]"] { color: #55516B !important; }
+  #acc-content.acc-light [class*="text-[#06B6D4]"],
+  #acc-content.acc-light [class*="text-[#67E8F9]"] { color: #0E7490 !important; }
+  #acc-content.acc-light [class*="text-[#C4B5FD]"],
+  #acc-content.acc-light [class*="text-[#9B7AFF]"],
+  #acc-content.acc-light [class*="text-[#9B6BF0]"] { color: #7C3AED !important; }
 </style>
 
 <script>
   const root = document.documentElement;
   const content = document.getElementById('acc-content');
   const KEY = 'gg-acc';
-  const st = Object.assign({ font: 100, contrast: false, links: false }, JSON.parse(localStorage.getItem(KEY) || '{}'));
+  const st = Object.assign({ font: 100, contrast: false, links: false, light: false }, JSON.parse(localStorage.getItem(KEY) || '{}'));
 
   const panel = document.getElementById('acc-panel');
   const openBtn = document.getElementById('acc-open');
   const pct = document.getElementById('acc-font-pct');
   const cBtn = document.getElementById('acc-contrast');
   const lBtn = document.getElementById('acc-links');
+  const liBtn = document.getElementById('acc-light');
 
   function apply() {
     root.style.fontSize = st.font === 100 ? '' : st.font + '%';
     content && content.classList.toggle('acc-contrast', st.contrast);
     content && content.classList.toggle('acc-links', st.links);
+    content && content.classList.toggle('acc-light', st.light);
     if (pct) pct.textContent = st.font + '%';
     cBtn && cBtn.setAttribute('aria-pressed', String(st.contrast));
     lBtn && lBtn.setAttribute('aria-pressed', String(st.links));
+    liBtn && liBtn.setAttribute('aria-pressed', String(st.light));
     localStorage.setItem(KEY, JSON.stringify(st));
   }
 
@@ -96,7 +123,8 @@
   document.getElementById('acc-inc')?.addEventListener('click', () => { st.font = Math.min(150, st.font + 10); apply(); });
   cBtn && cBtn.addEventListener('click', () => { st.contrast = !st.contrast; apply(); });
   lBtn && lBtn.addEventListener('click', () => { st.links = !st.links; apply(); });
-  document.getElementById('acc-reset')?.addEventListener('click', () => { st.font = 100; st.contrast = false; st.links = false; apply(); });
+  liBtn && liBtn.addEventListener('click', () => { st.light = !st.light; apply(); });
+  document.getElementById('acc-reset')?.addEventListener('click', () => { st.font = 100; st.contrast = false; st.links = false; st.light = false; apply(); });
 
   // Fermer au clic hors panneau
   document.addEventListener('click', (e) => {
