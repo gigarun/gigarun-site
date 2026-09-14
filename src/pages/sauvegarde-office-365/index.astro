@@ -44,6 +44,95 @@ import Layout from '../../layouts/Layout.astro';
 </section>
 
 <section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-2">Pourquoi la sauvegarde cloud est indispensable</h2>
+    <p class="text-[#9B99AA] text-sm max-w-2xl mb-8">Un tiers des utilisateurs SaaS ont déjà perdu des données dans le cloud en pensant que cet emplacement était sécurisé. Quatre scénarios concrets.</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Conformité &amp; obligations de rétention</h3>
+        <p class="text-[#9B99AA] text-sm">Certains secteurs (santé, juridique…) imposent une conservation stricte des données sur une durée définie. Les stratégies de rétention incluses dans les abonnements cloud restent modifiables — donc contournables — par un administrateur. Un verrouillage de rétention indépendant garantit une preuve opposable.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Départ d'un collaborateur</h3>
+        <p class="text-[#9B99AA] text-sm">Désactiver un compte Microsoft 365 sans sauvegarde préalable fait disparaître ses emails et fichiers avec lui — connaissance métier, historique client, pièces contractuelles. Une sauvegarde indépendante permet de conserver l'accès sans payer une licence pour un compte inactif.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Ransomware &amp; intrusions</h3>
+        <p class="text-[#9B99AA] text-sm">Pare-feu et antivirus réduisent le risque mais ne l'éliminent pas : un seul poste compromis peut donner accès à l'ensemble des fichiers partagés sur le cloud, sans qu'il soit nécessaire d'infiltrer chaque système individuellement. Une copie isolée hors du tenant est le seul filet de sécurité une fois l'intrusion faite.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Suppressions accidentelles ou volontaires</h3>
+        <p class="text-[#9B99AA] text-sm">C'est la première cause de perte de données SaaS. La synchronisation instantanée du cloud propage la suppression sur tous les appareils avant même qu'elle soit remarquée — un avantage au quotidien qui devient un risque en cas de mauvaise manipulation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-2">La règle du 3-2-1</h2>
+    <p class="text-[#9B99AA] text-sm max-w-2xl mb-8">Le principe de référence en matière de sauvegarde, appliqué par GigaCloud Backup.</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="font-syne font-extrabold text-[#7C3AED] text-3xl mb-2">3</div>
+        <p class="text-[#F1F0F7] font-semibold mb-1">copies de vos données</p>
+        <p class="text-[#9B99AA] text-sm">La copie primaire (originale) et deux copies de sauvegarde ou un réplica.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="font-syne font-extrabold text-[#7C3AED] text-3xl mb-2">2</div>
+        <p class="text-[#F1F0F7] font-semibold mb-1">types de support différents</p>
+        <p class="text-[#9B99AA] text-sm">Deux supports de stockage distincts pour limiter le risque lié à un même type de défaillance.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <div class="font-syne font-extrabold text-[#7C3AED] text-3xl mb-2">1</div>
+        <p class="text-[#F1F0F7] font-semibold mb-1">copie hors site</p>
+        <p class="text-[#9B99AA] text-sm">Un lieu distinct (physique ou distant) pour se protéger d'un incident local — incendie, vol, panne matérielle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-8">Stockage cloud et sauvegarde : pas la même chose</h2>
+    <div class="space-y-6">
+      <div>
+        <p class="text-[#F1F0F7] font-semibold mb-2">« J'utilise déjà OneDrive / Drive, mes données sont sauvegardées, non ? »</p>
+        <p class="text-[#9B99AA] text-sm">Non. Stockage et sauvegarde jouent des rôles différents et ne sont pas interchangeables. Une vraie sauvegarde s'exécute automatiquement, conserve plusieurs versions de vos fichiers, et permet d'annuler une modification ou une suppression accidentelle — le stockage synchronisé, lui, propage l'erreur partout.</p>
+      </div>
+      <div>
+        <p class="text-[#F1F0F7] font-semibold mb-2">Microsoft le dit lui-même</p>
+        <p class="text-[#9B99AA] text-sm">Les conditions de service Microsoft 365 sont explicites : « en cas de panne ou d'interruption du service, vous pouvez temporairement ne pas être en mesure de récupérer votre contenu ; nous vous recommandons de sauvegarder régulièrement votre contenu. » La sauvegarde des données Office 365 ou Google Workspace reste, contractuellement, à la charge du client.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-8">Ce que GigaCloud Backup permet en plus</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Récupération avancée</h3>
+        <p class="text-[#9B99AA] text-sm">Un fichier important supprimé il y a six mois ? La recherche et la restauration granulaire le retrouvent sans tout restaurer.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Archivage</h3>
+        <p class="text-[#9B99AA] text-sm">Consulter la messagerie d'un ancien collaborateur sans conserver — ni payer — sa licence active.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Conservation</h3>
+        <p class="text-[#9B99AA] text-sm">Conserver et archiver vos données critiques aussi longtemps que vos exigences de conservation l'imposent.</p>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Reprise d'activité</h3>
+        <p class="text-[#9B99AA] text-sm">Panne complète, données perdues : la restauration vous remet opérationnel en un temps record.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
   <div class="max-w-3xl mx-auto px-6">
     <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-2xl p-8 text-center">
       <p class="text-[#9B99AA] text-sm uppercase tracking-widest mb-2">Tarif HT</p>
