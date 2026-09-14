@@ -30,22 +30,24 @@ lines.append("  middlewares:")
 
 seen = set()
 router_lines = []
-for old, new in pairs:
+
+
+def emit(old, new):
     slug = hashlib.md5(old.encode()).hexdigest()[:10]
     name = f"legacy-redir-{slug}"
     if name in seen:
-        continue
+        return
     seen.add(name)
     target = new if new.startswith("http") else f"https://gigarun.re{new}"
     old_enc = quote(old, safe='/-_.~,')
-    regex = "^https://gigarun\\.re" + re.escape(old_enc) + "/?$"
+    regex = "^https://(www\\.)?gigarun\\.re" + re.escape(old_enc) + "/?$"
     lines.append(f"    {name}:")
     lines.append("      redirectRegex:")
     lines.append(f"        regex: {yaml_str(regex)}")
     lines.append(f"        replacement: {yaml_str(target)}")
     lines.append("        permanent: true")
 
-    rule = "Host(`gigarun.re`) && Path(`" + old + "`)"
+    rule = "(Host(`gigarun.re`) || Host(`www.gigarun.re`)) && Path(`" + old + "`)"
     router_lines.append(f"    {name}:")
     router_lines.append("      entryPoints:")
     router_lines.append("        - https")
@@ -56,6 +58,16 @@ for old, new in pairs:
     router_lines.append("      priority: 100")
     router_lines.append("      tls:")
     router_lines.append("        certresolver: letsencrypt")
+
+
+for old, new in pairs:
+    emit(old, new)
+    # Beaucoup de vieux liens externes (PDF Dolibarr, backlinks) pointent vers le
+    # slug Joomla original en .html (ex: /contrat-d-infogerance-platine.html) --
+    # legacy-redirects.js n'a que la version sans extension. On genere donc aussi
+    # la variante .html vers la meme cible, sans passer par un double saut.
+    if not old.endswith(".html"):
+        emit(old + ".html", new)
 
 lines.append("  routers:")
 lines.extend(router_lines)
