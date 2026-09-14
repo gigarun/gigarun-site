@@ -1,7 +1,32 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const faq = [
+  {
+    q: "J'utilise déjà OneDrive ou Google Drive, mes données sont sauvegardées, non ?",
+    a: "Non. Stockage et sauvegarde jouent des rôles différents et ne sont pas interchangeables. Une vraie sauvegarde s'exécute automatiquement, conserve plusieurs versions de vos fichiers, et permet d'annuler une modification ou une suppression accidentelle — le stockage synchronisé, lui, propage l'erreur sur tous vos appareils avant même qu'elle soit remarquée.",
+  },
+  {
+    q: "Microsoft et Google ne sauvegardent pas déjà nos données de leur côté ?",
+    a: "Les conditions de service Microsoft 365 sont explicites : « en cas de panne ou d'interruption du service, vous pouvez temporairement ne pas être en mesure de récupérer votre contenu ; nous vous recommandons de sauvegarder régulièrement votre contenu. » La sauvegarde des données Office 365 ou Google Workspace reste, contractuellement, à la charge du client — c'est le modèle de responsabilité partagée.",
+  },
+  {
+    q: 'Comment protéger concrètement mes données Microsoft 365 ou Google Workspace ?',
+    a: "Un audit rapide de votre tenant (nombre de comptes, volumétrie, criticité des données) suffit pour dimensionner un contrat de sauvegarde adapté. GigaCloud Backup se connecte à votre tenant sans installation, sans interruption de service, et démarre ses premières sauvegardes le jour même.",
+  },
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 <Layout image="/images/og-sauvegarde.png" title="Sauvegarde Microsoft 365 & Google Workspace — Gigarun" description="Microsoft 365 et Google Workspace ne sauvegardent pas vos données. GigaBackup protège vos emails, OneDrive, SharePoint et Teams. Dès 2,50 €/utilisateur/mois">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(faqLd)} />
 <section class="bg-[#07001C] pt-32 pb-16">
   <div class="max-w-5xl mx-auto px-6">
     <a href="/sauvegarde-pra" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm">← Sauvegarde &amp; PRA</a>
@@ -45,8 +70,18 @@ import Layout from '../../layouts/Layout.astro';
 
 <section class="bg-[#07001C] py-16">
   <div class="max-w-5xl mx-auto px-6">
-    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-2">Pourquoi la sauvegarde cloud est indispensable</h2>
-    <p class="text-[#9B99AA] text-sm max-w-2xl mb-8">Un tiers des utilisateurs SaaS ont déjà perdu des données dans le cloud en pensant que cet emplacement était sécurisé. Quatre scénarios concrets.</p>
+    <div class="grid md:grid-cols-[1.3fr_1fr] gap-10 items-center mb-10">
+      <div>
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-2">Pourquoi la sauvegarde cloud est indispensable</h2>
+        <p class="text-[#9B99AA] text-sm mb-4">Un tiers des utilisateurs SaaS ont déjà perdu des données dans le cloud en pensant que cet emplacement était sécurisé. Quatre scénarios concrets, et des exemples vécus par nos clients réunionnais :</p>
+        <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+          <li>Un salarié supprime par erreur un dossier partagé SharePoint — la corbeille est déjà vidée quand l'erreur est remarquée.</li>
+          <li>Un ransomware chiffre les fichiers OneDrive synchronisés sur tous les postes en quelques minutes.</li>
+          <li>Un commercial quitte l'entreprise : son compte est désactivé, ses emails et son historique client disparaissent avec lui.</li>
+        </ul>
+      </div>
+      <img src="/images/legacy/sauvegarde-office-365/sauvegarde-cloud-illustration.webp" alt="Illustration d'une sauvegarde cloud sécurisée reliant postes de travail et serveurs" class="rounded-xl w-full bg-white p-4" loading="lazy" width="716" height="574" />
+    </div>
     <div class="grid md:grid-cols-2 gap-6">
       <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
         <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Conformité &amp; obligations de rétention</h3>
@@ -93,16 +128,19 @@ import Layout from '../../layouts/Layout.astro';
 </section>
 
 <section class="bg-[#07001C] py-16">
-  <div class="max-w-3xl mx-auto px-6">
-    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-8">Stockage cloud et sauvegarde : pas la même chose</h2>
-    <div class="space-y-6">
-      <div>
-        <p class="text-[#F1F0F7] font-semibold mb-2">« J'utilise déjà OneDrive / Drive, mes données sont sauvegardées, non ? »</p>
-        <p class="text-[#9B99AA] text-sm">Non. Stockage et sauvegarde jouent des rôles différents et ne sont pas interchangeables. Une vraie sauvegarde s'exécute automatiquement, conserve plusieurs versions de vos fichiers, et permet d'annuler une modification ou une suppression accidentelle — le stockage synchronisé, lui, propage l'erreur partout.</p>
-      </div>
-      <div>
-        <p class="text-[#F1F0F7] font-semibold mb-2">Microsoft le dit lui-même</p>
-        <p class="text-[#9B99AA] text-sm">Les conditions de service Microsoft 365 sont explicites : « en cas de panne ou d'interruption du service, vous pouvez temporairement ne pas être en mesure de récupérer votre contenu ; nous vous recommandons de sauvegarder régulièrement votre contenu. » La sauvegarde des données Office 365 ou Google Workspace reste, contractuellement, à la charge du client.</p>
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid md:grid-cols-[1fr_1.3fr] gap-10 items-center">
+      <img src="/images/legacy/sauvegarde-office-365/microsoft-365-backup-illustration.webp" alt="Schéma de sauvegarde d'un poste Microsoft 365 vers un serveur de secours" class="rounded-xl w-full bg-white p-4 order-2 md:order-1" loading="lazy" width="700" height="456" />
+      <div class="order-1 md:order-2">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl md:text-3xl mb-6">Questions fréquentes</h2>
+        <div class="space-y-6">
+          {faq.map((f) => (
+            <div>
+              <h3 class="text-[#F1F0F7] font-semibold mb-2">{f.q}</h3>
+              <p class="text-[#9B99AA] text-sm">{f.a}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
