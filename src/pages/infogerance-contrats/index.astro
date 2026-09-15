@@ -69,7 +69,7 @@ import { CONTRATS as contrats } from '../../data/contrats-infogerance.js';
     <p class="text-center text-[#9B99AA] text-sm mt-8">
       Tarification <strong class="text-[#F1F0F7]">à l'unité</strong> (poste, serveur, NAS, périphérique, site) selon le niveau choisi.
       Remise dégressive jusqu'à <strong class="text-[#F1F0F7]">-10%</strong> avec engagement 36 mois.
-      <a href="/devis/infogerance" class="text-[#7C3AED] hover:underline">Faites votre estimation en ligne →</a>
+      <a href="/devis/infogerance" class="text-[#A78BFA] hover:underline">Faites votre estimation en ligne →</a>
     </p>
   </div>
 </section>
@@ -133,7 +133,7 @@ import { CONTRATS as contrats } from '../../data/contrats-infogerance.js';
   <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.3)] rounded-2xl max-w-md w-full p-7 relative">
     <button type="button" id="wizard-close" aria-label="Fermer" class="absolute top-3 right-4 text-[#9B99AA] hover:text-white text-2xl leading-none">×</button>
     <h3 class="font-syne font-bold text-[#F1F0F7] text-xl mb-1">Trouvons votre niveau</h3>
-    <p id="wizard-progress" class="text-[#7C3AED] text-xs font-medium mb-5">Question 1 / 3</p>
+    <p id="wizard-progress" class="text-[#A78BFA] text-xs font-medium mb-5">Question 1 / 3</p>
     <div id="wizard-question"></div>
     <div id="wizard-result" class="hidden"></div>
   </div>
@@ -187,7 +187,7 @@ import { CONTRATS as contrats } from '../../data/contrats-infogerance.js';
     prog.textContent = 'Notre recommandation';
     rBox.innerHTML =
       '<div class="text-center mb-4"><div class="text-[#9B99AA] text-xs uppercase tracking-widest mb-1">Il vous faut le contrat</div>' +
-      '<div class="font-syne font-extrabold text-[#7C3AED] text-3xl">' + t.nom + '</div></div>' +
+      '<div class="font-syne font-extrabold text-[#A78BFA] text-3xl">' + t.nom + '</div></div>' +
       '<p class="text-[#9B99AA] text-sm leading-relaxed mb-6">' + t.raison + '</p>' +
       '<a href="/devis/infogerance/?tier=' + code + '" class="block text-center bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Estimer le contrat ' + t.nom + ' →</a>' +
       '<button type="button" id="wizard-restart" class="w-full text-[#9B99AA] hover:text-white text-xs mt-3">↻ Recommencer</button>';

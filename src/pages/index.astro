@@ -130,7 +130,7 @@ const TEMOIGNAGES = [
 <section id="services" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">NOS SERVICES</div>
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#A78BFA] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">NOS SERVICES</div>
       <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Ce qu'on fait pour vous</h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -139,11 +139,11 @@ const TEMOIGNAGES = [
         return (
         <div class="service-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 flex flex-col">
           <h3 class="text-base font-semibold text-white mb-2">
-            {lien ? <a href={lien} class="hover:text-[#7C3AED] transition-colors">{s.titre}</a> : s.titre}
+            {lien ? <a href={lien} class="hover:text-[#A78BFA] transition-colors">{s.titre}</a> : s.titre}
           </h3>
           <p class="text-[#9B99AA] text-sm leading-relaxed flex-1">{s.description}</p>
           {lien && (
-            <a href={lien} class="inline-flex items-center gap-1 text-[#7C3AED] hover:text-[#9B6BF0] text-sm font-medium mt-4">
+            <a href={lien} class="inline-flex items-center gap-1 text-[#A78BFA] hover:text-[#9B6BF0] text-sm font-medium mt-4">
               En savoir plus
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7m10 0v10"/></svg>
             </a>
@@ -191,7 +191,7 @@ const TEMOIGNAGES = [
 <section id="tarifs" class="bg-[#07001C] py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#7C3AED] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">TARIFS</div>
+      <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#A78BFA] text-[12px] font-medium tracking-widest uppercase px-4 py-1.5 mb-5" style="border-radius:9999px;">TARIFS</div>
       <h2 class="font-syne font-bold text-[#F1F0F7]" style="font-size:clamp(28px,3vw,42px);">Quatre niveaux d'infogérance</h2>
       <p class="text-[#9B99AA] text-sm mt-2">Tarifs HT à l'unité (poste, serveur, NAS) · Chaque niveau inclut le précédent</p>
     </div>
@@ -216,7 +216,7 @@ const TEMOIGNAGES = [
       ))}
     </div>
     <p class="text-center text-[#9B99AA] text-sm mt-8">
-      <a href="/infogerance-contrats" class="text-[#7C3AED] hover:underline">Voir le détail des 4 niveaux et le comparatif complet →</a>
+      <a href="/infogerance-contrats" class="text-[#A78BFA] hover:underline">Voir le détail des 4 niveaux et le comparatif complet →</a>
     </p>
   </div>
 </section>
@@ -231,7 +231,7 @@ const TEMOIGNAGES = [
     <div class="grid md:grid-cols-2 gap-5">
       {TEMOIGNAGES.map((t) => (
         <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.18)] rounded-2xl p-6 flex flex-col">
-          <svg class="w-7 h-7 text-[#7C3AED] mb-3 opacity-60" fill="currentColor" viewBox="0 0 24 24"><path d="M7.17 6A5.17 5.17 0 002 11.17V18h6.83v-6.83H5.5a1.67 1.67 0 011.67-1.67V6zm9 0A5.17 5.17 0 0011 11.17V18h6.83v-6.83H14.5a1.67 1.67 0 011.67-1.67V6z"/></svg>
+          <svg class="w-7 h-7 text-[#A78BFA] mb-3 opacity-60" fill="currentColor" viewBox="0 0 24 24"><path d="M7.17 6A5.17 5.17 0 002 11.17V18h6.83v-6.83H5.5a1.67 1.67 0 011.67-1.67V6zm9 0A5.17 5.17 0 0011 11.17V18h6.83v-6.83H14.5a1.67 1.67 0 011.67-1.67V6z"/></svg>
           <p class="text-[rgba(241,240,247,0.9)] leading-relaxed mb-4 flex-1">{t.texte}</p>
           <div>
             <p class="text-[#F1F0F7] font-medium text-sm">{t.nom}</p>
@@ -241,7 +241,7 @@ const TEMOIGNAGES = [
       ))}
     </div>
     <div class="text-center mt-8">
-      <a href={GOOGLE_AVIS} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[#9B99AA] hover:text-[#7C3AED] text-sm transition-colors">
+      <a href={GOOGLE_AVIS} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-[#9B99AA] hover:text-[#A78BFA] text-sm transition-colors">
         Voir nos avis sur Google
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7m10 0v10"/></svg>
       </a>
