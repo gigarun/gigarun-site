@@ -22,11 +22,11 @@ import Layout from '../../../layouts/Layout.astro';
   *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   :root{--rouge:#dc3545;--rouge-fonce:#6f1520;--bleu:#004080;--gris:#2c3e50}
   body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#e9ecef;display:flex;justify-content:center;padding:24px;color:#1d2228}
-  .toolbar{position:fixed;top:16px;right:16px;z-index:10;display:flex;gap:10px}
-  .toolbar button{background:linear-gradient(135deg,var(--rouge),var(--rouge-fonce));color:#fff;border:none;padding:12px 22px;border-radius:25px;font-size:.95em;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+  .toolbar{display:flex;flex-direction:column;gap:10px}
+  .toolbar button{width:100%;background:linear-gradient(135deg,var(--rouge),var(--rouge-fonce));color:#fff;border:none;padding:12px 22px;border-radius:25px;font-size:.95em;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
   .toolbar button:hover{transform:translateY(-2px)}
   .toolbar .btn-pdf{background:linear-gradient(135deg,#0088cc,#004080)}
-  .toolbar .btn-dl{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;padding:12px 22px;border-radius:25px;font-size:.95em;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25);background:linear-gradient(135deg,#198754,#0f5132);transition:transform .15s}
+  .toolbar .btn-dl{display:flex;justify-content:center;width:100%;align-items:center;gap:8px;text-decoration:none;color:#fff;padding:12px 22px;border-radius:25px;font-size:.95em;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25);background:linear-gradient(135deg,#198754,#0f5132);transition:transform .15s}
   .toolbar .btn-dl:hover{transform:translateY(-2px)}
   .toolbar .btn-dl .sz{font-weight:600;font-size:.82em;opacity:.8}
   .back-fixed{position:fixed;top:16px;left:16px;z-index:10;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:#fff;color:var(--rouge-fonce);text-decoration:none;border-radius:25px;font-size:.95em;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:transform .15s}
@@ -47,7 +47,7 @@ import Layout from '../../../layouts/Layout.astro';
   .btn-go{background:linear-gradient(135deg,var(--rouge),var(--rouge-fonce));color:#fff}
   .btn-cancel{background:#e9ecef;color:#444}
 
-  .page{width:210mm;min-height:297mm;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.18);display:flex;flex-direction:column;overflow:hidden}
+  .page{width:100%;max-width:210mm;min-height:297mm;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.18);display:flex;flex-direction:column;overflow:hidden}
 
   .poster-header{background:linear-gradient(135deg,var(--rouge),var(--rouge-fonce));color:#fff;padding:14mm 14mm 11mm;position:relative}
   .poster-header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,#ffc107,#fff3 60%,transparent)}
@@ -76,22 +76,51 @@ import Layout from '../../../layouts/Layout.astro';
   .contact .site{font-size:.95em;color:#bdc3c7}
   .contact .place{font-size:.85em;color:#9fb0bf}
 
+
+  .affiche-layout{display:flex;gap:2rem;align-items:flex-start;justify-content:center;flex-wrap:wrap;padding:2rem 1rem;background:#e9ecef}
+  .affiche-side{flex:0 0 300px;position:sticky;top:6rem;display:flex;flex-direction:column;gap:1rem}
+  .side-card{background:#fff;border-radius:14px;padding:1rem;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+  .side-card h2{font-size:.8rem;text-transform:none;letter-spacing:.04em;color:#6f1520;font-weight:800;margin-bottom:.6rem}
+  .side-thumb{display:block;width:100%;height:auto;border-radius:8px;margin-bottom:.8rem}
+  .side-links{list-style:none;display:flex;flex-direction:column;gap:.5rem;font-size:.92rem}
+  .side-links a{color:#004080;text-decoration:none;font-weight:600}
+  .side-links a:hover{text-decoration:underline}
+  @media(max-width:1100px){.affiche-side{position:static;flex-basis:100%;max-width:210mm;order:-1}}
   @media print{
     @page{size:A4;margin:0}
     body{background:#fff;padding:0}
-    .toolbar,.modal-overlay,.back-fixed{display:none !important}
-    .page{box-shadow:none;width:auto;min-height:auto}
+    .affiche-side,.modal-overlay,.back-fixed{display:none !important}
+    .affiche-layout{display:block;padding:0;background:#fff}.page{box-shadow:none;width:auto;max-width:none;min-height:auto}
   }
 </style>
 
 
 <a href="index.html" class="back-fixed">&larr; Retour aux guides</a>
 
+
+<div class="affiche-layout">
+<aside class="affiche-side">
+  <div class="side-card">
+    <img class="side-thumb" src="/images/og-securite.png" alt="Aperçu de l'affiche des 13 réflexes cybersécurité" width="300" height="158" loading="lazy">
 <div class="toolbar">
-  <button onclick="window.print()">🖨️ Imprimer</button>
-  <button class="btn-pdf" onclick="openPdfHelp()">📄 Générer un PDF</button>
-  <a class="btn-dl" href="MalletteCyber_PRO.zip" download>⬇️ Mallette Cyber PRO <span class="sz">(ZIP, 19,7&nbsp;Mo)</span></a>
-</div>
+      <button onclick="window.print()">🖨️ Imprimer</button>
+      <button class="btn-pdf" onclick="openPdfHelp()">📄 Générer un PDF</button>
+      <a class="btn-dl" href="MalletteCyber_PRO.zip" download>⬇️ Mallette Cyber PRO <span class="sz">(ZIP, 19,7&nbsp;Mo)</span></a>
+    </div>
+    
+  </div>
+  <div class="side-card">
+    <h2>À lire aussi</h2>
+    <ul class="side-links">
+      <li><a href="/guides/guide-cybersecurite-utilisateur">Guide cybersécurité utilisateur</a></li>
+      <li><a href="/guides/guide-mfa-microsoft-authenticator">Activer le MFA (Authenticator)</a></li>
+      <li><a href="/guides/guide-passbolt-gestionnaire-mots-de-passe">Gestionnaire de mots de passe</a></li>
+      <li><a href="/guides/outil-autoevaluation-securite-cnil">Auto-évaluation sécurité (CNIL)</a></li>
+      <li><a href="/gouvernance-cybersecurite">Gouvernance cybersécurité</a></li>
+      <li><a href="/contact">Diagnostic gratuit</a></li>
+    </ul>
+  </div>
+</aside>
 
 <div class="page">
 
@@ -117,6 +146,7 @@ import Layout from '../../../layouts/Layout.astro';
 
   
 
+</div>
 </div>
 
 <div class="modal-overlay" id="pdfHelp" role="dialog" aria-modal="true" aria-labelledby="pdfHelpTitle">
