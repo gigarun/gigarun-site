@@ -179,7 +179,7 @@ import Layout from '../../../layouts/Layout.astro';
   </div>
 </div>
 
-<script>
+<script is:inline>
   function openPdfHelp(){document.getElementById('pdfHelp').classList.add('show');}
   function closePdfHelp(){document.getElementById('pdfHelp').classList.remove('show');}
   function runPdf(){closePdfHelp();setTimeout(function(){window.print();},300);}
