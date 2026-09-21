@@ -3,8 +3,8 @@ import pkg from '../../package.json';
 import SocialLinks from './SocialLinks.astro';
 ---
 <footer class="bg-[#03000F] pt-16 pb-8" style="border-top:1px solid rgba(124,58,237,0.15);">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+  <div class="max-w-[1600px] mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-10 mb-12">
 
       <!-- Col 1 : Brand -->
       <div>
@@ -53,14 +53,6 @@ import SocialLinks from './SocialLinks.astro';
           <li><a href="/intelligence-artificielle" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Intelligence artificielle</a></li>
           <li><a href="/gigacloud-backup" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">GigaCloud Backup</a></li>
         </ul>
-        <h3 class="text-[12px] uppercase tracking-widest text-[#A78BFA] font-semibold mb-4">Zones d&#39;intervention</h3>
-        <ul class="flex flex-col gap-y-2.5">
-          <li><a href="/prestataire-informatique-saint-pierre" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Saint-Pierre</a></li>
-          <li><a href="/prestataire-informatique-saint-louis" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Saint-Louis</a></li>
-          <li><a href="/prestataire-informatique-saint-joseph" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Saint-Joseph</a></li>
-          <li><a href="/prestataire-informatique-petite-ile" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Petite-Île</a></li>
-          <li><a href="/prestataire-informatique-le-tampon" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Le Tampon</a></li>
-        </ul>
       </div>
 
       <!-- Col 4 : Légal -->
@@ -95,6 +87,18 @@ import SocialLinks from './SocialLinks.astro';
         <div class="mt-5">
           <SocialLinks iconClass="w-4 h-4" linkClass="text-[#9B99AA] hover:text-[#F1F0F7] transition-colors" />
         </div>
+      </div>
+
+      <!-- Col 6 : Zones d intervention -->
+      <div>
+        <h3 class="text-[12px] uppercase tracking-widest text-[#A78BFA] font-semibold mb-4">Zones d&#39;intervention</h3>
+        <ul class="flex flex-col gap-y-2.5">
+          <li><a href="/prestataire-informatique-saint-pierre" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Saint-Pierre</a></li>
+          <li><a href="/prestataire-informatique-saint-louis" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Saint-Louis</a></li>
+          <li><a href="/prestataire-informatique-saint-joseph" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Saint-Joseph</a></li>
+          <li><a href="/prestataire-informatique-petite-ile" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Petite-Île</a></li>
+          <li><a href="/prestataire-informatique-le-tampon" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm transition-colors">Le Tampon</a></li>
+        </ul>
       </div>
 
     </div>
