@@ -8,11 +8,7 @@ export default defineConfig({
   output: 'static',
   redirects: LEGACY_REDIRECTS,
   integrations: [
-    sitemap({
-      // Exclut les pages légales/utilitaires sans valeur SEO
-      filter: (page) =>
-        !/\/(cgl|cgv|confidentialite|mentions-legales|politique-de-divulgation-responsable|fiche-sav)\/?$/.test(page),
-    }),
+    sitemap(),
   ],
   vite: {
     plugins: [tailwindcss()],

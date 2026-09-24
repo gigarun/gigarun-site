@@ -403,7 +403,7 @@ export const ALL_ITEMS = [
   "cat": "Intelligence artificielle",
   "date": "2025",
   "titre": "Exocortex IA - Guide Complet | Copilote Cognitif avec l'IA",
-  "desc": "Guide complet pour construire votre Exocortex : copilote cognitif personnel avec l",
+  "desc": "Construire votre Exocortex : un copilote cognitif personnel qui transforme une IA généraliste grâce à vos fichiers de contexte, protocoles et modèles.",
   "type": "guide",
   "gcat": [
    "ia"
@@ -447,7 +447,7 @@ export const ALL_ITEMS = [
   "cat": "Cybersécurité",
   "date": "2025",
   "titre": "Cybersécurité utilisateur : bonnes pratiques au quotidien",
-  "desc": "Guide cybersécurité pour les collaborateurs : reconnaître le phishing, créer des mots de passe solides, réagir en cas d",
+  "desc": "Guide cybersécurité pour les collaborateurs : reconnaître le phishing, créer des mots de passe solides et réagir en cas d’incident.",
   "type": "guide",
   "gcat": [
    "securite"
@@ -480,7 +480,7 @@ export const ALL_ITEMS = [
   "cat": "Infrastructure",
   "date": "2025",
   "titre": "Guide VPN & Accès Distant | Télétravail sécurisé",
-  "desc": "Guide VPN et accès distant pour le télétravail : connexion sécurisée, configuration, bonnes pratiques et dépannage pour travailler à",
+  "desc": "Guide VPN et accès distant pour le télétravail : connexion sécurisée, configuration, bonnes pratiques et dépannage pour travailler à distance.",
   "type": "guide",
   "gcat": [
    "poste"
@@ -524,7 +524,7 @@ export const ALL_ITEMS = [
   "cat": "Intelligence artificielle",
   "date": "2025",
   "titre": "Guide IA pour PME : l’intelligence artificielle en pratique",
-  "desc": "Guide pratique IA pour les PME : Microsoft Copilot, ChatGPT, Claude, cas d",
+  "desc": "Guide pratique IA pour les PME : Microsoft Copilot, ChatGPT, Claude, cas d’usage concrets, bonnes pratiques et précautions à prendre.",
   "type": "guide",
   "gcat": [
    "ia"
@@ -535,7 +535,7 @@ export const ALL_ITEMS = [
   "cat": "Infrastructure",
   "date": "2025",
   "titre": "Sécurisation WiFi : filtrage MAC, portail captif",
-  "desc": "Guide WiFi entreprise : comprendre le filtrage MAC, anticiper les demandes d",
+  "desc": "Guide WiFi entreprise : comprendre le filtrage MAC, anticiper les demandes des utilisateurs et sécuriser l’accès avec un portail captif.",
   "type": "guide",
   "gcat": [
    "securite"
@@ -568,7 +568,7 @@ export const ALL_ITEMS = [
   "cat": "Infogérance",
   "date": "2025",
   "titre": "VirtualHost Virtualmin pour Dolibarr : guide pas à pas",
-  "desc": "Guide pas à pas pour créer un hôte virtuel (VirtualHost) dans Webmin / Virtualmin pour un module Dolibarr comme SmartInterventions. DocumentRoot personnalisé, S",
+  "desc": "Guide pas à pas pour créer un hôte virtuel (VirtualHost) dans Webmin / Virtualmin pour un module Dolibarr, avec DocumentRoot personnalisé.",
   "type": "guide",
   "gcat": [
    "webmestre"
@@ -744,7 +744,7 @@ export const ALL_ITEMS = [
   "cat": "Cybersécurité",
   "date": "2026-09-10",
   "titre": "Affiche - Mes 13 réflexes cybersécurité",
-  "desc": "Affiche des 13 réflexes essentiels de cybersécurité à adopter au quotidien, par GiGaRuN.",
+  "desc": "Affiche des 13 réflexes essentiels de cybersécurité à adopter au quotidien, à afficher dans vos locaux ou à partager avec vos équipes, par GiGaRuN.",
   "type": "guide",
   "gcat": [
    "securite"
