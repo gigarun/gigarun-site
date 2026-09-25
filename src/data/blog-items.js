@@ -815,3 +815,17 @@ export const ALL_ITEMS = [
   ]
  }
 ];
+
+// Thèmes de filtrage des guides (blog et hub /guides/)
+export const GUIDE_CATS = [
+  { id: 'securite', label: 'Sécurité' },
+  { id: 'messagerie', label: 'Messagerie' },
+  { id: 'cloud', label: 'Cloud' },
+  { id: 'poste', label: 'Poste de travail' },
+  { id: 'ia', label: 'Intelligence artificielle' },
+  { id: 'webmestre', label: 'Technique web' },
+  { id: 'erp', label: 'ERP / Dolibarr' },
+  { id: 'infogerance', label: 'Infogérance' },
+  { id: 'forensique', label: 'Forensique' },
+  { id: 'outils', label: 'Outils' },
+];

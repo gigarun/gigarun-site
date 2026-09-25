@@ -1,7 +1,7 @@
 ---
 // Hub des guides : une page d'entrée crawlable, organisée par parcours. Les guides d'exploitation internes (noindex) en sont exclus.
 import Layout from '../../layouts/Layout.astro';
-import { ALL_ITEMS } from '../../data/blog-items.js';
+import { ALL_ITEMS, GUIDE_CATS } from '../../data/blog-items.js';
 import { NOINDEX_PATHS } from '../../data/noindex-paths.js';
 
 const guides = ALL_ITEMS.filter((x) => x.type === 'guide' && !NOINDEX_PATHS.has(x.href));
@@ -9,8 +9,8 @@ const par = (href) => ALL_ITEMS.find((x) => x.href === href);
 
 // Pages qui ne sont pas des guides mais complètent un parcours
 const EXTRA = {
-  ia: [{ href: '/blog/ia-la-reunion-pme-questions-de-base/', cat: 'Article', titre: "L'IA en entreprise à La Réunion : les questions de base", desc: "À quoi sert l'IA dans une petite entreprise, combien ça coûte, que faire de vos données et par où commencer." }],
-  erp: [{ href: '/facture-electronique/', cat: 'Réglementation', titre: 'Facture électronique 2026-2027 : que doit faire une TPE ou PME ?', desc: 'Les dates à retenir, les plateformes agréées, les formats et les étapes pour se préparer.' }],
+  ia: [{ href: '/blog/ia-la-reunion-pme-questions-de-base/', gcat: ['ia'], cat: 'Article', titre: "L'IA en entreprise à La Réunion : les questions de base", desc: "À quoi sert l'IA dans une petite entreprise, combien ça coûte, que faire de vos données et par où commencer." }],
+  erp: [{ href: '/facture-electronique/', gcat: ['erp'], cat: 'Réglementation', titre: 'Facture électronique 2026-2027 : que doit faire une TPE ou PME ?', desc: 'Les dates à retenir, les plateformes agréées, les formats et les étapes pour se préparer.' }],
 };
 
 const PARCOURS = [
@@ -59,13 +59,26 @@ const diagnostic = 'https://cybersecure.re/?utm_source=gigarun&utm_medium=hub-gu
     </div>
   </div>
 </section>
+<section class="bg-[#07001C] pb-6">
+  <div class="max-w-6xl mx-auto px-6">
+    <input type="search" id="guide-search" aria-label="Rechercher un guide" placeholder="Rechercher un guide (mot-clé)..."
+      class="w-full max-w-md bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-full px-5 py-2.5 text-sm text-[#F1F0F7] placeholder-[#6B6880] focus:outline-none focus:border-[#7C3AED] transition-colors mb-4" />
+    <div class="flex flex-wrap gap-2" id="guide-themes">
+      <button type="button" data-gcat="" class="gcat-btn px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-[#06B6D4] border-[#06B6D4] text-[#07001C]" aria-pressed="true">Tous les thèmes</button>
+      {GUIDE_CATS.map((g) => (
+        <button type="button" data-gcat={g.id} class="gcat-btn px-3 py-1.5 rounded-full text-xs font-medium transition-all border bg-transparent border-[rgba(6,182,212,0.3)] text-[#9B99AA] hover:border-[#06B6D4] hover:text-[#F1F0F7]" aria-pressed="false">{g.label}</button>
+      ))}
+    </div>
+    <p id="guide-vide" class="hidden text-[#9B99AA] text-sm mt-6">Aucun guide ne correspond. Essayez un autre mot ou <a href="/contact/" class="text-[#A78BFA] underline">écrivez-nous</a>.</p>
+  </div>
+</section>
 {UNE.length > 0 && (
-  <section class="bg-[#0A0022] py-14">
+  <section class="bg-[#0A0022] py-14" id="une">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="font-syne font-bold text-[#F1F0F7] mb-6" style="font-size:1.5rem;">À lire en premier</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {UNE.map((g) => (
-          <a href={g.href} class="block bg-[#0D0028] border border-[rgba(124,58,237,0.25)] hover:border-[#7C3AED] rounded-xl p-5 transition-colors">
+          <a href={g.href} data-gcat={(g.gcat ?? []).join(' ')} data-q={(g.titre + ' ' + g.desc + ' ' + g.cat).toLowerCase()} class="carte block bg-[#0D0028] border border-[rgba(124,58,237,0.25)] hover:border-[#7C3AED] rounded-xl p-5 transition-colors">
             <span class="text-[#A78BFA] text-[11px] font-medium">{g.cat}</span>
             <h3 class="text-white font-semibold mt-1 mb-2 leading-snug">{g.titre}</h3>
             <p class="text-[#9B99AA] text-sm leading-relaxed line-clamp-3">{g.desc}</p>
@@ -76,13 +89,13 @@ const diagnostic = 'https://cybersecure.re/?utm_source=gigarun&utm_medium=hub-gu
   </section>
 )}
 {sections.filter((s) => s.items.length).map((s, i) => (
-  <section class={i % 2 === 0 ? 'bg-[#07001C] py-14' : 'bg-[#0A0022] py-14'} id={s.id}>
+  <section class={(i % 2 === 0 ? 'bg-[#07001C] py-14' : 'bg-[#0A0022] py-14') + ' parcours'} id={s.id}>
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="font-syne font-bold text-[#F1F0F7] mb-2" style="font-size:1.5rem;">{s.titre}</h2>
       {s.intro && <p class="text-[#9B99AA] text-sm mb-6 max-w-2xl">{s.intro}</p>}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {s.items.map((g) => (
-          <a href={g.href} class="block bg-[#0D0028] border border-[rgba(124,58,237,0.15)] hover:border-[#7C3AED] rounded-xl p-5 transition-colors">
+          <a href={g.href} data-gcat={(g.gcat ?? []).join(' ')} data-q={(g.titre + ' ' + g.desc + ' ' + g.cat).toLowerCase()} class="carte block bg-[#0D0028] border border-[rgba(124,58,237,0.15)] hover:border-[#7C3AED] rounded-xl p-5 transition-colors">
             <span class="text-[#A78BFA] text-[11px] font-medium">{g.cat}</span>
             <h3 class="text-white font-semibold mt-1 mb-2 leading-snug">{g.titre}</h3>
             <p class="text-[#9B99AA] text-sm leading-relaxed line-clamp-3">{g.desc}</p>
@@ -103,4 +116,43 @@ const diagnostic = 'https://cybersecure.re/?utm_source=gigarun&utm_medium=hub-gu
   </div>
   <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
 </section>
+<script is:inline>
+(function () {
+  var cartes = Array.prototype.slice.call(document.querySelectorAll('.carte'));
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.gcat-btn'));
+  var champ = document.getElementById('guide-search');
+  var une = document.getElementById('une');
+  var vide = document.getElementById('guide-vide');
+  var etat = { gcat: '', q: '' };
+  function appliquer() {
+    var q = etat.q.trim().toLowerCase(), actif = !!(q || etat.gcat), total = 0;
+    cartes.forEach(function (c) {
+      var dansUne = !!une && une.contains(c);
+      var ok = (!etat.gcat || c.dataset.gcat.split(' ').indexOf(etat.gcat) > -1) && (!q || c.dataset.q.indexOf(q) > -1);
+      // pendant un filtrage, « À lire en premier » est masqué : ses cartes doublonnent celles des parcours
+      c.hidden = !ok || (actif && dansUne);
+      if (ok && !dansUne) total++;
+    });
+    if (une) une.hidden = actif;
+    Array.prototype.forEach.call(document.querySelectorAll('.parcours'), function (s) {
+      s.hidden = !s.querySelector('.carte:not([hidden])');
+    });
+    vide.classList.toggle('hidden', !actif || total > 0);
+  }
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) {
+        var on = x === b;
+        x.classList.toggle('bg-[#06B6D4]', on); x.classList.toggle('border-[#06B6D4]', on); x.classList.toggle('text-[#07001C]', on);
+        x.classList.toggle('bg-transparent', !on); x.classList.toggle('border-[rgba(6,182,212,0.3)]', !on); x.classList.toggle('text-[#9B99AA]', !on);
+        x.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      etat.gcat = b.dataset.gcat || '';
+      appliquer();
+    });
+  });
+  champ.addEventListener('input', function () { etat.q = champ.value; appliquer(); });
+})();
+</script>
+<style is:global>.carte[hidden],section[hidden]{display:none!important}</style>
 </Layout>
