@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/ia-la-reunion-pme-questions-de-base/",
+  "cat": "Intelligence artificielle",
+  "date": "25 sept. 2026",
+  "titre": "L'IA en entreprise à La Réunion : les questions de base",
+  "desc": "IA en TPE/PME à La Réunion : usages, coût, données, RGPD, par où commencer. Les réponses simples aux questions de base avant de vous lancer.",
+  "type": "article"
+ },
+ {
   "href": "/blog/comprendre-microsoft-365-types-de-boites/",
   "cat": "Microsoft 365",
   "date": "20 oct. 2025",

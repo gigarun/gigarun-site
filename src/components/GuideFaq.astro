@@ -1,0 +1,41 @@
+---
+// Bloc « Questions fréquentes » + appel à l'action en fin de guide. Le contenu vient de src/data/guide-faq.js.
+import { GUIDE_FAQ } from '../data/guide-faq.js';
+import ArticleCtaActions from './ArticleCtaActions.astro';
+interface Props {
+  slug: string;
+  variant?: 'general' | 'cyber' | 'ia' | 'sauvegarde' | 'm365';
+}
+const { slug, variant = 'general' } = Astro.props;
+const TITRES = {
+  general: "Besoin d'accompagnement ?",
+  cyber: 'Votre entreprise est-elle bien protégée ?',
+  ia: 'Un projet d’IA dans votre entreprise ?',
+  sauvegarde: 'Vos sauvegardes tiendraient-elles le coup ?',
+  m365: 'Besoin d’aide sur Microsoft 365 ?',
+};
+const items = GUIDE_FAQ[slug] ?? [];
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+};
+---
+{items.length > 0 && (
+  <section class="bg-[#07001C] pb-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:1.25rem;">Questions fréquentes</h2>
+      {items.map((i) => (
+        <details class="border-b border-[rgba(124,58,237,0.2)] py-3">
+          <summary class="text-[#F1F0F7] text-sm font-medium cursor-pointer">{i.q}</summary>
+          <p class="text-[#9B99AA] text-sm leading-relaxed mt-2">{i.a}</p>
+        </details>
+      ))}
+      <div class="mt-8 bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-6">
+        <p class="text-white font-semibold mb-4">{TITRES[variant]}</p>
+        <ArticleCtaActions slug={slug} variant={variant} />
+      </div>
+    </div>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
+  </section>
+)}

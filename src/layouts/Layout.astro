@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import SiteOverlays from '../components/SiteOverlays.astro';
 import '../styles/global.css';
+import { NOINDEX_PATHS } from '../data/noindex-paths.js';
 import '@fontsource/syne/700.css';
 import '@fontsource/syne/800.css';
 import '@fontsource/dm-sans/400.css';
@@ -23,6 +24,7 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, 'https://gigarun.re').toString();
+const noindex = NOINDEX_PATHS.has(Astro.url.pathname.replace(/\/?$/, '/'));
 const ogImageUrl = new URL(image, 'https://gigarun.re').toString();
 
 const _segs = Astro.url.pathname.split('/').filter(Boolean);
@@ -41,6 +43,7 @@ const localBusinessLd = { '@context':'https://schema.org', '@type':'Professional
   <meta name="description" content={description} />
   <title>{title}</title>
   <link rel="canonical" href={canonicalUrl} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Gigarun" />

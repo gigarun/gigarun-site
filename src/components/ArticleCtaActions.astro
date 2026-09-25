@@ -1,27 +1,43 @@
 ---
-// Boutons d appel a l action de fin d article (remplacent le seul numero de telephone).
-// cyber : articles de securite -> diagnostic gratuit cybersecure.re (UTM, domaine externe) + audit.
-// general : autres articles -> devis + contact. Liens internes SANS UTM (pas d URL en double).
+// Boutons d'appel à l'action de fin d'article ou de guide (remplacent le seul numéro de téléphone).
+// Liens internes SANS UTM (pas d'URL en double) ; seul le domaine externe cybersecure.re porte un UTM.
 interface Props {
   slug: string;
-  variant?: "general" | "cyber";
+  variant?: 'general' | 'cyber' | 'ia' | 'sauvegarde' | 'm365';
 }
-const { slug, variant = "general" } = Astro.props;
-const base = "text-sm font-medium px-5 py-2.5 rounded-lg transition-all inline-block";
+const { slug, variant = 'general' } = Astro.props;
+const base = 'text-sm font-medium px-5 py-2.5 rounded-lg transition-all inline-block';
 const primary = `bg-[#7C3AED] hover:bg-[#6D28D9] text-white ${base}`;
 const secondary = `border border-[rgba(124,58,237,0.5)] text-[#A78BFA] hover:bg-[rgba(124,58,237,0.15)] ${base}`;
 const diagnostic = `https://cybersecure.re/?utm_source=gigarun&utm_medium=blog&utm_campaign=${slug}`;
+const R = {
+  mfa: ['/guides/guide-mfa-microsoft-authenticator/', 'Activer la MFA Microsoft 365'],
+  reflexes: ['/guides/affiche-13-reflexes-cybersecurite/', 'Les 13 réflexes de cybersécurité'],
+  cnil: ['/guides/outil-autoevaluation-securite-cnil/', 'Auto-évaluation de votre sécurité'],
+  efact: ['/facture-electronique/', 'Facture électronique 2026-2027 : que faire ?'],
+  iaArticle: ['/blog/ia-la-reunion-pme-questions-de-base/', "L'IA en entreprise à La Réunion : les questions de base"],
+  iaGuide: ['/guides/guide-ia-pour-pme/', 'Guide IA pour PME'],
+  nestor: ['/nestor/', "Nestor, l'IA d'entreprise hébergée chez vous"],
+  restauration: ['/guides/guide-restauration-fichiers/', 'Récupérer un fichier supprimé'],
+  regle321: ['/blog/sauvegardes-donnees-regle-3-2-1/', 'La règle 3-2-1 des sauvegardes'],
+  onedrive: ['/guides/guide-bonnes-pratiques-onedrive/', 'Partager un fichier avec OneDrive'],
+  teams: ['/guides/guide-stockage-fichiers-teams-share-point-one-drive/', 'Où sont les fichiers Teams ?'],
+};
+const CONFIG = {
+  general: { p: ['Demander un devis gratuit', '/devis/', false], s: ['Nous écrire', '/contact/'], voir: [R.efact, R.iaArticle] },
+  cyber: { p: ['Tester mon domaine gratuitement', diagnostic, true], s: ['Demander un audit', '/audit/'], voir: [R.mfa, R.reflexes, R.cnil] },
+  ia: { p: ['Parler de mon projet IA', '/contact/', false], s: ['Découvrir nos solutions IA', '/intelligence-artificielle/'], voir: [R.iaArticle, R.iaGuide, R.nestor] },
+  sauvegarde: { p: ['Faire auditer mes sauvegardes', '/audit/', false], s: ['Sauvegarde & PRA', '/sauvegarde-pra/'], voir: [R.restauration, R.regle321] },
+  m365: { p: ['Parler de mon Microsoft 365', '/microsoft-365/', false], s: ['Nous écrire', '/contact/'], voir: [R.onedrive, R.teams, R.mfa] },
+};
+const c = CONFIG[variant];
+const here = Astro.url.pathname.replace(/\/?$/, '/');
+const voir = c.voir.filter(([href]) => href !== here);
 ---
 <div class="flex flex-wrap gap-3">
-  {variant === "cyber" ? (
-    <>
-      <a href={diagnostic} class={primary} rel="noopener">Tester mon domaine gratuitement</a>
-      <a href="/audit/" class={secondary}>Demander un audit</a>
-    </>
-  ) : (
-    <>
-      <a href="/devis/" class={primary}>Demander un devis gratuit</a>
-      <a href="/contact/" class={secondary}>Nous écrire</a>
-    </>
-  )}
+  <a href={c.p[1]} class={primary} rel={c.p[2] ? 'noopener' : undefined}>{c.p[0]}</a>
+  <a href={c.s[1]} class={secondary}>{c.s[0]}</a>
 </div>
+{voir.length > 0 && (
+  <p class="text-[#9B99AA] text-xs mt-4">À lire aussi : {voir.map(([href, label], i) => (<>{i > 0 && ' · '}<a href={href} class="text-[#A78BFA] hover:underline">{label}</a></>))}</p>
+)}
