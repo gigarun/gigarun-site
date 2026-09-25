@@ -151,7 +151,7 @@ import Layout from '../../../layouts/Layout.astro';
     </div>
 </header>
 
-<div class="back-bar"><a href="/blog/?tab=guides" class="back-home">&larr; Retour &agrave; l&rsquo;accueil des guides</a></div>
+<div class="back-bar"><a href="/guides/" class="back-home">&larr; Retour &agrave; l&rsquo;accueil des guides</a></div>
 
 <div class="container">
 
@@ -915,11 +915,9 @@ import Layout from '../../../layouts/Layout.astro';
     </div>
 </footer>
 
-<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)">&uarr;</button>
 <script is:inline>
-(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)})})();</script>
+(function(){var b=((document.getElementById('scrollTop')||document.createElement('i'))||document.createElement('i'));window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)})})();</script>
 
-<button id="scrollTop" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)" aria-label="Retour en haut">&#8679;</button>
 
 <script is:inline>
     function switchProfile(profile) {
@@ -938,7 +936,7 @@ import Layout from '../../../layouts/Layout.astro';
     }
 
     // Scroll top button
-    const scrollBtn = document.getElementById('scrollTop');
+    const scrollBtn = ((document.getElementById('scrollTop')||document.createElement('i'))||document.createElement('i'));
     window.addEventListener('scroll', () => {
         scrollBtn.classList.toggle('visible', window.scrollY > 300);
     });
@@ -953,5 +951,4 @@ import Layout from '../../../layouts/Layout.astro';
 #guide-wrapper .container { box-shadow: none !important; }
 </style>
 
-<div class="max-w-3xl mx-auto px-6 pb-10"><div class="mt-6 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associ&eacute;s</p><p class="text-sm leading-relaxed"><a href="/nestor/" class="text-[#A78BFA] hover:underline">IA hébergée Nestor</a> &middot; <a href="/intelligence-artificielle/" class="text-[#A78BFA] hover:underline">Intelligence artificielle</a></p></div></div>
 </Layout>

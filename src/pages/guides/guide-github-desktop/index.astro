@@ -594,9 +594,8 @@ import Layout from '../../../layouts/Layout.astro';
 
 
 
-<button id="scrollTop" onclick="window.scrollTo(&#123;top:0,behavior:'smooth'&#125;)" title="Retour en haut">&#x2191;</button>
 <script>
-    const btn = document.getElementById('scrollTop');
+    const btn = ((document.getElementById('scrollTop')||document.createElement('i'))||document.createElement('i'));
     window.addEventListener('scroll', () => {
         btn.classList.toggle('visible', window.scrollY > 300);
     });
@@ -611,5 +610,4 @@ import Layout from '../../../layouts/Layout.astro';
 #guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
 
-<div class="max-w-3xl mx-auto px-6 pb-10"><div class="mt-6 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associ&eacute;s</p><p class="text-sm leading-relaxed"><a href="/infogerance/" class="text-[#A78BFA] hover:underline">Infogérance</a></p></div></div>
 </Layout>

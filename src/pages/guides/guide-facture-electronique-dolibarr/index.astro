@@ -169,7 +169,7 @@ import Layout from '../../../layouts/Layout.astro';
 <!-- ========== HEADER ========== -->
 
 
-<div class="back-bar"><a href="/blog/?tab=guides" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+<div class="back-bar"><a href="/guides/" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
 
 <div class="container">
 
@@ -585,9 +585,8 @@ import Layout from '../../../layouts/Layout.astro';
 <!-- ========== FOOTER ========== -->
 
 
-<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
 <script>
-(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
+(function(){var b=((document.getElementById('scrollTop')||document.createElement('i'))||document.createElement('i'));window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
 </script>
 
 
@@ -604,5 +603,4 @@ import Layout from '../../../layouts/Layout.astro';
 #guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
 </style>
 
-<div class="max-w-3xl mx-auto px-6 pb-10"><div class="mt-6 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associ&eacute;s</p><p class="text-sm leading-relaxed"><a href="/dolibarr/" class="text-[#A78BFA] hover:underline">ERP Dolibarr</a></p></div></div>
 </Layout>

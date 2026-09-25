@@ -12,13 +12,13 @@ import Layout from '../../../layouts/Layout.astro';
       <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#A78BFA] text-[11px] font-medium px-3 py-1 rounded-full">Guide pratique · Infrastructure</span>
     </div>
     <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight text-center" style="font-size:clamp(24px,3.5vw,40px);text-align:center;">Guide D&eacute;ploiement Agent Zabbix | Supervision infog&eacute;rance</h1>
-    <p class="text-\[#9B99AA\] text-sm mt-2 mb-0" style="text-align:center;">Guide interne de d&eacute;ploiement des agents Zabbix (Agent 2) sur Windows et Linux : installation, configuration, firewall, enregistrement serveur et d&eacute;pannage.</p>
+    <p class="text-[#9B99AA] text-sm mt-2 mb-0" style="text-align:center;">Guide interne de d&eacute;ploiement des agents Zabbix (Agent 2) sur Windows et Linux : installation, configuration, firewall, enregistrement serveur et d&eacute;pannage.</p>
   </div>
 </div>
 
 <!-- Contenu guide avec son propre style -->
 <div id="guide-wrapper">
-<div class="back-bar"><a href="/blog/?tab=guides" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
+<div class="back-bar"><a href="/guides/" class="back-home">&larr; Retour &agrave; l'accueil des guides</a></div>
 
 <div class="container">
     <div class="header">
@@ -427,15 +427,8 @@ ufw reload</code></pre>
 
 
 
-<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
 </div>
 
-<div class="bg-[#07001C] py-10">
-  <div class="max-w-4xl mx-auto px-6 flex flex-wrap gap-3 justify-center">
-    <a href="/blog/" class="border border-[rgba(124,58,237,0.4)] text-[#9B99AA] hover:text-[#F1F0F7] text-sm font-medium px-5 py-2.5 rounded-lg transition-all">← Retour aux guides</a>
-    <a href="/contact/" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-all">Une question ? Contactez-nous</a>
-  </div>
-</div>
 
 <style>
 
@@ -527,22 +520,5 @@ ufw reload</code></pre>
 #guide-wrapper .header { display: none !important; }
 </style>
 
-<!-- Bouton retour en haut -->
-<button id="guide-back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:2rem;right:2rem;z-index:9999;width:44px;height:44px;border-radius:50%;background:#7C3AED;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;transform:translateY(8px);box-shadow:0 4px 16px rgba(124,58,237,0.4);">
-  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
-</button>
-<script>
-(function() {
-  var btn = document.getElementById('guide-back-to-top');
-  window.addEventListener('scroll', function() {
-    var show = window.scrollY > 400;
-    btn.style.opacity = show ? '1' : '0';
-    btn.style.pointerEvents = show ? 'auto' : 'none';
-    btn.style.transform = show ? 'translateY(0)' : 'translateY(8px)';
-  }, { passive: true });
-  btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-})();
-</script>
 
-<div class="max-w-3xl mx-auto px-6 pb-10"><div class="mt-6 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associ&eacute;s</p><p class="text-sm leading-relaxed"><a href="/infogerance/" class="text-[#A78BFA] hover:underline">Infogérance</a> &middot; <a href="/reseau/" class="text-[#A78BFA] hover:underline">Réseau & infrastructure</a></p></div></div>
 </Layout>

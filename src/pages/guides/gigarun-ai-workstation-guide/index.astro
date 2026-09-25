@@ -1839,7 +1839,6 @@ footer {
 
 
 
-<button id="scrollTop" title="Retour en haut" aria-label="Retour en haut">&uarr;</button>
 <script>
 // OS tabs
 document.querySelectorAll('.os-tab').forEach(tab => {
@@ -1878,10 +1877,9 @@ const barObserver = new IntersectionObserver(entries => {
 document.querySelectorAll('.hw-card, .big-bar').forEach(el => barObserver.observe(el));
 
 // Scroll top
-(function(){var b=document.getElementById('scrollTop');window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
+(function(){var b=((document.getElementById('scrollTop')||document.createElement('i'))||document.createElement('i'));window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400)});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();
 </script>
 
 </div>
 
-<div class="max-w-3xl mx-auto px-6 pb-10"><div class="mt-6 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associ&eacute;s</p><p class="text-sm leading-relaxed"><a href="/intelligence-artificielle/" class="text-[#A78BFA] hover:underline">Intelligence artificielle</a> &middot; <a href="/securite/" class="text-[#A78BFA] hover:underline">Cybersécurité</a></p></div></div>
 </Layout>
