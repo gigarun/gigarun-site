@@ -730,7 +730,7 @@ export const ALL_ITEMS = [
   "cat": "Infogérance",
   "date": "2026-05-06",
   "titre": "Facturation électronique Dolibarr 2026 : PA et Factur-X",
-  "desc": "Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : PA souveraine, audit de conformité gratuit, déploiement du connecteur et formation.",
+  "desc": "Tout ce qu'il faut faire avec votre Dolibarr avant septembre 2026 : PA souveraine, pré-diagnostic gratuit, déploiement du connecteur et formation.",
   "type": "guide",
   "gcat": [
    "erp"
