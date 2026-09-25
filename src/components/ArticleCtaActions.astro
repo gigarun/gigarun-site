@@ -1,0 +1,27 @@
+---
+// Boutons d appel a l action de fin d article (remplacent le seul numero de telephone).
+// cyber : articles de securite -> diagnostic gratuit cybersecure.re (UTM, domaine externe) + audit.
+// general : autres articles -> devis + contact. Liens internes SANS UTM (pas d URL en double).
+interface Props {
+  slug: string;
+  variant?: "general" | "cyber";
+}
+const { slug, variant = "general" } = Astro.props;
+const base = "text-sm font-medium px-5 py-2.5 rounded-lg transition-all inline-block";
+const primary = `bg-[#7C3AED] hover:bg-[#6D28D9] text-white ${base}`;
+const secondary = `border border-[rgba(124,58,237,0.5)] text-[#A78BFA] hover:bg-[rgba(124,58,237,0.15)] ${base}`;
+const diagnostic = `https://cybersecure.re/?utm_source=gigarun&utm_medium=blog&utm_campaign=${slug}`;
+---
+<div class="flex flex-wrap gap-3">
+  {variant === "cyber" ? (
+    <>
+      <a href={diagnostic} class={primary} rel="noopener">Tester mon domaine gratuitement</a>
+      <a href="/audit/" class={secondary}>Demander un audit</a>
+    </>
+  ) : (
+    <>
+      <a href="/devis/" class={primary}>Demander un devis gratuit</a>
+      <a href="/contact/" class={secondary}>Nous écrire</a>
+    </>
+  )}
+</div>
