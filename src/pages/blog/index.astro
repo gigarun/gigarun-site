@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { ALL_ITEMS } from '../../data/blog-items.js';
 
+const ARTICLES = ALL_ITEMS.filter((x) => x.type !== 'guide');
 const tabs = [
   { id: 'tous', label: 'Tous', cats: [], types: [] },
   { id: 'cyber', label: 'Cybersécurité', cats: ['Cybersécurité','Sécurité','Sécurité email','NIS2'], types: [] },
@@ -11,21 +12,21 @@ const tabs = [
   { id: 'solutions', label: 'Solutions', cats: ['Location matériel','Téléphonie','E-Commerce'], types: [] },
   { id: 'ia', label: 'IA', cats: ['Intelligence artificielle'], types: [] },
   { id: 'gigarun', label: 'Gigarun', cats: ['Gigarun','Numérique responsable'], types: [] },
-  { id: 'guides', label: '📘 Guides pratiques', cats: [], types: ['guide'] },
+  { id: 'guides', label: '📘 Guides pratiques →', cats: [], types: ['guide'] },
 ];
 
 ---
-<Layout title="Blog & Guides IT — Gigarun La Réunion" description="Articles, conseils pratiques et guides techniques pour les PME et TPE réunionnaises. Cybersécurité, infogérance, Microsoft 365, IA et plus.">
+<Layout title="Blog IT — Gigarun La Réunion" description="Articles et conseils pour les PME et TPE réunionnaises. Cybersécurité, infogérance, Microsoft 365, IA et plus.">
 <section class="bg-[#07001C] pt-32 pb-20">
   <div class="max-w-6xl mx-auto px-6">
 
     <div class="max-w-2xl mb-10">
       <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-6 rounded-full">
         <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
-        <span class="text-[#9B99AA] text-sm font-medium" id="blog-count">Blog & Guides · {ALL_ITEMS.length} ressources</span>
+        <span class="text-[#9B99AA] text-sm font-medium" id="blog-count">Blog · {ARTICLES.length} articles</span>
       </div>
       <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(32px,5vw,48px);line-height:1.1;">Ressources IT pour<br/>les PME réunionnaises</h1>
-      <p class="text-[#9B99AA] text-lg">Articles de fond, guides pratiques pas-à-pas et analyses pour les dirigeants et équipes IT de La Réunion.</p>
+      <p class="text-[#9B99AA] text-lg">Articles de fond et analyses pour les dirigeants et équipes IT de La Réunion. Les pas-à-pas sont dans nos <a href="/guides/" class="text-[#A78BFA] hover:underline">guides pratiques</a>.</p>
     </div>
 
     <div class="flex flex-wrap gap-2 mb-10" id="blog-tabs" role="tablist">
@@ -43,13 +44,13 @@ const tabs = [
     </div>
 
     <div class="relative mb-8 max-w-md">
-      <input type="search" id="blog-search" placeholder="Rechercher un guide ou un article..."
+      <input type="search" id="blog-search" placeholder="Rechercher un article..."
         class="w-full bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-full px-5 py-2.5 text-sm text-[#F1F0F7] placeholder-[#6B6880] focus:outline-none focus:border-[#7C3AED] transition-colors" />
     </div>
 
 
     <div class="grid md:grid-cols-3 gap-6" id="blog-grid">
-      {ALL_ITEMS.map(a => (
+      {ARTICLES.map(a => (
         <a href={a.href} data-cat={a.cat} data-type={a.type} data-gcat={(a.gcat || []).join(' ')} data-q={(a.titre + ' ' + a.desc + ' ' + a.cat).toLowerCase()}
            class="article-card bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 hover:border-[#7C3AED] transition-all block group">
           <div class="flex items-center gap-2 mb-3 flex-wrap">
@@ -62,7 +63,7 @@ const tabs = [
         </a>
       ))}
     </div>
-    <p id="blog-empty" class="hidden text-center text-[#9B99AA] py-16">Aucune ressource dans cette catégorie.</p>
+    <p id="blog-empty" class="hidden text-center text-[#9B99AA] py-16">Aucun article dans cette catégorie.</p>
   </div>
 </section>
 
@@ -94,7 +95,7 @@ function filterAndRender() {
     c.hidden = !show;
     if (show) n++;
   });
-  countEl.textContent = `Blog & Guides · ${n} ressource${n > 1 ? 's' : ''}`;
+  countEl.textContent = `Blog · ${n} article${n > 1 ? 's' : ''}`;
   emptyEl.classList.toggle('hidden', n > 0);
 }
 
