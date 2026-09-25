@@ -50,7 +50,10 @@ const diagnostic = 'https://cybersecure.re/?utm_source=gigarun&utm_medium=hub-gu
 <Layout title="Guides pratiques pour TPE et PME à La Réunion — Gigarun" description="Guides pas à pas gratuits : cybersécurité, Microsoft 365, sauvegarde, intelligence artificielle, facturation électronique, Dolibarr. Par GiGaRuN, La Réunion.">
 <section class="bg-[#07001C] pt-32 pb-12">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="text-[#A78BFA] text-sm font-medium mb-3">Guides pratiques</p>
+    <div class="inline-flex items-center gap-2 bg-[#110833] border border-[rgba(124,58,237,0.35)] px-4 py-1.5 mb-6 rounded-full">
+      <span class="w-2 h-2 bg-[#7C3AED] rounded-full"></span>
+      <span class="text-[#9B99AA] text-sm font-medium" id="guide-count" data-total={tous.length}>Guides pratiques · {tous.length} ressources</span>
+    </div>
     <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-5" style="font-size:clamp(30px,5vw,52px);line-height:1.1;">Guides pratiques pour votre entreprise</h1>
     <p class="text-[#9B99AA] text-lg max-w-2xl mb-8">Des explications pas à pas, écrites par nos techniciens, pour sécuriser vos comptes, maîtriser vos outils, utiliser l'IA et préparer la facturation électronique.</p>
     <div class="flex flex-wrap gap-3">
@@ -123,6 +126,7 @@ const diagnostic = 'https://cybersecure.re/?utm_source=gigarun&utm_medium=hub-gu
   var champ = document.getElementById('guide-search');
   var une = document.getElementById('une');
   var vide = document.getElementById('guide-vide');
+  var compteur = document.getElementById('guide-count');
   var etat = { gcat: '', q: '' };
   function appliquer() {
     var q = etat.q.trim().toLowerCase(), actif = !!(q || etat.gcat), total = 0;
@@ -138,6 +142,8 @@ const diagnostic = 'https://cybersecure.re/?utm_source=gigarun&utm_medium=hub-gu
       s.hidden = !s.querySelector('.carte:not([hidden])');
     });
     vide.classList.toggle('hidden', !actif || total > 0);
+    var n = actif ? total : parseInt(compteur.dataset.total, 10);
+    compteur.textContent = 'Guides pratiques · ' + n + ' ressource' + (n > 1 ? 's' : '');
   }
   btns.forEach(function (b) {
     b.addEventListener('click', function () {
