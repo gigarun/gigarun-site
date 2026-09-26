@@ -3,6 +3,12 @@
 Historique des évolutions du site gigarun.re. Format libre, une entrée par changement notable
 (pas les correctifs de typo ou de style mineurs).
 
+## [Non publié] — 2026-09-26
+- **`/.well-known/security.txt`** publié (`public/.well-known/security.txt`) : contact de signalement de faille (RFC 9116), expire le 2027-09-01, à renouveler.
+- **CSP en mode report-only** dans `default.conf` (`Content-Security-Policy-Report-Only`) : rien n'est bloqué, les violations apparaissent dans la console du navigateur.
+  Établie sur les 142 pages du sitemap et testée dans Chrome (accueil, iframes rtsp.me, carte Google Maps de /contact/, guide interactif) : aucune violation.
+  `'unsafe-inline'` conservé pour les scripts (2 scripts inline Astro partout, 13 scripts et 33 `onclick` dans 5 guides). Pour l'imposer : remplacer le nom de l'en-tête.
+
 ## [1.7.1] — 2026-09-12
 - Vrais 301/308 HTTP pour les **153/153** redirections legacy (les 68 restantes corrigées) —
   root cause du bug trouvée : Traefik lit le chemin décodé côté `Path()` du routeur mais
