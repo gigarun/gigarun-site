@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { FORMS_WEBHOOK } from '../../../config';
 ---
 <Layout title="Auto-évaluation Sécurité des Données — Référentiel CNIL" description="Outil d’auto-évaluation de la sécurité des données personnelles selon les 25 mesures du guide CNIL : statut, commentaires, score et export.">
 <script type="application/ld+json" is:inline>{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Auto-évaluation Sécurité des Données — Référentiel CNIL", "image": "https://gigarun.re/images/og-default.png", "description": "Outil d’auto-évaluation de la sécurité des données personnelles selon les 25 mesures du guide CNIL : statut, commentaires, score et export.", "author": {"@type": "Person", "name": "Thomas Cassen", "jobTitle": "DSI externalise & expert cybersecurite", "sameAs": "https://re.linkedin.com/in/thomascassen"}, "publisher": {"@type": "Organization", "name": "Gigarun", "logo": {"@type": "ImageObject", "url": "https://gigarun.re/favicon.ico"}}, "mainEntityOfPage": "https://gigarun.re/guides/outil-autoevaluation-securite-cnil", "datePublished": "2026-06-04T00:00:00+04:00", "dateModified": "2026-06-04T00:00:00+04:00"}</script>
@@ -16,171 +17,127 @@ import Layout from '../../../layouts/Layout.astro';
   </div>
 </div>
 
-<!-- Contenu guide avec son propre style -->
+
 <div id="guide-wrapper">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{--bleu:#0088cc;--bleu-fonce:#004080;--hero1:#1a5276;--hero2:#2e86c1;--vert:#198754;--ambre:#f59e0b;--rouge:#dc3545;--gris:#6c757d}
-  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:#f8f9fa}
-
-  .main-header{background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce));color:#fff;padding:20px 0;box-shadow:0 2px 10px rgba(0,0,0,.15)}
-  .header-container{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 20px;gap:15px;flex-wrap:wrap}
-  .logo-section{display:flex;align-items:center;gap:15px}
-  .company-tagline{font-size:.9em;opacity:.9}
-  .contact-item{font-size:.9em;opacity:.95}
-
-  .back-bar{max-width:1100px;margin:0 auto;padding:18px 20px 0}
-  .back-home{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:var(--bleu);color:#fff;text-decoration:none;border-radius:25px;font-weight:600;font-size:.88em}
-
-  .hero{background:linear-gradient(135deg,var(--hero1),var(--hero2));color:#fff;padding:42px 20px;text-align:center;margin-top:18px}
-  .hero h1{font-size:2.1em;font-weight:300;margin-bottom:10px}
-  .hero p{font-size:1.08em;opacity:.92;max-width:760px;margin:0 auto}
-
-  .container{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
-
-  .meta-card,.scorecard,.actions{background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.07);padding:22px 24px;margin-bottom:22px}
-  .meta-card h2,.scorecard h2{font-size:1.15em;color:var(--hero1);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--hero2)}
-  .meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-  .field label{display:block;font-size:.85em;font-weight:600;color:#555;margin-bottom:5px}
-  .field input{width:100%;padding:10px 12px;border:1px solid #ced4da;border-radius:8px;font-size:.95em;font-family:inherit}
-  .field input:focus{outline:none;border-color:var(--hero2);box-shadow:0 0 0 3px rgba(46,134,193,.15)}
-
-  .score-top{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:18px}
-  .score-ring{flex-shrink:0;width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--vert) 0deg,#e9ecef 0deg);transition:background .4s}
-  .score-ring .inner{width:92px;height:92px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .score-ring .pct{font-size:1.8em;font-weight:800;color:var(--hero1);line-height:1}
-  .score-ring .lbl{font-size:.62em;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-  .score-note{font-size:.95em;color:#555;flex:1;min-width:200px}
-
-  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
-  .kpi{border-radius:10px;padding:14px;text-align:center;color:#fff}
-  .kpi .v{font-size:1.6em;font-weight:800;display:block}
-  .kpi .l{font-size:.78em;opacity:.92}
-  .kpi.c{background:var(--vert)} .kpi.p{background:var(--ambre)} .kpi.n{background:var(--rouge)} .kpi.na{background:var(--gris)} .kpi.todo{background:#495057}
-
-  .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-  .btn{border:none;border-radius:24px;padding:11px 20px;font-weight:700;font-size:.92em;cursor:pointer;color:#fff;display:inline-flex;align-items:center;gap:7px;transition:transform .15s,box-shadow .15s}
-  .btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.15)}
-  .btn-blue{background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce))}
-  .btn-green{background:linear-gradient(135deg,#198754,#20c997)}
-  .btn-grey{background:#6c757d}
-  .btn-red{background:#dc3545}
-  .save-state{font-size:.85em;color:var(--vert);font-weight:600;margin-left:auto}
-
-  .cat-block{margin-bottom:30px}
-  .cat-title{font-size:1.18em;color:var(--bleu-fonce);font-weight:700;margin:0 0 14px;padding:10px 16px;background:linear-gradient(135deg,#eaf4fb,#fff);border-left:5px solid var(--bleu);border-radius:0 8px 8px 0}
-
-  .fiche{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.06);padding:18px 20px;margin-bottom:14px;border-left:5px solid #e9ecef;transition:border-color .3s}
-  .fiche.s-conforme{border-left-color:var(--vert)} .fiche.s-partiel{border-left-color:var(--ambre)} .fiche.s-non{border-left-color:var(--rouge)} .fiche.s-na{border-left-color:var(--gris)}
-  .fiche-head{display:flex;align-items:flex-start;gap:14px}
-  .fiche-num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
-  .fiche-txt h3{font-size:1.08em;color:#222;margin:0 0 3px}
-  .fiche-txt p{font-size:.9em;color:#666;margin:0}
-
-  .seg{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding-left:52px}
-  .seg button{border:2px solid #dee2e6;background:#fff;color:#555;border-radius:20px;padding:6px 16px;font-size:.85em;font-weight:600;cursor:pointer;transition:all .2s}
-  .seg button:hover{border-color:#adb5bd}
-  .seg button.on[data-v="conforme"]{background:var(--vert);border-color:var(--vert);color:#fff}
-  .seg button.on[data-v="partiel"]{background:var(--ambre);border-color:var(--ambre);color:#fff}
-  .seg button.on[data-v="non"]{background:var(--rouge);border-color:var(--rouge);color:#fff}
-  .seg button.on[data-v="na"]{background:var(--gris);border-color:var(--gris);color:#fff}
-  .fiche textarea{width:calc(100% - 52px);margin-left:52px;margin-top:12px;padding:9px 12px;border:1px solid #ced4da;border-radius:8px;font-family:inherit;font-size:.9em;resize:vertical;min-height:40px}
-  .fiche textarea:focus{outline:none;border-color:var(--hero2)}
-
-  .disclaimer{background:#fff3cd;border-left:5px solid var(--ambre);border-radius:0 10px 10px 0;padding:16px 20px;font-size:.9em;color:#5b4a08;margin-top:10px}
-
-  .main-footer{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:40px 0 20px;margin-top:20px}
-  .footer-container{max-width:1100px;margin:0 auto;padding:0 20px}
-  .footer-content{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:30px;flex-wrap:wrap}
-  .footer-section{flex:1;min-width:200px}
-  .footer-section h4{color:#3498db;margin-bottom:15px;font-size:1.1em;border-bottom:2px solid #3498db;padding-bottom:8px}
-  .footer-section ul{list-style:none;padding:0}
-  .footer-section li{padding:5px 0;border-bottom:1px dotted rgba(255,255,255,.2)}
-  .footer-section a{color:#bdc3c7;text-decoration:none;transition:color .3s}
-  .footer-section a:hover{color:#3498db}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,.2);padding-top:20px;text-align:center;color:#bdc3c7}
-  .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
-
-  .print-only{display:none}
-
-  @media(max-width:600px){
-    .hero h1{font-size:1.5em}.seg{padding-left:0}.fiche textarea{width:100%;margin-left:0}
-    .header-container{flex-direction:column;gap:8px}
-  }
-
-  @media print{
-    body{background:#fff}
-    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .back-bar,.actions,.hero p,.main-header .contact-item{display:none}
-    .hero{margin-top:0;padding:18px}.hero h1{font-size:1.4em}
-    .container{padding:10px 0}
-    .meta-card,.scorecard,.fiche{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
-    .seg button:not(.on){display:none}
-    .seg button.on{-webkit-print-color-adjust:exact}
-    .fiche textarea{border:none;padding-left:0}
-    .print-only{display:block;text-align:right;font-size:.85em;color:#666;padding:6px 20px}
-    .btn,.save-state{display:none}
-  }
+<style is:global>
+#guide-wrapper{background:#fff;color:#333;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6}
+#cnil{--bleu:#0088cc;--bleu-fonce:#004080;--hero1:#1a5276;--hero2:#2e86c1;--vert:#198754;--ambre:#f59e0b;--rouge:#dc3545;--gris:#6c757d;max-width:820px;margin:0 auto;padding:28px 16px 60px}
+#cnil *{box-sizing:border-box}
+#cnil .card{background:#fff;border-radius:12px;box-shadow:0 3px 14px rgba(0,0,0,.08);padding:20px 22px;margin-bottom:16px;border:1px solid #eef1f4}
+#cnil .card h2{font-size:1.1em;color:var(--hero1);margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--hero2)}
+#cnil .intro{font-size:.95em;color:#555;margin-bottom:16px}
+#cnil .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+#cnil .field label{display:block;font-size:.85em;font-weight:600;color:#555;margin-bottom:5px}
+#cnil .field input{width:100%;padding:10px 12px;border:1px solid #ced4da;border-radius:8px;font-size:.95em;font-family:inherit;color:#222;background:#fff}
+#cnil input:focus,#cnil textarea:focus{outline:none;border-color:var(--hero2);box-shadow:0 0 0 3px rgba(46,134,193,.15)}
+#cnil .progress{position:sticky;top:0;z-index:5;background:#fff;padding:10px 0 12px;margin-bottom:8px}
+#cnil .progress-txt{font-size:.85em;font-weight:600;color:var(--hero1);margin-bottom:6px;display:flex;justify-content:space-between}
+#cnil .bar{height:8px;background:#e9ecef;border-radius:8px;overflow:hidden}
+#cnil .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--bleu),var(--vert));transition:width .3s}
+#cnil .fiche{background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:12px;border:1px solid #eef1f4;border-left:5px solid #dee2e6;overflow:hidden}
+#cnil .fiche.s-conforme{border-left-color:var(--vert)}#cnil .fiche.s-partiel{border-left-color:var(--ambre)}#cnil .fiche.s-non{border-left-color:var(--rouge)}#cnil .fiche.s-na{border-left-color:var(--gris)}
+#cnil .fiche.new{animation:cnilIn .35s ease}
+@keyframes cnilIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#cnil .fiche-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;width:100%;background:none;border:0;text-align:left;font:inherit;color:inherit}
+#cnil .fiche-num{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce));color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.95em}
+#cnil .fiche-txt{flex:1;min-width:0}
+#cnil .fiche-cat{display:block;font-size:.72em;text-transform:uppercase;letter-spacing:.05em;color:#888}
+#cnil .fiche-txt h3{font-size:1.02em;color:#222;margin:0}
+#cnil .badge{font-size:.78em;font-weight:700;color:#fff;border-radius:12px;padding:3px 10px;white-space:nowrap}
+#cnil .badge.conforme{background:var(--vert)}#cnil .badge.partiel{background:var(--ambre)}#cnil .badge.non{background:var(--rouge)}#cnil .badge.na{background:var(--gris)}
+#cnil .fiche-body{display:none;padding:0 16px 16px 62px}
+#cnil .fiche.open .fiche-body{display:block}
+#cnil .fiche-body p{font-size:.92em;color:#555;margin:0 0 12px}
+#cnil .seg{display:flex;flex-wrap:wrap;gap:8px}
+#cnil .seg button{border:2px solid #dee2e6;background:#fff;color:#555;border-radius:20px;padding:7px 16px;font-size:.88em;font-weight:600;cursor:pointer;font-family:inherit}
+#cnil .seg button:hover{border-color:#adb5bd}
+#cnil .seg button.on[data-v="conforme"]{background:var(--vert);border-color:var(--vert);color:#fff}
+#cnil .seg button.on[data-v="partiel"]{background:var(--ambre);border-color:var(--ambre);color:#fff}
+#cnil .seg button.on[data-v="non"]{background:var(--rouge);border-color:var(--rouge);color:#fff}
+#cnil .seg button.on[data-v="na"]{background:var(--gris);border-color:var(--gris);color:#fff}
+#cnil textarea{width:100%;margin-top:12px;padding:9px 12px;border:1px solid #ced4da;border-radius:8px;font-family:inherit;font-size:.9em;resize:vertical;min-height:44px;color:#222;background:#fff}
+#cnil .score-top{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:16px}
+#cnil .score-ring{flex-shrink:0;width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e9ecef}
+#cnil .score-ring .inner{width:86px;height:86px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#cnil .score-ring .pct{font-size:1.7em;font-weight:800;line-height:1}
+#cnil .score-ring .lbl{font-size:.6em;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+#cnil .score-note{font-size:.92em;color:#555;flex:1;min-width:200px}
+#cnil .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+#cnil .kpi{border-radius:10px;padding:12px;text-align:center;color:#fff}
+#cnil .kpi b{font-size:1.5em;display:block}#cnil .kpi span{font-size:.78em}
+#cnil .kpi.c{background:var(--vert)}#cnil .kpi.p{background:var(--ambre)}#cnil .kpi.n{background:var(--rouge)}#cnil .kpi.na{background:var(--gris)}
+#cnil .consent{display:flex;gap:10px;align-items:flex-start;background:#f8f9fa;border:1px solid #dee2e6;border-radius:10px;padding:12px 14px;margin:16px 0;font-size:.88em;color:#444;cursor:pointer}
+#cnil .consent input{margin-top:3px;width:18px;height:18px;flex-shrink:0;cursor:pointer}
+#cnil .consent a{color:var(--bleu-fonce);text-decoration:underline}
+#cnil .btn{border:none;border-radius:24px;padding:11px 22px;font-weight:700;font-size:.92em;cursor:pointer;color:#fff;font-family:inherit;background:linear-gradient(135deg,var(--bleu),var(--bleu-fonce))}
+#cnil .btn:disabled{opacity:.45;cursor:not-allowed}
+#cnil .btn-send{background:linear-gradient(135deg,#198754,#20c997);font-size:1rem;padding:13px 28px}
+#cnil .btn-link{background:none;border:0;color:#6c757d;text-decoration:underline;cursor:pointer;font:inherit;font-size:.85em;padding:4px 0}
+#cnil .msg{margin-top:12px;font-size:.92em;font-weight:600}
+#cnil .msg.err{color:var(--rouge)}#cnil .msg.ok{color:var(--vert)}
+#cnil .hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+#cnil .disclaimer{background:#fff3cd;border-left:5px solid var(--ambre);border-radius:0 10px 10px 0;padding:14px 18px;font-size:.88em;color:#5b4a08;margin-top:18px}
+#cnil .tools{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px}
+@media(max-width:600px){#cnil .fiche-body{padding-left:16px}}
+@media print{#cnil .progress,#cnil .tools,#cnil .consent,#cnil .btn-send,#cnil .seg button:not(.on){display:none}#cnil .fiche-body{display:block}}
 </style>
 
+<div id="cnil">
+  <p class="intro">Évaluez la protection des données personnelles de votre organisme face aux 25 mesures du <strong>Guide de la sécurité des données personnelles de la CNIL</strong>. Répondez mesure par mesure : la suivante s'affiche au fur et à mesure. À la fin, vous obtenez votre score et pouvez nous envoyer l'évaluation.</p>
 
-
-
-
-
-<section class="hero">
-  <h2>Auto-évaluation Sécurité des Données</h2>
-  <p>Évaluez le niveau de protection des données personnelles de votre organisme face aux 25 mesures du <strong>Guide de la sécurité des données personnelles de la CNIL</strong>. Outil d'audit GiGaRuN — RSSI / DPO externalisé.</p>
-</section>
-
-<main class="container">
-
-  <div class="meta-card">
-    <h2>Contexte de l'évaluation</h2>
-    <div class="meta-grid">
-      <div class="field"><label for="m-org">Organisme évalué</label><input id="m-org" type="text" placeholder="Nom de l'entreprise / organisation"></div>
-      <div class="field"><label for="m-aud">Évaluateur</label><input id="m-aud" type="text" placeholder="Nom de l'auditeur (GiGaRuN)"></div>
-      <div class="field"><label for="m-date">Date</label><input id="m-date" type="date"></div>
+  <div class="card">
+    <h2>Votre organisme</h2>
+    <div class="grid">
+      <div class="field"><label for="m-org">Organisme évalué</label><input id="m-org" type="text" autocomplete="organization" placeholder="Nom de l'entreprise / organisation"></div>
+      <div class="field"><label for="m-nom">Votre nom</label><input id="m-nom" type="text" autocomplete="name" placeholder="Prénom Nom"></div>
+      <div class="field"><label for="m-email">Votre e-mail</label><input id="m-email" type="email" autocomplete="email" placeholder="vous@entreprise.re"></div>
     </div>
   </div>
 
-  <div class="scorecard">
-    <h2>Synthèse de conformité</h2>
-    <div class="score-top">
-      <div class="score-ring" id="ring"><div class="inner"><span class="pct" id="pct">0%</span><span class="lbl">conformité</span></div></div>
-      <div class="score-note" id="scoreNote">Sélectionnez un statut pour chaque mesure. Le taux est calculé sur les mesures évaluées (hors « Non applicable ») : Conforme = 100&nbsp;%, Partiel = 50&nbsp;%.</div>
-    </div>
-    <div class="kpi-grid">
-      <div class="kpi c"><span class="v" id="k-c">0</span><span class="l">Conforme</span></div>
-      <div class="kpi p"><span class="v" id="k-p">0</span><span class="l">Partiel</span></div>
-      <div class="kpi n"><span class="v" id="k-n">0</span><span class="l">Non conforme</span></div>
-      <div class="kpi na"><span class="v" id="k-na">0</span><span class="l">Non applicable</span></div>
-      <div class="kpi todo"><span class="v" id="k-todo">25</span><span class="l">À évaluer</span></div>
-    </div>
+  <div class="progress">
+    <div class="progress-txt"><span id="progTxt"></span><button type="button" class="btn-link" id="btnReset">Recommencer</button></div>
+    <div class="bar"><i id="progBar"></i></div>
   </div>
-
-  <div class="actions">
-    <button class="btn btn-green" onclick="exportJSON()">&#x2B07; Exporter (JSON)</button>
-    <button class="btn btn-blue" onclick="document.getElementById('importFile').click()">&#x2B06; Importer</button>
-    <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(event)">
-    <button class="btn btn-blue" onclick="window.print()">&#x1F5A8; Imprimer / PDF</button>
-    <button class="btn btn-red" onclick="resetAll()">&#x21BB; Réinitialiser</button>
-    <span class="save-state" id="saveState"></span>
-  </div>
-
-  <div class="print-only" id="printStamp"></div>
 
   <div id="fiches"></div>
+
+  <div id="final" class="card" style="display:none">
+    <h2>Votre synthèse</h2>
+    <div class="score-top">
+      <div class="score-ring" id="ring"><div class="inner"><span class="pct" id="pct">0%</span><span class="lbl">conformité</span></div></div>
+      <div class="score-note">Taux calculé sur les mesures évaluées (hors « Non applicable ») : Conforme = 100&nbsp;%, Partiel = 50&nbsp;%.</div>
+    </div>
+    <div class="kpis">
+      <div class="kpi c"><b id="k-c">0</b><span>Conforme</span></div>
+      <div class="kpi p"><b id="k-p">0</b><span>Partiel</span></div>
+      <div class="kpi n"><b id="k-n">0</b><span>Non conforme</span></div>
+      <div class="kpi na"><b id="k-na">0</b><span>Non applicable</span></div>
+    </div>
+
+    <form id="sendForm" novalidate>
+      <div class="hp" aria-hidden="true"><label>Ne pas remplir <input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+      <label class="consent" for="rgpd">
+        <input type="checkbox" id="rgpd" required>
+        <span>J'accepte que mes coordonnées et mes réponses soient traitées par GiGaRuN afin de me transmettre l'analyse de cette évaluation, conformément à la <a href="/confidentialite/" target="_blank" rel="noopener">politique de confidentialité</a>. Aucune donnée n'est transmise à des tiers.</span>
+      </label>
+      <button type="submit" class="btn btn-send" id="btnSend">Envoyer mon évaluation →</button>
+      <div class="msg" id="sendMsg" role="status"></div>
+    </form>
+
+    <div class="tools">
+      <button type="button" class="btn-link" id="btnExport">Exporter (JSON)</button>
+      <button type="button" class="btn-link" id="btnImport">Importer</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+      <button type="button" class="btn-link" id="btnPrint">Imprimer / PDF</button>
+    </div>
+  </div>
 
   <div class="disclaimer">
     <strong>Avertissement :</strong> cet outil est une aide à l'auto-évaluation inspirée du référentiel CNIL. Il ne constitue ni un audit certifié, ni une attestation de conformité au RGPD. Les résultats doivent être interprétés et complétés par une analyse de risques (fiche&nbsp;20) menée avec votre DPO / RSSI.
   </div>
+</div>
 
-</main>
-
-
-
-<script>
+<script define:vars={{ webhook: FORMS_WEBHOOK }}>
 const FICHES = [
   {n:1,  c:"Gouvernance & organisation", t:"Piloter la sécurité des données", o:"Mettre en place et maintenir dans la durée la protection exigée par le RGPD et les cadres sectoriels."},
   {n:2,  c:"Gouvernance & organisation", t:"Définir un cadre pour les utilisateurs", o:"Donner une force contraignante aux règles d'usage des outils (charte informatique)."},
@@ -214,136 +171,122 @@ const FICHES = [
   {n:24, c:"Domaines spécifiques", t:"Intelligence artificielle : conception", o:"Se doter des ressources pour des systèmes d'IA robustes, fiables et conformes."},
   {n:25, c:"Domaines spécifiques", t:"API : interfaces de programmation", o:"Sécuriser les données partagées via API (authentification, contrôle d'accès, quotas)."}
 ];
-const LABELS = {conforme:"Conforme", partiel:"Partiel", non:"Non conforme", na:"N/A"};
-const KEY = "gigarun-cnil-audit-v1";
-let state = {meta:{org:"",aud:"",date:""}, items:{}};
+const LABELS = {conforme:"Conforme", partiel:"Partiel", non:"Non conforme", na:"Non applicable"};
+const KEY = "gigarun-cnil-audit-v2";
+const $ = id => document.getElementById(id);
+const EMPTY = () => ({meta:{org:"",nom:"",email:""}, items:{}, open:null});
+const FIELDS = [["org","m-org"],["nom","m-nom"],["email","m-email"]];
+let state = EMPTY();
 
-function load(){
-  try{const raw=localStorage.getItem(KEY); if(raw){const s=JSON.parse(raw); if(s&&s.items){state=s;}}}catch(e){}
-}
-function save(){
-  try{localStorage.setItem(KEY, JSON.stringify(state)); flashSaved();}catch(e){}
-}
-function flashSaved(){
-  const el=document.getElementById('saveState');
-  el.textContent="\u2713 Enregistré localement";
-  clearTimeout(el._t); el._t=setTimeout(()=>{el.textContent="";},1800);
-}
+function load(){ try{const s=JSON.parse(localStorage.getItem(KEY)); if(s&&s.items) state=Object.assign(EMPTY(),s);}catch(e){} }
+function save(){ try{localStorage.setItem(KEY, JSON.stringify(state));}catch(e){} }
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const statusOf = n => (state.items[n]||{}).status;
+// index de la première mesure sans statut (FICHES.length si tout est répondu)
+const firstTodo = () => { const i=FICHES.findIndex(f=>!statusOf(f.n)); return i<0?FICHES.length:i; };
+const fillMeta = () => FIELDS.forEach(([k,id])=>{ $(id).value=state.meta[k]||""; });
 
-function render(){
-  const root=document.getElementById('fiches'); root.innerHTML="";
-  const cats=[]; FICHES.forEach(f=>{if(!cats.includes(f.c))cats.push(f.c);});
-  cats.forEach(cat=>{
-    const block=document.createElement('div'); block.className="cat-block";
-    block.innerHTML='<div class="cat-title">'+cat+'</div>';
-    FICHES.filter(f=>f.c===cat).forEach(f=>{
-      const it=state.items[f.n]||{};
-      const card=document.createElement('div');
-      card.className="fiche"+(it.status?" s-"+it.status:"");
-      card.id="fiche-"+f.n;
-      let segs="";
-      ["conforme","partiel","non","na"].forEach(v=>{
-        segs+='<button data-v="'+v+'" class="'+(it.status===v?"on":"")+'" onclick="setStatus('+f.n+',\''+v+'\')">'+LABELS[v]+'</button>';
-      });
-      card.innerHTML=
-        '<div class="fiche-head"><div class="fiche-num">'+f.n+'</div>'+
-        '<div class="fiche-txt"><h3>'+f.t+'</h3><p>'+f.o+'</p></div></div>'+
-        '<div class="seg">'+segs+'</div>'+
-        '<textarea placeholder="Commentaire, écart constaté, action corrective\u2026" oninput="setComment('+f.n+',this.value)">'+(it.comment||"")+'</textarea>';
-      block.appendChild(card);
-    });
-    root.appendChild(block);
-  });
-}
-
-function setStatus(n,v){
-  if(!state.items[n])state.items[n]={};
-  state.items[n].status = (state.items[n].status===v)? null : v;
-  const card=document.getElementById('fiche-'+n);
-  card.className="fiche"+(state.items[n].status?" s-"+state.items[n].status:"");
-  card.querySelectorAll('.seg button').forEach(b=>{
-    b.classList.toggle('on', b.dataset.v===state.items[n].status);
-  });
-  recompute(); save();
-}
-function setComment(n,val){
-  if(!state.items[n])state.items[n]={};
-  state.items[n].comment=val; save();
+function render(scrollTo){
+  const todo=firstTodo(), root=$('fiches');
+  const open = state.open!=null ? state.open : (todo<FICHES.length?FICHES[todo].n:null);
+  root.innerHTML = FICHES.slice(0, Math.min(todo+1, FICHES.length)).map(f=>{
+    const it=state.items[f.n]||{}, s=it.status, isOpen=f.n===open;
+    const segs=["conforme","partiel","non","na"].map(v=>'<button type="button" data-v="'+v+'" class="'+(s===v?"on":"")+'">'+LABELS[v]+'</button>').join("");
+    return '<div class="fiche'+(s?" s-"+s:"")+(isOpen?" open":"")+(scrollTo===f.n?" new":"")+'" id="fiche-'+f.n+'" data-n="'+f.n+'">'+
+      '<button type="button" class="fiche-head" data-toggle="1"><span class="fiche-num">'+f.n+'</span>'+
+      '<span class="fiche-txt"><span class="fiche-cat">'+esc(f.c)+'</span><h3>'+esc(f.t)+'</h3></span>'+
+      (s?'<span class="badge '+s+'">'+LABELS[s]+'</span>':'')+'</button>'+
+      '<div class="fiche-body"><p>'+esc(f.o)+'</p><div class="seg">'+segs+'</div>'+
+      '<textarea placeholder="Commentaire, écart constaté, action corrective (facultatif)">'+esc(it.comment||"")+'</textarea></div></div>';
+  }).join("");
+  recompute();
+  if(scrollTo!=null){ const el=$('fiche-'+scrollTo); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }
 }
 
 function recompute(){
   let c=0,p=0,nn=0,na=0;
-  FICHES.forEach(f=>{const s=(state.items[f.n]||{}).status;
-    if(s==="conforme")c++; else if(s==="partiel")p++; else if(s==="non")nn++; else if(s==="na")na++;});
-  const evaluated=c+p+nn;
-  const todo=FICHES.length-c-p-nn-na;
-  const pct=evaluated>0?Math.round((c+0.5*p)/evaluated*100):0;
-  document.getElementById('k-c').textContent=c;
-  document.getElementById('k-p').textContent=p;
-  document.getElementById('k-n').textContent=nn;
-  document.getElementById('k-na').textContent=na;
-  document.getElementById('k-todo').textContent=todo;
-  document.getElementById('pct').textContent=pct+"%";
+  FICHES.forEach(f=>{const s=statusOf(f.n); if(s==="conforme")c++; else if(s==="partiel")p++; else if(s==="non")nn++; else if(s==="na")na++;});
+  const done=c+p+nn+na, ev=c+p+nn, pct=ev?Math.round((c+0.5*p)/ev*100):0;
+  $('progTxt').textContent = done<FICHES.length ? "Mesure "+(done+1)+" sur "+FICHES.length : "Évaluation terminée";
+  $('progBar').style.width = (done/FICHES.length*100)+"%";
+  $('final').style.display = done===FICHES.length ? "block" : "none";
+  [c,p,nn,na].forEach((v,i)=>{ $('k-'+["c","p","n","na"][i]).textContent=v; });
   const col = pct>=80?"#198754":(pct>=50?"#f59e0b":"#dc3545");
-  document.getElementById('ring').style.background="conic-gradient("+col+" "+(pct*3.6)+"deg,#e9ecef "+(pct*3.6)+"deg)";
-  document.getElementById('pct').style.color=col;
+  $('pct').textContent=pct+"%"; $('pct').style.color=col;
+  $('ring').style.background="conic-gradient("+col+" "+(pct*3.6)+"deg,#e9ecef "+(pct*3.6)+"deg)";
+  return pct;
 }
 
-function bindMeta(){
-  const map={org:"m-org",aud:"m-aud",date:"m-date"};
-  Object.keys(map).forEach(k=>{
-    const el=document.getElementById(map[k]);
-    el.value=state.meta[k]||"";
-    el.addEventListener('input',()=>{state.meta[k]=el.value; save(); stamp();});
-  });
-}
-function stamp(){
-  const s=state.meta;
-  document.getElementById('printStamp').textContent=
-    (s.org?("Organisme : "+s.org+"  \u2022  "):"")+(s.aud?("Évaluateur : "+s.aud+"  \u2022  "):"")+(s.date?("Date : "+s.date):"");
-}
+$('fiches').addEventListener('click', e=>{
+  const card=e.target.closest('.fiche'); if(!card) return;
+  const n=+card.dataset.n, btn=e.target.closest('.seg button');
+  if(btn){
+    const v=btn.dataset.v, it=state.items[n]||(state.items[n]={});
+    it.status = it.status===v ? null : v;
+    save();
+    const todo=firstTodo();
+    if(it.status && todo<FICHES.length){ state.open=FICHES[todo].n; render(state.open); }       // réponse -> mesure suivante
+    else if(it.status){ state.open=-1; render(); $('final').scrollIntoView({behavior:'smooth',block:'start'}); } // dernière mesure
+    else { state.open=n; render(); }                                                              // décochée -> on reste dessus
+  } else if(e.target.closest('[data-toggle]')){
+    state.open = card.classList.contains('open') ? -1 : n;
+    render();
+  }
+});
+$('fiches').addEventListener('input', e=>{
+  if(e.target.tagName!=="TEXTAREA") return;
+  const n=+e.target.closest('.fiche').dataset.n;
+  (state.items[n]||(state.items[n]={})).comment=e.target.value; save();
+});
+FIELDS.forEach(([k,id])=>$(id).addEventListener('input',e=>{ state.meta[k]=e.target.value; save(); }));
 
-function exportJSON(){
-  const data=JSON.stringify(state,null,2);
-  const blob=new Blob([data],{type:"application/json"});
-  const a=document.createElement('a');
-  const tag=(state.meta.org||"organisme").replace(/[^a-z0-9]+/gi,"_").toLowerCase();
-  a.href=URL.createObjectURL(blob);
-  a.download="audit_cnil_"+tag+"_"+(state.meta.date||new Date().toISOString().slice(0,10))+".json";
-  a.click(); URL.revokeObjectURL(a.href);
+function summary(pct){
+  const l=["Auto-évaluation sécurité CNIL — score "+pct+" %","Organisme : "+state.meta.org,"Nom : "+state.meta.nom,"E-mail : "+state.meta.email,""];
+  FICHES.forEach(f=>{const it=state.items[f.n]||{}; l.push("Mesure "+f.n+" — "+f.t+" : "+LABELS[it.status]+(it.comment?" — "+it.comment.replace(/\s+/g," "):""));});
+  return l.join("\n");
 }
-function importJSON(ev){
-  const file=ev.target.files[0]; if(!file)return;
-  const r=new FileReader();
-  r.onload=()=>{try{const s=JSON.parse(r.result); if(s&&s.items){state=s; init(false);}else{alert("Fichier invalide.");}}catch(e){alert("Lecture impossible : "+e.message);}};
+$('sendForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const msg=$('sendMsg'), btn=$('btnSend'); msg.className="msg";
+  if($('hp').value){ msg.className="msg ok"; msg.textContent="Évaluation envoyée."; return; } // honeypot : on fait semblant
+  const m=state.meta;
+  if(!m.org.trim()||!m.nom.trim()||!$('m-email').checkValidity()||!m.email.trim()){
+    msg.className="msg err"; msg.textContent="Renseignez l'organisme, votre nom et un e-mail valide (en haut de la page)."; $('m-org').scrollIntoView({behavior:'smooth',block:'center'}); return;
+  }
+  if(!$('rgpd').checked){ msg.className="msg err"; msg.textContent="Vous devez accepter le traitement de vos données pour envoyer."; return; }
+  const payload={type:'contact', contact:{nom:m.nom+" ("+m.org+")", coordonnees:m.email, message:summary(recompute())}, page:location.href};
+  btn.disabled=true; btn.textContent="Envoi en cours...";
+  fetch(webhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>{ if(!r.ok) throw new Error(r.status);
+      msg.className="msg ok"; msg.textContent="Évaluation envoyée. Nous revenons vers vous par e-mail."; btn.textContent="Envoyée ✓"; })
+    .catch(()=>{ btn.disabled=false; btn.textContent="Envoyer mon évaluation →";
+      msg.className="msg err"; msg.textContent="Erreur d'envoi. Exportez le JSON ci-dessous et écrivez-nous via la page contact."; });
+});
+
+$('btnReset').addEventListener('click',()=>{
+  if(!confirm("Recommencer ? Cela efface toutes vos réponses."))return;
+  state=EMPTY(); try{localStorage.removeItem(KEY);}catch(e){}
+  fillMeta(); $('rgpd').checked=false; $('sendMsg').textContent=""; $('btnSend').disabled=false; $('btnSend').textContent="Envoyer mon évaluation →";
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+});
+$('btnPrint').addEventListener('click',()=>window.print());
+$('btnExport').addEventListener('click',()=>{
+  const a=document.createElement('a'), tag=(state.meta.org||"organisme").replace(/[^a-z0-9]+/gi,"_").toLowerCase();
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));
+  a.download="audit_cnil_"+tag+"_"+new Date().toISOString().slice(0,10)+".json"; a.click(); URL.revokeObjectURL(a.href);
+});
+$('btnImport').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',ev=>{
+  const file=ev.target.files[0]; if(!file)return; const r=new FileReader();
+  r.onload=()=>{try{const s=JSON.parse(r.result); if(!(s&&s.items)) throw new Error("Fichier invalide");
+    state=Object.assign(EMPTY(),s); state.meta=Object.assign(EMPTY().meta,s.meta); save(); fillMeta(); render();}
+    catch(err){alert("Lecture impossible : "+err.message);}};
   r.readAsText(file); ev.target.value="";
-}
-function resetAll(){
-  if(!confirm("Réinitialiser toute l'évaluation ? Cette action efface les statuts, commentaires et le contexte."))return;
-  state={meta:{org:"",aud:"",date:""}, items:{}};
-  try{localStorage.removeItem(KEY);}catch(e){}
-  init(false);
-}
+});
 
-function init(doLoad){
-  if(doLoad)load();
-  render(); bindMeta(); recompute(); stamp();
-}
-init(true);
+load(); fillMeta(); render();
 </script>
-
 </div>
-<style>
-#guide-wrapper { background: white; color: #333; }
-#guide-wrapper body { background: none !important; padding: 0 !important; }
-#guide-wrapper .main-header { display: none !important; }
-#guide-wrapper .header { display: none !important; }
-#guide-wrapper .back-bar { display: none !important; }
-#guide-wrapper .main-footer { display: none !important; }
-#guide-wrapper footer { display: none !important; }
-#guide-wrapper .container { border-radius: 0 !important; box-shadow: none !important; }
-</style>
-
 
 <div class="max-w-3xl mx-auto px-6 pb-10" style="margin-left:auto;margin-right:auto;"><div class="text-center mt-6 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associ&eacute;s</p><p class="text-sm leading-relaxed"><a href="/securite/" class="text-[#A78BFA] hover:underline">Cybersécurité</a> &middot; <a href="/gouvernance-cybersecurite/" class="text-[#A78BFA] hover:underline">Gouvernance cyber</a></p></div></div>
 </Layout>
