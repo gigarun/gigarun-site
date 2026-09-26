@@ -4,6 +4,7 @@ Historique des évolutions du site gigarun.re. Format libre, une entrée par cha
 (pas les correctifs de typo ou de style mineurs).
 
 ## [Non publié] — 2026-09-26
+- **CSP : retrait de `merchant-center-analytics.goog`** du `connect-src`. La destination Merchant Center a été retirée de la balise Google de gigarun.re (le compte Merchant Center est celui de `shop.gigarun.eu`), le domaine n'est donc plus contacté par ce site. Testé avec la vraie GTM après « Accepter » : zéro violation.
 - **`security.txt`** : ajout du champ `Policy:` vers la politique de divulgation responsable (`/politique-de-divulgation-responsable/`), pour que les chercheurs en sécurité trouvent les règles de signalement depuis le fichier.
 - **CSP IMPOSÉE** (`default.conf`, en-tête `Content-Security-Policy` à la place de `…-Report-Only`) : elle bloque désormais réellement tout script, iframe ou appel réseau vers une origine non listée. Origines autorisées : Google Tag Manager, Google Analytics, Ahrefs et Merchant Center (chargés par le bandeau cookies après « Accepter »), Cloudflare Web Analytics, iframes `rtsp.me`, carte Google Maps de `/contact/`. `'unsafe-inline'` conservé pour scripts et styles. **Tout nouveau service tiers doit être ajouté à cette liste**, sinon le navigateur le bloque.
   Testée sur les vraies pages avec la politique imposée (visiteur neuf, « Accepter » avec chargement réel de GTM, `/contact/` + carte, `/videosurveillance-controle-acces/`, guide CNIL) : zéro violation.
