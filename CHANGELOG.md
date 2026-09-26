@@ -4,6 +4,9 @@ Historique des évolutions du site gigarun.re. Format libre, une entrée par cha
 (pas les correctifs de typo ou de style mineurs).
 
 ## [Non publié] — 2026-09-26
+- **Mesure d'audience sous consentement** : le bandeau cookies (`CookieBanner.astro`) est désormais réellement relié aux trackers. Google Tag Manager (`GTM-5KVX9JCB`, qui charge Google Analytics et Ahrefs) n'est chargé par le site qu'APRÈS un « Accepter », avec Google Consent Mode : tout refusé par défaut, seul `analytics_storage` accordé (aucun cookie publicitaire). « Refuser » ne charge rien et efface les cookies de mesure déjà posés (`_ga*`, `_gid`, `_gat`, `_gcl_*`). Avant, le bandeau ne faisait qu'écrire le choix dans le navigateur.
+- **Lien « Gérer mes cookies »** dans le pied de page : efface le choix, supprime les cookies de mesure et recharge la page, pour que retirer son consentement soit aussi simple que le donner.
+- **Prérequis côté Cloudflare** : désactiver l'injection automatique de Google Tag Manager (Google tag gateway) pour que rien ne se charge avant le consentement. Sans cela, l'injection Cloudflare continue de charger les balises pour tous les visiteurs.
 - **`/.well-known/security.txt`** publié (`public/.well-known/security.txt`) : contact de signalement de faille (RFC 9116), expire le 2027-09-01, à renouveler.
 - **CSP en mode report-only** dans `default.conf` (`Content-Security-Policy-Report-Only`) : rien n'est bloqué, les violations apparaissent dans la console du navigateur.
   Établie sur les 142 pages du sitemap et testée dans Chrome (accueil, iframes rtsp.me, carte Google Maps de /contact/, guide interactif) : aucune violation.
