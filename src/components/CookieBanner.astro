@@ -5,7 +5,7 @@
     <div style="flex:1;min-width:200px;">
       <p style="color:#F1F0F7;font-size:.875rem;font-weight:600;margin:0 0 .25rem;">Ce site utilise des cookies</p>
       <p style="color:#9B99AA;font-size:.75rem;line-height:1.5;margin:0;">
-        Cookies essentiels et mesures d'audience anonymisées uniquement. Aucun cookie publicitaire.
+        Seuls les cookies essentiels sont actifs par défaut. Avec votre accord, nous mesurons l'audience du site (Google Analytics, Ahrefs). Aucun cookie publicitaire.
         <a href="/confidentialite/" style="color:#A78BFA;text-decoration:underline;">En savoir plus</a>
       </p>
     </div>
@@ -35,22 +35,83 @@
 </style>
 
 <script>
+  // Consentement à la mesure d'audience.
+  // Principe : AUCUN script ni cookie tiers avant un « Accepter ». Google Tag Manager (qui charge Google Analytics et Ahrefs)
+  // n'est chargé par CE code qu'après consentement ; « Refuser » n'en charge jamais et efface les cookies de mesure déjà posés.
+  // Le lien « Gérer mes cookies » du pied de page efface le choix et recharge la page : retirer son consentement est aussi simple que le donner.
   (function() {
+    const GTM_ID = 'GTM-5KVX9JCB';
+    const CLE = 'cookie-consent';
+    const w = window as any;
     const banner = document.getElementById('cookie-banner');
     if (!banner) return;
-    if (!localStorage.getItem('cookie-consent')) {
+
+    const lire = () => { try { return localStorage.getItem(CLE); } catch (e) { return null; } };
+    const ecrire = (v: string) => { try { localStorage.setItem(CLE, v); } catch (e) { /* stockage bloqué : le choix sera redemandé */ } };
+    const effacer = () => { try { localStorage.removeItem(CLE); } catch (e) { /* rien */ } };
+
+    // Efface les cookies de mesure Google (_ga, _ga_XXXX, _gid, _gat, _gcl_*) pour le domaine courant et ses variantes.
+    function purgerCookiesMesure() {
+      const hote = location.hostname;
+      const domaines = [undefined, hote, '.' + hote.replace(/^www\./, '')];
+      document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => /^(_ga|_gid|_gat|_gcl_)/.test(n)).forEach((nom) => {
+        domaines.forEach((d) => {
+          document.cookie = nom + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + (d ? '; domain=' + d : '');
+        });
+      });
+    }
+
+    // Charge Google Tag Manager, avec le consentement déclaré AVANT le chargement : mesure d'audience seulement,
+    // publicité, données utilisateur et personnalisation restent refusées (cohérent avec « aucun cookie publicitaire »).
+    function chargerMesure() {
+      if (w.__mesureChargee) return;
+      w.__mesureChargee = true;
+      if (w.google_tag_manager && w.google_tag_manager[GTM_ID]) return; // déjà présent (ex. injection par Cloudflare pendant la transition)
+      w.dataLayer = w.dataLayer || [];
+      function gtag() { w.dataLayer.push(arguments); }
+      gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+      w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+      document.head.appendChild(s);
+    }
+
+    function masquer() {
+      banner.style.opacity = '0';
+      setTimeout(() => { banner.style.display = 'none'; }, 300);
+    }
+
+    const choix = lire();
+    if (choix === 'accepted') {
+      banner.style.display = 'none';
+      chargerMesure();
+    } else if (choix === 'refused') {
+      banner.style.display = 'none';
+      purgerCookiesMesure();
+    } else {
       // Délai court pour éviter le flash au chargement
       setTimeout(() => { banner.style.opacity = '1'; }, 600);
     }
-    document.getElementById('cookie-accept').onclick = function() {
-      localStorage.setItem('cookie-consent', 'accepted');
-      banner.style.opacity = '0';
-      setTimeout(() => banner.remove(), 300);
+
+    document.getElementById('cookie-accept')!.onclick = function() {
+      ecrire('accepted');
+      masquer();
+      chargerMesure();
     };
-    document.getElementById('cookie-refuse').onclick = function() {
-      localStorage.setItem('cookie-consent', 'refused');
-      banner.style.opacity = '0';
-      setTimeout(() => banner.remove(), 300);
+    document.getElementById('cookie-refuse')!.onclick = function() {
+      ecrire('refused');
+      masquer();
+      purgerCookiesMesure();
+    };
+
+    // Retrait / modification du consentement depuis le pied de page
+    const gerer = document.getElementById('cookie-manage');
+    if (gerer) gerer.onclick = function() {
+      effacer();
+      purgerCookiesMesure();
+      location.reload();
     };
   })();
 </script>
