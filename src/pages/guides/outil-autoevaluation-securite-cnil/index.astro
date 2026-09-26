@@ -48,6 +48,7 @@ import { FORMS_WEBHOOK } from '../../../config';
 #cnil .fiche-body{display:none;padding:0 16px 16px 62px}
 #cnil .fiche.open .fiche-body{display:block}
 #cnil .fiche-body p{font-size:.92em;color:#555;margin:0 0 12px}
+#cnil .help{background:#f1f7fc;border-left:4px solid var(--hero2);border-radius:0 8px 8px 0;padding:10px 14px;margin:0 0 14px;font-size:.86em;color:#444}#cnil .help div+div{margin-top:4px}#cnil .help b{color:var(--hero1)}
 #cnil .seg{display:flex;flex-wrap:wrap;gap:8px}
 #cnil .seg button{border:2px solid #dee2e6;background:#fff;color:#555;border-radius:20px;padding:7px 16px;font-size:.88em;font-weight:600;cursor:pointer;font-family:inherit}
 #cnil .seg button:hover{border-color:#adb5bd}
@@ -171,6 +172,33 @@ const FICHES = [
   {n:24, c:"Domaines spécifiques", t:"Intelligence artificielle : conception", o:"Se doter des ressources pour des systèmes d'IA robustes, fiables et conformes."},
   {n:25, c:"Domaines spécifiques", t:"API : interfaces de programmation", o:"Sécuriser les données partagées via API (authentification, contrôle d'accès, quotas)."}
 ];
+const HELP = {
+1:{k:"Un responsable de la sécurité est désigné, un plan d'actions existe et est revu au moins une fois par an."},
+2:{k:"Une charte informatique signée (ou annexée au règlement intérieur) est remise à chaque utilisateur."},
+3:{k:"Les utilisateurs sont sensibilisés et formés régulièrement (au moins annuel), y compris à l'arrivée."},
+4:{k:"Mots de passe robustes (12 caractères ou plus) et double authentification (MFA) sur la messagerie, le VPN et les accès admin."},
+5:{k:"Chacun n'accède qu'à ce dont il a besoin ; les droits sont retirés au départ et revus au moins une fois par an."},
+6:{k:"Antivirus/EDR actif, mises à jour automatiques, verrouillage de session, disque chiffré, pas de droits admin par défaut."},
+7:{k:"Portables et smartphones chiffrés, verrouillés par code, avec effacement à distance possible.",na:"Aucun ordinateur portable ni smartphone ne contient de données personnelles."},
+8:{k:"Pare-feu configuré, Wi-Fi invité séparé du réseau interne, accès distants uniquement par VPN ou MFA."},
+9:{k:"Serveurs à jour, comptes admin nominatifs, services inutiles désactivés, accès admin limités.",na:"Aucun serveur (100 % SaaS/cloud, voir aussi la mesure 22)."},
+10:{k:"HTTPS partout, CMS et extensions à jour, formulaires protégés, mentions RGPD et cookies conformes.",na:"Aucun site web ni portail en ligne."},
+11:{k:"La sécurité et la protection des données sont prévues dès la conception, avec des tests avant mise en production.",na:"Aucun développement informatique interne ou sous-traité."},
+12:{k:"Local serveur/baie fermé à clé, accès contrôlé, visiteurs accompagnés, alarme ou surveillance."},
+13:{k:"Les fichiers sensibles partent chiffrés (pas de pièces jointes en clair), avec des canaux sécurisés (SFTP, portail, mail chiffré)."},
+14:{k:"Chaque sous-traitant avec accès aux données a un contrat art. 28 RGPD et une liste à jour est tenue.",na:"Aucun sous-traitant n'accède aux données personnelles."},
+15:{k:"Maintenance encadrée (accès tracés) et effacement sécurisé ou destruction des supports en fin de vie."},
+16:{k:"Les connexions et actions sensibles sont journalisées, conservées 6 à 12 mois, protégées et consultées en cas d'alerte."},
+17:{k:"Sauvegardes automatiques, une copie hors site ou hors ligne, et restauration testée au moins une fois par an."},
+18:{k:"Un plan de continuité/reprise (PCA/PRA) écrit et testé, avec un mode dégradé défini."},
+19:{k:"Une procédure d'incident existe, avec une personne à alerter et la notification CNIL sous 72 h connue.",},
+20:{k:"Une analyse de risques écrite existe, datée de moins de 2 ans, avec un plan d'actions suivi."},
+21:{k:"Données sensibles chiffrées au repos et en transit, mots de passe stockés hachés, algorithmes à jour."},
+22:{k:"Hébergeur identifié, contrat et localisation des données maîtrisés (UE de préférence), sauvegardes et MFA activés.",na:"Aucun service cloud utilisé pour des données personnelles."},
+23:{k:"Application mobile développée avec permissions minimales, données locales chiffrées et communications sécurisées.",na:"Aucune application mobile développée."},
+24:{k:"Système d'IA encadré : données d'entraînement maîtrisées, contrôle humain, robustesse testée, DPIA si nécessaire.",na:"Aucun système d'IA conçu ou déployé (hors usage d'outils grand public, à encadrer par la charte)."},
+25:{k:"API authentifiées (jeton/OAuth), droits limités, quotas, échanges chiffrés, journalisation.",na:"Aucune API exposée ou consommée avec des données personnelles."}
+};
 const LABELS = {conforme:"Conforme", partiel:"Partiel", non:"Non conforme", na:"Non applicable"};
 const KEY = "gigarun-cnil-audit-v2";
 const $ = id => document.getElementById(id);
@@ -186,6 +214,11 @@ const statusOf = n => (state.items[n]||{}).status;
 const firstTodo = () => { const i=FICHES.findIndex(f=>!statusOf(f.n)); return i<0?FICHES.length:i; };
 const fillMeta = () => FIELDS.forEach(([k,id])=>{ $(id).value=state.meta[k]||""; });
 
+const helpHtml = n => { const h=HELP[n]; if(!h) return "";
+  return '<div class="help"><div><b>Conforme si :</b> '+esc(h.k)+'</div>'+
+    '<div><b>Partiel si :</b> c'est en place mais incomplet (une partie du parc, non formalisé, non testé).</div>'+
+    '<div><b>Non conforme si :</b> rien n'existe ou vous ne savez pas.</div>'+
+    (h.na?'<div><b>Non applicable si :</b> '+esc(h.na)+'</div>':'')+'</div>'; };
 function render(scrollTo){
   const todo=firstTodo(), root=$('fiches');
   const open = state.open!=null ? state.open : (todo<FICHES.length?FICHES[todo].n:null);
@@ -196,7 +229,7 @@ function render(scrollTo){
       '<button type="button" class="fiche-head" data-toggle="1"><span class="fiche-num">'+f.n+'</span>'+
       '<span class="fiche-txt"><span class="fiche-cat">'+esc(f.c)+'</span><h3>'+esc(f.t)+'</h3></span>'+
       (s?'<span class="badge '+s+'">'+LABELS[s]+'</span>':'')+'</button>'+
-      '<div class="fiche-body"><p>'+esc(f.o)+'</p><div class="seg">'+segs+'</div>'+
+      '<div class="fiche-body"><p>'+esc(f.o)+'</p>'+helpHtml(f.n)+'<div class="seg">'+segs+'</div>'+
       '<textarea placeholder="Commentaire, écart constaté, action corrective (facultatif)">'+esc(it.comment||"")+'</textarea></div></div>';
   }).join("");
   recompute();
