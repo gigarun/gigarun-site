@@ -216,8 +216,8 @@ const fillMeta = () => FIELDS.forEach(([k,id])=>{ $(id).value=state.meta[k]||"";
 
 const helpHtml = n => { const h=HELP[n]; if(!h) return "";
   return '<div class="help"><div><b>Conforme si :</b> '+esc(h.k)+'</div>'+
-    '<div><b>Partiel si :</b> c'est en place mais incomplet (une partie du parc, non formalisé, non testé).</div>'+
-    '<div><b>Non conforme si :</b> rien n'existe ou vous ne savez pas.</div>'+
+    '<div><b>Partiel si :</b> c’est en place mais incomplet (une partie du parc, non formalisé, non testé).</div>'+
+    '<div><b>Non conforme si :</b> rien n’existe ou vous ne savez pas.</div>'+
     (h.na?'<div><b>Non applicable si :</b> '+esc(h.na)+'</div>':'')+'</div>'; };
 function render(scrollTo){
   const todo=firstTodo(), root=$('fiches');
