@@ -1,4 +1,5 @@
 Contact: https://gigarun.re/contact/
 Expires: 2027-09-01T00:00:00.000Z
 Preferred-Languages: fr, en
+Policy: https://gigarun.re/politique-de-divulgation-responsable/
 Canonical: https://gigarun.re/.well-known/security.txt
