@@ -1,0 +1,67 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Nestor Domotique : pilotage local et alertes | GiGaRuN" description="Prises et appareils pilotés en local, sans cloud, et alertes sur le téléphone en cas de panne. Pilote en cours avec Log and See.">
+<script type="application/ld+json" is:inline set:html={"{\"@context\": \"https://schema.org\", \"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Faut-il Internet pour commander les prises ?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Non. Une fois la cl\u00e9 r\u00e9cup\u00e9r\u00e9e, la commande passe par le r\u00e9seau local.\"}}, {\"@type\": \"Question\", \"name\": \"Que se passe-t-il si le serveur domotique tombe ?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Les alertes s'arr\u00eatent. Une surveillance externe serait n\u00e9cessaire, elle n'existe pas encore.\"}}, {\"@type\": \"Question\", \"name\": \"Peut-on parler \u00e0 l'installation ?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Non. La commande vocale n'est pas en service et n'est pas pr\u00e9vue.\"}}]}"} />
+
+<section class="bg-[#07001C] pt-32 pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <a href="/nestor/" class="text-[#9B99AA] hover:text-[#A78BFA] text-sm">&larr; Nestor</a>
+    <div class="mt-4 mb-3 flex items-center gap-3">
+      <span class="text-3xl">&#127968;</span>
+      <span class="text-xs font-semibold text-amber-300 bg-amber-900/30 px-2 py-1 rounded-full">Pilote</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(30px,5vw,48px);line-height:1.1;">Nestor Domotique : vos équipements pilotés sur place</h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed mb-10">Des prises et des appareils sont commandés depuis un tableau de bord unique, sur le réseau local, sans passer par le cloud du fabricant. Le téléphone reçoit une alerte quand un serveur ou un site web tombe. C&#x27;est en service chez Bruno, pas encore chez un client.</p>
+
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Commander sans dépendre du cloud</h2>
+        <p class="text-[#9B99AA] leading-relaxed">La plupart des prises connectées passent par le serveur de leur fabricant. Si Internet tombe, ou si le fabricant change ses conditions, la commande ne marche plus. Nestor Domotique envoie les ordres directement sur le réseau du site. La prise est allumée ou coupée en local, avec la commande chiffrée qu&#x27;elle attend. Le compte du fabricant ne sert qu&#x27;une fois, à l&#x27;installation, pour récupérer la clé de la prise. Ensuite, tout se passe chez vous. Un tableau de bord unique regroupe les équipements par pièce et par usage. Vous n&#x27;ouvrez plus une application par marque.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Être prévenu quand quelque chose ne répond plus</h2>
+        <p class="text-[#9B99AA] leading-relaxed">Un serveur éteint, un site web en panne, une machine qui ne répond plus : vous l&#x27;apprenez souvent trop tard. Nestor Domotique vérifie vos équipements à intervalle régulier. Un site est testé toutes les 5 minutes. S&#x27;il ne répond pas pendant 10 minutes, une notification arrive sur votre téléphone. Une deuxième vous prévient quand il revient. Les serveurs sont testés chaque minute, et chaque allumage ou extinction est signalé. Limite à connaître : si le courant ou la box tombent sur le site, le système ne peut pas prévenir. Une surveillance extérieure reste à prévoir pour ce cas.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Une séquence complète d&#x27;un seul bouton</h2>
+        <p class="text-[#9B99AA] leading-relaxed">Certaines tâches demandent plusieurs gestes dans le bon ordre. Exemple réel sur le site pilote : allumer le serveur de sauvegarde, attendre qu&#x27;il soit prêt, vérifier les sauvegardes, l&#x27;éteindre, puis couper sa prise. Tout cela se lance d&#x27;un bouton sur le tableau de bord, ou automatiquement. Une notification donne le résultat à la fin. Un serveur qui ne sert que quelques heures par jour ne reste plus allumé pour rien. Si un contrôle échoue, la séquence s&#x27;arrête et ne coupe rien à l&#x27;aveugle : un humain décide de la suite.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Où en est-on</h2>
+        <p class="text-[#9B99AA] leading-relaxed">Nestor Domotique tourne aujourd&#x27;hui en pilote sur un site de la région, mis au point avec notre partenaire Log and See (<a href="https://logandsee.re/" rel="noopener" class="text-[#90e0ef] underline">logandsee.re</a>). Il n&#x27;est pas encore installé chez un client. Il n&#x27;y a pas de commande vocale. Les pièges rencontrés pendant le pilote sont documentés et corrigés au fur et à mesure : alertes muettes après un redémarrage, prises qui ignorent les commandes non chiffrées, accès distant bloqué par erreur. Chaque installation client commencera par une recette réelle : on coupe un équipement et on vérifie que l&#x27;alerte arrive.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Limites à connaître</h2>
+        <ul class="list-disc pl-6 text-[#9B99AA] space-y-1">
+          <li>Dans le pilote, la commande vocale de Nestor n&#x27;est pas encore branchée à ce module.</li>
+          <li>Aucune IA locale : le paramétrage est fait avec un assistant IA en ligne, pas embarqué sur site.</li>
+          <li>Un seul site équipé, celui de Bruno. Aucun retour client.</li>
+          <li>Si le hub ou son NAS redémarre pendant une panne, aucune alerte.</li>
+          <li>Si le courant ou la box tombent, aucune alerte : le hub est sur le même réseau.</li>
+          <li>Un test « le site répond » ne prouve pas que la vidéo ou les données passent.</li>
+          <li>Le rallumage après un arrêt général reste manuel.</li>
+        </ul>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Questions fréquentes</h2>
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 mb-3">
+          <summary class="text-[#F1F0F7] font-semibold cursor-pointer">Faut-il Internet pour commander les prises ?</summary>
+          <p class="text-[#9B99AA] mt-3">Non. Une fois la clé récupérée, la commande passe par le réseau local.</p>
+        </details>
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 mb-3">
+          <summary class="text-[#F1F0F7] font-semibold cursor-pointer">Que se passe-t-il si le serveur domotique tombe ?</summary>
+          <p class="text-[#9B99AA] mt-3">Les alertes s&#x27;arrêtent. Une surveillance externe serait nécessaire, elle n&#x27;existe pas encore.</p>
+        </details>
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 mb-3">
+          <summary class="text-[#F1F0F7] font-semibold cursor-pointer">Peut-on parler à l&#x27;installation ?</summary>
+          <p class="text-[#9B99AA] mt-3">Pas encore dans le pilote : la commande vocale de Nestor existe, mais elle n&#x27;est pas reliée à ce module.</p>
+        </details>
+      </section>
+
+    <p class="text-[#9B99AA] text-sm mb-8">Mis au point avec notre partenaire <a href="https://logandsee.re/" rel="noopener" class="text-[#90e0ef] underline">Log and See</a>. Voir aussi <a href="/nestor/energie/" class="text-[#90e0ef] underline">Nestor Énergie</a> et le <a href="/guides/nestor-ia-locale/" class="text-[#90e0ef] underline">guide complet de Nestor</a>.</p>
+    <a href="/contact/" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-6 py-3 rounded-lg transition-all inline-block">Demander un pré-diagnostic gratuit</a>
+  </div>
+</section>
+</Layout>

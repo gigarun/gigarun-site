@@ -1,0 +1,65 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+<Layout title="Nestor Énergie : suivi solaire par panneau | GiGaRuN" description="Production solaire suivie panneau par panneau, appareils lancés quand le soleil produit. Pilote en cours avec Log and See.">
+<script type="application/ld+json" is:inline set:html={"{\"@context\": \"https://schema.org\", \"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Faut-il changer l'installation solaire ?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Non. La passerelle existante est lue sur le r\u00e9seau local.\"}}, {\"@type\": \"Question\", \"name\": \"Combien vais-je \u00e9conomiser ?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Non mesur\u00e9 \u00e0 ce jour. Il faudrait suivre aussi le compteur r\u00e9seau.\"}}, {\"@type\": \"Question\", \"name\": \"Peut-on retrouver la production pass\u00e9e ?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Oui, sur les 30 derniers jours gard\u00e9s par la passerelle test\u00e9e.\"}}]}"} />
+
+<section class="bg-[#07001C] pt-32 pb-20">
+  <div class="max-w-3xl mx-auto px-6">
+    <a href="/nestor/" class="text-[#9B99AA] hover:text-[#A78BFA] text-sm">&larr; Nestor</a>
+    <div class="mt-4 mb-3 flex items-center gap-3">
+      <span class="text-3xl">&#9728;&#65039;</span>
+      <span class="text-xs font-semibold text-amber-300 bg-amber-900/30 px-2 py-1 rounded-full">Pilote</span>
+    </div>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-4" style="font-size:clamp(30px,5vw,48px);line-height:1.1;">Nestor Énergie : utiliser le soleil quand il est là</h1>
+    <p class="text-[#9B99AA] text-lg leading-relaxed mb-10">La production solaire est suivie panneau par panneau, heure par heure. Certains appareils et tâches sont lancés quand le soleil produit, plutôt qu&#x27;à heure fixe. C&#x27;est en service chez Bruno depuis fin septembre 2026, pas encore chez un client.</p>
+
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Chaque panneau suivi heure par heure</h2>
+        <p class="text-[#9B99AA] leading-relaxed">L&#x27;application fournie avec une installation solaire montre souvent un total pour toute la toiture. Si un panneau produit moins, à cause d&#x27;une ombre ou d&#x27;une panne, il passe inaperçu. Nestor Énergie lit la passerelle solaire sur le réseau local et suit chaque panneau séparément. Vous voyez sa puissance en direct, sa production par heure et par jour. Sur le site pilote, six panneaux répartis sur trois emplacements sont comparés côte à côte. La lecture ne demande aucune modification de l&#x27;installation existante.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Ne pas repartir de zéro</h2>
+        <p class="text-[#9B99AA] leading-relaxed">Quand on installe un suivi, on n&#x27;a en général aucun historique. Nestor Énergie relit les données que la passerelle a gardées et les ajoute au tableau de production. Sur le site pilote, 27 jours complets ont ainsi été récupérés, soit 186,67 kWh pour 2,58 kWc installés. Attention : la passerelle testée ne garde que 30 jours par jour. Plus on attend, plus on perd d&#x27;historique. La reprise est faite dès l&#x27;installation. Les chiffres sont ensuite recalés sur le total journalier de la passerelle, qui fait foi : la courbe minute par minute peut surestimer la production de 3 à 20 %.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Faire tourner les appareils au bon moment</h2>
+        <p class="text-[#9B99AA] leading-relaxed">À La Réunion, une installation en autoconsommation a intérêt à consommer sa production sur place. Sur le site pilote, l&#x27;historique a montré un pic de production entre 10 h et 12 h. Le lave-vaisselle démarre donc à 10 h, et sa prise coupe après 3 heures. Les tâches informatiques lourdes partent dès que la production dépasse 900 W pendant 10 minutes. Les règles sont calées sur les mesures réelles du site, pas sur une fiche technique. Un réglage trop ambitieux, couper l&#x27;appareil au premier nuage, a été abandonné : il arrêtait le cycle en cours.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Ce qui n&#x27;est pas encore mesuré</h2>
+        <p class="text-[#9B99AA] leading-relaxed">Nestor Énergie est en pilote depuis fin septembre 2026, mis au point avec notre partenaire Log and See (<a href="https://logandsee.re/" rel="noopener" class="text-[#90e0ef] underline">logandsee.re</a>). Il n&#x27;est pas encore installé chez un client. Le gain en euros n&#x27;est pas mesuré : il faudrait suivre aussi le compteur réseau, ce qui n&#x27;est pas fait. Le recul est de quelques semaines, en saison sèche. Aucune alerte de panne de panneau n&#x27;est encore en place. Une seule marque de passerelle a été testée. Nous publierons des chiffres quand ils seront mesurés.</p>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Limites à connaître</h2>
+        <ul class="list-disc pl-6 text-[#9B99AA] space-y-1">
+          <li>Aucune économie en euros mesurée : pas de compteur d&#x27;import/export réseau suivi.</li>
+          <li>Moins de 2 mois de recul, en saison sèche. La course du soleil change nettement en été austral.</li>
+          <li>Aucune alerte de production anormale n&#x27;est en place (panneau en panne, onduleur muet).</li>
+          <li>Une seule marque de micro-onduleurs testée.</li>
+          <li>Dans le pilote, la commande vocale de Nestor n&#x27;est pas encore branchée à ce module.</li>
+        </ul>
+      </section>
+
+      <section class="mb-10">
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-3">Questions fréquentes</h2>
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 mb-3">
+          <summary class="text-[#F1F0F7] font-semibold cursor-pointer">Faut-il changer l&#x27;installation solaire ?</summary>
+          <p class="text-[#9B99AA] mt-3">Non. La passerelle existante est lue sur le réseau local.</p>
+        </details>
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 mb-3">
+          <summary class="text-[#F1F0F7] font-semibold cursor-pointer">Combien vais-je économiser ?</summary>
+          <p class="text-[#9B99AA] mt-3">Non mesuré à ce jour. Il faudrait suivre aussi le compteur réseau.</p>
+        </details>
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 mb-3">
+          <summary class="text-[#F1F0F7] font-semibold cursor-pointer">Peut-on retrouver la production passée ?</summary>
+          <p class="text-[#9B99AA] mt-3">Oui, sur les 30 derniers jours gardés par la passerelle testée.</p>
+        </details>
+      </section>
+
+    <p class="text-[#9B99AA] text-sm mb-8">Mis au point avec notre partenaire <a href="https://logandsee.re/" rel="noopener" class="text-[#90e0ef] underline">Log and See</a>. Voir aussi <a href="/nestor/domotique/" class="text-[#90e0ef] underline">Nestor Domotique</a> et le <a href="/guides/nestor-ia-locale/" class="text-[#90e0ef] underline">guide complet de Nestor</a>.</p>
+    <a href="/contact/" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-6 py-3 rounded-lg transition-all inline-block">Demander un pré-diagnostic gratuit</a>
+  </div>
+</section>
+</Layout>
