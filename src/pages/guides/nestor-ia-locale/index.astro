@@ -106,6 +106,9 @@ import Layout from '../../../layouts/Layout.astro';
         .cta-block {background:linear-gradient(135deg,#023e8a,#0077b6);color:white;border-radius:15px;padding:40px;text-align:center;margin:40px 0}
 #guide-wrapper .cta-block h3 {font-size:1.8em;margin-bottom:15px}
 #guide-wrapper .cta-block p {opacity:0.9;margin-bottom:25px;font-size:1.05em}
+#guide-wrapper .btn-detail {display:inline-block;margin-top:10px;padding:8px 18px;background:#0077b6;color:#fff;border-radius:20px;font-weight:600;font-size:0.85em;text-decoration:none}
+#guide-wrapper .btn-detail:hover {background:#023e8a}
+#guide-wrapper td strong a {color:#0077b6;text-decoration:underline}
 #guide-wrapper .cta-btn {display:inline-block;padding:15px 40px;background:white;color:#0077b6;border-radius:30px;font-weight:800;font-size:1.1em;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
 #guide-wrapper .cta-btn:hover {transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
 #guide-wrapper /* FOOTER */
@@ -230,14 +233,14 @@ import Layout from '../../../layouts/Layout.astro';
                     <h4>Pilote votre b&acirc;timent</h4>
                     <p>Lumi&egrave;res, climatisation, acc&egrave;s — Nestor int&egrave;gre votre domotique et vous laisse piloter tout &ccedil;a d&rsquo;une phrase.</p>
                     <span class="tag tag-bientot">En d&eacute;ploiement</span>
-                    <a href="/nestor/domotique/">En savoir plus &rarr;</a>
+                    <a class="btn-detail" href="/nestor/domotique/">En savoir plus &rarr;</a>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#9728;&#65039;</div>
                     <h4>Surveille vos panneaux solaires</h4>
                     <p>Il compare production et consommation en temps r&eacute;el. Si quelque chose d&eacute;raille, il vous alerte avant que la facture s&rsquo;envole.</p>
                     <span class="tag tag-bientot">En d&eacute;ploiement</span>
-                    <a href="/nestor/energie/">En savoir plus &rarr;</a>
+                    <a class="btn-detail" href="/nestor/energie/">En savoir plus &rarr;</a>
                 </div>
                 <div class="card">
                     <div class="card-icon">&#128247;</div>
@@ -331,8 +334,8 @@ import Layout from '../../../layouts/Layout.astro';
                     <tr><td><strong>Nestor Voix</strong></td><td>Commandes vocales, r&eacute;ponses naturelles, acc&egrave;s &agrave; distance</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
                     <tr><td><strong>Nestor Comptable</strong></td><td>Rapprochement bancaire, d&eacute;tection anomalies, pr&eacute;paration cl&ocirc;ture, simulation fiscale &mdash; TVA 8,5% et fiscalit&eacute; r&eacute;unionnaise</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
                     <tr><td><strong>Nestor Relation Client</strong></td><td>Suivi Dolibarr, d&eacute;tection clients inactifs, relances automatiques, newsletter, brief RDV &mdash; RGPD conforme</td><td><span class="tag tag-dispo">Disponible</span></td></tr>
-                    <tr><td><strong><a href="/nestor/domotique/">Nestor Domotique</a></strong></td><td>Pilotage b&acirc;timent, &eacute;clairage, acc&egrave;s, sc&eacute;narios automatiques</td><td><span class="tag tag-bientot">Pilote</span></td></tr>
-                    <tr><td><strong><a href="/nestor/energie/">Nestor &Eacute;nergie</a></strong></td><td>Monitoring panneaux solaires, alertes anomalies, rapports &eacute;conomies</td><td><span class="tag tag-bientot">Pilote</span></td></tr>
+                    <tr><td><strong><a href="/nestor/domotique/">Nestor Domotique</a></strong></td><td>Pilotage b&acirc;timent, &eacute;clairage, acc&egrave;s, sc&eacute;narios automatiques<br><a class="btn-detail" href="/nestor/domotique/">Voir le d&eacute;tail &rarr;</a></td><td><span class="tag tag-bientot">Pilote</span></td></tr>
+                    <tr><td><strong><a href="/nestor/energie/">Nestor &Eacute;nergie</a></strong></td><td>Monitoring panneaux solaires, alertes anomalies, rapports &eacute;conomies<br><a class="btn-detail" href="/nestor/energie/">Voir le d&eacute;tail &rarr;</a></td><td><span class="tag tag-bientot">Pilote</span></td></tr>
                     <tr><td><strong>Nestor Vid&eacute;o</strong></td><td>D&eacute;tection mouvement locale, alertes, historique &mdash; z&eacute;ro cloud</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
                     <tr><td><strong>Nestor Veille &amp; Pr&eacute;sence</strong></td><td>E-r&eacute;putation, veille concurrentielle, r&eacute;daction contenus r&eacute;seaux sociaux, d&eacute;tection bad buzz, alertes mentions &mdash; votre community manager IA</td><td><span class="tag tag-bientot">Sur devis</span></td></tr>
                     <tr><td><strong>Nestor Mobile</strong></td><td>PWA sans app store, 2FA TOTP, alertes push Ntfy, d&eacute;tection connexion suspecte &mdash; onboarding client en &lt; 5 min</td><td><span class="tag tag-dispo">Phase 4</span></td></tr>
