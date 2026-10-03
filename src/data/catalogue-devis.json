@@ -45,9 +45,9 @@
     { "code": "sauvegarde_cloud", "label": "Sauvegarde cloud Europe", "prix": 15, "unite": "To/mois" },
     { "code": "sauvegarde_ha_reunion", "label": "Sauvegarde haute dispo Reunion", "prix": 20, "unite": "To/mois" },
     { "code": "archivage_monde", "label": "Archivage externe monde", "prix": 10, "unite": "To/mois" },
-    { "code": "m365_basic", "label": "Microsoft 365 Business Basic", "prix": 7.02, "unite": "user/mois" },
-    { "code": "m365_standard", "label": "Microsoft 365 Business Standard", "prix": 14.65, "unite": "user/mois" },
-    { "code": "m365_premium", "label": "Microsoft 365 Business Premium", "prix": 22.7, "unite": "user/mois" },
+    { "code": "m365_basic", "label": "Microsoft 365 Business Basic", "prix": 7.08, "unite": "user/mois" },
+    { "code": "m365_standard", "label": "Microsoft 365 Business Standard", "prix": 14.80, "unite": "user/mois" },
+    { "code": "m365_premium", "label": "Microsoft 365 Business Premium", "prix": 26.06, "unite": "user/mois" },
     { "code": "mail_assure", "label": "N-able Mail Assure (protection + archivage)", "prix": 5.5, "unite": "user/mois" },
     { "code": "backup_o365", "label": "Sauvegarde cloud O365 (Gigarun)", "prix": 2.5, "unite": "user/mois" },
     { "code": "hebergement_web", "label": "Hebergement web 250 Go + SSL", "prix": 15, "unite": "forfait/mois" }

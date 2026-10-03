@@ -57,7 +57,7 @@ export const CONTRATS = [
     socle: "Tout OR, plus :",
     features: [
       "RSSI externalisé",
-      "XDR + SIEM inclus (postes, serveurs, NAS)",
+      "XDR + SIEM inclus (postes, serveurs, NAS) : + 6,60 €/nœud/mois",
       "SOC / cyberdéfense 24/7 (option)",
       "Conformité NIS2 accompagnée",
     ],
