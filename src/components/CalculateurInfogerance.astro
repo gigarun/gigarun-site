@@ -73,7 +73,7 @@ const options = catalogue.optionsInfogerance;
                   data-code={o.code} data-prix={o.prix} data-label={o.label} />
                 <div class="flex-1 min-w-0">
                   <div class="text-[#F1F0F7] text-sm">{o.label}</div>
-                  <div class="text-[#9B99AA] text-xs">{o.prix} € / {o.unite}{o.note ? ` · ${o.note}` : ''}</div>
+                  <div class="text-[#9B99AA] text-xs">{o.prix} € / {o.unite}{o.note ? ` · ${o.note}` : ''}<span class="xdr-note"></span></div>
                 </div>
                 <input type="number" min="0" step="1" value="0"
                   class="opt-qty w-20 bg-[#07001C] border border-[rgba(124,58,237,0.3)] text-[#F1F0F7] rounded-lg px-2 py-1.5 text-sm focus:outline-none focus:border-[#7C3AED]"
@@ -119,6 +119,7 @@ const options = catalogue.optionsInfogerance;
           <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-4">Votre estimation</h2>
           <dl class="space-y-2 text-sm">
             <div class="flex justify-between"><dt class="text-[#9B99AA]">Base contrat</dt><dd id="r-base" class="text-[#F1F0F7]">0 €</dd></div>
+            <div class="flex justify-between hidden" id="r-xdr-row"><dt class="text-[#9B99AA]">EDR + XDR + SIEM (inclus)</dt><dd id="r-xdr" class="text-[#F1F0F7]">0 €</dd></div>
             <div class="flex justify-between"><dt class="text-[#9B99AA]">Options</dt><dd id="r-options" class="text-[#F1F0F7]">0 €</dd></div>
             <div class="flex justify-between hidden" id="r-remise-row"><dt class="text-[#06B6D4]">Remise 36 mois</dt><dd id="r-remise" class="text-[#06B6D4]">0 €</dd></div>
             <div class="border-t border-[rgba(124,58,237,0.2)] my-2"></div>
@@ -172,20 +173,24 @@ const options = catalogue.optionsInfogerance;
       u.serveurs * parseFloat(t.serveur) +
       u.nas * parseFloat(t.nas) +
       u.peripheriques * parseFloat(t.peripherique) +
-      u.sites * parseFloat(t.site) +
-      (t.xdr === '1' ? (u.postes + u.serveurs + u.nas) * parseFloat(t.xdrnode) : 0);
-    const opts = pickedOptions();
+      u.sites * parseFloat(t.site);
+    // EDR+XDR+SIEM inclus au niveau : facture par noeud (postes+serveurs+NAS), ligne dediee
+    const xdr = t.xdr === '1' ? (u.postes + u.serveurs + u.nas) * parseFloat(t.xdrnode) : 0;
+    const opts = pickedOptions().filter((o) => !(t.xdr === '1' && o.code === 'edr_xdr_siem'));
     const optionsTotal = opts.reduce((s, o) => s + o.total, 0);
     const engage = $('engagement36').checked;
-    const remise = engage ? base * parseFloat(t.remise36) : 0;
-    const totalHT = base - remise + optionsTotal;
-    return { base, opts, optionsTotal, engage, remise, totalHT, tva: totalHT * tva, ttc: totalHT * (1 + tva) };
+    // comme la trame de proposition (0-DOTYPE) : remise 36 mois sur la base contrat, options ajoutees apres
+    const remise = engage ? (base + xdr) * parseFloat(t.remise36) : 0;
+    const totalHT = base + xdr + optionsTotal - remise;
+    return { base, xdr, opts, optionsTotal, engage, remise, totalHT, tva: totalHT * tva, ttc: totalHT * (1 + tva) };
   }
 
   function render() {
     const c = compute();
     if (!c) return;
     $('r-base').textContent = eur(c.base);
+    $('r-xdr-row').classList.toggle('hidden', c.xdr === 0);
+    $('r-xdr').textContent = eur(c.xdr);
     $('r-options').textContent = eur(c.optionsTotal);
     $('r-remise-row').classList.toggle('hidden', !c.engage || c.remise === 0);
     $('r-remise').textContent = '-' + eur(c.remise);
@@ -194,16 +199,34 @@ const options = catalogue.optionsInfogerance;
     $('r-ttc').textContent = eur(c.ttc);
   }
 
+  function syncXdrOption() {
+    const t = selectedTier();
+    const chk = form.querySelector('.opt-check[data-code="edr_xdr_siem"]');
+    if (!chk || !t) return;
+    const qty = form.querySelector('.opt-qty[data-for="edr_xdr_siem"]');
+    const inclus = t.xdr === '1';
+    chk.disabled = inclus; qty.disabled = inclus;
+    chk.closest('div.flex').style.opacity = inclus ? '0.6' : '';
+    if (inclus) { const u = units(); chk.checked = true; qty.value = u.postes + u.serveurs + u.nas; chk.dataset.auto = '1'; }
+    else if (chk.dataset.auto) { chk.checked = false; qty.value = 0; delete chk.dataset.auto; }
+    const note = chk.parentElement.querySelector('.xdr-note');
+    if (note) note.textContent = inclus ? ' · Inclus au contrat Platine, quantité = postes + serveurs + NAS' : '';
+  }
+
   function highlightTiers() {
     form.querySelectorAll('.tier-radio').forEach((r) => {
       r.closest('.tier-card').style.borderColor = r.checked ? '#7C3AED' : '';
     });
   }
-  form.addEventListener('input', render);
-  form.querySelectorAll('.tier-radio').forEach((r) => r.addEventListener('change', () => { highlightTiers(); render(); }));
+  form.addEventListener('input', () => { syncXdrOption(); render(); });
+  form.querySelectorAll('.tier-radio').forEach((r) => r.addEventListener('change', () => {
+    highlightTiers(); syncXdrOption(); render();
+    const url = new URL(location.href); url.searchParams.set('tier', r.value); history.replaceState(null, '', url);
+  }));
   const urlTier = new URLSearchParams(location.search).get('tier');
   if (urlTier) { const tr = form.querySelector('.tier-radio[value="' + urlTier + '"]'); if (tr) tr.checked = true; }
   highlightTiers();
+  syncXdrOption();
   render();
 
   form.addEventListener('submit', (e) => {
