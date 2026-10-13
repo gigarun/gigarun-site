@@ -65,6 +65,15 @@ const TEMOIGNAGES = [
   { texte: "De bonnes compétences et une grande disponibilité, qui assurent un service top et réactif pour trouver des solutions à tous mes besoins. Merci à l'équipe pour votre dévouement.", nom: "Fabrice Baixes", role: "Créateur et formateur indépendant" },
   { texte: "Merci pour cet accompagnement. Notre cœur de métier dépend intégralement de l'outil informatique. Vous avez su suivre le développement de l'entreprise et adapter nos outils en conséquence.", nom: "Claude Tournellec", role: "Gérant, Quali Ti Expertise" },
 ];
+const FAQ = [
+  { q: "Qui est GiGaRuN ?", a: "GiGaRuN est une entreprise d'informatique basée à Saint-Pierre, à La Réunion, qui assure depuis 2008 l'infogérance, la cybersécurité, l'ERP Dolibarr et le cloud des PME réunionnaises, avec un interlocuteur unique." },
+  { q: "Que fait un DSI externalisé ?", a: "Un DSI externalisé prend en charge la direction des systèmes d'information d'une PME : supervision du parc, sécurité, sauvegardes, support des utilisateurs, conseil et budget informatique, sans recruter un directeur informatique à temps plein." },
+  { q: "En combien de temps intervenez-vous à La Réunion ?", a: "GiGaRuN intervient sur site à Saint-Pierre sous 4 heures et supervise le parc de ses clients 24h/24 et 7j/7." },
+  { q: "Quels services propose GiGaRuN ?", a: "Infogérance IT, cybersécurité, réseaux et infrastructure, ERP Dolibarr, cloud et hébergement, sauvegarde et plan de reprise d'activité, audits, vidéosurveillance et intelligence artificielle locale." },
+  { q: "Comment fonctionne l'infogérance GiGaRuN ?", a: "L'infogérance est proposée en quatre niveaux cumulatifs, chaque niveau incluant le précédent, avec des tarifs HT à l'unité (poste, serveur, NAS). Un devis en ligne permet d'estimer chaque niveau." },
+  { q: "Comment obtenir un diagnostic de mon informatique ?", a: "Le diagnostic est gratuit et sans engagement : il suffit de remplir le formulaire de contact ou d'appeler le 0692 31 11 91, la réponse est apportée sous 24 heures." },
+];
+const faqLd = { '@context':'https://schema.org', '@type':'FAQPage', mainEntity: FAQ.map(f => ({ '@type':'Question', name:f.q, acceptedAnswer:{ '@type':'Answer', text:f.a } })) };
 ---
 <Layout title="Gigarun — Infogérance & cybersécurité PME à La Réunion" description="DSI externalisé à La Réunion : infogérance, cybersécurité, ERP Dolibarr et cloud souverain pour les PME. Interlocuteur unique, intervention sous 4h.">
 
@@ -247,6 +256,22 @@ const TEMOIGNAGES = [
       </a>
     </div>
   </div>
+</section>
+
+<!-- QUESTIONS FRÉQUENTES -->
+<section id="faq" class="bg-[#07001C] py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-center mb-10" style="font-size:clamp(28px,3vw,42px);">Questions fréquentes</h2>
+    <div class="flex flex-col gap-4">
+      {FAQ.map(f => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.18)] rounded-xl p-6">
+          <h3 class="text-base font-semibold text-white mb-2">{f.q}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 </section>
 
 <!-- CTA FINAL -->

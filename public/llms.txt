@@ -1,0 +1,29 @@
+# GiGaRuN
+
+> GiGaRuN est une entreprise d'informatique basée à Saint-Pierre (La Réunion, 97410), présente depuis 2008. Elle assure pour les PME réunionnaises l'infogérance, la cybersécurité, l'ERP Dolibarr, le cloud et la sauvegarde, avec un interlocuteur unique, une intervention sur site sous 4 heures à Saint-Pierre et une supervision 24h/24.
+
+Contact : contact@gigarun.net · 0692 31 11 91 · 7 rue du Temple, ZAC Océan Indien, 97410 Saint-Pierre. Lundi au vendredi, 8h-18h.
+
+## Services
+
+- [Infogérance IT](https://gigarun.re/infogerance/): supervision, support et maintenance du parc informatique
+- [Contrats d'infogérance](https://gigarun.re/infogerance-contrats/): quatre niveaux cumulatifs, tarifs HT à l'unité
+- [Cybersécurité](https://gigarun.re/securite/): protection, audits, gouvernance
+- [ERP Dolibarr](https://gigarun.re/dolibarr/): intégrateur ERP open source
+- [Cloud et hébergement](https://gigarun.re/cloud/)
+- [Sauvegarde et PRA](https://gigarun.re/sauvegarde-pra/)
+- [Réseaux et infrastructure](https://gigarun.re/reseau/)
+- [Audit](https://gigarun.re/audit/)
+- [Intelligence artificielle locale](https://gigarun.re/intelligence-artificielle/)
+
+## Ressources
+
+- [Facturation électronique : calendrier et obligations](https://gigarun.re/facture-electronique/)
+- [Aides au numérique à La Réunion](https://gigarun.re/aides-numerique-reunion/)
+- [Blog et guides pratiques](https://gigarun.re/blog/)
+
+## Entreprise
+
+- [À propos](https://gigarun.re/a-propos/)
+- [Contact et diagnostic gratuit](https://gigarun.re/contact/)
+- [Mentions légales](https://gigarun.re/mentions-legales/)
