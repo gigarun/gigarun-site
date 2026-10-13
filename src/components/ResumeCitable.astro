@@ -1,0 +1,17 @@
+---
+// Résumé citable (réponse directe en tête de page) + date de mise à jour visible + WebPage JSON-LD.
+interface Props { titre: string; texte: string; modifie?: string; }
+const { titre, texte, modifie = '2026-10-13' } = Astro.props;
+const dateFr = new Date(modifie + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const pageLd = { '@context':'https://schema.org', '@type':'WebPage', '@id': new URL(Astro.url.pathname, 'https://gigarun.re').toString(), url: new URL(Astro.url.pathname, 'https://gigarun.re').toString(), name: titre, description: texte, inLanguage:'fr-FR', dateModified: modifie, isPartOf:{ '@id':'https://gigarun.re/#website' }, about:{ '@id':'https://gigarun.re/#organization' } };
+---
+<section class="bg-[#07001C] pt-4 pb-10">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-xl p-6">
+      <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-2">{titre}</h2>
+      <p class="text-[rgba(241,240,247,0.9)] text-sm leading-relaxed">{texte}</p>
+      <p class="text-[#9B99AA] text-xs mt-3">Mis à jour le <time datetime={modifie}>{dateFr}</time></p>
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(pageLd)} />
+</section>

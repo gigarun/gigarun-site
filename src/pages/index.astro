@@ -260,9 +260,9 @@ const faqLd = { '@context':'https://schema.org', '@type':'FAQPage', mainEntity: 
 
 <!-- QUESTIONS FRÉQUENTES -->
 <section id="faq" class="bg-[#07001C] py-20">
-  <div class="max-w-4xl mx-auto px-6">
+  <div class="max-w-6xl mx-auto px-6">
     <h2 class="font-syne font-bold text-[#F1F0F7] text-center mb-10" style="font-size:clamp(28px,3vw,42px);">Questions fréquentes</h2>
-    <div class="flex flex-col gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
       {FAQ.map(f => (
         <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.18)] rounded-xl p-6">
           <h3 class="text-base font-semibold text-white mb-2">{f.q}</h3>
