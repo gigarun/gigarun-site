@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ResumeCitable from '../../components/ResumeCitable.astro';
+
+// Chaque réponse reprend un fait déjà publié sur le site (grille : src/data/contrats-infogerance.js) ou confirmé par Thomas le 2026-10-14.
+// Le texte visible et le JSON-LD FAQPage viennent de ce même tableau : jamais de réponse dans le schéma qui ne soit pas à l'écran.
+const faq = [
+  { q: "C'est quoi l'infogérance concrètement ?",
+    a: ["C'est externaliser la gestion de votre informatique à une équipe spécialisée : elle surveille, maintient, sécurise et dépanne votre parc, et vous n'avez plus à vous en occuper."] },
+  { q: "Combien coûte l'infogérance pour une TPE ou une PME à La Réunion ?",
+    a: ["De 25 € à 40 € HT par poste et par mois selon le niveau de contrat : Bronze dès 25 €, Argent dès 30 €, Or dès 35 €, Platine dès 40 €. TVA à 8,5 % à La Réunion.",
+        "Les tarifs sont à l'unité (poste, serveur, NAS) : vous ne payez que votre parc réel. Le devis en ligne estime chaque niveau en quelques minutes."] },
+  { q: "Quels sont les niveaux de contrat d'infogérance ?",
+    a: ["Quatre niveaux cumulatifs, chaque niveau incluant le précédent.",
+        "Bronze (dès 25 €) : supervision, support et télémaintenance à distance, antivirus inclus. Les interventions sur site restent exceptionnelles (facturées à l'heure ou assurées par votre référent interne).",
+        "Argent (dès 30 €) : ajoute les interventions et la maintenance préventive sur site, déplacements inclus, et la supervision des sauvegardes.",
+        "Or (dès 35 €) : ajoute le remplacement des pièces défectueuses, la gestion du réseau, des périphériques et des GSM, et la DSI externalisée.",
+        "Platine (dès 40 €) : ajoute l'EDR sur les postes, le RSSI externalisé, XDR + SIEM et l'accompagnement à la conformité NIS2."] },
+  { q: "Intervenez-vous sur toute l'île ?",
+    a: ["Oui, depuis Saint-Pierre, sur toute La Réunion. Pour les urgences, nous sommes sur site sous 4 heures. Plus de 80 % des problèmes se règlent à distance en quelques heures, et le parc est supervisé 24 h/24, 7 j/7."] },
+  { q: "Pouvez-vous reprendre notre informatique existante ?",
+    a: ["Oui. Nous réalisons un audit de votre parc existant, nous le documentons, puis nous assurons une transition sans coupure. Matériel ancien ou récent, nous nous adaptons."] },
+  { q: "Garde-t-on le contrôle de notre informatique et de nos données ?",
+    a: ["Oui. Vous restez propriétaire de votre infrastructure et de vos données, nous n'avons qu'un accès de maintenance, et vous prenez toutes les décisions stratégiques."] },
+  { q: "La cybersécurité est-elle incluse dans l'infogérance ?",
+    a: ["La sécurité de base, oui : un antivirus est inclus dans tous les contrats, dès Bronze, avec les mises à jour de sécurité. À partir du niveau Platine s'ajoutent l'EDR sur les postes, XDR + SIEM et le RSSI externalisé. Pour des besoins ponctuels (audit, RGPD), des modules dédiés existent."] },
+  { q: "Que fait un DSI externalisé ?",
+    a: ["Il prend en charge la direction des systèmes d'information d'une PME : supervision du parc, sécurité, sauvegardes, support des utilisateurs, conseil et budget informatique, sans recruter un directeur informatique à temps plein."] },
+  { q: "Y a-t-il un engagement de durée ?",
+    a: ["Oui : la durée minimale est de 12 mois, avec un préavis d'un mois. Un engagement de 36 mois ouvre droit à une remise dégressive jusqu'à -10 %, avec un préavis de trois mois."] },
+  { q: "Comment obtenir un diagnostic de mon informatique ?",
+    a: ["Le diagnostic est gratuit et sans engagement : par le formulaire de contact ou en appelant le 0692 31 11 91. Réponse sous 24 heures."] },
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.join(' ') } })),
+};
+---
+<Layout
+  title="FAQ infogérance à La Réunion : prix, niveaux, délais"
+  description="Prix de l'infogérance (dès 25 € HT/poste/mois), niveaux Bronze à Platine, délai d'intervention de 4 h, engagement 12 mois : les réponses de GiGaRuN."
+>
+
+<section class="relative flex items-center justify-center overflow-hidden bg-[#07001C]" style="min-height:45vh;">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-4xl mx-auto px-6 pt-32 pb-10 w-full flex flex-col items-center text-center">
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight mb-5" style="font-size:clamp(32px,5vw,56px);">FAQ infogérance à La Réunion</h1>
+    <p class="text-[#9B99AA] text-base max-w-2xl">Prix, niveaux de contrat, délais d'intervention, engagement : les réponses aux questions que se posent les dirigeants de TPE et de PME.</p>
+  </div>
+</section>
+
+<ResumeCitable titre="L'infogérance à La Réunion en bref" texte="GiGaRuN assure l'infogérance des PME réunionnaises depuis 2008, depuis Saint-Pierre : quatre niveaux de contrat de Bronze (dès 25 € HT par poste et par mois) à Platine (dès 40 €), intervention sur site sous 4 heures, supervision 24 h/24, engagement minimal de 12 mois." modifie="2026-10-14" />
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="flex flex-col gap-4">
+      {faq.map((f) => (
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+          <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+            {f.q}
+            <span class="text-[#A78BFA] text-lg transition-transform group-open:rotate-45">+</span>
+          </summary>
+          {f.a.map((p) => <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">{p}</p>)}
+        </details>
+      ))}
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center mt-10">
+      <a href="/infogerance-contrats/" class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-lg px-4 py-2 text-[#F1F0F7] text-sm transition-all">Détail des contrats Bronze à Platine</a>
+      <a href="/devis/infogerance/" class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-lg px-4 py-2 text-[#F1F0F7] text-sm transition-all">Devis infogérance en ligne</a>
+      <a href="/infogerance/" class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-lg px-4 py-2 text-[#F1F0F7] text-sm transition-all">Infogérance informatique</a>
+      <a href="/securite/" class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-lg px-4 py-2 text-[#F1F0F7] text-sm transition-all">Cybersécurité</a>
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+</section>
+
+<section class="py-16 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(24px,3vw,40px);">Une question qui n'est pas ici ?</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-8">Diagnostic gratuit, sans engagement.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift">0692 31 11 91</a>
+      <a href="/contact/" class="inline-flex items-center gap-2 border border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-[#7C3AED] btn-hover-lift transition-all">Envoyer un message</a>
+    </div>
+  </div>
+</section>
+
+</Layout>
