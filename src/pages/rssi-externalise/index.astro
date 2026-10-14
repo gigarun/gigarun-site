@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ResumeCitable from '../../components/ResumeCitable.astro';
+
+// Contenu : faits déjà publiés (grille src/data/contrats-infogerance.js, /securite/, /gouvernance-cybersecurite/,
+// /vos-metiers/collectivites-spl/) ou confirmés par Thomas le 2026-10-14. Vocabulaire d'accompagnement : GiGaRuN
+// ne délivre aucune attestation de conformité. Aucune marque de fournisseur citée.
+const missions = [
+  { t: "Politique de sécurité et chartes", d: "Le RSSI définit et met en œuvre la politique de sécurité de l'entreprise et rédige les chartes informatiques adaptées à votre organisation." },
+  { t: "Analyse de risques", d: "Identification des vulnérabilités techniques et organisationnelles, puis plan d'action priorisé, réaliste et opérationnel." },
+  { t: "Sensibilisation et tests anti-phishing", d: "Sessions de sensibilisation de vos équipes et tests anti-phishing : la prévention passe aussi par la formation des collaborateurs." },
+  { t: "Gestion des incidents", d: "Le RSSI coordonne la réponse en cas d'incident, avec la supervision EDR, XDR et SIEM selon votre niveau de contrat." },
+  { t: "Un périmètre qui dépasse l'informatique", d: "L'organisation, les ressources humaines et la sécurité physique entrent aussi dans la gestion des risques." },
+  { t: "Un reporting pour la direction", d: "Une vision claire et chiffrée de votre exposition, rattachée à la direction générale, pour décider en connaissance de cause." },
+];
+const options = [
+  { t: "DPO externalisé", p: "Option, sur devis",
+    l: ["Cartographie des traitements de données personnelles", "Documentation réglementaire tenue à jour", "Conseil sur les risques et les mesures à prendre", "Interlocuteur privilégié pour vos équipes et pour la CNIL"] },
+  { t: "Accompagnement RGPD", p: "Option, sur devis",
+    l: ["Cartographie des données", "Registre des traitements", "Procédures de violation de données", "Contrôle RGPD des données inclus au niveau Platine"] },
+  { t: "Accompagnement NIS2", p: "Inclus au niveau Platine",
+    l: ["Accompagnement de votre démarche NIS2", "Audits d'infrastructure et tests d'intrusion", "Sessions de sensibilisation du personnel", "Pour les secteurs et tailles concernés par la directive"] },
+];
+const etapes = [
+  { n: "1", t: "Pré-diagnostic gratuit", d: "Un échange de 20 minutes pour cadrer votre exposition, sans engagement. Il permet aussi de voir si RGPD ou NIS2 vous concernent." },
+  { n: "2", t: "Audit de sécurité", d: "Pour une PME de 10 à 50 postes, comptez 1 à 3 jours d'analyse. L'audit est une prestation sur devis." },
+  { n: "3", t: "Plan d'action priorisé", d: "Rapport remis sous une semaine avec un plan d'action hiérarchisé selon la criticité des risques." },
+  { n: "4", t: "Pilotage par le RSSI", d: "Mise en œuvre de la politique de sécurité, suivi du plan d'action et reporting à la direction." },
+];
+const faq = [
+  { q: "Qu'est-ce qu'un RSSI externalisé ?",
+    a: "C'est un responsable de la sécurité des systèmes d'information confié à un prestataire. Rattaché à la direction générale, il définit la politique de sécurité, mesure les risques, pilote le plan d'action et rend compte à la direction, sans recruter un RSSI à temps plein." },
+  { q: "Quelle différence entre un RSSI et un DPO ?",
+    a: "Le RSSI protège la sécurité de l'information de l'entreprise (risques, mesures techniques et organisationnelles, incidents). Le DPO veille à la protection des données personnelles et au respect du RGPD. Les deux rôles sont complémentaires, et le DPO externalisé est proposé en option." },
+  { q: "Combien coûte un RSSI externalisé ?",
+    a: "Le RSSI externalisé est inclus au niveau Platine, dès 40 € HT par poste et par mois. L'XDR + SIEM (postes, serveurs, NAS) s'ajoute à 6,60 € HT par nœud et par mois, et un SOC 24 h/24 est disponible en option. Le DPO externalisé et l'accompagnement RGPD sont des options sur devis. L'audit initial est une prestation sur devis." },
+  { q: "RGPD et NIS2 : suis-je concerné ?",
+    a: "Le RGPD s'applique dès que vous traitez des données personnelles (clients, salariés, patients, usagers). NIS2 ne concerne que certains secteurs et certaines tailles d'organisation. Le pré-diagnostic gratuit permet de faire le point sur votre situation." },
+  { q: "Garantissez-vous la conformité RGPD ou NIS2 ?",
+    a: "Non. GiGaRuN accompagne votre démarche et documente vos mesures, mais ne délivre aucune attestation de conformité : c'est à votre organisation d'en assumer la responsabilité, avec notre appui." },
+  { q: "Quel engagement de durée ?",
+    a: "La durée minimale d'un contrat d'infogérance est de 12 mois, avec un préavis d'un mois. Un engagement de 36 mois ouvre droit à une remise dégressive jusqu'à -10 %, avec un préavis de trois mois." },
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const chip = 'bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-lg px-4 py-2 text-[#F1F0F7] text-sm transition-all';
+---
+<Layout service="RSSI externalisé" image="/images/og-rssi-externalise.png"
+  title="RSSI externalisé à La Réunion : DPO, RGPD et NIS2"
+  description="RSSI externalisé à La Réunion pour PME : politique de sécurité, analyse de risques, options DPO et accompagnement RGPD / NIS2. Dès 40 € HT/poste/mois."
+>
+
+<section class="relative overflow-hidden bg-[#07001C]">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-5xl mx-auto px-6 pt-32 pb-14 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <a href="/securite/" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm">← Cybersécurité</a>
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mt-4 mb-5 leading-tight" style="font-size:clamp(32px,4.6vw,54px);">RSSI externalisé à La Réunion</h1>
+      <p class="text-[#9B99AA] text-lg mb-8">Un responsable de la sécurité rattaché à votre direction : il structure votre politique, mesure vos risques et vous accompagne sur le RGPD et NIS2, avec un DPO externalisé en option.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Demander un pré-diagnostic gratuit</a>
+        <a href="/infogerance-contrats/" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">Voir le niveau Platine</a>
+      </div>
+      <p class="text-[#9B99AA] text-sm mt-5">Ou appelez-nous : <a href="tel:+262692311191" class="text-[#A78BFA] hover:underline">0692 31 11 91</a></p>
+    </div>
+    <div>
+      <img src="/images/og-rssi-externalise.png" width="1200" height="630" alt="RSSI externalisé, DPO et accompagnement RGPD et NIS2 à La Réunion, par GiGaRuN" class="w-full h-auto rounded-2xl border border-[rgba(124,58,237,0.25)]" />
+    </div>
+  </div>
+</section>
+
+<ResumeCitable titre="Le RSSI externalisé en bref" texte="Un RSSI externalisé confie à un prestataire la responsabilité de la sécurité de l'information d'une PME : politique de sécurité, analyse de risques, plan d'action, sensibilisation et reporting à la direction. GiGaRuN l'assure à partir du niveau Platine, dès 40 € HT par poste et par mois, avec un DPO externalisé et un accompagnement RGPD et NIS2 en option." modifie="2026-10-14" />
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-8" style="font-size:clamp(24px,3vw,36px);">Ce que fait votre RSSI externalisé</h2>
+    <div class="grid md:grid-cols-3 gap-5">
+      {missions.map((m) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <h3 class="font-syne font-bold text-[#F1F0F7] mb-2 text-base">{m.t}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{m.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-2" style="font-size:clamp(24px,3vw,36px);">Les options : DPO, RGPD et NIS2</h2>
+    <p class="text-[#9B99AA] text-sm mb-8 max-w-3xl">Vous choisissez ce dont vous avez besoin. GiGaRuN accompagne votre démarche mais ne délivre aucune attestation de conformité.</p>
+    <div class="grid md:grid-cols-3 gap-5">
+      {options.map((o) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <h3 class="font-syne font-bold text-[#F1F0F7] mb-1 text-lg">{o.t}</h3>
+          <p class="text-[#A78BFA] text-xs uppercase tracking-widest mb-4">{o.p}</p>
+          <ul class="text-[#9B99AA] text-sm space-y-2">
+            {o.l.map((x) => <li>✓ {x}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-8" style="font-size:clamp(24px,3vw,36px);">Comment ça se passe</h2>
+    <div class="grid md:grid-cols-4 gap-5">
+      {etapes.map((e) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <div class="text-[#A78BFA] font-syne font-extrabold text-3xl mb-2">{e.n}</div>
+          <h3 class="font-syne font-bold text-[#F1F0F7] mb-2 text-base">{e.t}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{e.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-start">
+    <div>
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(24px,3vw,36px);">Inclus au niveau Platine</h2>
+      <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">Le niveau Platine reprend tout le socle Or (dont la DSI externalisée) et ajoute un RSSI externalisé rattaché à la direction générale, le chiffrement des postes, le contrôle RGPD des données, un reporting avancé, des sessions de sensibilisation, des tests d'intrusion et des audits d'infrastructure.</p>
+      <p class="text-[#9B99AA] text-sm leading-relaxed">Un SOC en cyberdéfense active 24/7/365 est disponible en option. Durée minimale de 12 mois, préavis d'un mois.</p>
+    </div>
+    <div class="bg-[#0D0028] border border-[rgba(229,228,226,0.3)] rounded-xl p-6">
+      <p class="text-[#9B99AA] text-xs uppercase tracking-widest mb-1">Niveau Platine</p>
+      <p class="text-[#F1F0F7] font-syne font-bold text-4xl mb-1">dès 40 €<span class="text-base font-normal text-[#9B99AA]"> /poste/mois HT</span></p>
+      <ul class="text-[#9B99AA] text-sm space-y-2 mt-4 mb-6">
+        <li>✓ RSSI externalisé</li>
+        <li>✓ XDR + SIEM (postes, serveurs, NAS) : + 6,60 € /nœud/mois</li>
+        <li>✓ Conformité NIS2 accompagnée</li>
+        <li>✓ SOC / cyberdéfense 24/7 (option)</li>
+      </ul>
+      <a href="/devis/infogerance/" class="inline-block bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-5 py-2.5 rounded-full transition-colors text-sm">Estimer mon contrat</a>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-8 text-center" style="font-size:clamp(24px,3vw,36px);">Questions fréquentes</h2>
+    <div class="flex flex-col gap-4">
+      {faq.map((f) => (
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+          <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+            {f.q}
+            <span class="text-[#A78BFA] text-lg transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center mt-10">
+      <a href="/dsi-externalisee/" class={chip}>DSI externalisée</a>
+      <a href="/gouvernance-cybersecurite/" class={chip}>Gouvernance cybersécurité</a>
+      <a href="/audit/" class={chip}>Audit informatique</a>
+      <a href="/pentest/" class={chip}>Test d'intrusion</a>
+      <a href="/securite/" class={chip}>Cybersécurité managée</a>
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+</section>
+
+<section class="py-16 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(24px,3vw,40px);">Structurons votre sécurité</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-8">Pré-diagnostic gratuit, sans engagement. On évalue votre exposition en 20 minutes.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="/contact/" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift">Demander un pré-diagnostic gratuit</a>
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-[#7C3AED] btn-hover-lift transition-all">0692 31 11 91</a>
+    </div>
+  </div>
+</section>
+
+</Layout>

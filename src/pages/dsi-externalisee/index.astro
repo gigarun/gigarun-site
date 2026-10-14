@@ -1,0 +1,152 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ResumeCitable from '../../components/ResumeCitable.astro';
+
+// Contenu : uniquement des faits déjà publiés sur le site (grille src/data/contrats-infogerance.js, FAQ, page conseil)
+// ou confirmés par Thomas le 2026-10-14 (engagement 12 mois, préavis 1 mois ; 36 mois, préavis 3 mois).
+const missions = [
+  { t: "Pilotage du parc et du réseau", d: "Supervision du parc, maintenance préventive, gestion du réseau, des périphériques et des GSM. Vous avez un seul interlocuteur au lieu de plusieurs prestataires." },
+  { t: "Gouvernance des prestataires", d: "La DSI externalisée prend en charge la relation avec vos prestataires, vos noms de domaine et vos messageries : contrats, renouvellements, escalades." },
+  { t: "Budget et feuille de route IT", d: "Schéma directeur, feuille de route pluriannuelle, optimisation des coûts et des licences. Les recommandations sont priorisées et chiffrées." },
+  { t: "Support de vos utilisateurs", d: "Un helpdesk réactif, à distance ou sur site. Plus de 80 % des problèmes se règlent à distance en quelques heures." },
+  { t: "Sauvegardes et continuité", d: "Supervision des sauvegardes, procédures de restauration testées régulièrement, règle 3-2-1." },
+  { t: "Sécurité de base", d: "Antivirus inclus dans tous les contrats et mises à jour de sécurité. Pour aller plus loin, voir notre RSSI externalisé." },
+];
+const etapes = [
+  { n: "1", t: "Pré-diagnostic gratuit", d: "Un échange de 20 minutes pour cadrer votre situation, sans engagement. Réponse sous 24 heures." },
+  { n: "2", t: "Audit de l'existant", d: "Nous auditons votre parc, nous documentons l'existant et nous identifions les risques et les gains rapides." },
+  { n: "3", t: "Recommandations chiffrées", d: "Un plan priorisé et chiffré. Nous conseillons de façon indépendante : nous ne poussons pas de matériel." },
+  { n: "4", t: "Transition et pilotage", d: "Reprise de votre informatique sans coupure, puis suivi régulier avec un rapport d'activité." },
+];
+const faq = [
+  { q: "Que fait une DSI externalisée ?",
+    a: "Elle prend en charge la direction des systèmes d'information d'une PME : supervision du parc, sécurité, sauvegardes, support des utilisateurs, conseil et budget informatique, sans recruter un directeur informatique à temps plein." },
+  { q: "Quelle différence entre infogérance et DSI externalisée ?",
+    a: "L'infogérance exploite et maintient votre parc (supervision, support, interventions). La DSI externalisée ajoute le pilotage : gouvernance des prestataires, des domaines et des messageries, budget et feuille de route. Elle est incluse à partir du niveau Or." },
+  { q: "Combien coûte une DSI externalisée à La Réunion ?",
+    a: "Le niveau Or, qui inclut la DSI externalisée, démarre à 35 € HT par poste et par mois (TVA à 8,5 % à La Réunion). Les tarifs sont à l'unité : vous ne payez que votre parc réel. Le devis en ligne estime votre contrat en quelques minutes." },
+  { q: "Pour quelles entreprises est-ce adapté ?",
+    a: "Pour les TPE et PME qui n'ont pas de service informatique interne, ou dont le référent technique manque de temps pour piloter la stratégie, le budget et les prestataires." },
+  { q: "Y a-t-il un engagement de durée ?",
+    a: "La durée minimale est de 12 mois, avec un préavis d'un mois. Un engagement de 36 mois ouvre droit à une remise dégressive jusqu'à -10 %, avec un préavis de trois mois." },
+  { q: "Garde-t-on le contrôle de notre informatique ?",
+    a: "Oui. Vous restez propriétaire de votre infrastructure et de vos données, GiGaRuN n'a qu'un accès de maintenance, et vous prenez les décisions stratégiques." },
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const chip = 'bg-[#0D0028] border border-[rgba(124,58,237,0.2)] hover:border-[#7C3AED] rounded-lg px-4 py-2 text-[#F1F0F7] text-sm transition-all';
+---
+<Layout service="DSI externalisée" image="/images/og-dsi-externalisee.png"
+  title="DSI externalisée à La Réunion : pilotage IT pour PME"
+  description="DSI externalisée à La Réunion pour TPE et PME : pilotage du parc, des prestataires, du budget et de la feuille de route IT. Dès 35 € HT/poste/mois."
+>
+
+<section class="relative overflow-hidden bg-[#07001C]">
+  <div class="absolute pointer-events-none" style="bottom:-60px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:rgba(124,58,237,0.18);border-radius:50%;filter:blur(120px);"></div>
+  <div class="relative max-w-5xl mx-auto px-6 pt-32 pb-14 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <a href="/infogerance/" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm">← Infogérance</a>
+      <h1 class="font-syne font-extrabold text-[#F1F0F7] mt-4 mb-5 leading-tight" style="font-size:clamp(32px,4.6vw,54px);">DSI externalisée à La Réunion</h1>
+      <p class="text-[#9B99AA] text-lg mb-8">Un directeur des systèmes d'information à temps partagé pour votre TPE ou votre PME : il pilote votre informatique, vos prestataires et votre budget, et vous gardez les décisions.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/contact/" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Demander un diagnostic gratuit</a>
+        <a href="/devis/infogerance/" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">Estimer mon contrat</a>
+      </div>
+      <p class="text-[#9B99AA] text-sm mt-5">Ou appelez-nous : <a href="tel:+262692311191" class="text-[#A78BFA] hover:underline">0692 31 11 91</a></p>
+    </div>
+    <div>
+      <img src="/images/og-dsi-externalisee.png" width="1200" height="630" alt="DSI externalisée pour PME à La Réunion, par GiGaRuN" class="w-full h-auto rounded-2xl border border-[rgba(124,58,237,0.25)]" />
+    </div>
+  </div>
+</section>
+
+<ResumeCitable titre="La DSI externalisée en bref" texte="Une DSI externalisée confie à un prestataire la direction des systèmes d'information d'une PME : supervision du parc, gouvernance des prestataires, budget et feuille de route, support et sécurité, sans recruter un directeur informatique à temps plein. GiGaRuN l'assure depuis Saint-Pierre à partir du niveau Or, dès 35 € HT par poste et par mois, avec un engagement minimal de 12 mois." modifie="2026-10-14" />
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-8" style="font-size:clamp(24px,3vw,36px);">Ce que prend en charge votre DSI externalisée</h2>
+    <div class="grid md:grid-cols-3 gap-5">
+      {missions.map((m) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <h3 class="font-syne font-bold text-[#F1F0F7] mb-2 text-base">{m.t}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{m.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-8" style="font-size:clamp(24px,3vw,36px);">Comment ça se passe</h2>
+    <div class="grid md:grid-cols-4 gap-5">
+      {etapes.map((e) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <div class="text-[#A78BFA] font-syne font-extrabold text-3xl mb-2">{e.n}</div>
+          <h3 class="font-syne font-bold text-[#F1F0F7] mb-2 text-base">{e.t}</h3>
+          <p class="text-[#9B99AA] text-sm leading-relaxed">{e.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-start">
+    <div>
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-4" style="font-size:clamp(24px,3vw,36px);">Quel niveau de contrat ?</h2>
+      <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">La DSI externalisée est incluse à partir du niveau <strong class="text-[#F1F0F7]">Or</strong> (dès 35 € HT par poste et par mois). Le niveau Or reprend tout le socle Argent (interventions et maintenance préventive sur site, déplacements inclus, supervision des sauvegardes) et ajoute le remplacement des pièces défectueuses, la gestion du réseau, des périphériques et des GSM, la DSI externalisée et le support prioritaire.</p>
+      <p class="text-[#9B99AA] text-sm leading-relaxed">Les tarifs sont HT et à l'unité (poste, serveur, NAS). Durée minimale de 12 mois, préavis d'un mois.</p>
+    </div>
+    <div class="bg-[#0D0028] border border-[rgba(255,215,0,0.35)] rounded-xl p-6">
+      <p class="text-[#9B99AA] text-xs uppercase tracking-widest mb-1">Niveau Or</p>
+      <p class="text-[#F1F0F7] font-syne font-bold text-4xl mb-1">dès 35 €<span class="text-base font-normal text-[#9B99AA]"> /poste/mois HT</span></p>
+      <ul class="text-[#9B99AA] text-sm space-y-2 mt-4 mb-6">
+        <li>✓ DSI externalisée</li>
+        <li>✓ Pièces défectueuses remplacées</li>
+        <li>✓ Gestion réseau, périphériques et GSM</li>
+        <li>✓ Support prioritaire</li>
+      </ul>
+      <a href="/infogerance-contrats/" class="inline-block bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-5 py-2.5 rounded-full transition-colors text-sm">Comparer les 4 niveaux</a>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-3xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] mb-8 text-center" style="font-size:clamp(24px,3vw,36px);">Questions fréquentes</h2>
+    <div class="flex flex-col gap-4">
+      {faq.map((f) => (
+        <details class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5 group">
+          <summary class="text-white text-sm font-semibold cursor-pointer list-none flex justify-between items-center">
+            {f.q}
+            <span class="text-[#A78BFA] text-lg transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p class="text-[#9B99AA] text-sm leading-relaxed mt-4">{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <div class="flex flex-wrap gap-3 justify-center mt-10">
+      <a href="/rssi-externalise/" class={chip}>RSSI externalisé, DPO, RGPD et NIS2</a>
+      <a href="/infogerance/" class={chip}>Infogérance informatique</a>
+      <a href="/conseil-solutions-informatiques/" class={chip}>Conseil en solutions informatiques</a>
+      <a href="/faq/" class={chip}>FAQ infogérance</a>
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+</section>
+
+<section class="py-16 relative overflow-hidden" style="background:linear-gradient(135deg,#4C1D95,#7C3AED,#C026D3);">
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <h2 class="font-syne font-bold text-white mb-4" style="font-size:clamp(24px,3vw,40px);">Reprenons la main sur votre informatique</h2>
+    <p class="text-[rgba(255,255,255,0.8)] text-base mb-8">Diagnostic gratuit, sans engagement. Réponse sous 24 h.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="/contact/" class="inline-flex items-center gap-2 bg-white text-[#7C3AED] font-semibold px-8 py-3 rounded-lg hover:bg-[#F1F0F7] btn-hover-lift">Demander un diagnostic gratuit</a>
+      <a href="tel:+262692311191" class="inline-flex items-center gap-2 border border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-[#7C3AED] btn-hover-lift transition-all">0692 31 11 91</a>
+    </div>
+  </div>
+</section>
+
+</Layout>
