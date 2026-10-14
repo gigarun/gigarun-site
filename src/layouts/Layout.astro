@@ -15,12 +15,14 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  service?: string; // type de service : la page porte alors un JSON-LD Service (nom, description et URL pris sur la page)
 }
 
 const {
   title = 'Gigarun — DSI Externalisé à La Réunion',
   description = 'Infogérance IT, ERP Dolibarr, cybersécurité pour PME réunionnaises. présents depuis 2008, interlocuteur unique, intervention en 4h.',
-  image = '/images/og-default.png'
+  image = '/images/og-default.png',
+  service = ''
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, 'https://gigarun.re').toString();
@@ -36,6 +38,7 @@ const breadcrumbLd = { '@context':'https://schema.org', '@type':'BreadcrumbList'
 const ORG = { '@type':'Organization', '@id':'https://gigarun.re/#organization', name:'GiGaRuN', legalName:'GiGaRuN', url:'https://gigarun.re/', logo:{ '@type':'ImageObject', url:'https://gigarun.re/apple-touch-icon.png' }, foundingDate:'2008', taxID:'504015181', email:'contact@gigarun.net', telephone:'+262692311191', sameAs:['https://www.google.com/maps?cid=14546660674920845675','https://www.pappers.fr/entreprise/gigarun-504015181'], knowsAbout:['Infogérance','Cybersécurité','DSI externalisé','ERP Dolibarr','Cloud','Sauvegarde et PRA','Facturation électronique'] };
 const SITE = { '@type':'WebSite', '@id':'https://gigarun.re/#website', url:'https://gigarun.re/', name:'GiGaRuN', inLanguage:'fr-FR', publisher:{ '@id':'https://gigarun.re/#organization' } };
 const BIZ = { '@type':'ProfessionalService', '@id':'https://gigarun.re/#business', name:'GiGaRuN', url:'https://gigarun.re/', image:'https://gigarun.re/apple-touch-icon.png', parentOrganization:{ '@id':'https://gigarun.re/#organization' }, telephone:'+262692311191', email:'contact@gigarun.net', priceRange:'EUR', address:{ '@type':'PostalAddress', streetAddress:'7 rue du Temple, ZAC Océan Indien', addressLocality:'Saint-Pierre', postalCode:'97410', addressRegion:'La Réunion', addressCountry:'RE' }, geo:{ '@type':'GeoCoordinates', latitude:-21.3379483, longitude:55.4829232 }, areaServed:{ '@type':'AdministrativeArea', name:'La Réunion' }, openingHoursSpecification:{ '@type':'OpeningHoursSpecification', dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday'], opens:'08:00', closes:'18:00' } };
+const serviceLd = service ? { '@context':'https://schema.org', '@type':'Service', name:title.replace(/ — gigarun$/i,'').replaceAll('&amp;','&'), serviceType:service, description:description.replaceAll('&amp;','&'), url:canonicalUrl, provider:{ '@id':'https://gigarun.re/#business' }, areaServed:{ '@type':'AdministrativeArea', name:'La Réunion' } } : null;
 const localBusinessLd = { '@context':'https://schema.org', '@graph':[ORG, SITE, BIZ] };
 ---
 <!DOCTYPE html>
@@ -83,6 +86,7 @@ const localBusinessLd = { '@context':'https://schema.org', '@graph':[ORG, SITE, 
     h1, h2, h3 { font-family: 'Syne', sans-serif; }
   </style>
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessLd)} />
+  {serviceLd && <script type="application/ld+json" set:html={JSON.stringify(serviceLd)} />}
   {_segs.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
 </head>
 <body>
