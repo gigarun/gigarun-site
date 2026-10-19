@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/outil-de-gouvernance-pour-rssi-lesquels-choisir-en-pme/",
+  "cat": "Cybersécurité",
+  "date": "19 oct. 2026",
+  "titre": "Outil de gouvernance pour RSSI : lesquels choisir en PME ?",
+  "desc": "Tableur, registre, tickets, tableau de bord : découvrez les outils de gouvernance d'un RSSI et comment les choisir sans vous équiper à l'excès.",
+  "type": "article"
+ },
+ {
   "href": "/blog/ia-la-reunion-pme-questions-de-base/",
   "cat": "Intelligence artificielle",
   "date": "25 sept. 2026",
