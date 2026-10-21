@@ -25,4 +25,7 @@ sleep 5  # laisse Traefik basculer sur le nouveau conteneur
 curl -s -X POST -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
   --data '{"purge_everything":true}' "https://api.cloudflare.com/client/v4/zones/$ZONE/purge_cache" \
   | python3 -c "import json,sys; d=json.load(sys.stdin); print('purge cache Cloudflare:', 'ok' if d.get('success') else d)"
-echo "termine. Option : python3 ops/indexnow/submit.py"
+# IndexNow apres la purge (Bing/Yandex relisent le HTML frais). Non bloquant : le deploiement est deja fait.
+cd "$(dirname "$0")/.."
+python3 ops/indexnow/submit.py || echo "IndexNow en echec (non bloquant) : relancer python3 ops/indexnow/submit.py"
+echo termine.
