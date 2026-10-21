@@ -28,4 +28,5 @@ curl -s -X POST -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Typ
 # IndexNow apres la purge (Bing/Yandex relisent le HTML frais). Non bloquant : le deploiement est deja fait.
 cd "$(dirname "$0")/.."
 python3 ops/indexnow/submit.py || echo "IndexNow en echec (non bloquant) : relancer python3 ops/indexnow/submit.py"
+echo "$dep" > ~/.gigarun-last-deploy  # evite que ops/post-deploy-watch.sh refasse la meme chose
 echo termine.
