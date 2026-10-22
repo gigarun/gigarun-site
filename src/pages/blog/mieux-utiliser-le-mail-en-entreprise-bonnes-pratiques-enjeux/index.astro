@@ -1,47 +1,172 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import ArticleCtaActions from '../../../components/ArticleCtaActions.astro';
+import GuideFaq from '../../../components/GuideFaq.astro';
+
+const groupes = [
+  {
+    titre: 'Écrire clairement',
+    intro: 'Un message bien écrit se lit en dix secondes et ne déclenche pas de réponse inutile.',
+    items: [
+      { t: 'Soignez l’objet', d: 'Clair, concis, informatif : le destinataire doit comprendre le sujet et l’urgence sans ouvrir le message.' },
+      { t: 'Un e-mail, un sujet', d: 'Plusieurs sujets dans un même message se perdent et se classent mal. Un sujet de plus, c’est un e-mail de plus.' },
+      { t: 'Restez factuel, poli, professionnel', d: 'Un style neutre et lisible évite les malentendus, d’autant qu’un e-mail peut être relu, transféré, voire produit comme preuve.' },
+    ],
+  },
+  {
+    titre: 'Bien envoyer',
+    intro: 'Qui reçoit quoi, et dans quel état : le plus gros du bruit vient d’ici.',
+    items: [
+      { t: 'Hiérarchisez les destinataires', d: '« À » pour ceux qui doivent agir, « Cc » pour ceux qui doivent seulement être informés. Chacun sait ce qu’on attend de lui.' },
+      { t: 'Ne transférez pas tout', d: 'Plutôt qu’une chaîne de vingt messages, synthétisez l’essentiel et dites ce que vous attendez du destinataire.' },
+      { t: 'Relisez avant d’envoyer', d: 'Fautes, mauvais destinataire, contenu sensible, pièce jointe oubliée : trente secondes de relecture évitent la plupart des incidents.' },
+    ],
+  },
+  {
+    titre: 'Alléger sa boîte de réception',
+    intro: 'Une boîte qui déborde fait rater les messages importants et use les équipes.',
+    items: [
+      { t: 'Limitez les pièces jointes', d: 'Préférez un lien vers un espace partagé : une seule version du fichier, des droits maîtrisés, une boîte moins lourde.' },
+      { t: 'Classez et archivez', d: 'Par thématique ou par client, avec des règles simples et partagées. Retrouver un échange ne doit pas demander dix minutes.' },
+      { t: 'Planifiez des temps de lecture', d: 'Quelques créneaux dans la journée plutôt qu’une consultation permanente : moins d’interruptions, plus de concentration.' },
+    ],
+  },
+  {
+    titre: 'Choisir le bon canal',
+    intro: 'L’e-mail n’est pas toujours la bonne réponse. Savoir en changer fait gagner du temps à tout le monde.',
+    items: [
+      { t: 'Évitez les e-mails ping-pong', d: 'Au troisième aller-retour sans conclusion, un appel ou une réunion de cinq minutes règle le sujet, puis un court e-mail confirme la décision.' },
+      { t: 'Utilisez des outils adaptés', d: 'Téléphone, messagerie instantanée, plateforme collaborative : chaque besoin a son canal, l’e-mail garde les échanges qui méritent une trace.' },
+      { t: 'Indiquez vos absences et déléguez', d: 'Un message d’absence clair précise la date de retour et le contact à solliciter en attendant.' },
+    ],
+  },
+];
+
+let n = 0;
+
 ---
-<Layout title="E-mail en entreprise : bonnes pratiques et enjeux" description="Boostez productivité et sobriété numérique en entreprise : bonnes pratiques e‑mail (organisation, clarté, archivage) pour réduire stress et infobésité">
+<Layout title="E-mail en entreprise : 12 bonnes pratiques et enjeux" description="12 bonnes pratiques pour mieux utiliser l’e-mail en entreprise : objet, Cc, pièces jointes, archivage, cadre légal et RGPD. Le guide d’un DSI externalisé.">
 <article class="bg-[#07001C] pt-32 pb-20"><div class="max-w-3xl mx-auto px-6">
   <div class="mb-8">
-    <div class="flex items-center gap-3 mb-4">
+    <div class="flex items-center gap-3 mb-4 flex-wrap">
       <span class="bg-[#110833] border border-[rgba(124,58,237,0.3)] text-[#A78BFA] text-[11px] font-medium px-3 py-1" style="border-radius:9999px;">Messagerie</span>
-      <span class="text-[#9B99AA] text-xs">15 avr. 2025 · 2 min · Par <a href="https://re.linkedin.com/in/thomascassen" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">Thomas Cassen</a>, DSI externalisé</span>
+      <span class="text-[#9B99AA] text-xs">15 avr. 2025 · mis à jour le 22 oct. 2026 · 4 min · Par <a href="https://re.linkedin.com/in/thomascassen" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">Thomas Cassen</a>, DSI externalisé</span>
     </div>
-    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight mb-4" style="font-size:clamp(28px,4vw,46px);">Mieux utiliser l’e-mail en entreprise : bonnes pratiques & enjeux</h1>
-    <p class="text-[#9B99AA] text-base leading-relaxed">Boostez productivité et sobriété numérique en entreprise : bonnes pratiques e‑mail (organisation, clarté, archivage) pour réduire stress et infobésité</p>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] leading-tight mb-4" style="font-size:clamp(28px,4vw,46px);">Mieux utiliser l’e-mail en entreprise : bonnes pratiques et enjeux</h1>
+    <p class="text-[#9B99AA] text-base leading-relaxed">Productivité, sobriété numérique, sécurité : 12 réflexes pour que l’e-mail reste un outil de travail, pas une source de stress et d’infobésité.</p>
   </div>
-  <div class="prose-gigarun">
-    Mieux utiliser l’e-mail en entreprise : bonnes pratiques & enjeux        L’e-mail reste l’outil de communication le plus utilisé en entreprise… mais pas toujours de la meilleure manière. Mal employé, il devient source de surcharge, d’inefficacité, voire de risques juridiques. Ce guide pratique vous livre les clés pour mieux gérer vos messages, gagner en productivité et renforcer la sécurité des échanges.         ✅ Les 12 bonnes pratiques essentielles pour mieux utiliser l’e-mail   Soignez l’objet de vos e-mails : clair, concis, informatif.  Hiérarchisez les destinataires : « À » pour action, « Cc » pour info.  Évitez les e-mails ping-pong : préférez un appel ou une réunion.  Un e-mail = un sujet : pour une meilleure lisibilité.  Soyez factuel, poli, professionnel : style neutre et lisible.  Ne transférez pas tout : synthétisez les échanges si nécessaire.  Relisez avant d’envoyer : attention aux erreurs ou contenus sensibles.  Classez et archivez vos messages : par thématique ou client.  Planifiez des temps de lecture : pour ne pas être constamment dérangé.  Utilisez des outils adaptés : téléphone, messagerie instantanée, plateformes collaboratives.  Ne surutilisez pas les pièces jointes : préférez un lien ou un espace partagé.  Indiquez vos absences et déléguez si besoin : via un message d’absence clair.                    🧠 Efficacité et collaboration : sortez de la boîte mail       
-\t\t\t    
-        \t\t\t L’e-mail n’est pas l’outil idéal pour : Travailler à plusieurs sur un même document Gérer des versions ou des processus Assurer la sécurité ou la traçabilité des échanges   
-    \t\t\t
-\t\t\t       📌 Privilégiez :         Les plateformes collaboratives (drive, intranet, GED) La messagerie unifiée (e-mail, SMS, messagerie vocale, fax… centralisés) Les outils de gestion de projet ou de ticketing          ⚖️ E-mail et cadre légal   Valeur juridique : un e-mail peut constituer une preuve sous conditions.  Signature électronique : elle renforce la validité du message.  Archivage : il est crucial de différencier sauvegarde et conservation légale.  Mentions légales : chaque e-mail professionnel doit inclure une signature conforme.          📈 E-mail : un outil marketing puissant… s’il est bien utilisé  Constituez une base de contacts à jour et qualifiée. Soignez vos contenus et objets pour booster l’ouverture. Respectez les règles du RGPD et offrez toujours un lien de désinscription. Testez, analysez, ajustez !          👉 En résumé pour mieux utiliser l’e-mail Utilisé avec méthode, l’e-mail reste un levier de productivité et un support indispensable au travail collaboratif. Mais il doit s’intégrer dans une stratégie globale, mêlant outils adaptés, règles d’usage et sensibilisation des collaborateurs.  En savoir +   Besoin de conseils techniques ou d’un accompagnement ? Un expert en messagerie ou un DSI externalisé peut vous aider à mettre en place une stratégie efficace, propre et durable&nbsp;:&nbsp; Nous contacter
+
+  <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.25)] rounded-xl p-5 mb-8">
+    <p class="text-[rgba(241,240,247,0.92)] text-base leading-relaxed"><strong class="text-[#F1F0F7]">Comment mieux utiliser l’e-mail en entreprise ?</strong> Écrivez un message clair avec un seul sujet, réservez « À » aux personnes qui doivent agir et « Cc » à celles qui doivent être informées, limitez les pièces jointes, classez et archivez, et changez de canal (appel, messagerie instantanée, plateforme collaborative) quand l’e-mail tourne en rond. Mal employé, il devient source de surcharge, d’inefficacité et de risques juridiques.</p>
   </div>
-    <div class="mt-10 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Sources officielles</p><ul class="text-sm leading-relaxed list-disc pl-5 text-[#9B99AA]"><li><a href="https://fr.wikipedia.org/wiki/Courrier_%C3%A9lectronique" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">Wikipédia : Courrier électronique</a></li><li><a href="https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">CNIL : le RGPD, de quoi parle-t-on ?</a></li><li><a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/hameconnage-phishing" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">Cybermalveillance.gouv.fr : fiche réflexe hameçonnage</a></li></ul></div>
+
+  <nav aria-label="Sommaire" class="mb-10 border border-[rgba(124,58,237,0.2)] rounded-xl p-5">
+    <p class="font-syne font-bold text-[#F1F0F7] text-sm mb-3">Dans cet article</p>
+    <ol class="text-sm text-[#9B99AA] grid gap-1.5 list-decimal pl-5">
+      <li><a href="#bonnes-pratiques" class="text-[#A78BFA] hover:underline">Les 12 bonnes pratiques essentielles</a></li>
+      <li><a href="#sortir-de-la-boite-mail" class="text-[#A78BFA] hover:underline">Efficacité et collaboration : sortir de la boîte mail</a></li>
+      <li><a href="#cadre-legal" class="text-[#A78BFA] hover:underline">E-mail et cadre légal</a></li>
+      <li><a href="#email-marketing" class="text-[#A78BFA] hover:underline">E-mail et marketing : bien l’utiliser</a></li>
+      <li><a href="#en-resume" class="text-[#A78BFA] hover:underline">En résumé</a></li>
+    </ol>
+  </nav>
+
+  <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">L’e-mail reste l’outil de communication le plus utilisé en entreprise, mais pas toujours de la meilleure manière. Ce guide pratique vous donne les clés pour mieux gérer vos messages, gagner en productivité et renforcer la sécurité des échanges.</p>
+
+  <section aria-labelledby="bonnes-pratiques">
+    <h2 id="bonnes-pratiques" class="font-syne font-bold text-[#F1F0F7] mt-10 mb-2" style="font-size:1.5rem;scroll-margin-top:6rem;">Les 12 bonnes pratiques essentielles pour mieux utiliser l’e-mail</h2>
+    <p class="text-[#9B99AA] text-sm leading-relaxed mb-6">Quatre familles de réflexes, trois conseils chacune. Appliquez-les à l’échelle d’une équipe et la boîte de réception change de nature.</p>
+
+    {groupes.map((g) => (
+      <div class="mb-8">
+        <h3 class="font-syne font-semibold text-[#F1F0F7] mb-1" style="font-size:1.1rem;">{g.titre}</h3>
+        <p class="text-[#9B99AA] text-sm leading-relaxed mb-3">{g.intro}</p>
+        <ol class="grid gap-3 sm:grid-cols-3 list-none p-0 m-0">
+          {g.items.map((i) => {
+            n += 1;
+            return (
+              <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-4">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[rgba(124,58,237,0.2)] text-[#A78BFA] text-xs font-bold mb-2" aria-hidden="true">{n}</span>
+                <p class="text-[#F1F0F7] text-sm font-semibold mb-1">{i.t}</p>
+                <p class="text-[#9B99AA] text-[13px] leading-relaxed m-0">{i.d}</p>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    ))}
+  </section>
+
+  <section aria-labelledby="sortir-de-la-boite-mail">
+    <h2 id="sortir-de-la-boite-mail" class="font-syne font-bold text-[#F1F0F7] mt-12 mb-2" style="font-size:1.5rem;scroll-margin-top:6rem;">Efficacité et collaboration : sortez de la boîte mail</h2>
+    <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">Certaines tâches n’ont rien à faire dans une messagerie. Les reconnaître, c’est déjà gagner du temps.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div class="bg-[#0D0028] border border-[rgba(239,68,68,0.3)] rounded-xl p-5">
+        <h3 class="font-syne font-semibold text-[#F1F0F7] mb-3" style="font-size:1rem;">L’e-mail n’est pas l’outil idéal pour</h3>
+        <ul class="text-[#9B99AA] text-sm leading-relaxed list-disc pl-5 m-0 grid gap-1.5">
+          <li>travailler à plusieurs sur un même document ;</li>
+          <li>gérer des versions ou des processus ;</li>
+          <li>assurer la sécurité ou la traçabilité des échanges.</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(52,211,153,0.35)] rounded-xl p-5">
+        <h3 class="font-syne font-semibold text-[#F1F0F7] mb-3" style="font-size:1rem;">Privilégiez plutôt</h3>
+        <ul class="text-[#9B99AA] text-sm leading-relaxed list-disc pl-5 m-0 grid gap-1.5">
+          <li>les plateformes collaboratives (drive, intranet, GED) ;</li>
+          <li>la messagerie unifiée (e-mail, SMS, messagerie vocale, fax… centralisés) ;</li>
+          <li>les outils de gestion de projet ou de ticketing.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cadre-legal">
+    <h2 id="cadre-legal" class="font-syne font-bold text-[#F1F0F7] mt-12 mb-2" style="font-size:1.5rem;scroll-margin-top:6rem;">E-mail et cadre légal</h2>
+    <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">Un e-mail professionnel engage l’entreprise. Quatre points à connaître.</p>
+    <dl class="grid gap-3 sm:grid-cols-2 m-0">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-4">
+        <dt class="text-[#F1F0F7] text-sm font-semibold mb-1">Valeur juridique</dt>
+        <dd class="text-[#9B99AA] text-[13px] leading-relaxed m-0">Un e-mail peut constituer une preuve, sous conditions.</dd>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-4">
+        <dt class="text-[#F1F0F7] text-sm font-semibold mb-1">Signature électronique</dt>
+        <dd class="text-[#9B99AA] text-[13px] leading-relaxed m-0">Elle renforce la validité du message.</dd>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-4">
+        <dt class="text-[#F1F0F7] text-sm font-semibold mb-1">Archivage</dt>
+        <dd class="text-[#9B99AA] text-[13px] leading-relaxed m-0">Il est crucial de différencier la sauvegarde (restaurer après un incident) de la conservation légale (garder pendant une durée imposée).</dd>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-4">
+        <dt class="text-[#F1F0F7] text-sm font-semibold mb-1">Mentions légales</dt>
+        <dd class="text-[#9B99AA] text-[13px] leading-relaxed m-0">Chaque e-mail professionnel doit inclure une signature conforme.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="email-marketing">
+    <h2 id="email-marketing" class="font-syne font-bold text-[#F1F0F7] mt-12 mb-2" style="font-size:1.5rem;scroll-margin-top:6rem;">E-mail et marketing : un outil puissant s’il est bien utilisé</h2>
+    <ul class="text-[#9B99AA] text-sm leading-relaxed list-disc pl-5 grid gap-1.5 mb-4">
+      <li>Constituez une <strong class="text-[#F1F0F7]">base de contacts à jour et qualifiée</strong>.</li>
+      <li>Soignez vos contenus et vos objets pour <strong class="text-[#F1F0F7]">améliorer l’ouverture</strong>.</li>
+      <li>Respectez les règles du <strong class="text-[#F1F0F7]">RGPD</strong> et offrez toujours un <strong class="text-[#F1F0F7]">lien de désinscription</strong>.</li>
+      <li><strong class="text-[#F1F0F7]">Testez, analysez, ajustez</strong> d’une campagne à l’autre.</li>
+    </ul>
+    <p class="text-[#9B99AA] text-sm leading-relaxed">Pour un envoi à grande échelle, la question de l’outil se pose : voir <a href="/blog/envoi-demails-en-masse-faut-il-utiliser-la-messagerie-pro/" class="text-[#A78BFA] hover:underline">envoi d’e-mails en masse : faut-il utiliser la messagerie pro ?</a></p>
+  </section>
+
+  <section aria-labelledby="en-resume">
+    <h2 id="en-resume" class="font-syne font-bold text-[#F1F0F7] mt-12 mb-2" style="font-size:1.5rem;scroll-margin-top:6rem;">En résumé</h2>
+    <p class="text-[#9B99AA] text-sm leading-relaxed mb-4">Utilisé avec méthode, l’e-mail reste un levier de productivité et un support indispensable au travail collaboratif. Il doit toutefois s’intégrer dans une stratégie globale, qui mêle outils adaptés, règles d’usage et sensibilisation des collaborateurs.</p>
+    <p class="text-[#9B99AA] text-sm leading-relaxed">Besoin de conseils techniques ou d’un accompagnement ? Un expert en messagerie ou un DSI externalisé peut vous aider à mettre en place une stratégie efficace, propre et durable. <a href="/contact/" class="text-[#A78BFA] hover:underline">Nous contacter</a></p>
+  </section>
+
+  <div class="mt-10 pt-6 border-t border-[rgba(124,58,237,0.15)]"><p class="text-[#9B99AA] text-sm mb-2 font-medium">Sources officielles</p><ul class="text-sm leading-relaxed list-disc pl-5 text-[#9B99AA]"><li><a href="https://fr.wikipedia.org/wiki/Courrier_%C3%A9lectronique" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">Wikipédia : Courrier électronique</a></li><li><a href="https://www.cnil.fr/fr/rgpd-de-quoi-parle-t-on" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">CNIL : le RGPD, de quoi parle-t-on ?</a></li><li><a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/hameconnage-phishing" target="_blank" rel="noopener noreferrer" class="text-[#A78BFA] hover:underline">Cybermalveillance.gouv.fr : fiche réflexe hameçonnage</a></li></ul></div>
   <div class="mt-10 pt-6 border-t border-[rgba(124,58,237,0.15)]">
     <p class="text-[#9B99AA] text-sm mb-2 font-medium">Services associés</p>
     <p class="text-sm leading-relaxed"><a href="/messagerie-entreprise/" class="text-[#A78BFA] hover:underline">Messagerie d'entreprise</a> · <a href="/microsoft-365/" class="text-[#A78BFA] hover:underline">Microsoft 365</a> · <a href="/sauvegarde-office-365/" class="text-[#A78BFA] hover:underline">Sauvegarde M365</a></p>
   </div>
-  <div class="mt-12 bg-[#0D0028] border border-[rgba(124,58,237,0.2)] rounded-xl p-6">
-    <h3 class="text-white font-semibold mb-2">Besoin d'accompagnement ?</h3>
-    <p class="text-[#9B99AA] text-sm mb-4">Nos experts Gigarun interviennent sur toute La Réunion.</p>
-    <ArticleCtaActions slug="mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux" variant="general" />
-  </div>
 </div></article>
-<script type="application/ld+json" is:inline>{"@context": "https://schema.org", "@type": "Article", "headline": "E-mail en entreprise : bonnes pratiques et enjeux", "image": "https://gigarun.re/images/og-default.png", "author": {"@type": "Person", "name": "Thomas Cassen", "jobTitle": "DSI externalise & expert cybersecurite", "sameAs": "https://re.linkedin.com/in/thomascassen"}, "publisher": {"@type": "Organization", "name": "Gigarun", "logo": {"@type": "ImageObject", "url": "https://gigarun.re/favicon.ico"}}, "mainEntityOfPage": "https://gigarun.re/blog/mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux", "datePublished": "2025-04-15T00:00:00+04:00"}</script>
+
+<GuideFaq slug="mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux" variant="general" />
+
+<script type="application/ld+json" is:inline>{"@context": "https://schema.org", "@type": "Article", "headline": "Mieux utiliser l’e-mail en entreprise : bonnes pratiques et enjeux", "image": "https://gigarun.re/images/og-default.png", "author": {"@type": "Person", "name": "Thomas Cassen", "jobTitle": "DSI externalise & expert cybersecurite", "sameAs": "https://re.linkedin.com/in/thomascassen"}, "publisher": {"@type": "Organization", "name": "Gigarun", "logo": {"@type": "ImageObject", "url": "https://gigarun.re/favicon.ico"}}, "mainEntityOfPage": "https://gigarun.re/blog/mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux/", "datePublished": "2025-04-15T00:00:00+04:00", "dateModified": "2026-10-22T00:00:00+04:00"}</script>
 </Layout>
-<style>
-.prose-gigarun h2{font-family:'Syne',sans-serif;font-weight:700;color:#F1F0F7;font-size:1.25rem;margin-top:2rem;margin-bottom:.75rem}
-.prose-gigarun h3{font-family:'Syne',sans-serif;font-weight:600;color:#F1F0F7;font-size:1rem;margin-top:1.5rem;margin-bottom:.5rem}
-.prose-gigarun p{color:#9B99AA;font-size:.875rem;line-height:1.75;margin-bottom:1rem}
-.prose-gigarun ul{color:#9B99AA;font-size:.875rem;padding-left:1.5rem;margin-bottom:1rem;list-style:disc}
-.prose-gigarun ol{color:#9B99AA;font-size:.875rem;padding-left:1.5rem;margin-bottom:1rem;list-style:decimal}
-.prose-gigarun li{margin-bottom:.375rem;line-height:1.6}
-.prose-gigarun strong{color:#F1F0F7}
-.prose-gigarun a{color:#A78BFA;text-decoration:underline}
-.prose-gigarun table{width:100%;border-collapse:collapse;margin-bottom:1rem;font-size:.8rem}
-.prose-gigarun th{background:#110833;color:#F1F0F7;padding:.5rem;text-align:left;border:1px solid rgba(124,58,237,0.2)}
-.prose-gigarun td{color:#9B99AA;padding:.5rem;border:1px solid rgba(124,58,237,0.1)}
-</style>

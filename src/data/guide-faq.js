@@ -1,6 +1,18 @@
 // FAQ affichées en fin de guide (composant GuideFaq.astro) et publiées en JSON-LD FAQPage.
 // Chaque réponse renvoie aux sections réelles du guide : ne rien promettre qu'il ne contient pas.
 export const GUIDE_FAQ = {
+  'mieux-utiliser-le-mail-en-entreprise-bonnes-pratiques-enjeux': [
+    { q: 'Quelles sont les bonnes pratiques de l’e-mail en entreprise ?',
+      a: "Soigner l’objet, traiter un seul sujet par message, hiérarchiser les destinataires (« À » pour agir, « Cc » pour informer), relire avant d’envoyer, limiter les pièces jointes, classer et archiver, et choisir un autre canal quand l’e-mail ne convient pas." },
+    { q: 'Un e-mail a-t-il une valeur juridique ?',
+      a: "Oui, sous conditions : un e-mail peut constituer un élément de preuve. La signature électronique renforce sa validité." },
+    { q: 'Quelle différence entre sauvegarde et archivage des e-mails ?',
+      a: "La sauvegarde sert à restaurer des données après un incident. L’archivage répond à une obligation de conservation légale. Les deux ne se confondent pas." },
+    { q: 'Quelles règles respecter pour envoyer des e-mails commerciaux ?',
+      a: "Constituer une base de contacts à jour et qualifiée, respecter le RGPD et offrir dans chaque message un lien de désinscription." },
+    { q: 'Peut-on tout faire passer par l’e-mail ?',
+      a: "Non. L’e-mail convient mal au travail à plusieurs sur un même document, à la gestion de versions ou de processus, et à la traçabilité. Une plateforme collaborative, une GED ou un outil de ticketing est plus adapté." },
+  ],
   'guide-mfa-microsoft-authenticator': [
     { q: 'Pourquoi activer la MFA sur Microsoft 365 ?',
       a: "Un mot de passe seul peut être volé, deviné ou réutilisé sur un autre site. Avec la MFA, un second facteur est demandé, par exemple une approbation sur votre téléphone : un mot de passe dérobé ne suffit plus pour ouvrir votre compte." },
