@@ -49,6 +49,7 @@ def main():
     ap.add_argument("--telegram-env", default="/home/tca/exocortex/credentials/telegram.env")
     ap.add_argument("--mail", default="thomas@gigarun.eu")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--test", action="store_true", help="prefixe [TEST] les messages (a utiliser avec --etat/--out de test)")
     a = ap.parse_args()
     data = json.load(sys.stdin if a.resume == "-" else open(a.resume, encoding="utf-8"))
     attente = data["en_attente"]
@@ -57,6 +58,8 @@ def main():
     frag = fragment(attente) if attente else ""
     tg = "Support : %d nouveau(x) commentaire(s) client à relire avant publication (n° %s). Dis-moi lesquels publier ou écarter." % (
         len(nouveaux), ", ".join(str(x["id"]) for x in nouveaux))
+    pre = "[TEST] " if a.test else ""
+    tg = pre + tg
     if a.dry_run:
         print("nouveaux:", [x["id"] for x in nouveaux], "| attente:", len(attente))
         print(tg if nouveaux else "(pas de notification)")
@@ -69,7 +72,7 @@ def main():
     if nouveaux:
         erreurs = []
         for nom, f in (("telegram", lambda: telegram(a.telegram_env, tg)),
-                       ("mail", lambda: mail(a.mail, "[Support] %d avis client à relire" % len(nouveaux), frag))):
+                       ("mail", lambda: mail(a.mail, "%s[Support] %d avis client à relire" % (pre, len(nouveaux)), frag))):
             try:
                 f()
             except Exception as e:
