@@ -129,7 +129,7 @@ def lire_base():
 def ecrire(chemin, data):
     os.makedirs(os.path.dirname(os.path.abspath(chemin)), exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=os.path.dirname(os.path.abspath(chemin)), suffix=".tmp")
-    with os.fdopen(fd, "w", encoding="utf-8") as f:
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     os.replace(tmp, chemin)  # remplacement atomique : le site ne lit jamais un fichier a moitie ecrit
 
