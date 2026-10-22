@@ -57,7 +57,7 @@ def moy(vals):
     return round(sum(vals) / len(vals), 2) if vals else None
 
 
-def construire(rows, envoyees, valides, deny, now):
+def construire(rows, envoyees, valides, deny, now, ecartes=frozenset()):
     """rows : reponses completees (dicts). Retourne (public, a_relire)."""
     cut = now - dt.timedelta(hours=DELAI_H)
     ok = [r for r in rows if r["completed_at"] <= cut]
@@ -75,6 +75,8 @@ def construire(rows, envoyees, valides, deny, now):
         if not txt:
             continue
         v = valides.get(r["id"])
+        if v is None and r["id"] in ecartes:  # decision prise : ne pas publier, ne plus signaler
+            continue
         if v is None:
             relire.append({"id": r["id"], "mois": mois(r["completed_at"]), "note": r["rating_overall"],
                            "texte": txt, "alertes": hits(txt, deny)})
@@ -148,6 +150,7 @@ def selftest():
     assert len(p["avis"]) == 1 and r == [] and "id" not in p["avis"][0]
     p2, r2 = construire(rows[:5], 50, {}, d, now)
     assert p2["note_moyenne"] is None and len(r2) == 1                                     # sous le seuil + commentaire a relire
+    assert construire(rows[:5], 50, {}, d, now, {1})[1] == []                              # avis ecarte : plus signale
     try:
         construire(rows, 50, {1: ("Merci Gilles", False)}, d, now); raise AssertionError("aurait du refuser")
     except SystemExit:
@@ -165,6 +168,7 @@ def main():
     ap.add_argument("--out", default=os.path.join(HERE, "out", "satisfaction.json"))
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--relire", default=os.path.join(HERE, "avis-a-relire.json"), help="candidats a relire (texte brut : jamais dans le depot)")
+    ap.add_argument("--resume", help="resume des avis en attente SANS texte (ids, mois, note, alertes), pour la notification")
     ap.add_argument("--env", help="fichier KEY=VALUE avec SAT_DB_* (hors depot, chmod 600)")
     a = ap.parse_args()
     if a.selftest:
@@ -183,9 +187,15 @@ def main():
     valides = {}
     if os.path.exists(p_valides):
         valides = {int(x["id"]): (x["texte"].strip(), bool(x.get("force"))) for x in json.load(open(p_valides, encoding="utf-8"))}
-    public, relire = construire(rows, envoyees, valides, deny, dt.datetime.now(dt.timezone.utc).replace(tzinfo=None))
+    p_ecartes = os.path.join(HERE, "avis-ecartes.json")
+    ecartes = {int(i) for i in json.load(open(p_ecartes, encoding="utf-8"))} if os.path.exists(p_ecartes) else set()
+    now = dt.datetime.now(dt.timezone.utc).replace(tzinfo=None)
+    public, relire = construire(rows, envoyees, valides, deny, now, ecartes)
     ecrire(a.out, public)
     ecrire(a.relire, relire)
+    if a.resume:  # sans le texte des commentaires : seul fichier destine a sortir du serveur (notification)
+        ecrire(a.resume, {"genere_le": now.strftime("%Y-%m-%d"), "en_attente": [
+            {"id": x["id"], "mois": x["mois"], "note": x["note"], "alertes": x["alertes"]} for x in relire]})
     print(f"{a.out} : {public['reponses']} reponses, {len(public['avis'])} avis publies, {len(relire)} a relire")
 
 

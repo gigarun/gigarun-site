@@ -9,7 +9,8 @@ ENV=~/.gigarun-secrets/satisfaction.env
 OUT=src/data/satisfaction.json
 
 python3 ops/satisfaction/satisfaction_json.py --env "$ENV" --out "$OUT" \
-  --relire ~/.gigarun-satisfaction-a-relire.json   # texte brut des commentaires : hors depot
+  --relire ~/.gigarun-satisfaction-a-relire.json \
+  --resume ~/.gigarun-satisfaction-resume.json   # relire = texte brut (hors depot) ; resume = sans texte, pour la notification
 
 if git diff --quiet -- "$OUT"; then echo "$(date -Is) inchange"; exit 0; fi
 git add "$OUT"
