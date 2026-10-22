@@ -1,0 +1,147 @@
+{
+ "genere_le": "2026-10-22",
+ "delai_publication_h": 72,
+ "enquetes_envoyees": 633,
+ "reponses": 47,
+ "taux_reponse": 7,
+ "note_moyenne": 4.85,
+ "satisfaits_pct": 100,
+ "recommandent_pct": 94,
+ "criteres": {
+  "rapidite": 4.89,
+  "qualite": 4.82,
+  "amabilite": 4.89
+ },
+ "repartition": {
+  "1": 0,
+  "2": 0,
+  "3": 0,
+  "4": 7,
+  "5": 40
+ },
+ "par_mois": [
+  {
+   "mois": "2025-12",
+   "reponses": 1,
+   "note": null
+  },
+  {
+   "mois": "2026-01",
+   "reponses": 1,
+   "note": null
+  },
+  {
+   "mois": "2026-02",
+   "reponses": 2,
+   "note": null
+  },
+  {
+   "mois": "2026-03",
+   "reponses": 3,
+   "note": 4.67
+  },
+  {
+   "mois": "2026-04",
+   "reponses": 3,
+   "note": 4.67
+  },
+  {
+   "mois": "2026-05",
+   "reponses": 6,
+   "note": 4.83
+  },
+  {
+   "mois": "2026-06",
+   "reponses": 4,
+   "note": 5.0
+  },
+  {
+   "mois": "2026-07",
+   "reponses": 5,
+   "note": 4.8
+  },
+  {
+   "mois": "2026-08",
+   "reponses": 10,
+   "note": 5.0
+  },
+  {
+   "mois": "2026-09",
+   "reponses": 10,
+   "note": 4.7
+  },
+  {
+   "mois": "2026-10",
+   "reponses": 2,
+   "note": null
+  }
+ ],
+ "avis": [
+  {
+   "mois": "2026-10",
+   "note": 5,
+   "texte": "Opération réalisée dans l'heure !"
+  },
+  {
+   "mois": "2026-09",
+   "note": 4,
+   "texte": "Réponse rapide et explication claire. Cependant pas de piste pour trouver une solution."
+  },
+  {
+   "mois": "2026-09",
+   "note": 5,
+   "texte": "Accès octroyé rapidement conformément à la demande urgente"
+  },
+  {
+   "mois": "2026-09",
+   "note": 5,
+   "texte": "Solution apportée rapidement et une solution a été trouvée malgré les difficultés rencontrées"
+  },
+  {
+   "mois": "2026-09",
+   "note": 5,
+   "texte": "Efficace comme toujours. Merci"
+  },
+  {
+   "mois": "2026-09",
+   "note": 5,
+   "texte": "Conseils donnés rapidement pour résoudre le problème rencontré"
+  },
+  {
+   "mois": "2026-09",
+   "note": 4,
+   "texte": "Un peu d'attente pour le réglage mais toujours au top pour la résolution!"
+  },
+  {
+   "mois": "2026-09",
+   "note": 5,
+   "texte": "Solution technique identifiée rapidement"
+  },
+  {
+   "mois": "2026-08",
+   "note": 5,
+   "texte": "Changement d'adresse mail réalisée de manière rapide et transparente"
+  },
+  {
+   "mois": "2026-07",
+   "note": 5,
+   "texte": "Toujours là pour une meilleure organisation et pour aller plus loin"
+  },
+  {
+   "mois": "2026-07",
+   "note": 5,
+   "texte": "Toujours très réactif ; problème solutionné rapidement. Merci"
+  },
+  {
+   "mois": "2026-05",
+   "note": 5,
+   "texte": "Merci pour votre réactivité et disponibilité habituelle"
+  },
+  {
+   "mois": "2026-04",
+   "note": 5,
+   "texte": "Toujours très réactif. Merci."
+  }
+ ],
+ "regle": "Avis anonymisés, publiés après relecture. Aucun avis n'est écarté en raison de sa note."
+}

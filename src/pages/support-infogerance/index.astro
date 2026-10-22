@@ -1,0 +1,183 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ResumeCitable from '../../components/ResumeCitable.astro';
+import sat from '../../data/satisfaction.json';
+
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const moisFr = (m: string) => { const [a, n] = m.split('-'); return `${MOIS[Number(n) - 1]} ${a}`; };
+const dateFr = (d: string) => new Date(d + 'T12:00:00Z').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const note = sat.note_moyenne != null ? String(sat.note_moyenne).replace('.', ',') : null;
+const rep: Record<string, number> = sat.repartition;
+const repMax = Math.max(1, ...Object.values(rep));
+const repartition = [5, 4, 3, 2, 1].map((n) => ({ n, v: rep[String(n)] ?? 0, pct: Math.round(100 * (rep[String(n)] ?? 0) / repMax) }));
+
+const etapes = [
+  ['1', 'Vous ouvrez un ticket', "Sur support.gigarun.net ou par e-mail. Chaque demande est tracée par écrit, avec un numéro de suivi."],
+  ['2', 'Prise en charge', "Réponse sous 24 h, et sous 4 h pour les clients sous contrat. Les niveaux N1 à N3 s'enchaînent sans que vous ayez à ré-expliquer."],
+  ['3', 'Résolution', "À distance quand c'est possible, sur site selon votre niveau de contrat. Vous suivez l'avancement dans le ticket."],
+  ['4', 'Clôture et avis', "À la clôture, une courte enquête de satisfaction vous est envoyée. Les résultats sont publiés ci-dessous, sans tri."],
+];
+const stack = [
+  ['Supervision et télégestion', "Chaque poste, serveur, NAS et équipement réseau remonte son état en continu. Les alertes arrivent chez nous avant d'arriver chez vous."],
+  ['Protection des postes et serveurs', "Antivirus nouvelle génération sur tout le parc, mises à jour système suivies, chiffrement des disques."],
+  ['Messagerie et Microsoft 365', "Filtrage anti-hameçonnage, authentification multifacteur, gestion des droits et des boîtes."],
+  ['Sauvegarde supervisée', "Copies chiffrées sur plusieurs supports dont une hors site, avec contrôle des résultats et test de restauration."],
+  ['Mots de passe et accès à distance', "Coffre de mots de passe partagé, accès distant tracé pour nos interventions."],
+  ['Détection et réponse', "Pour les niveaux concernés : détection des intrusions et corrélation des journaux (XDR et SIEM), avec RSSI externalisé."],
+];
+---
+<Layout image="/images/og-infogerance.png" title="Support informatique sous contrat d'infogérance" description="Comment fonctionne le support GiGaRuN pour les entreprises sous contrat d'infogérance : tickets, niveaux N1 à N3, outils par catégorie et avis clients publiés.">
+<section class="bg-[#07001C] pt-32 pb-10">
+  <div class="max-w-5xl mx-auto px-6">
+    <a href="/infogerance-contrats/" class="text-[#9B99AA] hover:text-[#F1F0F7] text-sm">← Niveaux de service</a>
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] mt-4 mb-5" style="font-size:clamp(32px,5vw,52px);line-height:1.1;">Le support des entreprises sous contrat d'infogérance</h1>
+    <p class="text-[#9B99AA] text-lg max-w-2xl mb-8">Comment on travaille, avec quels types d'outils, et ce que nos clients en disent. Les chiffres et les avis ci-dessous viennent directement de notre outil de tickets.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="https://support.gigarun.net" rel="noopener" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Ouvrir un ticket</a>
+      <a href="/infogerance-contrats/" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">Voir les niveaux de service</a>
+    </div>
+  </div>
+</section>
+
+<ResumeCitable modifie="2026-10-22" titre="Comment fonctionne le support sous contrat d'infogérance ?" texte="Chaque demande passe par un ticket tracé, avec une réponse sous 4 h pour les clients sous contrat, une prise en charge de niveau 1 à 3 par un interlocuteur qui connaît votre parc, puis une enquête de satisfaction dont les résultats sont publiés sur cette page, sans tri." />
+
+<section class="bg-[#0A0022] py-14" aria-labelledby="avis-titre">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 id="avis-titre" class="font-syne font-bold text-[#F1F0F7] text-2xl mb-2">Ce que disent nos clients</h2>
+    <p class="text-[#9B99AA] text-sm mb-8">Mesuré par l'enquête envoyée à la clôture de chaque ticket. Données du {dateFr(sat.genere_le)}, mises à jour chaque semaine.</p>
+
+    <div class="grid md:grid-cols-3 gap-4 mb-8">
+      {note && (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+          <p class="font-syne font-extrabold text-[#F1F0F7] text-4xl">{note}<span class="text-lg text-[#9B99AA]"> / 5</span></p>
+          <p class="text-[#9B99AA] text-sm mt-1">note moyenne sur {sat.reponses} réponses</p>
+        </div>
+      )}
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <p class="font-syne font-extrabold text-[#F1F0F7] text-4xl">{sat.taux_reponse} %</p>
+        <p class="text-[#9B99AA] text-sm mt-1">de taux de réponse ({sat.reponses} réponses pour {sat.enquetes_envoyees} enquêtes envoyées)</p>
+      </div>
+      {sat.recommandent_pct != null && (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+          <p class="font-syne font-extrabold text-[#F1F0F7] text-4xl">{sat.recommandent_pct} %</p>
+          <p class="text-[#9B99AA] text-sm mt-1">recommanderaient notre support</p>
+        </div>
+      )}
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+      <div>
+        <h3 class="text-[#F1F0F7] font-medium mb-3">Répartition des notes</h3>
+        <ul class="space-y-2" aria-label="Nombre de réponses par note">
+          {repartition.map(({ n, v, pct }) => (
+            <li class="flex items-center gap-3 text-sm text-[#9B99AA]">
+              <span class="w-12 shrink-0">{n} sur 5</span>
+              <span class="flex-1 h-2 rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden"><span class="block h-full bg-[#7C3AED]" style={`width:${pct}%`}></span></span>
+              <span class="w-8 text-right">{v}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {sat.criteres && (
+        <div>
+          <h3 class="text-[#F1F0F7] font-medium mb-3">Par critère</h3>
+          <ul class="space-y-2 text-sm text-[#9B99AA]">
+            <li class="flex justify-between"><span>Rapidité</span><span class="text-[#F1F0F7]">{String(sat.criteres.rapidite).replace('.', ',')} / 5</span></li>
+            <li class="flex justify-between"><span>Qualité de la solution</span><span class="text-[#F1F0F7]">{String(sat.criteres.qualite).replace('.', ',')} / 5</span></li>
+            <li class="flex justify-between"><span>Amabilité</span><span class="text-[#F1F0F7]">{String(sat.criteres.amabilite).replace('.', ',')} / 5</span></li>
+          </ul>
+        </div>
+      )}
+    </div>
+
+    <div id="avis" class="relative" role="region" aria-roledescription="carrousel" aria-label="Avis clients">
+      <ul id="avis-liste" class="space-y-3">
+        {sat.avis.map(a => (
+          <li class="avis-carte bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+            <p class="text-[#F1F0F7] leading-relaxed">« {a.texte} »</p>
+            <p class="text-[#9B99AA] text-xs mt-3">Note : {a.note} sur 5 · {moisFr(a.mois)}</p>
+          </li>
+        ))}
+      </ul>
+      <div id="avis-controles" class="hidden mt-4 items-center gap-3 text-sm">
+        <button type="button" id="avis-prec" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white rounded-full px-4 py-2" aria-label="Avis précédent">←</button>
+        <button type="button" id="avis-suiv" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white rounded-full px-4 py-2" aria-label="Avis suivant">→</button>
+        <button type="button" id="avis-pause" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white rounded-full px-4 py-2" aria-pressed="false">Mettre en pause</button>
+        <span id="avis-pos" class="text-[#9B99AA]" aria-live="off"></span>
+      </div>
+    </div>
+
+    <p class="text-[#9B99AA] text-xs mt-8 max-w-3xl">{sat.regle} Les réponses des {sat.delai_publication_h} dernières heures ne sont pas comptées. Les avis sont publiés sans nom, sans entreprise ni date précise. Le taux de réponse est faible : ces chiffres reflètent les clients qui répondent, pas l'ensemble de nos clients.</p>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-14">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-8">Comment ça se passe</h2>
+    <ol class="grid md:grid-cols-2 gap-5">
+      {etapes.map(([n, t, d]) => (
+        <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6 flex gap-4">
+          <span class="font-syne font-extrabold text-[#A78BFA] text-2xl leading-none">{n}</span>
+          <div><h3 class="text-[#F1F0F7] font-medium mb-1">{t}</h3><p class="text-[#9B99AA] text-sm">{d}</p></div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-14">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-2">Ce qui tourne derrière</h2>
+    <p class="text-[#9B99AA] text-sm mb-8 max-w-3xl">Nous décrivons nos outils par catégorie. Le détail des produits et des versions est une information de sécurité : il est communiqué aux clients sous contrat, pas publié. Ce qui est couvert dépend de votre niveau de service (<a href="/infogerance-contrats/" class="text-[#A78BFA] hover:underline">voir le comparatif</a>).</p>
+    <div class="grid md:grid-cols-3 gap-5">
+      {stack.map(([t, d]) => (
+        <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+          <h3 class="text-[#F1F0F7] font-medium mb-2">{t}</h3>
+          <p class="text-[#9B99AA] text-sm">{d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-12">
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="text-[#9B99AA] text-sm mb-3">À voir aussi :</p>
+    <div class="flex flex-wrap gap-4 text-sm">
+      <a href="/infogerance-contrats/" class="text-[#A78BFA] hover:underline">Niveaux de service</a>
+      <a href="/assistance/" class="text-[#A78BFA] hover:underline">Assistance et support</a>
+      <a href="/charte-qualite/" class="text-[#A78BFA] hover:underline">Charte qualité</a>
+      <a href="/contact/" class="text-[#A78BFA] hover:underline">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Carrousel d'avis : sans JavaScript, tous les avis restent affichés l'un sous l'autre.
+  const cartes = Array.from(document.querySelectorAll<HTMLElement>('#avis-liste .avis-carte'));
+  const ctrl = document.getElementById('avis-controles');
+  if (cartes.length > 1 && ctrl) {
+    const pos = document.getElementById('avis-pos')!;
+    const btnPause = document.getElementById('avis-pause')!;
+    const zone = document.getElementById('avis')!;
+    let i = 0, enPause = matchMedia('(prefers-reduced-motion: reduce)').matches, timer: number | undefined;
+    const montrer = (n: number) => {
+      i = (n + cartes.length) % cartes.length;
+      cartes.forEach((c, k) => { c.hidden = k !== i; });
+      pos.textContent = `${i + 1} / ${cartes.length}`;
+    };
+    const arreter = () => { if (timer) { clearInterval(timer); timer = undefined; } };
+    const demarrer = () => { arreter(); if (!enPause) timer = window.setInterval(() => montrer(i + 1), 8000); };
+    const majPause = () => { btnPause.textContent = enPause ? 'Reprendre le défilement' : 'Mettre en pause'; btnPause.setAttribute('aria-pressed', String(enPause)); };
+    ctrl.classList.remove('hidden'); ctrl.classList.add('flex');
+    montrer(0); majPause(); demarrer();
+    document.getElementById('avis-prec')!.addEventListener('click', () => { montrer(i - 1); demarrer(); });
+    document.getElementById('avis-suiv')!.addEventListener('click', () => { montrer(i + 1); demarrer(); });
+    btnPause.addEventListener('click', () => { enPause = !enPause; majPause(); demarrer(); });
+    zone.addEventListener('mouseenter', arreter);
+    zone.addEventListener('mouseleave', demarrer);
+    zone.addEventListener('focusin', arreter);
+    zone.addEventListener('focusout', demarrer);
+  }
+</script>
+</Layout>
