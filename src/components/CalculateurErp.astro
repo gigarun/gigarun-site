@@ -1,6 +1,7 @@
 ---
 import catalogue from '../data/catalogue-devis.json';
-import { FORMS_WEBHOOK, TVA_REUNION } from '../config';
+import { FORMS_WEBHOOK, TVA_REUNION, TURNSTILE_SITEKEY } from '../config';
+import AntiBot from './AntiBot.astro';
 
 const a = Math.floor(Math.random() * 9) + 1;
 const b = Math.floor(Math.random() * 9) + 1;
@@ -57,6 +58,7 @@ const offres = catalogue.erp.offres;
         <label for="rgpd" class="text-[#9B99AA] text-xs leading-relaxed cursor-pointer">J'accepte que mes données soient traitées par Gigarun SARL pour ma demande, conformément à la <a href="/confidentialite/" class="text-[#A78BFA] hover:underline">politique de confidentialité</a>.</label>
       </div>
 
+      <AntiBot />
       <button type="submit" id="submit-btn" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Recevoir mon devis ERP →</button>
       <p id="form-success" class="hidden text-center text-green-400 text-sm font-medium py-2">Demande envoyée — votre devis arrive par email !</p>
       <p id="form-error" class="hidden text-center text-red-400 text-sm py-2">Vérifiez les champs obligatoires (*).</p>
@@ -64,7 +66,7 @@ const offres = catalogue.erp.offres;
   </div>
 </section>
 
-<script define:vars={{ captchaSum, webhook: FORMS_WEBHOOK, tva: TVA_REUNION }}>
+<script define:vars={{ captchaSum, webhook: FORMS_WEBHOOK, tva: TVA_REUNION, tsOn: !!TURNSTILE_SITEKEY }}>
   const form = document.getElementById('erp-form');
   const eur = (n) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n || 0);
   const $ = (id) => document.getElementById(id);
@@ -95,8 +97,11 @@ const offres = catalogue.erp.offres;
     const req = ['nom', 'email', 'telephone'].map((n) => form.querySelector(`[name="${n}"]`));
     if (req.some((f) => !f.value.trim()) || !$('rgpd').checked) { $('form-error').classList.remove('hidden'); return; }
 
+    if (tsOn && !form.querySelector('[name="cf-turnstile-response"]')?.value) { $('form-error').textContent = 'Vérification anti-robot en cours, réessayez dans un instant.'; $('form-error').classList.remove('hidden'); return; }
+
     const c = compute();
     const payload = {
+      hp: form.querySelector('[name="hp"]')?.value || '', cf_token: form.querySelector('[name="cf-turnstile-response"]')?.value || '',
       type: 'devis-erp',
       offre: offre().selectedOptions[0].dataset.label,
       mensuel_ht: c.mensuel,

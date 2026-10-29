@@ -1,0 +1,13 @@
+---
+// Anti-bot des formulaires : champ piege (hp) + widget Cloudflare Turnstile.
+// Le widget est inactif tant que PUBLIC_TURNSTILE_SITEKEY n'est pas defini ; le filtre n8n reste actif dans tous les cas.
+import { TURNSTILE_SITEKEY } from '../config';
+const { hp = true } = Astro.props;
+---
+{hp && <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />}
+{TURNSTILE_SITEKEY && (
+  <div>
+    <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="dark" data-language="fr"></div>
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </div>
+)}

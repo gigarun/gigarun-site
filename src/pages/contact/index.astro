@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { FORMS_WEBHOOK } from '../../config';
+import { FORMS_WEBHOOK, TURNSTILE_SITEKEY } from '../../config';
+import AntiBot from '../../components/AntiBot.astro';
 const a = Math.floor(Math.random() * 9) + 1;
 const b = Math.floor(Math.random() * 9) + 1;
 const sum = a + b;
@@ -101,6 +102,8 @@ const sum = a + b;
             </label>
           </div>
 
+          <AntiBot />
+
           <button type="submit" id="submit-btn" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">
             Envoyer le message →
           </button>
@@ -112,7 +115,7 @@ const sum = a + b;
   </div>
 </section>
 
-<script define:vars={{ sum, webhook: FORMS_WEBHOOK }}>
+<script define:vars={{ sum, webhook: FORMS_WEBHOOK, tsOn: !!TURNSTILE_SITEKEY }}>
   const form = document.getElementById('contact-form');
   const captchaInput = document.getElementById('captcha-input');
   const captchaError = document.getElementById('captcha-error');
@@ -136,11 +139,14 @@ const sum = a + b;
       return;
     }
 
+    if (tsOn && !form.querySelector('[name="cf-turnstile-response"]')?.value) { formError.textContent = 'Vérification anti-robot en cours, réessayez dans un instant.'; formError.classList.remove('hidden'); return; }
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Envoi en cours...';
 
     const payload = {
       type: 'contact',
+      hp: form.querySelector('[name="hp"]')?.value || '', cf_token: form.querySelector('[name="cf-turnstile-response"]')?.value || '',
       contact: {
         nom: form.querySelector('[name="nom"]').value,
         coordonnees: form.querySelector('[name="contact"]').value,

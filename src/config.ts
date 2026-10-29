@@ -4,5 +4,8 @@
 // quand l'instance n8n et l'URL publique sont décidées.
 export const FORMS_WEBHOOK: string = import.meta.env.PUBLIC_FORMS_WEBHOOK || '';
 
+// Cloudflare Turnstile (anti-bot). Vide = widget desactive, le filtre n8n reste actif.
+export const TURNSTILE_SITEKEY: string = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
+
 // TVA La Réunion (les prix catalogue sont HT).
 export const TVA_REUNION = 0.085;

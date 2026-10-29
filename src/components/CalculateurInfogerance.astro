@@ -1,6 +1,7 @@
 ---
 import catalogue from '../data/catalogue-devis.json';
-import { FORMS_WEBHOOK, TVA_REUNION } from '../config';
+import { FORMS_WEBHOOK, TVA_REUNION, TURNSTILE_SITEKEY } from '../config';
+import AntiBot from './AntiBot.astro';
 
 const a = Math.floor(Math.random() * 9) + 1;
 const b = Math.floor(Math.random() * 9) + 1;
@@ -128,6 +129,7 @@ const options = catalogue.optionsInfogerance;
             <div class="flex justify-between"><dt class="text-[#9B99AA]">Total TTC / mois</dt><dd id="r-ttc" class="text-[#9B99AA]">0 €</dd></div>
           </dl>
           <p class="text-[#9B99AA] text-[11px] mt-4 leading-relaxed">Estimation indicative HT, hors prestations ponctuelles (audit, migration). Un devis ferme vous est envoyé après étude.</p>
+          <AntiBot />
           <button type="submit" id="submit-btn" class="w-full mt-5 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-all">Recevoir mon devis détaillé →</button>
           <p id="form-success" class="hidden text-center text-green-400 text-sm font-medium py-2 mt-2">Demande envoyée — votre devis arrive par email !</p>
           <p id="form-error" class="hidden text-center text-red-400 text-sm py-2 mt-2">Vérifiez les champs obligatoires (*).</p>
@@ -137,7 +139,7 @@ const options = catalogue.optionsInfogerance;
   </div>
 </section>
 
-<script define:vars={{ captchaSum, webhook: FORMS_WEBHOOK, tva: TVA_REUNION }}>
+<script define:vars={{ captchaSum, webhook: FORMS_WEBHOOK, tva: TVA_REUNION, tsOn: !!TURNSTILE_SITEKEY }}>
   const form = document.getElementById('calc-form');
   const eur = (n) => new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(n || 0);
   const $ = (id) => document.getElementById(id);
@@ -237,9 +239,12 @@ const options = catalogue.optionsInfogerance;
     const required = ['nom', 'email', 'telephone'].map((n) => form.querySelector(`[name="${n}"]`));
     if (required.some((f) => !f.value.trim()) || !$('rgpd').checked) { $('form-error').classList.remove('hidden'); return; }
 
+    if (tsOn && !form.querySelector('[name="cf-turnstile-response"]')?.value) { $('form-error').textContent = 'Vérification anti-robot en cours, réessayez dans un instant.'; $('form-error').classList.remove('hidden'); return; }
+
     const c = compute();
     const t = selectedTier();
     const payload = {
+      hp: form.querySelector('[name="hp"]')?.value || '', cf_token: form.querySelector('[name="cf-turnstile-response"]')?.value || '',
       type: 'devis-infogerance',
       tier: form.querySelector('.tier-radio:checked').value,
       parc: units(),

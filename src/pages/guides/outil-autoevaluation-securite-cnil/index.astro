@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { FORMS_WEBHOOK } from '../../../config';
+import { FORMS_WEBHOOK, TURNSTILE_SITEKEY } from '../../../config';
+import AntiBot from '../../../components/AntiBot.astro';
 ---
 <Layout title="Auto-évaluation Sécurité des Données — Référentiel CNIL" description="Outil d’auto-évaluation de la sécurité des données personnelles selon les 25 mesures du guide CNIL : statut, commentaires, score et export.">
 <script type="application/ld+json" is:inline>{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Auto-évaluation Sécurité des Données — Référentiel CNIL", "image": "https://gigarun.re/images/og-default.png", "description": "Outil d’auto-évaluation de la sécurité des données personnelles selon les 25 mesures du guide CNIL : statut, commentaires, score et export.", "author": {"@type": "Person", "name": "Thomas Cassen", "jobTitle": "DSI externalise & expert cybersecurite", "sameAs": "https://re.linkedin.com/in/thomascassen"}, "publisher": {"@type": "Organization", "name": "Gigarun", "logo": {"@type": "ImageObject", "url": "https://gigarun.re/favicon.ico"}}, "mainEntityOfPage": "https://gigarun.re/guides/outil-autoevaluation-securite-cnil", "datePublished": "2026-06-04T00:00:00+04:00", "dateModified": "2026-06-04T00:00:00+04:00"}</script>
@@ -122,6 +123,7 @@ import { FORMS_WEBHOOK } from '../../../config';
         <input type="checkbox" id="rgpd" required>
         <span>J'accepte que mes coordonnées et mes réponses soient traitées par GiGaRuN afin de me transmettre l'analyse de cette évaluation, conformément à la <a href="/confidentialite/" target="_blank" rel="noopener">politique de confidentialité</a>. Aucune donnée n'est transmise à des tiers.</span>
       </label>
+      <AntiBot hp={false} />
       <button type="submit" class="btn btn-send" id="btnSend">Envoyer mon évaluation →</button>
       <div class="msg" id="sendMsg" role="status"></div>
     </form>
@@ -139,7 +141,7 @@ import { FORMS_WEBHOOK } from '../../../config';
   </div>
 </div>
 
-<script define:vars={{ webhook: FORMS_WEBHOOK }}>
+<script define:vars={{ webhook: FORMS_WEBHOOK, tsOn: !!TURNSTILE_SITEKEY }}>
 const FICHES = [
   {n:1,  c:"Gouvernance & organisation", t:"Piloter la sécurité des données", o:"Mettre en place et maintenir dans la durée la protection exigée par le RGPD et les cadres sectoriels."},
   {n:2,  c:"Gouvernance & organisation", t:"Définir un cadre pour les utilisateurs", o:"Donner une force contraignante aux règles d'usage des outils (charte informatique)."},
@@ -288,7 +290,9 @@ $('sendForm').addEventListener('submit', e=>{
     msg.className="msg err"; msg.textContent="Renseignez l'organisme, votre nom et un e-mail valide (en haut de la page)."; $('m-org').scrollIntoView({behavior:'smooth',block:'center'}); return;
   }
   if(!$('rgpd').checked){ msg.className="msg err"; msg.textContent="Vous devez accepter le traitement de vos données pour envoyer."; return; }
-  const payload={type:'contact', contact:{nom:m.nom+" ("+m.org+")", coordonnees:m.email, message:summary(recompute())}, page:location.href};
+  const tok=$('sendForm').querySelector('[name="cf-turnstile-response"]')?.value||'';
+  if(tsOn && !tok){ msg.className="msg err"; msg.textContent="Vérification anti-robot en cours, réessayez dans un instant."; return; }
+  const payload={type:'contact', hp:$('hp').value, cf_token:tok, contact:{nom:m.nom+" ("+m.org+")", coordonnees:m.email, message:summary(recompute())}, page:location.href};
   btn.disabled=true; btn.textContent="Envoi en cours...";
   fetch(webhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
     .then(r=>{ if(!r.ok) throw new Error(r.status);
