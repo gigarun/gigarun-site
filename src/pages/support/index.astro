@@ -239,11 +239,12 @@ import Layout from '../../layouts/Layout.astro';
   });
   $('chat-new').addEventListener('click', function () {
     if (!window.$chatwoot) return;
-    window.addEventListener('chatwoot:ready', function () {
+    // le widget ne relance pas chatwoot:ready apres reset() : on laisse le temps au nouvel iframe
+    window.$chatwoot.reset();
+    setTimeout(function () {
       if (pendingUser) window.$chatwoot.setUser(pendingUser.identifier, pendingUser);
       window.$chatwoot.toggle('open');
-    }, { once: true });
-    window.$chatwoot.reset();
+    }, 1800);
   });
   f1.addEventListener('submit', function (e) {
     e.preventDefault();
