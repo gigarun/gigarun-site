@@ -9,6 +9,7 @@ import Layout from '../../layouts/Layout.astro';
     <p class="text-[#9B99AA] text-sm max-w-2xl mb-8">Quel que soit le canal, tout finit dans un ticket : c'est lui qui garde la trace de votre demande et de ce qui a été fait.</p>
     <div class="flex flex-wrap gap-3">
       <button id="chat-open" type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Démarrer le chat</button>
+      <button id="chat-new" type="button" class="hidden border border-[#7C3AED] text-[#F1F0F7] hover:bg-[#7C3AED] font-medium px-6 py-3 rounded-full transition-colors">Nouvelle conversation</button>
       <a href="https://support.gigarun.net/" rel="noopener" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">Ouvrir ou suivre un ticket</a>
       <a href="tel:+262262967291" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">0262 96 72 91</a>
     </div>
@@ -221,6 +222,7 @@ import Layout from '../../layouts/Layout.astro';
     window.addEventListener('chatwoot:ready', function () {
       if (pendingUser) window.$chatwoot.setUser(pendingUser.identifier, pendingUser);
       window.$chatwoot.toggle('open');
+      $('chat-new').classList.remove('hidden');
       say('');
     }, { once: true });
     var s = document.createElement('script');
@@ -234,6 +236,14 @@ import Layout from '../../layouts/Layout.astro';
     if (loaded && window.$chatwoot) { window.$chatwoot.toggle('open'); return; }
     panel.classList.remove('hidden'); say('');
     $('a-prenom').focus();
+  });
+  $('chat-new').addEventListener('click', function () {
+    if (!window.$chatwoot) return;
+    window.addEventListener('chatwoot:ready', function () {
+      if (pendingUser) window.$chatwoot.setUser(pendingUser.identifier, pendingUser);
+      window.$chatwoot.toggle('open');
+    }, { once: true });
+    window.$chatwoot.reset();
   });
   f1.addEventListener('submit', function (e) {
     e.preventDefault();
