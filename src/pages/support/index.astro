@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout image="/images/og-infogerance.png" title="Support GiGaRuN : chat, tickets et assistance" description="Contactez le support GiGaRuN : chat en direct, tickets sur support.gigarun.net, assistant IA 24 h/24 et téléphone. Procédure et niveaux d urgence.">
+<section class="bg-[#07001C] pt-32 pb-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h1 class="font-syne font-extrabold text-[#F1F0F7] mb-5" style="font-size:clamp(32px,5vw,56px);line-height:1.1;">Support GiGaRuN</h1>
+    <p class="text-[#9B99AA] text-lg max-w-2xl mb-3">Notre équipe vous assiste du lundi au vendredi, de 8 h à 18 h (heure de La Réunion). Pour que votre demande soit prise en charge, suivie et répartie correctement, merci d'utiliser les canaux officiels décrits sur cette page.</p>
+    <p class="text-[#9B99AA] text-sm max-w-2xl mb-8">Quel que soit le canal, tout finit dans un ticket : c'est lui qui garde la trace de votre demande et de ce qui a été fait.</p>
+    <div class="flex flex-wrap gap-3">
+      <button id="chat-open" type="button" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-6 py-3 rounded-full transition-colors">Démarrer le chat</button>
+      <a href="https://support.gigarun.net/" rel="noopener" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">Ouvrir ou suivre un ticket</a>
+      <a href="tel:+262262967291" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">0262 96 72 91</a>
+    </div>
+    <p id="chat-note" class="text-[#9B99AA] text-xs mt-4 max-w-2xl" role="status"></p>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-2">Quel canal choisir ?</h2>
+    <p class="text-[#9B99AA] text-sm mb-8">Les quatre canaux ont chacun leur rôle. En cas de doute, ouvrez un ticket : c'est toujours le bon choix.</p>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Chat en direct avec un technicien</h3>
+        <p class="text-[#9B99AA] text-sm mb-3">Pour une question rapide ou un blocage en cours, avec une vraie personne de l'équipe. Disponible du lundi au vendredi, de 8 h à 18 h.</p>
+        <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+          <li>Vous indiquez votre nom et votre adresse e-mail avant de commencer</li>
+          <li>Hors horaires, votre message est conservé et traité à la reprise</li>
+          <li>Quand la conversation se termine, un ticket est créé automatiquement avec l'historique de l'échange. Vous recevez la suite par e-mail</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Portail de tickets (support.gigarun.net)</h3>
+        <p class="text-[#9B99AA] text-sm mb-3">Le canal de référence, ouvert 24 h/24. C'est ici que vous ouvrez une demande, suivez son avancement et retrouvez l'historique.</p>
+        <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+          <li>Un numéro de suivi unique par demande</li>
+          <li>Réponse sous 24 h ouvrées, 4 h pour les clients sous contrat</li>
+          <li>Un lien d'évaluation anonyme à la clôture : deux minutes pour nous aider à progresser</li>
+        </ul>
+        <a href="https://support.gigarun.net/" rel="noopener" class="inline-block mt-4 text-[#A78BFA] hover:underline text-sm">Aller sur le portail →</a>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Assistant IA, 24 h/24</h3>
+        <p class="text-[#9B99AA] text-sm mb-3">Un assistant automatique disponible depuis le portail de tickets, à toute heure. Il répond aux questions courantes à partir de nos guides.</p>
+        <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+          <li>Utile pour une procédure, un réflexe, une question simple</li>
+          <li>Si la réponse ne règle pas votre problème, ouvrez un ticket : un technicien prend le relais</li>
+          <li>Il ne remplace pas l'équipe et ne traite jamais une demande à votre place</li>
+        </ul>
+      </div>
+      <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+        <h3 class="font-syne font-bold text-[#F1F0F7] mb-2">Téléphone</h3>
+        <p class="text-[#9B99AA] text-sm mb-3">Pour une urgence ou si vous n'avez pas accès à un ordinateur.</p>
+        <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+          <li>Standard : <a href="tel:+262262967291" class="text-[#A78BFA] hover:underline">0262 96 72 91</a></li>
+          <li>Messagerie vocale : <a href="tel:+262972266111" class="text-[#A78BFA] hover:underline">09 72 26 61 11</a>. Laissez un message, nous vous rappelons</li>
+          <li>Merci de ne pas appeler directement le mobile d'un technicien : seuls les canaux officiels garantissent le suivi</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-8">Comment se déroule une demande</h2>
+    <ol class="grid md:grid-cols-5 gap-4">
+      <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <span class="text-[#A78BFA] font-syne font-bold">1</span>
+        <h3 class="text-[#F1F0F7] font-medium mt-1 mb-1 text-sm">Vous nous écrivez</h3>
+        <p class="text-[#9B99AA] text-sm">Chat, portail ou téléphone, avec les informations de la règle des 5 ci-dessous.</p>
+      </li>
+      <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <span class="text-[#A78BFA] font-syne font-bold">2</span>
+        <h3 class="text-[#F1F0F7] font-medium mt-1 mb-1 text-sm">Un ticket est créé</h3>
+        <p class="text-[#9B99AA] text-sm">Il reçoit un numéro de suivi et vous recevez une confirmation.</p>
+      </li>
+      <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <span class="text-[#A78BFA] font-syne font-bold">3</span>
+        <h3 class="text-[#F1F0F7] font-medium mt-1 mb-1 text-sm">Prise en charge</h3>
+        <p class="text-[#9B99AA] text-sm">Selon le niveau d'urgence, à distance ou sur site si nécessaire.</p>
+      </li>
+      <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <span class="text-[#A78BFA] font-syne font-bold">4</span>
+        <h3 class="text-[#F1F0F7] font-medium mt-1 mb-1 text-sm">Résolution</h3>
+        <p class="text-[#9B99AA] text-sm">Le ticket est clôturé avec le détail de ce qui a été fait.</p>
+      </li>
+      <li class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-5">
+        <span class="text-[#A78BFA] font-syne font-bold">5</span>
+        <h3 class="text-[#F1F0F7] font-medium mt-1 mb-1 text-sm">Suivi et avis</h3>
+        <p class="text-[#9B99AA] text-sm">Historique sur le portail et évaluation anonyme en deux minutes.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-6">
+    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3">La règle des 5</h2>
+      <p class="text-[#9B99AA] text-sm mb-3">À fournir à chaque demande, pour nous éviter des allers-retours :</p>
+      <ol class="text-[#9B99AA] text-sm space-y-2 list-decimal pl-5">
+        <li><strong class="text-[#F1F0F7]">Identité</strong> : prénom, nom, entreprise</li>
+        <li><strong class="text-[#F1F0F7]">Coordonnées</strong> : téléphone et adresse e-mail</li>
+        <li><strong class="text-[#F1F0F7]">Identifiant AnyDesk</strong> : les 9 chiffres affichés sur votre poste</li>
+        <li><strong class="text-[#F1F0F7]">Référent technique</strong> : s'il en existe un dans votre équipe</li>
+        <li><strong class="text-[#F1F0F7]">Problème et urgence</strong> : description et niveau</li>
+      </ol>
+    </div>
+    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3">Niveaux d'urgence</h2>
+      <ul class="text-[#9B99AA] text-sm space-y-3">
+        <li><strong class="text-[#F1F0F7]">Critique</strong> : système arrêté, activité bloquée</li>
+        <li><strong class="text-[#F1F0F7]">Élevée</strong> : impact fort, dégradation majeure</li>
+        <li><strong class="text-[#F1F0F7]">Moyenne</strong> : gêne notable, contournement possible</li>
+        <li><strong class="text-[#F1F0F7]">Basse</strong> : question ou amélioration</li>
+      </ul>
+      <p class="text-[#9B99AA] text-sm mt-4">Pour une urgence critique, appelez en plus d'ouvrir le ticket.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#07001C] py-16">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-6">
+    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3">Assistance à distance</h2>
+      <p class="text-[#9B99AA] text-sm mb-3">Pour intervenir sur votre poste, le technicien utilise AnyDesk. Lancez-le avant de nous contacter, puis communiquez l'identifiant à 9 chiffres affiché au centre de la fenêtre.</p>
+      <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+        <li>Depuis l'icône AnyDesk de la zone de notification, en bas à droite de l'écran</li>
+        <li>Depuis le raccourci sur le bureau</li>
+        <li>Ou en tapant « AnyDesk » dans la recherche Windows</li>
+      </ul>
+      <p class="text-[#9B99AA] text-sm mt-3">Si AnyDesk n'est pas installé, le menu du « G » vert de la barre des tâches vous permet de le télécharger.</p>
+    </div>
+    <div class="bg-[#0D0028] border border-[rgba(124,58,237,0.15)] rounded-xl p-6">
+      <h2 class="font-syne font-bold text-[#F1F0F7] mb-3">Le « G » vert de votre barre des tâches</h2>
+      <p class="text-[#9B99AA] text-sm mb-3">Sur chaque poste géré par GiGaRuN, l'icône G verte regroupe tout ce qu'il faut pour demander de l'aide :</p>
+      <ul class="text-[#9B99AA] text-sm space-y-2 list-disc pl-5">
+        <li>Demande d'assistance à distance</li>
+        <li>Ouverture directe d'un ticket</li>
+        <li>Assistant IA, 24 h/24</li>
+        <li>Téléchargement d'AnyDesk</li>
+        <li>Guides d'utilisation GiGaRuN</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#0A0022] py-16">
+  <div class="max-w-5xl mx-auto px-6">
+    <h2 class="font-syne font-bold text-[#F1F0F7] text-2xl mb-4">Bon à savoir</h2>
+    <ul class="text-[#9B99AA] text-sm space-y-3 max-w-3xl list-disc pl-5">
+      <li>Prévoyez si possible l'intervention en votre absence : le poste peut être indisponible d'une demi-journée à une journée. Une machine de secours est recommandée.</li>
+      <li>Ne communiquez jamais un mot de passe par le chat. Un technicien ne vous le demandera pas : nous passons par une procédure sécurisée.</li>
+      <li>Le chat est un canal de support, pas une commande : toute demande engageante (devis, intervention hors contrat) est confirmée par écrit dans le ticket.</li>
+      <li>Les conversations de chat sont conservées dans le ticket de suivi pour assurer la traçabilité. Voir notre <a href="/confidentialite/" class="text-[#A78BFA] hover:underline">politique de confidentialité</a>.</li>
+    </ul>
+    <div class="flex flex-wrap gap-4 text-sm mt-8">
+      <a href="/images/pdf/Procedure_support.pdf" class="text-[#A78BFA] hover:underline">Télécharger la procédure support (PDF)</a>
+      <a href="/support-infogerance/" class="text-[#A78BFA] hover:underline">Support sous contrat : fonctionnement et avis clients</a>
+      <a href="/guides/" class="text-[#A78BFA] hover:underline">Guides d'utilisation</a>
+      <a href="/contact/" class="text-[#A78BFA] hover:underline">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function () {
+  var BASE = 'https://chat.gigarun.net';
+  var TOKEN = 'HbuKrb1MiJWnLfzUAK26Wrnt';
+  var btn = document.getElementById('chat-open');
+  var note = document.getElementById('chat-note');
+  var loaded = false;
+  function say(t) { if (note) note.textContent = t; }
+  btn.addEventListener('click', function () {
+    if (loaded && window.$chatwoot) { window.$chatwoot.toggle('open'); return; }
+    window.chatwootSettings = { hideMessageBubble: true, position: 'right', locale: 'fr', type: 'standard' };
+    var s = document.createElement('script');
+    s.src = BASE + '/packs/js/sdk.js';
+    s.async = true;
+    s.onload = function () {
+      window.chatwootSDK.run({ websiteToken: TOKEN, baseUrl: BASE });
+      loaded = true;
+      say('Chargement du chat…');
+      window.addEventListener('chatwoot:ready', function () {
+        window.$chatwoot.toggle('open');
+        say('');
+      }, { once: true });
+    };
+    s.onerror = function () {
+      say('Le chat est momentanément indisponible. Ouvrez un ticket sur le portail ou appelez-nous.');
+    };
+    document.head.appendChild(s);
+  });
+})();
+</script>
+</Layout>

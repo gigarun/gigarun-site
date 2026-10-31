@@ -9,6 +9,7 @@ Contact : contact@gigarun.net · 0692 31 11 91 · 7 rue du Temple, ZAC Océan In
 - [Infogérance IT](https://gigarun.re/infogerance/): supervision, support et maintenance du parc informatique
 - [Contrats d'infogérance](https://gigarun.re/infogerance-contrats/): quatre niveaux cumulatifs, tarifs HT à l'unité
 - [Support sous contrat d'infogérance](https://gigarun.re/support-infogerance/): fonctionnement du support, outils par catégorie, satisfaction et avis clients
+- [Support GiGaRuN](https://gigarun.re/support/): canaux de contact (chat en direct, tickets, assistant IA, téléphone), procédure, niveaux d urgence
 - [Cybersécurité](https://gigarun.re/securite/): protection, audits, gouvernance
 - [ERP Dolibarr](https://gigarun.re/dolibarr/): intégrateur ERP open source
 - [Cloud et hébergement](https://gigarun.re/cloud/)
