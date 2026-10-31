@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/support-niveau-1-a-quoi-sert-il-et-que-doit-il-regler-seul/",
+  "cat": "Support IT",
+  "date": "31 oct. 2026",
+  "titre": "Support niveau 1 : à quoi sert-il et que doit-il régler seul ?",
+  "desc": "Support niveau 1 : ce qu'il règle seul, quand il escalade et comment l'évaluer. Posez les bonnes questions à votre prestataire informatique.",
+  "type": "article"
+ },
+ {
   "href": "/blog/outil-de-gouvernance-pour-rssi-lesquels-choisir-en-pme/",
   "cat": "Cybersécurité",
   "date": "19 oct. 2026",
