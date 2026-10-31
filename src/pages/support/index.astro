@@ -12,7 +12,42 @@ import Layout from '../../layouts/Layout.astro';
       <a href="https://support.gigarun.net/" rel="noopener" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">Ouvrir ou suivre un ticket</a>
       <a href="tel:+262262967291" class="border border-[rgba(255,255,255,0.2)] text-[#F1F0F7] hover:border-white font-medium px-6 py-3 rounded-full transition-colors">0262 96 72 91</a>
     </div>
-    <p id="chat-note" class="text-[#9B99AA] text-xs mt-4 max-w-2xl" role="status"></p>
+    <div id="chat-auth" class="hidden mt-6 max-w-xl bg-[#0D0028] border border-[rgba(124,58,237,0.3)] rounded-xl p-6">
+      <form id="auth-step1" novalidate>
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-1">Vérifier votre identité</h2>
+        <p class="text-[#9B99AA] text-sm mb-4">Clients GiGaRuN : indiquez vos nom et adresse e-mail professionnelle. Nous vous envoyons un code pour confirmer qu'il s'agit bien de vous, ce qui nous permet de retrouver votre dossier.</p>
+        <div class="grid sm:grid-cols-2 gap-3 mb-3">
+          <label class="text-sm text-[#9B99AA]">Prénom
+            <input id="a-prenom" name="prenom" type="text" autocomplete="given-name" maxlength="60" required class="mt-1 w-full rounded-lg bg-[#07001C] border border-[rgba(255,255,255,0.15)] text-[#F1F0F7] px-3 py-2">
+          </label>
+          <label class="text-sm text-[#9B99AA]">Nom
+            <input id="a-nom" name="nom" type="text" autocomplete="family-name" maxlength="60" required class="mt-1 w-full rounded-lg bg-[#07001C] border border-[rgba(255,255,255,0.15)] text-[#F1F0F7] px-3 py-2">
+          </label>
+        </div>
+        <label class="text-sm text-[#9B99AA] block mb-3">Adresse e-mail
+          <input id="a-email" name="email" type="email" autocomplete="email" maxlength="254" required class="mt-1 w-full rounded-lg bg-[#07001C] border border-[rgba(255,255,255,0.15)] text-[#F1F0F7] px-3 py-2">
+        </label>
+        <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Site web <input id="a-website" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <div class="flex flex-wrap gap-3 items-center">
+          <button type="submit" id="a-send" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-5 py-2 rounded-full transition-colors">Recevoir mon code</button>
+          <button type="button" id="a-skip" class="text-[#A78BFA] hover:underline text-sm">Continuer sans vérification</button>
+        </div>
+      </form>
+      <form id="auth-step2" class="hidden" novalidate>
+        <h2 class="font-syne font-bold text-[#F1F0F7] text-lg mb-1">Saisissez votre code</h2>
+        <p class="text-[#9B99AA] text-sm mb-4">Si cette adresse est enregistrée chez GiGaRuN comme contact client, un code à 6 chiffres vient d'y être envoyé. Il est valable 10 minutes. Pas de code au bout de quelques minutes ? Vérifiez vos courriers indésirables, ou continuez sans vérification.</p>
+        <label class="text-sm text-[#9B99AA] block mb-3">Code à 6 chiffres
+          <input id="a-code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" maxlength="6" required class="mt-1 w-40 rounded-lg bg-[#07001C] border border-[rgba(255,255,255,0.15)] text-[#F1F0F7] px-3 py-2 tracking-widest">
+        </label>
+        <div class="flex flex-wrap gap-3 items-center">
+          <button type="submit" id="a-verify" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium px-5 py-2 rounded-full transition-colors">Valider et ouvrir le chat</button>
+          <button type="button" id="a-back" class="text-[#A78BFA] hover:underline text-sm">Changer d'adresse</button>
+          <button type="button" id="a-skip2" class="text-[#A78BFA] hover:underline text-sm">Continuer sans vérification</button>
+        </div>
+      </form>
+      <p class="text-[#9B99AA] text-xs mt-4">Vos données ne servent qu'à traiter votre demande de support. <a href="/confidentialite/" class="text-[#A78BFA] hover:underline">Politique de confidentialité</a>.</p>
+    </div>
+    <p id="chat-note" class="text-[#9B99AA] text-sm mt-4 max-w-2xl" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -169,30 +204,63 @@ import Layout from '../../layouts/Layout.astro';
 (function () {
   var BASE = 'https://chat.gigarun.net';
   var TOKEN = 'HbuKrb1MiJWnLfzUAK26Wrnt';
-  var btn = document.getElementById('chat-open');
-  var note = document.getElementById('chat-note');
-  var loaded = false;
-  function say(t) { if (note) note.textContent = t; }
-  btn.addEventListener('click', function () {
-    if (loaded && window.$chatwoot) { window.$chatwoot.toggle('open'); return; }
+  var AUTH = 'https://n8n.gigarun.net/webhook/';
+  var $ = function (id) { return document.getElementById(id); };
+  var note = $('chat-note'), panel = $('chat-auth'), f1 = $('auth-step1'), f2 = $('auth-step2');
+  var loaded = false, pendingUser = null, email = '';
+  function say(t) { note.textContent = t || ''; }
+  function post(path, data) {
+    return fetch(AUTH + path, { method: 'POST', body: new URLSearchParams(data) })
+      .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); });
+  }
+  function openChat(user) {
+    pendingUser = user || null;
+    panel.classList.add('hidden');
+    if (loaded && window.$chatwoot) { if (pendingUser) window.$chatwoot.setUser(pendingUser.identifier, pendingUser); window.$chatwoot.toggle('open'); return; }
     window.chatwootSettings = { hideMessageBubble: true, position: 'right', locale: 'fr', type: 'standard' };
+    window.addEventListener('chatwoot:ready', function () {
+      if (pendingUser) window.$chatwoot.setUser(pendingUser.identifier, pendingUser);
+      window.$chatwoot.toggle('open');
+      say('');
+    }, { once: true });
     var s = document.createElement('script');
     s.src = BASE + '/packs/js/sdk.js';
     s.async = true;
-    s.onload = function () {
-      window.chatwootSDK.run({ websiteToken: TOKEN, baseUrl: BASE });
-      loaded = true;
-      say('Chargement du chat…');
-      window.addEventListener('chatwoot:ready', function () {
-        window.$chatwoot.toggle('open');
-        say('');
-      }, { once: true });
-    };
-    s.onerror = function () {
-      say('Le chat est momentanément indisponible. Ouvrez un ticket sur le portail ou appelez-nous.');
-    };
+    s.onload = function () { window.chatwootSDK.run({ websiteToken: TOKEN, baseUrl: BASE }); loaded = true; say('Chargement du chat…'); };
+    s.onerror = function () { say('Le chat est momentanément indisponible. Ouvrez un ticket sur le portail ou appelez-nous.'); };
     document.head.appendChild(s);
+  }
+  $('chat-open').addEventListener('click', function () {
+    if (loaded && window.$chatwoot) { window.$chatwoot.toggle('open'); return; }
+    panel.classList.remove('hidden'); say('');
+    $('a-prenom').focus();
   });
+  f1.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = { prenom: $('a-prenom').value.trim(), nom: $('a-nom').value.trim(), email: $('a-email').value.trim(), website: $('a-website').value };
+    if (!d.prenom || !d.nom || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) { say('Renseignez votre prénom, votre nom et une adresse e-mail valide.'); return; }
+    email = d.email; $('a-send').disabled = true; say('Envoi du code…');
+    post('chat-auth-request', d).then(function (r) {
+      $('a-send').disabled = false;
+      if (r && r.ok) { f1.classList.add('hidden'); f2.classList.remove('hidden'); $('a-code').value = ''; $('a-code').focus(); say(''); }
+      else { say('Trop de demandes ou adresse invalide. Réessayez plus tard, ou continuez sans vérification.'); }
+    }).catch(function () { $('a-send').disabled = false; say('Vérification momentanément indisponible. Vous pouvez continuer sans vérification.'); });
+  });
+  f2.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var code = $('a-code').value.replace(/\D/g, '');
+    if (code.length !== 6) { say('Le code comporte 6 chiffres.'); return; }
+    $('a-verify').disabled = true; say('Vérification…');
+    post('chat-auth-verify', { email: email, code: code }).then(function (r) {
+      $('a-verify').disabled = false;
+      if (r && r.ok && r.identifier_hash) {
+        openChat({ identifier: r.identifier, identifier_hash: r.identifier_hash, name: r.name, email: r.email });
+      } else { say('Code incorrect ou expiré. Vérifiez-le, ou redemandez un code.'); }
+    }).catch(function () { $('a-verify').disabled = false; say('Vérification momentanément indisponible. Vous pouvez continuer sans vérification.'); });
+  });
+  $('a-back').addEventListener('click', function () { f2.classList.add('hidden'); f1.classList.remove('hidden'); say(''); });
+  $('a-skip').addEventListener('click', function () { openChat(null); });
+  $('a-skip2').addEventListener('click', function () { openChat(null); });
 })();
 </script>
 </Layout>
