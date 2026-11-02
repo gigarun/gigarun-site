@@ -1,15 +1,15 @@
 {
- "genere_le": "2026-10-26",
+ "genere_le": "2026-11-02",
  "delai_publication_h": 72,
- "enquetes_envoyees": 641,
- "reponses": 47,
+ "enquetes_envoyees": 656,
+ "reponses": 49,
  "taux_reponse": 7,
- "note_moyenne": 4.85,
+ "note_moyenne": 4.86,
  "satisfaits_pct": 100,
  "recommandent_pct": 94,
  "criteres": {
   "rapidite": 4.89,
-  "qualite": 4.82,
+  "qualite": 4.83,
   "amabilite": 4.89
  },
  "repartition": {
@@ -17,7 +17,7 @@
   "2": 0,
   "3": 0,
   "4": 7,
-  "5": 40
+  "5": 42
  },
  "par_mois": [
   {
@@ -72,8 +72,8 @@
   },
   {
    "mois": "2026-10",
-   "reponses": 2,
-   "note": null
+   "reponses": 4,
+   "note": 5.0
   }
  ],
  "avis": [
