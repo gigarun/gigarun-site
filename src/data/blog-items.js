@@ -108,7 +108,7 @@ export const ALL_ITEMS = [
   "cat": "Cybersécurité",
   "date": "8 mars 2024",
   "titre": "Audit de sécurité informatique : notre méthodologie",
-  "desc": "Comment Gigarun réalise un audit de sécurité informatique à La Réunion : méthodologie, points de contrôle et livrables concrets.",
+  "desc": "Découvrez les 4 étapes d'un audit de sécurité informatique à La Réunion : inventaire, vulnérabilités, processus et rapport avec score sur 100.",
   "type": "article"
  },
  {
