@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/reseau-vdi-a-saint-paul-ce-qu-il-faut-prevoir-avant-de-virtualiser-vos/",
+  "cat": "Infrastructure",
+  "date": "3 nov. 2026",
+  "titre": "Réseau VDI à Saint-Paul : ce qu'il faut prévoir avant de virtualiser vos postes",
+  "desc": "Dimensionnez le réseau d'un bureau virtuel (VDI) à Saint-Paul : débit, latence, secours, Wi-Fi. Vérifiez ces points avant de migrer.",
+  "type": "article"
+ },
+ {
   "href": "/blog/support-niveau-1-a-quoi-sert-il-et-que-doit-il-regler-seul/",
   "cat": "Support IT",
   "date": "31 oct. 2026",
