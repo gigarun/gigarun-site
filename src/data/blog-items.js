@@ -52,7 +52,7 @@ export const ALL_ITEMS = [
   "cat": "Cloud",
   "date": "15 avr. 2025",
   "titre": "Cloud computing pour votre entreprise à La Réunion",
-  "desc": "Le cloud n’est plus réservé aux grandes structures : voici comment passer au cloud en douceur, avec des solutions adaptées à votre entreprise.",
+  "desc": "Découvrez comment choisir une solution cloud pour votre entreprise : sauvegarde, hébergement applicatif et migration sans coupure.",
   "type": "article"
  },
  {
