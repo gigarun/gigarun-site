@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/analyse-de-risques-cybersecurite-la-methode-pour-une-pme/",
+  "cat": "Cybersécurité",
+  "date": "6 nov. 2026",
+  "titre": "Analyse de risques cybersécurité : la méthode pour une PME",
+  "desc": "Menez votre analyse de risques cybersécurité en PME : méthode en 5 étapes, priorisation et livrables utiles à la direction.",
+  "type": "article"
+ },
+ {
   "href": "/blog/reseau-vdi-a-saint-paul-ce-qu-il-faut-prevoir-avant-de-virtualiser-vos/",
   "cat": "Infrastructure",
   "date": "3 nov. 2026",
