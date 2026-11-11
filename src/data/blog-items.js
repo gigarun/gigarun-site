@@ -27,8 +27,8 @@ export const ALL_ITEMS = [
   "href": "/blog/outil-de-gouvernance-pour-rssi-lesquels-choisir-en-pme/",
   "cat": "Cybersécurité",
   "date": "19 oct. 2026",
-  "titre": "Tableur, tickets, registres : équiper un RSSI de PME sans excès",
-  "desc": "Tableur, registre des risques, tickets, tableau de bord : identifiez les six usages utiles à un RSSI de PME et équipez-vous sans excès.",
+  "titre": "Équiper un RSSI de PME : six usages, un tableur et des tickets",
+  "desc": "Inventaire, registre des risques, tickets, tableau de bord : repérez les six usages à couvrir pour un RSSI de PME et équipez-vous sans excès.",
   "type": "article"
  },
  {
