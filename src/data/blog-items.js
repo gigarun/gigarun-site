@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/diagnostic-cybersecurite-pme-par-ou-commencer/",
+  "cat": "Cybersécurité",
+  "date": "13 nov. 2026",
+  "titre": "Diagnostic cybersécurité PME : par où commencer ?",
+  "desc": "Diagnostic cybersécurité PME : ce qu'il couvre, ce que vous recevez et comment le préparer. Demandez un pré-diagnostic gratuit de 20 minutes.",
+  "type": "article"
+ },
+ {
   "href": "/blog/analyse-de-risques-cybersecurite-la-methode-pour-une-pme/",
   "cat": "Cybersécurité",
   "date": "6 nov. 2026",
