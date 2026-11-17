@@ -51,5 +51,18 @@
  {
   "id": 628,
   "texte": "Opération réalisée dans l'heure !"
+ },
+ {
+  "id": 646,
+  "texte": "Intervention très rapide, accompagnée d'une résolution de problème et de résultats efficaces.",
+  "force": true
+ },
+ {
+  "id": 655,
+  "texte": "Réactivité et disponibilité au top !"
+ },
+ {
+  "id": 706,
+  "texte": "Résolution rapide du problème (assez technique)"
  }
 ]
