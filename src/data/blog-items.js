@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/sauvegarde-office-365-ce-que-microsoft-ne-couvre-pas/",
+  "cat": "Sauvegarde",
+  "date": "17 nov. 2026",
+  "titre": "Sauvegarde Office 365 : ce que Microsoft ne couvre pas",
+  "desc": "Corbeille, départ d'un salarié, ransomware : découvrez ce que Microsoft ne sauvegarde pas et comment protéger vos données Microsoft 365 en PME.",
+  "type": "article"
+ },
+ {
   "href": "/blog/diagnostic-cybersecurite-pme-par-ou-commencer/",
   "cat": "Cybersécurité",
   "date": "13 nov. 2026",
