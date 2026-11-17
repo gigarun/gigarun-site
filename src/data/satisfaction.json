@@ -1,5 +1,5 @@
 {
- "genere_le": "2026-11-16",
+ "genere_le": "2026-11-17",
  "delai_publication_h": 72,
  "enquetes_envoyees": 709,
  "reponses": 54,
@@ -83,9 +83,24 @@
  ],
  "avis": [
   {
+   "mois": "2026-11",
+   "note": 5,
+   "texte": "Résolution rapide du problème (assez technique)"
+  },
+  {
    "mois": "2026-10",
    "note": 5,
    "texte": "Opération réalisée dans l'heure !"
+  },
+  {
+   "mois": "2026-10",
+   "note": 5,
+   "texte": "Intervention très rapide, accompagnée d'une résolution de problème et de résultats efficaces."
+  },
+  {
+   "mois": "2026-10",
+   "note": 5,
+   "texte": "Réactivité et disponibilité au top !"
   },
   {
    "mois": "2026-09",
