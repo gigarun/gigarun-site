@@ -35,8 +35,8 @@ export const ALL_ITEMS = [
   "href": "/blog/support-niveau-1-a-quoi-sert-il-et-que-doit-il-regler-seul/",
   "cat": "Support IT",
   "date": "31 oct. 2026",
-  "titre": "Support niveau 1 : à quoi sert-il et que doit-il régler seul ?",
-  "desc": "Support niveau 1 : ce qu'il règle seul, quand il escalade et comment l'évaluer. Posez les bonnes questions à votre prestataire informatique.",
+  "titre": "Support niveau 1 en PME : que doit-il régler seul et quand escalader ?",
+  "desc": "Découvrez ce que le support niveau 1 règle seul, quand il escalade et comment l'évaluer. Posez les bonnes questions à votre prestataire.",
   "type": "article"
  },
  {
