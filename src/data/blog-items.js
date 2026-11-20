@@ -1,5 +1,13 @@
 export const ALL_ITEMS = [
  {
+  "href": "/blog/location-de-parc-informatique-a-la-reunion-ce-qu-il-faut-savoir-avant/",
+  "cat": "Location matériel",
+  "date": "20 nov. 2026",
+  "titre": "Location de parc informatique à La Réunion : ce qu'il faut savoir avant de signer",
+  "desc": "Louer votre parc informatique à La Réunion : ce que le loyer doit couvrir, quand c'est rentable, les pièges à éviter. Demandez un devis.",
+  "type": "article"
+ },
+ {
   "href": "/blog/sauvegarde-office-365-ce-que-microsoft-ne-couvre-pas/",
   "cat": "Sauvegarde",
   "date": "17 nov. 2026",
